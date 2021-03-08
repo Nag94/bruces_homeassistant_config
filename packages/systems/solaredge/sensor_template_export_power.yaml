@@ -1,0 +1,8 @@
+sensor:
+  - platform: template
+    sensors:
+      export_power:
+        friendly_name: Export Power
+        unit_of_measurement: "kW"
+        value_template: "{% if (states('sensor.solaredge_modbus_meter_1') | float ) > 50.0 %}{{( ((states('sensor.solaredge_modbus_meter_1') | float) / 1000.0 ) | round(1))  }}{% else %}0.0{% endif %}"
+

@@ -1,0 +1,8 @@
+sensor:
+  - platform: template
+    sensors:
+      voltaware_active_imp:
+        friendly_name_template: 'Consumed Energy (P)'
+        value_template: "{{ state_attr('sensor.voltaware','active_imp') / 1000 }}"
+        unit_of_measurement: 'Wh'
+        device_class: energy

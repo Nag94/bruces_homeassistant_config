@@ -1,0 +1,32 @@
+automation:
+# Fan on/off with hue dimmer
+  - id: conservatory_fan_on_off_from_dimmer
+    alias: Switch on and off Fan with dimmer hold on
+    description: turn on and off conservatory fan with dimmer
+    trigger:
+      - platform: device
+        domain: hue
+        device_id: !secret hue_dimmer_device_id_conservatory
+        type: remote_button_long_release
+        subtype: turn_on
+      - platform: device
+        domain: hue
+        device_id: !secret hue_dimmer_device_id_conservatory
+        type: remote_button_long_release
+        subtype: turn_off        
+    action:
+      service: fan.{{ trigger.data.subtype }}
+      entity_id: fan.conservatory_fan
+
+#  - id: conservatory_fan_off_from_dimmer
+#    alias: Switch off Fan with dimmer hold on
+#    description: turn off conservatory fan with dimmer
+#    trigger:
+#      platform: device
+#      domain: hue
+#      device_id: !secret hue_dimmer_device_id_conservatory
+#      type: remote_button_long_release
+#      subtype: turn_off
+#    action:
+#      service: fan.turn_off
+#      entity_id: fan.conservatory_fan      

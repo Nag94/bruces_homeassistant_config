@@ -1,0 +1,10 @@
+sensor:
+  - platform: template
+    sensors:
+      zappi_jyggy_status:
+        friendly_name: 'Zappi Jyggy - Status'
+        availability_template: "{{ states('sensor.zappi_jyggy') }}"                
+        value_template: >
+          {% set status = state_attr('sensor.zappi_jyggy','pst') %}          
+          {% set mapper = {'A':'EV Disconnected','B1':'EV Connected','B2':'Waiting for EV','C1':'EV Ready to Charge','C2':'Charging','F':'Fault'} %}           
+          {{mapper[status]}}

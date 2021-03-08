@@ -1,0 +1,10 @@
+{
+  "domain": "zha_device_exporter",
+  "name": "ZHA Device Exporter",
+  "documentation": "https://github.com/dmulcahey/zha-device-exporter",
+  "requirements": [],
+  "dependencies": ["zha"],
+  "codeowners": [
+    "@dmulcahey"
+  ]
+}

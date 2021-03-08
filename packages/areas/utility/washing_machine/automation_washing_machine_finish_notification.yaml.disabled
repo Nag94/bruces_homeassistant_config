@@ -1,0 +1,18 @@
+automation:
+  - alias: "Washing Machine Finish Notification"
+    trigger:
+      - platform: state
+        entity_id: sensor.washing_machine_power_down
+        from: 'off'
+        to: 'on'
+        for: '00:03:00'
+    condition:
+      condition: state
+      entity_id: input_boolean.washing_machine_switch
+      state: 'on'
+    action:
+      - service: notify.telegram_bruce
+        data:
+          message: "Washing Finished\r\nTime Taken: {{ states('sensor.washing_machine_stopwatch') }}"
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.washing_machine_switch

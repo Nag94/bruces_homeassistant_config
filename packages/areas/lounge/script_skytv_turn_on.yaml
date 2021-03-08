@@ -1,0 +1,29 @@
+script:
+    skytv_turn_on:
+      alias: sky TV Turn On
+      sequence:
+      - service: media_player.turn_on
+        entity_id: media_player.lounge_amp
+      - service: media_player.select_source
+        data:
+          entity_id: media_player.lounge_amp
+          source: 'SkyQ'
+      - service: media_player.turn_on
+        entity_id: media_player.lounge_skyq
+      - service: media_player.turn_on 
+        entity_id: media_player.lounge_tv
+      - delay: '00:00:02'
+      - service: androidtv.adb_command
+        data:
+          entity_id: media_player.lounge_android
+          command: "input keyevent KEYCODE_F4"
+      - service: media_player.turn_on 
+        entity_id: media_player.lounge_tv
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.watching_skytv
+      - condition: time
+        after: '18:00:00'
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.lounge_ambilight_required
+      - service: media_player.turn_on 
+        entity_id: media_player.lounge_tv

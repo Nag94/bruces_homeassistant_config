@@ -1,0 +1,11 @@
+# Done with Zigbee Group now
+light:           
+  - platform: group
+    name: Patio Lights
+    entities:
+    - light.patio_light
+    - light.patio_gazebo
+    - light.patio_gazebo_wall
+    - light.patio_garage
+    - light.back_door
+    - light.shed_outside_lights

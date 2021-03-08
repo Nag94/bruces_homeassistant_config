@@ -1,0 +1,8 @@
+media_player:
+# Lounge - Philips TV
+  - platform: philips_android_tv
+    name: lounge TV
+    host: !secret lounge_tv_ip
+    mac: !secret lounge_tv_wifi_mac # wifi
+    username: !secret lounge_tv_username
+    password: !secret lounge_tv_password

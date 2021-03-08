@@ -1,0 +1,9 @@
+automation:
+  - alias: 'Start HomeKit and Jyggy Tracker'
+    trigger:
+      - platform: homeassistant
+        event: start
+    action:
+      - delay: 00:00:05 # Waits 5 seconds
+      - service: homekit.start
+      - service: script.initjyggytracker

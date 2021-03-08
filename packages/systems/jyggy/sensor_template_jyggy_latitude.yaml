@@ -1,0 +1,7 @@
+sensor:
+  - platform: template
+    sensors:
+      jyggy_latitude:
+        value_template: "{{ state_attr('sensor.jyggy_sensor','latitude') }}"
+        friendly_name: "Jyggy Latitude"
+        unit_of_measurement: '°'

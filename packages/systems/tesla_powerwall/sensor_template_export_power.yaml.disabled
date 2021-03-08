@@ -1,0 +1,9 @@
+sensor:
+  - platform: template
+    sensors:
+      export_power:
+        friendly_name: Export Power
+        unit_of_measurement: "kW"
+        value_template: "{% if (states('sensor.powerwall_site_now') | float ) < - 0.05 %}{{ ((states('sensor.powerwall_site_now') | float) / -1.0)  }}{% else %}0.0{% endif %}"
+
+

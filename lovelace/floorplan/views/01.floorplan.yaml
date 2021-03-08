@@ -1,0 +1,8 @@
+title: Floor Plan
+badges: []
+icon: 'mdi:floor-plan'
+#panel: true
+path: menu
+cards: 
+  - type: vertical-stack
+    cards: !include_dir_list ../cards

@@ -1,0 +1,7 @@
+group:
+  kates_bedroom_lights_group:
+    name: Kates Bedroom Lights Group
+    entities:
+    - light.kates_bedroom_light
+    - light.kates_bedroom_lamp    
+    - light.kate_lightstrip

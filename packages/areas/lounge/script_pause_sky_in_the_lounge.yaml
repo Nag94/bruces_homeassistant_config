@@ -1,0 +1,6 @@
+script:
+    pause_sky_in_the_lounge:
+      alias: Pause Sky in the Lounge
+      sequence:
+        - service: media_player.media_play
+          entity_id: media_player.lounge_skyq

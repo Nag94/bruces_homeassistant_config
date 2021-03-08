@@ -1,0 +1,10 @@
+sensor:
+  - platform: rest
+    resource: !secret binday_server_resource
+    name: Bin Day Rubbish
+    value_template: "{{ value_json.Rubbish[0].collectionDate }}"
+    json_attributes:
+      - BinType
+      - collectionDate
+      - nextCollectionDate
+    json_attributes_path: Rubbish[0]

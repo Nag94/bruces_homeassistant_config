@@ -1,0 +1,18 @@
+type: entities
+entities:
+  - entity: sensor.powerwall_charge_corrected
+  - entity: sensor.powerwall_battery_now
+    name: Powerwall
+  - entity: sensor.solaredge_ac_power_kw_output
+    name: Solar
+  - entity: sensor.floorplan_powerwall_home_load
+    icon: mdi:home
+    name: Home
+  - entity: sensor.solaredge_grid
+    name: Grid
+  - entity: sensor.zappi_jyggy_power
+    name: Jyggy
+  - entity: sensor.zappi_paddy_power
+    name: Paddy
+show_header_toggle: false
+state_color: true

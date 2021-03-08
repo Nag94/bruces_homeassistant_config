@@ -1,0 +1,9 @@
+light:          
+  - platform: group
+    name: Kitchen Hue Ceiling
+    entities:
+    - light.kitchen_1
+    - light.kitchen_2
+    - light.kitchen_3
+    - light.kitchen_4
+    - light.kitchen_5    

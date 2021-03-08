@@ -1,0 +1,7 @@
+sensor:
+  - platform: statistics
+    name: Solar Output 15min Average
+    entity_id: sensor.solaredge_ac_power_output
+    sampling_size: 200
+    max_age:
+      minutes: 15

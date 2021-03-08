@@ -1,0 +1,5 @@
+media_player:
+# #Use py implementation
+  - platform: androidtv
+    name: "Lounge android"
+    host: !secret lounge_tv_ip

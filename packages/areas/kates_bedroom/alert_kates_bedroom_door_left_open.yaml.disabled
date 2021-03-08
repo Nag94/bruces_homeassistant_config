@@ -1,0 +1,20 @@
+alert:
+  kates_door_left_open:
+    name: Kates Door Left Open
+    done_message: Kates Door Has Closed
+    entity_id: binary_sensor.kates_bedroom_door
+    state: 'on'
+    repeat:
+      - 1
+      - 2
+      - 10
+      - 20
+      - 30
+      - 60
+      - 120
+      - 240
+      - 480
+    can_acknowledge: true
+    skip_first: true
+    notifiers:
+      - telegram_bruce_and_sarah

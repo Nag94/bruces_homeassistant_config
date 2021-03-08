@@ -1,0 +1,12 @@
+sensor:
+  - platform: rest
+    name: Kitchen Fridge
+    # https://api.smartthings.com/v1/devices/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/status    
+    resource: !secret smartthings_resource
+    headers:
+      # Bearer xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx    
+      Authorization: !secret smartthings_token
+    json_attributes:
+      - "components"
+    value_template: 'OK'
+    

@@ -1,0 +1,10 @@
+# An MQTT sensor to pull live logging data from the alarm panel.
+# This can be used for example to detect which user has entered their code.
+# Or to tell if system if someone is entering / exiting.
+sensor:
+  - platform: mqtt
+    name: Alarm Log
+    state_topic: "texecom2mqtt/1076889/log"
+    value_template: "{{ value_json.type }}"    
+    availability_topic: "texecom2mqtt/1076889/status"
+    json_attributes_topic: "texecom2mqtt/1076889/log"

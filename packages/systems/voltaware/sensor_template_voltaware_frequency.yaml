@@ -1,0 +1,8 @@
+sensor:
+  - platform: template
+    sensors:
+      voltaware_frequency:
+        friendly_name_template: 'Frequency'
+        value_template: "{{ state_attr('sensor.voltaware','frequency') / 1000 }}"
+        unit_of_measurement: 'Hz'
+                  

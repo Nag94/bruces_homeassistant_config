@@ -1,0 +1,7 @@
+sensor:
+  - platform: template
+    sensors:
+      jyggy_gps_as_of:
+        value_template: "{{ state_attr('sensor.jyggy_sensor','gps_as_of') | int | timestamp_local }}"
+        friendly_name: "GPS as of"
+        device_class: "timestamp"

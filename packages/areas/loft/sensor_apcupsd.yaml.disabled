@@ -1,0 +1,11 @@
+sensor:
+  - platform: apcupsd
+    resources:
+      - status
+      - linev
+      - loadpct
+      - bcharge
+      - timeleft
+      - mbattchg
+      - mintimel
+      - maxtime

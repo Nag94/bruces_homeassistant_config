@@ -1,0 +1,45 @@
+ios:
+  actions:
+    - name: "Pause Sky Q"
+      background_color: "#000000"
+      label:
+        text: "Pause SkyQ"
+        color: "#ff0000"
+      icon:
+        icon: mdi:play_pause
+        color: "#ffffff"
+    - name: "Power Sky Q"
+      background_color: "#000000"
+      label:
+        text: "Sky Q on/off"
+        color: "#ff0000"
+      icon:
+        icon: mdi:television
+        color: "#ffffff"
+        
+automation:
+  - id: ios_action_skyq_play_pause
+    alias: "Play/Pause SkyQ from Phone"
+    initial_state: true
+    trigger:
+      - platform: event
+        event_type: ios.action_fired
+        event_data:
+          actionName: 'Pause Sky Q'
+    action:
+      - service: media_player.media_play
+        data:
+          entity_id: media_player.lounge_skyq
+
+  - id: ios_action_skyq_on_off
+    alias: "on/off SkyQ from Phone"
+    initial_state: true
+    trigger:
+      - platform: event
+        event_type: ios.action_fired
+        event_data:
+          actionName: 'Power Sky Q'
+    action:
+      - service: switch.toggle
+        data:
+          entity_id: switch.switch_skytv

@@ -1,0 +1,8 @@
+sensor:
+  - platform: template
+    sensors:
+        solaredge_meter_ac_power_output:
+            friendly_name: "AC Power Output"
+            value_template: "{{ (state_attr('sensor.solaredge_modbus_meter_1','ac_power_output') / 1000) | round(1) }}"
+            unit_of_measurement: 'kW'    
+            device_class: energy

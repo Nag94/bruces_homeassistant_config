@@ -1,0 +1,9 @@
+{
+  "domain": "wirelesstag",
+  "name": "Wireless Sensor Tags",
+  "version": "0.0.1",
+  "documentation": "https://www.home-assistant.io/integrations/wirelesstag",
+  "issue_tracker": "https://www.home-assistant.io/integrations/wirelesstag/issues",
+  "requirements": ["wirelesstagpy==0.4.1"],
+  "codeowners": ["@bruh5200"]
+}

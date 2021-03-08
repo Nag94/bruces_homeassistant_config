@@ -1,0 +1,6 @@
+sensor:
+  - platform: template
+    sensors:
+        solaredge_meter_events:
+            friendly_name: "Events"
+            value_template: "{{ state_attr('sensor.solaredge_modbus_meter_1', 'events') }}"      

@@ -1,0 +1,5 @@
+binary_sensor:
+  - platform: template
+    sensors:
+      fridge_icemaker:
+        value_template: '{{ states.sensor.kitchen_fridge.attributes["components"]["icemaker"]["switch"]["switch"]["value"] }}'

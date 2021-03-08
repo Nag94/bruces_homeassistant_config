@@ -1,0 +1,4 @@
+light:
+  - platform: switch
+    name: Sophies Bedroom Bedhead
+    entity_id: switch.sophie_bedhead

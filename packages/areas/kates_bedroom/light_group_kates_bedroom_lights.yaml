@@ -1,0 +1,8 @@
+light:          
+  - platform: group
+    name: Kates Bedroom Lights
+    entities:
+    - light.kates_bedroom
+    - light.kate_lightstrip
+#    - light.kates_bedroom_light
+#    - light.kates_bedroom_lamp

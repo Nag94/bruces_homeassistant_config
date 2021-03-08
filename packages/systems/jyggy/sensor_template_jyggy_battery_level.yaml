@@ -1,0 +1,8 @@
+sensor:
+  - platform: template
+    sensors:
+      jyggy_battery_level:
+        friendly_name: "Battery Level"
+        value_template: "{{ state_attr('sensor.jyggy_sensor','battery_level') }}"
+        device_class: battery
+        unit_of_measurement: '%'

@@ -1,0 +1,83 @@
+# Assumptions:
+# Powerwall useable Capacity: 13.2 kWh
+# Max Charge Level is (13.2 - (tomorrow_solar - tomorrow_solar_threshold) + overnight_usage)/13.2
+# ChargeRate = 3.6 kW
+
+automation:
+  - id: calculate_max_powerwall_charge_price
+    alias: "Powerwall work out what prices to charge below"
+    description: Work out what price to charge below based on charge level, target and prices
+    trigger:
+      - platform: time
+        at: "21:55:00"
+      - platform: homeassistant
+        event: start
+      - platform: event
+        event_type: automation_reloaded           
+    condition:
+      condition: time
+      after: "21:50:30"
+      before: "22:55:00"
+    variables:
+      overnight_usage_percent: 35.0
+      tomorrow_solar_threshold: 8.0
+      charge_rate: 3.6
+      powerwall_capacity: 13.2
+      percentage_per_half_hour: 13.6
+      #{% set percentage_per_half_hour = (100*(charge_rate/2.0)/powerwall_capacity) %}
+    action:
+      - choose:
+          - conditions: >
+              {{ states.octopusagile.rates == none }}
+            sequence:
+              - service: notify.telegram_bruce
+                data:
+                  title: "Powerwall: Error"
+                  message: "Error setting overnight charging price, will try again within the next half hour."
+              - wait_template: '{{ states.octopusagile.rates != none }}'
+                timeout: '00:30:00'
+              - service: input_number.set_value
+                data:
+                  entity_id: input_number.overnight_powerwall_max_charge
+                  value: "{% set tomorrow_solar = states('sensor.solcast_forecast_tomorrow') | float %}{{ ([0,[(100 * (powerwall_capacity - (tomorrow_solar - tomorrow_solar_threshold))) / powerwall_capacity,100]|min]|max)|int }}"
+              - service: input_number.set_value
+                data:
+                  entity_id: input_number.powerwall_charge_below_x_pence
+                  #value: "{% set tomorrow_solar = states('sensor.solcast_forecast_tomorrow') | float %}{% set rates =  states.octopusagile.rates.attributes.values() | list %}{% set octopusrates = rates[-20:] | sort %}{% set charge_slots_needed =  (0.5 + (((states('input_number.overnight_powerwall_max_charge') | float) + overnight_usage_percent - (states('sensor.powerwall_charge')  | float) )/percentage_per_half_hour)) | int  %}{{  (octopusrates[charge_slots_needed -1] | float )  }}"
+                  value: "{% set tomorrow_solar = states('sensor.solcast_forecast_tomorrow') | float %}{% set rates =  states.octopusagile.rates.attributes.values() | list %}{% set octopusrates = rates[-20:] | sort %}{% set charge_slots_needed =  (0.5 + (((states('input_number.overnight_powerwall_max_charge') | float) + overnight_usage_percent - (states('sensor.powerwall_charge')  | float) )/percentage_per_half_hour)) | int  %}{% if charge_slots_needed == 0 %}0.0{% else %}{{  (octopusrates[charge_slots_needed -1] | float )  }}{% endif %}"
+              - service: telegram_bot.send_message
+                data:
+                  target: !secret telegram_chat_id_bruce
+                  title: "Powerwall: Charging overnight to {{ states('input_number.overnight_powerwall_max_charge') }}%"
+                  message: >
+                    Solar Forecast for Tomorrow: {{ states('sensor.solcast_forecast_tomorrow') }}kWh
+                    
+                    {% set charge_slots_needed =  (0.5 + (((states('input_number.overnight_powerwall_max_charge') | float) + overnight_usage_percent - (states('sensor.powerwall_charge')  | float) )/percentage_per_half_hour)) | int  %}
+
+                    {{ charge_slots_needed }} half hour periods.  
+
+                    Max Price of {{ states('input_number.powerwall_charge_below_x_pence')  }}p
+        default:
+          - service: input_number.set_value
+            data:
+              entity_id: input_number.overnight_powerwall_max_charge
+              value: "{% set tomorrow_solar = states('sensor.solcast_forecast_tomorrow') | float %}{{ ([0,[(100 * (powerwall_capacity - (tomorrow_solar - tomorrow_solar_threshold))) / powerwall_capacity,100]|min]|max)|int }}"
+          - service: input_number.set_value
+            data:
+              entity_id: input_number.powerwall_charge_below_x_pence
+              # Take the 20 last prices for the list (next 10 hours), sort them by price and take the 8th for example if 4 hours charging (80% charging) is required.
+              #value: "{% set tomorrow_solar = states('sensor.solcast_forecast_tomorrow') | float %}{% set rates =  states.octopusagile.rates.attributes.values() | list %}{% set octopusrates = rates[-20:] | sort %}{% set charge_slots_needed =  (0.5 + (((states('input_number.overnight_powerwall_max_charge') | float) + overnight_usage_percent - (states('sensor.powerwall_charge')  | float) )/percentage_per_half_hour)) | int  %}{{  (octopusrates[charge_slots_needed -1] | float )  }}"
+              value: "{% set tomorrow_solar = states('sensor.solcast_forecast_tomorrow') | float %}{% set rates =  states.octopusagile.rates.attributes.values() | list %}{% set octopusrates = rates[-20:] | sort %}{% set charge_slots_needed =  (0.5 + (((states('input_number.overnight_powerwall_max_charge') | float) + overnight_usage_percent - (states('sensor.powerwall_charge')  | float) )/percentage_per_half_hour)) | int  %}{% if charge_slots_needed == 0 %}0.0{% else %}{{  (octopusrates[charge_slots_needed -1] | float )  }}{% endif %}"
+          - service: telegram_bot.send_message
+            data:
+              target: !secret telegram_chat_id_bruce
+              title: "Powerwall: Charging overnight to {{ states('input_number.overnight_powerwall_max_charge')}}%"
+              message: >
+                Solar Forecast for Tomorrow: {{ states('sensor.solcast_forecast_tomorrow') }}kWh
+                
+                {% set charge_slots_needed =  (0.5 + (((states('input_number.overnight_powerwall_max_charge') | float) + overnight_usage_percent - (states('sensor.powerwall_charge')  | float) )/percentage_per_half_hour)) | int  %}
+
+                {{ charge_slots_needed }} half hour periods.
+                
+                Max Price of {{ states('input_number.powerwall_charge_below_x_pence')  }}p
+

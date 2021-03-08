@@ -1,0 +1,5 @@
+light:          
+  - platform: group
+    name: Bar Lights
+    entities:
+    - light.bar

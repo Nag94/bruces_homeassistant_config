@@ -1,0 +1,70 @@
+automation:
+  - id: house_or_garage_movement
+    alias: 'House or Garage Movement Notification'
+    description: Telegram message about house or garage movement
+    mode: single
+    trigger:
+      - platform: state
+        entity_id: 
+          - input_boolean.house_motion_detected
+          - input_boolean.garage_motion_detected
+        to:
+          - 'on'
+          - 'off'
+      - platform: time_pattern
+        minutes: "/15"
+      - platform: homeassistant
+        event: start
+      - platform: event
+        event_type: automation_reloaded   
+    action:  
+      - choose:
+            # Movement and message already sent
+          - conditions: >
+              {{ (is_state('input_boolean.house_motion_detected','on') or is_state('input_boolean.garage_motion_detected','on')) and ((states('input_text.house_garage_movement_message_id') | int) > 0) }}
+            sequence:
+              - service: telegram_bot.delete_message
+                data:
+                  message_id: "{{ states('input_text.house_garage_movement_message_id') }}"
+                  chat_id: !secret telegram_chat_id_bruce_and_sarah
+              - service: telegram_bot.send_message
+                data:
+                  message_tag: house_garage_movement                
+                  target: !secret telegram_chat_id_bruce_and_sarah
+                  title: "{% if is_state('input_boolean.house_motion_detected','on') and is_state('input_boolean.garage_motion_detected','on') %}Movement in the House and Garage{% elif is_state('input_boolean.house_motion_detected','on') %}Movement in the House{% else %}Movement in the Garage{% endif %}"
+                  message: "Latest movement: {{ states('input_text.recently_active_alarm_sensor')}}"
+                  inline_keyboard:
+                    - 'Clear Alert:/clear_movement_alert'
+                    - 'OK:/remove_keyboard'                  
+
+          # Movement - First Message
+          - conditions: >
+              {{ (is_state('input_boolean.house_motion_detected','on') or is_state('input_boolean.garage_motion_detected','on')) and ((states('input_text.house_garage_movement_message_id') | int) == 0) }}
+            sequence:
+              - service: telegram_bot.send_message
+                data:
+                  message_tag: house_garage_movement
+                  target: !secret telegram_chat_id_bruce_and_sarah
+                  title: "{% if is_state('input_boolean.house_motion_detected','on') and is_state('input_boolean.garage_motion_detected','on') %}Movement in the House and Garage{% elif is_state('input_boolean.house_motion_detected','on') %}Movement in the House{% else %}Movement in the Garage{% endif %}"
+                  message: "Latest movement: {{ states('input_text.recently_active_alarm_sensor')}}"
+                  inline_keyboard:
+                    - 'Clear Alert:/clear_movement_alert'
+                    - 'OK:/remove_keyboard'                               
+          # Movement Cleared - Message previously Sent                    
+          - conditions: >
+              {{ (is_state('input_boolean.house_motion_detected','off') and is_state('input_boolean.garage_motion_detected','off')) and (states('input_text.house_garage_movement_message_id') | int) > 0 }}
+            sequence:
+              - service: telegram_bot.delete_message
+                data:
+                  message_id: "{{ states('input_text.house_garage_movement_message_id') }}"
+                  chat_id: !secret telegram_chat_id_bruce_and_sarah
+              - service: telegram_bot.send_message
+                data:
+                  message_tag: house_garage_movement                
+                  target: !secret telegram_chat_id_bruce_and_sarah
+                  message: "Movement alert Cleared"
+              - service: input_text.set_value
+                data:
+                  entity_id: input_text.house_garage_movement_message_id
+                  value: '0'
+                

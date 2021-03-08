@@ -1,0 +1,6 @@
+light:          
+  - platform: group
+    name: Conservatory Lights
+    entities:
+    # Hue Group
+      - light.conservatory

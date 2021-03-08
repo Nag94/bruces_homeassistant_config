@@ -1,0 +1,60 @@
+# Could check for light already being on, then leave it alone ?
+# What if Hall is on, but drive is not ?
+
+automation:
+  - id: any_motion_front_door_lights_on
+    alias: Turn on Front Door Lights in Dark with Motion
+    mode: restart
+    trigger: 
+      - platform: state
+        entity_id: 
+          - binary_sensor.motion_drive
+          - binary_sensor.front_door_motion
+          - binary_sensor.front_door
+          - binary_sensor.front_door_ding
+          - binary_sensor.drive_motion
+        to: 'on'
+    condition:
+      - condition: state
+        entity_id: sensor.dark_outside
+        state: 'True'
+    action:
+      - choose:
+      # Door bell rang / Door Opened
+          - conditions: "{{ trigger.entity_id == 'binary_sensor.front_door_ding' or trigger.entity_id == 'binary_sensor.front_door' }}"
+            sequence:
+              - service: light.turn_on
+                data:
+                  entity_id: light.front_door_and_drive
+#                    - light.hall
+#                    - light.front_door_1
+#                    - light.front_door_2
+#                    - light.drive_1
+#                    - light.drive_2
+              - wait_template: "{{ is_state('binary_sensor.front_door', 'off') }}"
+                timeout: '00:08:00'
+              - delay: '00:02:00'
+              - service: light.turn_off
+                data:
+                  entity_id: light.front_door_and_drive 
+#                    - light.hall
+#                    - light.front_door_1
+#                    - light.front_door_2
+#                    - light.drive_1
+#                    - light.drive_2
+        default:
+          - service: light.turn_on
+            data:
+              entity_id: light.front_door_and_drive
+#                - light.front_door_1
+#                - light.front_door_2
+#                - light.drive_1
+#                - light.drive_2
+          - delay: 00:02:00
+          - service: light.turn_off
+            data:
+              entity_id: light.front_door_and_drive
+#                - light.front_door_1
+#                - light.front_door_2
+#                - light.drive_1
+#                - light.drive_2

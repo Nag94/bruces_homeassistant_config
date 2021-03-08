@@ -1,0 +1,8 @@
+binary_sensor:
+  - platform: template
+    sensors:
+        put_out_recycling:
+            friendly_name: "Put Out Recycling"
+            value_template: >
+              {{ is_state('sensor.bin_day_recycling', (as_timestamp(now()) + 86400) | timestamp_custom('%A %-d %B', True)) or 
+              is_state('sensor.bin_day_recycling', (as_timestamp(now()) ) | timestamp_custom('%A %-d %B',True)) }} 

@@ -1,0 +1,10 @@
+sensor:
+  - platform: template
+    sensors:
+      eddi_water_temp:
+        friendly_name_template: 'Eddi - Water Temperature'
+        availability_template: "{{ states('sensor.eddi') }}"
+        value_template: "{% if state_attr('sensor.eddi','tp1') | int > 10 and state_attr('sensor.eddi','tp1') | int < 105 %}{{ (state_attr('sensor.eddi','tp1') | int )  }}{% else %}{{ unavailable }}{% endif %}"
+        unit_of_measurement: '°C'
+        icon_template: mdi:water
+        device_class: temperature   

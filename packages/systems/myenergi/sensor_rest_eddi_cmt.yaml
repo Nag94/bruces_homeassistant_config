@@ -1,0 +1,15 @@
+sensor:
+  - platform: rest
+    name: eddi CMT
+    resource: !secret myenergi_url_eddi
+    scan_interval: 86400
+    timeout: 60
+    authentication: digest
+    username: !secret myenergi_serial
+    password: !secret myenergi_password
+    headers:
+      User-Agent: Home Assistant
+      Content-Type: application/json
+      Accept: application/json
+    unit_of_measurement: KWh
+    value_template: "{{value_json.eddi[0].cmt}}"

@@ -1,0 +1,4 @@
+# Describes the format for available automation services
+
+export_devices:
+  description: "Export ZHA Zigbee devices to a JSON file."

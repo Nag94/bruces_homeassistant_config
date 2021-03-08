@@ -1,0 +1,7 @@
+binary_sensor:
+  - platform: template
+    sensors:
+      jyggy_below_max_charge_cost:
+        friendly_name: "Below max charge cost" 
+        availability_template:  "{{ states('sensor.octopus_agile_current_rate') != 'unknown' }}"
+        value_template: "{{ (states('sensor.octopus_agile_current_rate') | float) <= (states('input_number.jyggy_charge_below_x_pence') | float) }}"

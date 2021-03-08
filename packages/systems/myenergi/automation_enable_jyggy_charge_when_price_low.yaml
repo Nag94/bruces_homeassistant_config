@@ -1,0 +1,10 @@
+automation:
+  - id: jyggy_enable_charge_when_below_set_price
+    alias: 'Jyggy Enable Charge When Below Set Price'
+    description: Switch on automation when price changed
+    trigger:
+      - entity_id: input_number.jyggy_charge_below_x_pence
+        platform: state
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.charge_jyggy_when_below_set_price

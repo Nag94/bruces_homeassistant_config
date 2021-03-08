@@ -1,0 +1,11 @@
+light:           
+  - platform: group
+    name: Christmas
+    entities:
+      - light.conservatory_tree
+      - light.conservatory_icicles
+      - light.drive_tree
+      - light.drive_icicles
+      - light.drive_curtain      
+      - light.conservatory_presents
+      - light.lounge_tree

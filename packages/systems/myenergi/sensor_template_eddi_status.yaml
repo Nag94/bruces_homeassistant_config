@@ -1,0 +1,10 @@
+sensor:
+  - platform: template
+    sensors:
+      eddi_status:
+        friendly_name_template: 'Eddi - Status'
+        availability_template: "{{ states('sensor.eddi') }}"
+        value_template: "{% set eddi_map = {1:'off',2:'???',3:'on',4:'on',5:'reached',6:'stopped'} %}{{eddi_map[state_attr('sensor.eddi','sta')] }}"
+        icon_template: mdi:water
+    
+      #- sta        #Status (1:Paused, 2:??????, 3:Diverting, 4:Boost, 5:Temp Reached, 6: Stopped)

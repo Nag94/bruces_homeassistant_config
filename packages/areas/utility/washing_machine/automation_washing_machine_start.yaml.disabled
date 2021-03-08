@@ -1,0 +1,16 @@
+automation:
+ # ----------- Notification when washing machine is done -----------
+  - alias: "Washing Machine Start"
+    trigger:
+      platform: state
+      entity_id: sensor.washing_machine_power_up
+      from: 'off'
+      to: 'on'
+      for: '00:01:00'
+    condition:
+      condition: state
+      entity_id: input_boolean.washing_machine_switch
+      state: 'off'
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.washing_machine_switch

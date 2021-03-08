@@ -1,0 +1,13 @@
+automation:
+  # Shed / Garage movement
+  - id: movement_in_shed_or_garage
+    alias: Someone is in the Shed
+    description: movement in the shed or garage
+    trigger:
+      platform: state
+      entity_id: binary_sensor.shed_garage
+      to: 'on'
+    mode: single
+    action:
+      service: input_boolean.turn_on
+      entity_id: input_boolean.garage_motion_detected

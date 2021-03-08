@@ -1,0 +1,8 @@
+sensor:
+  - platform: template
+    sensors:
+      voltaware_reactive_net:
+        friendly_name_template: 'net Reactive Energy'
+        value_template: "{{ state_attr('sensor.voltaware','reactive_net') / 1000}}"
+        unit_of_measurement: 'varh'
+                   

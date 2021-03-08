@@ -1,0 +1,8 @@
+sensor:
+  - platform: template
+    sensors:
+      jyggy_plugged_in:
+        friendly_name: Jyggy plugged into charger
+        availability_template: "{{ states('sensor.zappi_jyggy') }}"     
+        value_template: "{% if state_attr('sensor.zappi_jyggy','pst') == 'A' %}off{% else %}on{% endif %}"    
+        icon_template: "{% if state_attr('sensor.zappi_jyggy','pst') == 'A' %}mdi:power-plug-off{% else %}mdi:power-plug{% endif %}"            

@@ -1,0 +1,4 @@
+sensor:
+  - platform: solaredge_local
+    name: SolarEdge Local
+    ip_address: !secret solaredge_modbus_ip

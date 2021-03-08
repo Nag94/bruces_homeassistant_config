@@ -1,0 +1,17 @@
+sensor:
+  - platform: template
+    sensors:
+      master_bedroom_environment_battery_percentage:
+        friendly_name: "Battery"
+        value_template: "{{ ((state_attr('sensor.master_bedroom_environment_battery','battery_voltage') - 3.2)/0.005) | round(0) }}"
+        device_class: battery
+#        icon_template: >-
+#        {%- if is_state(“states.binary_sensor.rear_gate_opened.attributes.battery_level”, “unknown”) %}
+#        mdi:battery-unknown
+#        {% elif states(‘states.binary_sensor.rear_gate_opened.attributes.battery_level’) | float <= 5 %}
+#        mdi:battery-outline
+#        {% elif states(‘states.binary_sensor.rear_gate_opened.attributes.battery_level’) | float >= 95 %}
+#        mdi:battery
+#        {% else %}
+#        mdi:battery-{{(states.binary_sensor.rear_gate_opened.attributes.battery_level | float / 10)|round*10}}
+#        {%- endif %}

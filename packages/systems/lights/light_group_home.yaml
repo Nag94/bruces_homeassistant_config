@@ -1,0 +1,18 @@
+light:           
+  - platform: group
+    name: Home Lights
+    entities:
+      - light.home
+      - light.drive_lights
+      - light.front_door
+      - light.patio_lights
+      - light.kitchen_main
+      - light.kate_lightstrip
+      - light.utility_light
+      - light.downstairs_toilet_light
+      - light.under_stairs_light   
+      - light.hall_stairs_lightstrip      
+#      - light.log_burner
+#      - light.upstairs
+#      - light.downstairs
+#      - light.outside

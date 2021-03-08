@@ -1,0 +1,6 @@
+sensor:
+  - platform: template
+    sensors:
+      jyggy_shift_state:
+        value_template: "{{ state_attr('sensor.jyggy_sensor','shift_state') }}"
+        friendly_name: "Shift State"

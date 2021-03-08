@@ -1,0 +1,6 @@
+sensor:
+  - platform: template
+    sensors:
+      jyggy_scheduled_software_update:
+        value_template: "{{ state_attr('sensor.jyggy_sensor','software_update') }}"
+        friendly_name: "Scheduled Software Update"

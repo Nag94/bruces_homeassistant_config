@@ -1,0 +1,19 @@
+sensor:
+  - platform: template
+    sensors:
+      littertray_utility_usage:
+        friendly_name: "Litter Tray Utility Usage"
+        unit_of_measurement: '%'
+        value_template: "{{ ((100/15) * (states('counter.littertray_utility_wee') | int + states('counter.littertray_utility_poo') | int)) | int  }}"
+      littertray_downstairs_usage:
+        friendly_name: "Litter Tray Downstairs Usage"
+        unit_of_measurement: '%'
+        value_template: "{{ ((100/15) * (states('counter.littertray_downstairs_wee') | int + states('counter.littertray_downstairs_poo') | int)) | int  }}"
+      littertray_shower_usage:
+        friendly_name: "Litter Tray Shower Usage"
+        unit_of_measurement: '%'
+        value_template: "{{ ((100/15) * (states('counter.littertray_shower_wee') | int + states('counter.littertray_shower_poo') | int)) | int   }}"
+      littertray_drum_usage:
+        friendly_name: "Litter Tray Drum Usage"
+        unit_of_measurement: '%'
+        value_template: "{{ ((100/15) * (states('counter.littertray_drum_wee') | int + states('counter.littertray_drum_poo') | int)) | int   }}"

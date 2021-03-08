@@ -1,0 +1,16 @@
+title: Firmware
+path: firmware
+icon: 'mdi:alpha-v'
+badges: []
+cards:
+  - type: entities
+    entities:
+      - entity: sensor.zappi_jyggy_fwv
+        name: Zappi - Jyggy
+      - entity: sensor.zappi_paddy_fwv
+        name: Zappi - Paddy
+#      - entity: sensor.harvi_fwv
+#        name: Harvi
+      - entity: sensor.eddi_fwv
+        name: Eddi
+    title: MyEnergi Firmware Versions

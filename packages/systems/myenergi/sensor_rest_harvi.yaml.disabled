@@ -1,0 +1,34 @@
+sensor:
+  - platform: rest
+    name: harvi
+    resource: !secret myenergi_url_harvi
+    scan_interval: 70
+    timeout: 60
+    authentication: digest
+    username: !secret myenergi_serial
+    password: !secret myenergi_password
+    headers:
+      User-Agent: Home Assistant
+      Content-Type: application/json
+      Accept: application/json
+    value_template: "{% if value_json.harvi[0].dat == unavailable %}off{% else %}on{% endif %}"
+#    value_template: "{{ value_json.harvi[0].tim }}"
+    json_attributes_path: '$.harvi[0]'
+    json_attributes:
+      - dat       # Date (UTC)
+#      - ect1p     # ? 1
+#      - ect2p     # ? 1    
+#      - ect3p     # ? 1    
+#      - ectp1     # Grid CT Value - now on Zappi Jyggy
+      - ectp2     # Solar CT Value
+      - ectp3     # Powerwall CT Value
+#      - ectt1     # Grid CT Name - moved to Zappi Jyggy
+#      - ectt2     # Solar CT Name
+#      - ectt3     # Powerwall CT Name
+#      - fwv       # Firmware Version
+#      - sno       # Serial Number
+      - tim       # Time (UTC)
+
+      
+
+

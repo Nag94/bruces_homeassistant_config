@@ -1,0 +1,71 @@
+icon: 'mdi:glass-cocktail'
+path: bar
+title: Bar
+badges:
+  - entity: sensor.bar_rad_current_temperature
+    name: Bar
+cards:
+  - type: grid  
+    columns: 2
+    square: false
+    cards:
+      - entity: light.bar_shelves
+        hold_action:
+          action: more-info
+        icon: 'mdi:lightbulb-off-outline'
+        name: Bar Shelves
+        show_icon: true
+        show_name: true
+        state:
+          - icon: 'mdi:lightbulb-on'
+            value: 'on'
+        tap_action:
+          action: toggle
+          haptic: success
+        type: 'custom:button-card'
+      - entity: light.bar_worktop
+        hold_action:
+          action: more-info
+        icon: 'mdi:lightbulb-off-outline'
+        name: Bar Worktop
+        show_icon: true
+        show_name: true
+        state:
+          - icon: 'mdi:lightbulb-on'
+            value: 'on'
+        tap_action:
+          action: toggle
+          haptic: success
+        type: 'custom:button-card'
+
+      - entity: light.bar_ceiling
+        hold_action:
+          action: more-info
+        icon: 'mdi:lightbulb-off-outline'
+        name: Bar Ceiling
+        show_icon: true
+        show_name: true
+        state:
+          - icon: 'mdi:lightbulb-on'
+            value: 'on'
+        tap_action:
+          action: toggle
+          haptic: success
+        type: 'custom:button-card'
+      - entity: light.bar_palm
+        hold_action:
+          action: more-info
+        icon: 'mdi:lightbulb-off-outline'
+        name: Bar Palm
+        show_icon: true
+        show_name: true
+        state:
+          - icon: 'mdi:lightbulb-on'
+            value: 'on'
+        tap_action:
+          action: toggle
+          haptic: success
+        type: 'custom:button-card'
+
+  - type: media-control
+    entity: media_player.bar_sonos

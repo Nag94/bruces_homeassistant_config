@@ -1,0 +1,5 @@
+binary_sensor:
+  - platform: template
+    sensors:
+      fridge_rapidfreezing:
+        value_template: '{{ states.sensor.kitchen_fridge.attributes["components"]["main"]["refrigeration"]["rapidFreezing"]["value"] }}'

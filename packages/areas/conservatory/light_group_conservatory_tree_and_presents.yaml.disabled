@@ -1,0 +1,6 @@
+light:          
+  - platform: group
+    name: Conservatory Tree and Presents
+    entities:
+    - light.conservatory_tree
+    - light.conservatory_presents

@@ -1,0 +1,4 @@
+# Could switch to native Flic through bluetooth, without a Flic Hub
+# Add on for Flicd server at https://github.com/pschmitt/home-assistant-addons
+binary_sensor:
+  - platform: flic

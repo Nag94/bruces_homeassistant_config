@@ -1,0 +1,175 @@
+icon: 'mdi:bed-king-outline'
+path: master
+title: Master
+visible:
+  - user: 86df00251766415c9acf21b3b3e51496
+  - user: 1de5d8e2c14c47939a8174d6e4147f31
+badges:
+  - entity: sensor.master_bedroom_rad_current_temperature
+    name: Bedroom
+  - entity: sensor.wirelesstag_bathroom_temperature
+  - entity: sensor.wirelesstag_bathroom_humidity
+cards:
+  - cards:
+      - cards:
+          - entity: light.master_bedroom_bedside_left
+            hold_action:
+              action: more-info
+            icon: 'mdi:lightbulb-off-outline'
+            name: Bedside Left
+            show_icon: true
+            show_name: true
+            state:
+              - icon: 'mdi:lightbulb-on'
+                value: 'on'
+            tap_action:
+              action: toggle
+              haptic: success
+            type: 'custom:button-card'
+          - entity: light.master_bedroom_wardrobe_bars
+            hold_action:
+              action: more-info
+            icon: 'mdi:lightbulb-off-outline'
+            name: Wardrobe Bars
+            show_icon: true
+            show_name: true
+            state:
+              - icon: 'mdi:lightbulb-on'
+                value: 'on'
+            tap_action:
+              action: toggle
+              haptic: success
+            type: 'custom:button-card'
+          - entity: light.master_bedroom_bedside_right
+            hold_action:
+              action: more-info
+            icon: 'mdi:lightbulb-off-outline'
+            name: Bedside Right
+            show_icon: true
+            show_name: true
+            state:
+              - icon: 'mdi:lightbulb-on'
+                value: 'on'
+            tap_action:
+              action: toggle
+              haptic: success
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: light.master_bedroom_wall_left
+            hold_action:
+              action: more-info
+            icon: 'mdi:lightbulb-off-outline'
+            name: Wall Left
+            show_icon: true
+            show_name: true
+            state:
+              - icon: 'mdi:lightbulb-on'
+                value: 'on'
+            tap_action:
+              action: toggle
+              haptic: success
+            type: 'custom:button-card'
+          - entity: light.master_bedroom_wardrobe
+            hold_action:
+              action: more-info
+            icon: 'mdi:lightbulb-off-outline'
+            name: Wardrobe
+            show_icon: true
+            show_name: true
+            state:
+              - icon: 'mdi:lightbulb-on'
+                value: 'on'
+            tap_action:
+              action: toggle
+              haptic: success
+            type: 'custom:button-card'
+          - entity: light.master_bedroom_wall_right
+            hold_action:
+              action: more-info
+            icon: 'mdi:lightbulb-off-outline'
+            name: Wall Right
+            show_icon: true
+            show_name: true
+            state:
+              - icon: 'mdi:lightbulb-on'
+                value: 'on'
+            tap_action:
+              action: toggle
+              haptic: success
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - color_type: blank-card
+            type: 'custom:button-card'
+          - entity: light.master_bedroom_lamp
+            hold_action:
+              action: more-info
+            icon: 'mdi:lightbulb-off-outline'
+            name: Lamp
+            show_icon: true
+            show_name: true
+            state:
+              - icon: 'mdi:lightbulb-on'
+                value: 'on'
+            tap_action:
+              action: toggle
+              haptic: success
+            type: 'custom:button-card'
+          - color_type: blank-card
+            type: 'custom:button-card'
+        type: horizontal-stack
+    type: vertical-stack
+  - artwork: full-cover
+    entity: media_player.master_bed_sonos
+    hide:
+      power: true
+    speaker_group:
+      entities:
+        - entity_id: media_player.kitchen_sonos
+          name: Kitchen
+        - entity_id: media_player.lounge_sonos
+          name: Lounge
+        - entity_id: media_player.landing_sonos
+          name: Landing
+        - entity_id: media_player.kates_sonos
+          name: Kate
+        - entity_id: media_player.sophies_sonos
+          name: Sophie
+      platform: sonos
+      show_group_count: true
+    type: 'custom:mini-media-player'
+  - entity: climate.master_bedroom_rad
+    name: Bedroom
+    theme: default
+    type: thermostat
+  - entities:
+      - entity: switch.electric_blanket_sarah
+        name: Electric Blanket - Sarah
+      - entity: switch.electric_blanket_bruce
+        name: Electric Blanket - Bruce
+      - customTheme: false
+        entity: fan.master_bedroom_fan
+        name: Fan
+        type: 'custom:fan-control-entity-row'
+    show_header_toggle: false
+    type: entities
+  - entities:
+      - entity: sensor.master_bedroom_environment_co2
+        name: CO₂ Level
+      - entity: sensor.master_bedroom_environment_average_co2
+        name: Average CO₂  
+      - entity: sensor.master_bedroom_environment_max_co2
+        name: Max CO₂ (last 24hrs)
+      - entity: sensor.master_bedroom_environment_humidity
+      - entity: sensor.master_bedroom_environment_temperature
+    show_header_toggle: false
+    type: entities    
+  - entities:
+      - entity: input_boolean.bruce_is_asleep
+      - entity: input_boolean.sarah_is_asleep
+      - entity: input_boolean.kate_is_asleep
+      - entity: input_boolean.sophie_is_asleep
+      - entity: input_boolean.guest_is_asleep
+    show_header_toggle: false
+    type: entities

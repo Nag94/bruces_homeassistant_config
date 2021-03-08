@@ -1,0 +1,6 @@
+light:          
+  - platform: group
+    name: Landing Lights Main
+    entities:
+    - light.landing_light_1
+    - light.landing_light_2    

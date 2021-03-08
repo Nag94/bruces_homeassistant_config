@@ -1,0 +1,31 @@
+automation:
+  - id: master_bed_lights_when_door_opened
+    alias: Master Bed Lights on from door
+    description: Master Bed Lights on when door opened
+    mode: restart
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.master_bedroom_door
+        from: 'off'
+        to: 'on'
+    condition:
+      - condition: state
+        entity_id: sensor.dark_outside
+        state: 'True'
+      - condition: state
+        entity_id: light.master_bedroom_lights
+        state: 'off'
+      - condition: state
+        entity_id: switch.sarah_is_asleep
+        state: 'off'
+      - condition: state
+        entity_id: switch.bruce_is_asleep
+        state: 'off'        
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: 
+            - light.master_bedroom_bedside_left
+            - light.master_bedroom_bedside_right
+            - light.master_bedroom_lamp     
+          brightness: 75

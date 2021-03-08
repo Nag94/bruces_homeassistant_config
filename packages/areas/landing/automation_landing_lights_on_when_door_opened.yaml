@@ -1,0 +1,58 @@
+# Turn on landing lights low for 10 mins.
+# Not if already on at a different brightness.
+# Not if it is daylight
+
+automation:
+  - id: landing_lights_when_landing_door_opened
+    alias: Landing Lights on from landing doors
+    description: Landing Lights on for 10 minutes when landing Door Opened
+    mode: restart
+    trigger:
+      - platform: state
+        entity_id: 
+          - binary_sensor.guest_bedroom_door
+          - binary_sensor.kates_bedroom_door
+          - binary_sensor.main_bathroom_door
+          - binary_sensor.master_bedroom_door
+          - binary_sensor.drum_room_door
+          - binary_sensor.landing
+        from: 'off'
+        to: 'on'
+    condition:
+      - condition: state
+        entity_id: sensor.dark_outside
+        state: 'True'
+      - condition: state
+        entity_id: light.landing_light_3
+        state: 'off'
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: light.landing_light_1
+            state: 'off'
+          - condition: state
+            entity_id: light.landing_light_1
+            attribute: brightness
+            state: 10        
+# don't know why but this didn't work when it was a condition on the automation ?        
+#    condition:
+#      - condition: template
+#        value_template: "{{ (is_state('sensor.dark_outside','True')) and (is_state('light.landing_light_3','off')) and (state_attr('light.landing_light_1', 'brightness') == 10 or is_state('light.landing_light_1','off')) }}"
+    action:
+#      - choose:
+#          - conditions: "{{ (is_state('sensor.dark_outside','True')) and (is_state('light.landing_light_3','off')) and (state_attr('light.landing_light_1', 'brightness') == 10 or is_state('light.landing_light_1','off')) }}"
+#            sequence:
+      - service: light.turn_on
+        data:
+          entity_id: 
+            - light.landing_light_1
+            - light.landing_light_2
+          brightness: 10
+      - delay: 00:09:40
+      - service: light.turn_off
+        data:
+          entity_id: light.landing_lights
+          transition: 20
+  
+      
+            

@@ -1,0 +1,6 @@
+sensor:
+  - platform: template
+    sensors:
+      solar_direction:
+        friendly_name: Solar is on
+        value_template: "{% if states('sensor.harvi_solar') | float > 0.100 %}import{% else %}off{% endif %}"

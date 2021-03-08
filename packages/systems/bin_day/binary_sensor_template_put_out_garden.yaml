@@ -1,0 +1,8 @@
+binary_sensor:
+  - platform: template
+    sensors:
+        put_out_garden:
+            friendly_name: "Put Out Garden"
+            value_template: >
+              {{ is_state('sensor.bin_day_garden', (as_timestamp(now()) + 86400) | timestamp_custom('%A %-d %B', True)) or 
+              is_state('sensor.bin_day_garden', (as_timestamp(now()) ) | timestamp_custom('%A %-d %B',True)) }}

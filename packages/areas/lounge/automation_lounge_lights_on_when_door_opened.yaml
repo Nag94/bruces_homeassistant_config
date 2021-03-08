@@ -1,0 +1,26 @@
+automation:
+  - id: lounge_lights_when_door_opened
+    alias: Lounge Lights on from door
+    description: Lounge Lights on when door opened
+    mode: restart
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.lounge_door
+        from: 'off'
+        to: 'on'
+    condition:
+      - condition: state
+        entity_id: sensor.dark_outside
+        state: 'True'
+      - condition: state
+        entity_id: light.lounge_lights
+        state: 'off'
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: 
+            - light.lounge_lamp
+            - light.lounge_left_back
+            - light.lounge_left_front            
+            - light.lounge_right            
+          brightness: 75

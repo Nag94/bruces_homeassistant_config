@@ -1,0 +1,187 @@
+automation:
+  - id: alarm_state_changed
+    alias: Alarm State Changed
+    description: Alarm State Changed
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id: alarm_control_panel.full_set
+        to:
+          - triggered
+          - armed_away
+          - armed_home
+          - armed_night
+          - disarmed
+          - pending
+          
+#    condition: "{{ trigger.to_state.state != trigger.from_state.state }}"
+    action:
+      - choose:
+          - conditions: "{{ trigger.to_state.state == 'triggered' }}"
+            sequence:
+                # Give it a couple of seconds to update which sensor has triggered
+              - delay: 00:00:02
+              - service: telegram_bot.send_message
+                data:
+                  target: !secret telegram_chat_id_bruce_and_sarah
+                  title: Alarm Triggered
+                  message: >
+                    The burglar alarm is going off !
+                    
+                    Last Sensor Triggered: {{ states('input_text.recently_active_alarm_sensor') }}
+                  inline_keyboard:
+                    - 'Disarm:/disarm'
+                    - 'OK:/remove_keyboard'   
+                    
+  # Check Log for Tamper ??
+                    
+              - service: notify.bruce_and_sarah_phones
+                data:
+                  title: Alarm Triggered
+                  message: >
+                    The burglar alarm is going off!
+                    
+                    Last Sensor Triggered: {{ states('input_text.recently_active_alarm_sensor') }}
+                  
+  # Check Log for Tamper ??
+                  
+                  data:
+                    push:
+                      sound:
+                        name: default
+                        critical: 1
+                        volume: 1.0
+      
+            # Alarm is setting, bruce or Sarah at home, time after 9pm
+          - conditions: "{{ (trigger.to_state.state == 'pending') and (trigger.from_state.state == 'disarmed') and (is_state('group.bruce_or_sarah_home', 'home')) and (now() > now().replace(hour=21)) }}"
+            sequence:
+              - service: light.turn_off
+                entity_id: light.lounge_all
+              - service: light.turn_off
+                entity_id: light.conservatory
+              - service: light.turn_off
+                entity_id: light.bar
+              - service: light.turn_off
+                entity_id: light.lounge
+              - service: light.turn_off
+                entity_id: light.patio
+              - service: light.turn_off
+                entity_id: light.christmas
+              - service: light.turn_off
+                entity_id: light.utility_light
+              - service: light.turn_off
+                entity_id: light.kitchen_all
+              - service: light.turn_off
+                entity_id: light.downstairs_toilet_light
+              - service: light.turn_off
+                entity_id: light.under_stairs_light
+              - delay: 00:00:01        
+              - service: scene.turn_on
+                data:
+                  entity_id: >
+                    {%if is_state('input_boolean.bruce_is_asleep','off') and 
+                      is_state('input_boolean.sarah_is_asleep','off')%}scene.gotobed_lights_bedroom{%else%}scene.gotobed_lights{%endif%}
+              
+              
+          - conditions: "{{ trigger.to_state.state == 'disarmed' and is_state('input_text.alarm_user','Maid For')}}"
+            sequence:
+              - service: input_boolean.turn_off
+                entity_id: input_boolean.was_alarm_armed            
+              - service: logbook.log
+                data:
+                  domain: alarm_control_panel
+                  name: "Alarm System"
+                  message: "Disarmed by Terri"
+              - service: device_tracker.see
+                data:
+                  dev_id: cleaner
+                  location_name: "home"
+              - service: notify.telegram_bruce_and_sarah
+                data:
+                  message: "Terri Arriving"
+
+          - conditions: "{{ trigger.to_state.state == 'disarmed' }}"
+            sequence:
+              - service: input_boolean.turn_off
+                entity_id: input_boolean.was_alarm_armed
+              - delay: 00:00:02                
+              - service: logbook.log
+                data:
+                  domain: alarm_control_panel
+                  name: "Alarm System"
+                  message: "Disarmed by {{ states('input_text.alarm_user') }}"
+
+
+          - conditions: "{{ trigger.to_state.state == 'armed_away' and is_state('input_text.alarm_user','Cat Sit') }}"
+            sequence:
+              - service: light.turn_off
+                entity_id: light.home_lights
+              - service: input_boolean.turn_on
+                entity_id: input_boolean.was_alarm_armed
+              - service: logbook.log
+                data:
+                  domain: alarm_control_panel
+                  name: "Alarm System"
+                  message: "Armed by Cat Sitter"
+              - service: device_tracker.see
+                data:
+                  dev_id: cat_sit
+                  location_name: "not_home"
+              - service: notify.telegram_bruce_and_sarah
+                data:
+                  message: "Cat Sitter Leaving"                  
+
+          - conditions: "{{ trigger.to_state.state == 'armed_away' and is_state('input_text.alarm_user','Maid For')}}"
+            sequence:
+              - service: light.turn_off
+                entity_id: light.home_lights
+              - service: input_boolean.turn_on
+                entity_id: input_boolean.was_alarm_armed
+              - delay: 00:00:02
+              - service: logbook.log
+                data:
+                  domain: alarm_control_panel
+                  name: "Alarm System"
+                  message: "Armed by {{ states('input_text.alarm_user') }}"
+              - service: device_tracker.see
+                data:
+                  dev_id: cleaner
+                  location_name: "not_home"
+              - service: notify.telegram_bruce_and_sarah
+                data:
+                  message: "Terri Leaving"
+
+          - conditions: "{{ trigger.to_state.state == 'armed_away'  }}"
+            sequence:
+              - service: light.turn_off
+                entity_id: light.home_lights
+              - service: input_boolean.turn_on
+                entity_id: input_boolean.was_alarm_armed
+              - delay: 00:00:02
+              - service: logbook.log
+                data:
+                  domain: alarm_control_panel
+                  name: "Alarm System"
+                  message: "Armed by {{ states('input_text.alarm_user') }}"
+
+          - conditions: "{{ trigger.to_state.state == 'armed_home'  }}"   
+            sequence:
+              - delay: 00:00:02
+              - service: logbook.log
+                data:
+                  domain: alarm_control_panel
+                  name: "Alarm System"
+                  message: "Armed (Home) by {{ states('input_text.alarm_user') }}"
+
+          - conditions: "{{ trigger.to_state.state == 'armed_night'  }}"   
+            sequence:
+              - service: light.turn_off
+                entity_id: light.downstairs_lights
+              - service: light.turn_off
+                entity_id: light.outside_lights            
+              - delay: 00:00:02
+              - service: logbook.log
+                data:
+                  domain: alarm_control_panel
+                  name: "Alarm System"
+                  message: "Armed (Night) by {{ states('input_text.alarm_user') }}"

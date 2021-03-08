@@ -1,0 +1,19 @@
+sensor:
+  - platform: rest
+    name: myEnergi
+    resource: !secret myenergi_url
+    scan_interval: 70
+    timeout: 60
+    authentication: digest
+    username: !secret myenergi_serial
+    password: !secret myenergi_password
+    headers:
+      User-Agent: Home Assistant
+      Content-Type: application/json
+      Accept: application/json
+    value_template: 'OK'
+    json_attributes_path: '$[1]'
+    json_attributes:
+      - harvi
+      - eddi 
+      - zappi

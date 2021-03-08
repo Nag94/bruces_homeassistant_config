@@ -1,0 +1,120 @@
+
+default_config:
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+#logger:
+#  default: info
+#  logs:
+#    homeassistant.core: debug
+#    homeassistant.components.zha: debug
+#    bellows.zigbee.application: debug
+#    bellows.ezsp: debug
+#    zigpy: debug
+#    zigpy_cc: debug
+#    zigpy_deconz.zigbee.application: debug
+#    zigpy_deconz.api: debug
+#    zigpy_xbee.zigbee.application: debug
+#    zigpy_xbee.api: debug
+#    zigpy_zigate: debug
+#    zigpy_znp: debug
+#    zhaquirks: debug
+
+lovelace:
+  mode: yaml
+  dashboards:
+    lovelace-cameras: # Needs to contain a hyphen (-)
+      mode: yaml
+      title: Cameras
+      filename: ui-cameras.yaml
+      icon: mdi:cctv
+      show_in_sidebar: true
+      require_admin: false    
+    lovelace-technical: # Needs to contain a hyphen (-)
+      mode: yaml
+      title: Technical
+      filename: ui-technical.yaml
+      icon: mdi:desktop-classic
+      show_in_sidebar: true
+      require_admin: false  
+    lovelace-whiteacres: # Needs to contain a hyphen (-)
+      mode: yaml
+      title: Whiteacres
+      filename: ui-whiteacres.yaml
+      icon: mdi:home
+      show_in_sidebar: true
+      require_admin: false  
+    lovelace-switchboard: # Needs to contain a hyphen (-)
+      mode: yaml
+      title: Menu
+      filename: ui-switchboard.yaml
+      icon: mdi:menu
+      show_in_sidebar: true
+      require_admin: false  
+    lovelace-floorplan: # Needs to contain a hyphen (-)
+      mode: yaml
+      title: Floorplan
+      filename: ui-floorplan.yaml
+      icon: mdi:floor-plan
+      show_in_sidebar: true
+      require_admin: false        
+    lovelace-remote: # Needs to contain a hyphen (-)
+      mode: yaml
+      title: Remote
+      filename: ui-lounge-remote.yaml
+      icon: mdi:remote
+      show_in_sidebar: true
+      require_admin: false        
+    lovelace-ipod: # Needs to contain a hyphen (-)
+      mode: yaml
+      title: iPod Remote
+      filename: ui-lounge-remote-ipod.yaml
+      icon: mdi:remote
+      show_in_sidebar: true
+      require_admin: false
+  resources:
+    - url: /hacsfiles/apexcharts-card/apexcharts-card.js
+      type: module  
+    - url: /hacsfiles/button-card/button-card.js
+      type: module
+    - url: /hacsfiles/lovelace-state-switch/state-switch.js
+      type: module
+    - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
+      type: module
+    - url: /hacsfiles/auto-entities/auto-entities.js
+      type: module
+    - url: /hacsfiles/fan-control-entity-row/fan-control-entity-row.js
+      type: module
+    - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js?v=30
+      type: module
+    - url: /hacsfiles/icloud3/icloud3-event-log-card.js?v=2.3.3
+      type: module
+    - url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
+      type: module
+#    - url: /hacsfiles/dual-gauge-card/dual-gauge-card.js
+#      type: module
+    - url: /local/custom_cards/agile-rates-card.js?v=3.3
+      type: module
+#    - url: /hacsfiles/ozw-network-visualization-card/ozw-network-visualization-card.js
+#      type: module
+    - url: /local/zha-network-card.js
+      type: module
+    - url: /hacsfiles/tesla-style-solar-power-card/tesla-style-solar-power-card.js?v=4
+      type: module      
+    - url: /hacsfiles/lovelace-layout-card/layout-card.js
+      type: module     
+    - url: /hacsfiles/text-element-card/text-element.js
+      type: module
+
+
+group: !include groups.yaml
+zone: !include zones.yaml
+scene: !include scenes.yaml
+
+homeassistant:
+  external_url: !secret ha_external_url
+  allowlist_external_dirs: 
+    - /config/www/cam_snaps
+  customize: !include customize.yaml
+  packages: !include_dir_named packages

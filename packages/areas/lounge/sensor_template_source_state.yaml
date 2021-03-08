@@ -1,0 +1,6 @@
+sensor:
+  -  platform: template
+     sensors:
+       lounge_source_state:
+         friendly_name: "Lounge Source State"
+         value_template: "{% if is_state_attr('media_player.lounge_amp','source','SkyQ') %}{{ states('media_player.lounge_skyq') }}{% elif is_state_attr('media_player.lounge_amp','source','Apple TV') %}{{ states('media_player.lounge_apple_tv') }}{% else %}unknown{% endif %}"

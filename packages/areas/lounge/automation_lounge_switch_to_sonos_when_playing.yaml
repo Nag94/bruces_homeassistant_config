@@ -1,0 +1,18 @@
+automation:
+ # Switch amp to SONOS when SONOS playing
+  - id: switch_amp_to_sonos
+    alias: Amp switch Amp to Sonos when playing
+    description: Amp to Sonos when Sonos Playing in Lounge
+    trigger:
+      - platform: state
+        entity_id: media_player.lounge_sonos
+        to: playing
+    action:
+      - service: media_player.turn_on
+        entity_id: media_player.lounge_amp
+      - delay: 00:00:05
+      - service: media_player.select_source
+        data:
+          entity_id: media_player.lounge_amp
+          source: SONOS
+            

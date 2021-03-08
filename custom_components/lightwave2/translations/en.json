@@ -1,0 +1,28 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Only a single configuration of this component is allowed."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "username": "Username",
+                    "password": "Password"
+                },
+                "description": "Enter Lightwave username and password",
+                "title": "Lightwave 2"
+            }
+        },
+        "title": "Lightwave 2"
+    },
+    "options": {
+        "step": {
+            "user": {
+                "data": {
+                    "lightwave_publicapi": "Use public API?"
+                }
+            }
+        }
+    }
+
+}

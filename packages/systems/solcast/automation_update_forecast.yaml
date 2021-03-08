@@ -1,0 +1,47 @@
+automation:
+  - id: solcast_update_forecast
+    alias: "Solcast Update Forecast"
+    trigger:
+      platform: time
+      at:
+        - '00:01:00'          
+        - '05:00:00'           
+        - '06:00:00'      
+        - '07:00:00'       
+        - '08:00:00'               
+        - '09:00:00'                       
+        - '10:00:00'               
+        - '11:00:00'            
+        - '12:00:00'
+        - '13:00:00'                    
+        - '14:00:00'        
+        - '15:00:00'                
+        - '16:00:00'
+        - '17:00:00'        
+        - '18:00:00'                                
+        - '19:00:00'                                        
+        - '20:00:00'                                                                                       
+        - '21:50:00'        
+    condition:
+      - condition: or
+        conditions:
+          - condition: state  
+            entity_id: sun.sun
+            state: 'above_horizon'
+          - condition: time
+            after: '21:45:00'
+          - condition: time
+            before: '00:01:00'
+    action:
+      - service: solcast.update_forecast
+      - delay: '00:00:30'
+      - service: input_number.set_value
+        data:
+          entity_id: input_number.solcast_latest_today_forecast
+          value: "{{ (states('sensor.solar_production_daily') | float + states('sensor.solcast_forecast') | float ) | round(1) }}"
+      - condition: time
+        after: '21:46:00'
+      - service: input_number.set_value
+        data:
+          entity_id: input_number.solcast_last_night_forecast
+          value: "{{state_attr('sensor.solcast_forecast','tomorrow') }}"

@@ -1,0 +1,15 @@
+automation:
+    # Door bell has rung
+    - id: doorbell_has_rung
+      alias: Doorbell has rung
+      trigger:
+        platform: state
+        entity_id: binary_sensor.front_door_ding
+        from: "off"
+        to: "on"
+      action:
+        - service: persistent_notification.create
+          data:
+            title: "Doorbell"
+            message: "Doorbell has rung"
+            notification_id: doorbell

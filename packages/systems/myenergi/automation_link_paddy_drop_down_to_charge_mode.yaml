@@ -1,0 +1,25 @@
+automation:
+  - id: link_zappi_paddy_charge_mode
+    alias: Link Paddy Charge Mode Drop Down
+    trigger:
+      - platform: state
+        entity_id: input_select.zappi_paddy_charge_mode
+      - platform: state
+        entity_id: sensor.zappi_paddy_mode
+      - platform: homeassistant
+        event: start
+      - platform: event
+        event_type: automation_reloaded
+    condition: "{{ states('sensor.zappi_paddy_mode') != Unavailable }}"        
+    action:
+      - choose:
+          - conditions: "{{ trigger.entity_id == 'input_select.zappi_paddy_charge_mode'}}"
+            sequence:
+              - service: script.zappi_mode_paddy
+                data:
+                  mode: "{{ states('input_select.zappi_paddy_charge_mode') }}"
+        default:
+          - service: input_select.select_option
+            data: 
+              entity_id: input_select.zappi_paddy_charge_mode
+              option: "{{ states('sensor.zappi_paddy_mode') }}"

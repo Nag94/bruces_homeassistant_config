@@ -1,0 +1,17 @@
+sensor:
+  - platform: template
+    sensors:
+      washing_machine_stopwatch:
+        friendly_name: "Time Elapsed"
+        value_template: >-
+          {% if is_state('input_boolean.washing_machine_switch', 'on') and as_timestamp(strptime(states.sensor.time_date.state, "%H:%M, %Y-%m-%d")) > 0 %}
+            {{ (as_timestamp(now()) - as_timestamp(states.automation.washing_machine_start.attributes.last_triggered)) | timestamp_custom("%H:%M", false) }}
+          {% elif is_state('input_boolean.washing_machine_switch', 'off') %}
+            Idle
+          {% elif is_state('sensor.washing_machine_stopwatch', 'unknown') %}
+            Unknown
+          {% else %}
+            {{ states('sensor.washing_machine_stopwatch') }}
+          {% endif %}
+
+

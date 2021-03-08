@@ -1,0 +1,4 @@
+light:
+  - platform: switch
+    name: Back Door
+    entity_id: switch.back_door_light

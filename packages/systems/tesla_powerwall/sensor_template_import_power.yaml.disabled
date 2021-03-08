@@ -1,0 +1,8 @@
+sensor:
+  - platform: template
+    sensors:
+      import_power:
+        friendly_name: Import Power
+        unit_of_measurement: "kW"
+        value_template: "{% if (states('sensor.powerwall_site_now') | float ) >  0.05 %}{{ ((states('sensor.powerwall_site_now') | float) )  }}{% else %}0.0{% endif %}"
+

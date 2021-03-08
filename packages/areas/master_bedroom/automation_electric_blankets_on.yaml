@@ -1,0 +1,27 @@
+automation:
+  - id: electric_blankets_on
+    alias: Electric Blankets on at 21:45
+    description: turn on electric blankets
+    trigger:
+      - platform: time
+        at: '21:45:00'
+      - platform: homeassistant
+        event: start
+      - platform: event
+        event_type: automation_reloaded        
+    condition:
+      - condition: template
+        value_template: "{{ is_state('group.bruce_or_sarah_home','home') and is_state('input_boolean.bruce_is_asleep','off') and is_state('input_boolean.sarah_is_asleep','off') }}"
+      - condition: time
+        after: '21:40:00'
+        before: '21:50:00'
+#  Add a temperature check ?
+    action:
+      - service: switch.turn_on
+        entity_id: 
+          - switch.electric_blanket_sarah
+          - switch.electric_blanket_bruce
+      - service: telegram_bot.send_message
+        data:
+          target: !secret telegram_chat_id_bruce_and_sarah
+          message: The electric blankets have switched on   

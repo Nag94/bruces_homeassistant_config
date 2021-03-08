@@ -1,0 +1,8 @@
+light:          
+  - platform: group
+    name: Sophies Bedroom Lights
+    entities:
+    - light.sophies_bedroom
+#    - light.sophies_bedroom_light
+#    - light.sophies_bedroom_lamp
+#    - light.sophies_bedroom_bedhead

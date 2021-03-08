@@ -1,0 +1,36 @@
+automation:
+# Unlock Jyggy Doors
+# Alarm setting (exit) and front door open
+  - id: alarm_door_unlock_jyggy
+    alias: Unlock Jyggy open door alarm set
+    description: Unlock Jyggy if alarm setting and door opens
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.front_door
+        to: 'on'
+      - platform: state
+        entity_id: alarm_control_panel.full_set
+        from: disarmed
+        to: pending
+    condition:
+      - condition: state
+        entity_id: binary_sensor.front_door
+        state: 'on'
+      - condition: state
+        entity_id: alarm_control_panel.full_set
+        state: pending
+      - condition: state
+        entity_id: sensor.alarm_log
+        state: 'ExitStarted'
+      - condition: state
+        entity_id: sensor.jyggy_location
+        state: Home
+      - condition: template
+        value_template: '{% if is_state(''group.bruce_or_sarah_home'', ''home'') %}true{%endif %}'
+    action:
+      - service: lock.unlock
+        entity_id: lock.jyggy_doors
+      - service: telegram_bot.send_message
+        data:
+          target: !secret telegram_chat_id_bruce_and_sarah
+          message: 'Leaving home - Jyggy unlocked'

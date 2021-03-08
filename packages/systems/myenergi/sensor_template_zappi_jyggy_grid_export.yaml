@@ -1,0 +1,10 @@
+sensor:
+  - platform: template
+    sensors:
+      zappi_jyggy_grid_export:
+        friendly_name_template: 'Zappi Jyggy - Grid Export'
+        availability_template: "{{ states('sensor.zappi_jyggy') }}"     
+        value_template: "{% if state_attr('sensor.zappi_jyggy','grd') | float < -75.0  %}{{ ((state_attr('sensor.zappi_jyggy','grd') | float ) / -1000) | round(1) }}{% else %}{{0.0 | float}}{% endif %}"
+        unit_of_measurement: 'kW'
+        icon_template: mdi:transmission-tower
+        device_class: power      

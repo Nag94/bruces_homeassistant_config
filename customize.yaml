@@ -1,0 +1,105 @@
+#person.bruce_hartley:
+#  entity_picture: /local/bruce.jpg
+#person.sarah_hartley:
+#  entity_picture: /local/sarah.jpg
+#person.sophie_hartley:
+#  entity_picture: /local/sophie.jpg
+#person.kate_hartley:
+#  entity_picture: /local/kate.jpg
+#person.jyggy:
+#  entity_picture: /local/tesla.png
+device_tracker.kate_iphone:
+  entity_picture: /local/kate.jpg
+device_tracker.kate_iphone_2:
+  entity_picture: /local/kate.jpg
+device_tracker.sophie_iphone:
+  entity_picture: /local/sophie.jpg
+device_tracker.sophie_iphone_2:
+  entity_picture: /local/sophie.jpg
+device_tracker.bruce_iphone:
+  entity_picture: /local/bruce.jpg
+device_tracker.bruce_iphone_2:
+  entity_picture: /local/bruce.jpg
+device_tracker.sarah_iphone:
+  entity_picture: /local/sarah.jpg
+device_tracker.sarah_iphone_2:
+  entity_picture: /local/sarah.jpg
+media_player.lounge_skyq:
+  device_class: tv
+sensor.bin_day_rubbish:
+  icon: mdi:trash-can
+  icon_color: black
+  friendly_name: Black Bin
+sensor.bin_day_recycling:
+  icon: mdi:recycle
+  icon_color: green
+  friendly_name: Recycling
+sensor.bin_day_garden:
+  icon: mdi:trash-can
+  icon_color: green
+  friendly_name: Green Bin
+sensor.electricity_demand_cost:
+  icon: mdi:currency-gbp
+sensor.octopus_current_price_rounded:
+  icon: mdi:currency-gbp
+sensor.electricity_demand_rounded:
+  icon: mdi:flash
+binary_sensor.master_bedroom_door:
+  device_class: door
+binary_sensor.downstairs_toilet_door:
+  device_class: door
+binary_sensor.lounge_door:
+  device_class: door
+binary_sensor.kates_bedroom_door:
+  device_class: door
+binary_sensor.sophies_bedroom_door:
+  device_class: door
+binary_sensor.main_bathroom_door:
+  device_class: door
+binary_sensor.under_stairs_door:
+  device_class: door
+binary_sensor.back_gate_door:
+  device_class: door
+binary_sensor.kitchen_door:
+  device_class: door
+binary_sensor.master_bedroom_wardrobe_door_1:
+  device_class: door
+binary_sensor.master_bedroom_wardrobe_door_2:
+  device_class: door
+binary_sensor.master_bedroom_ensuite_door:
+  device_class: door
+binary_sensor.bar_door:
+  device_class: door
+binary_sensor.guest_bedroom_door:
+  device_class: door  
+binary_sensor.conservatory_door:
+  device_class: door    
+binary_sensor.drum_room_door:
+  device_class: door     
+binary_sensor.refrigerator_door:
+  device_class: door
+binary_sensor.shed_door:
+  device_class: door  
+sensor.master_bedroom_environment_co2:
+  icon: mdi:molecule-co2
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

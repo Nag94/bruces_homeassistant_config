@@ -1,0 +1,15 @@
+binary_sensor:
+  - platform: template
+    sensors:
+      littertray_utility_dirty:
+        value_template: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_utility')))/24/60/60)>13  or  states('sensor.littertray_utility_usage') | int > 99 }}"
+        friendly_name: 'Utility litter tray is dirty'
+      littertray_shower_dirty:
+        value_template: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_shower')))/24/60/60)>13  or  states('sensor.littertray_shower_usage') | int > 99 }}"
+        friendly_name: 'Shower litter tray is dirty'
+      littertray_downstairs_dirty:
+        value_template: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_downstairs')))/24/60/60)>13  or  states('sensor.littertray_downstairs_usage') | int > 99 }}"
+        friendly_name: 'Downstairs litter tray is dirty'  
+      littertray_drum_dirty:
+        value_template: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_drum')))/24/60/60)>13  or  states('sensor.littertray_drum_usage') | int > 99 }}"
+        friendly_name: 'Drum Room litter tray is dirty'  

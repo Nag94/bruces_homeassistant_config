@@ -1,0 +1,14 @@
+sensor:
+  - platform: rest
+    name: Zappi Paddy CMT
+    resource: !secret myenergi_url_zappi_paddy
+    scan_interval: 86400
+    timeout: 60
+    authentication: digest
+    username: !secret myenergi_serial
+    password: !secret myenergi_password
+    headers:
+      User-Agent: Home Assistant
+      Content-Type: application/json
+      Accept: application/json
+    value_template: "{% if value_json.zappi[0].cmt == 254 %}OK{% elif value_json.zappi[0].cmt == 253 %}Failed{% else %}Pending{% endif %}"

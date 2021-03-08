@@ -1,0 +1,6 @@
+sensor:
+  - platform: template
+    sensors:
+      jyggy_distfromhome:
+        value_template: "{{ state_attr('sensor.jyggy_sensor','distFromHome') }}"
+        unit_of_measurement: "miles"

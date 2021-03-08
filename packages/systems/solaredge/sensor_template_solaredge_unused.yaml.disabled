@@ -1,0 +1,12 @@
+sensor:
+  - platform: template
+    sensors:
+        solaredge_meter_va:
+            friendly_name: "AC VA"
+            value_template: "{{ state_attr('sensor.solaredge_modbus_meter_1', 'ac_va') }}"
+        solaredge_meter_var:
+            friendly_name: "AC VAR"
+            value_template: "{{ state_attr('sensor.solaredge_modbus_meter_1', 'ac_var') }}"
+        solaredge_meter_pf:
+            friendly_name: "AC PF"
+            value_template: "{{ state_attr('sensor.solaredge_modbus_meter_1', 'ac_pf') }}"  

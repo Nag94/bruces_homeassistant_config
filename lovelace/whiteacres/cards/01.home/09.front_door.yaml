@@ -1,0 +1,10 @@
+aspect_ratio: 0%
+camera_image: camera.front_door
+entities:
+  - entity: binary_sensor.front_door_ding
+  - entity: binary_sensor.front_door_motion
+tap_action:
+  action: navigate
+  navigation_path: /lovelace-cameras/doorbell
+title: Front Door
+type: picture-glance

@@ -1,0 +1,104 @@
+title: Electric and Gas
+path: elec_and_gas
+icon: 'mdi:flash'
+badges: []
+cards:
+  - entities:
+      - entity: binary_sensor.electricity_supply
+      - entity: sensor.import_power
+      - entity: sensor.export_power
+      - entity: sensor.apc_ups_input_voltage
+        name: Voltage
+      - entity: sensor.electricity_demand_cost
+        name: Current Cost per Hour
+      - entity: sensor.octopus_current_price_rounded
+        name: Electricity Price
+    title: Electricity
+    type: entities
+  - type: entities
+    entities:
+      - entity: sensor.powerwall_battery_now
+      - entity: binary_sensor.powerwall_charging
+      - entity: input_number.powerwall_charge_below_x_pence
+        name: Charge below Xp
+        icon: 'mdi:currency-gbp'
+      - entity: input_number.overnight_powerwall_max_charge
+        name: Max night Charge
+        icon: 'mdi:battery-charging'
+      - entity: sensor.powerwall_charge_corrected
+        name: Powerwall Charge (App %)
+      - entity: sensor.powerwall_stored_energy
+      - entity: sensor.powerwall_charge
+        name: Powerwall Charge (API %)
+    title: Powerwall
+    show_header_toggle: false
+    state_color: true
+  - type: entities
+    entities:
+      - entity: sensor.import_meter
+      - entity: sensor.export_meter
+      - entity: sensor.electricity_daily
+      - entity: sensor.electricity_weekly
+      - entity: sensor.electricity_monthly
+    title: Electricity Meters
+    show_header_toggle: false
+  - type: entities
+    entities:
+      - entity: sensor.solaredge_ac_total_current
+      - entity: sensor.solaredge_ac_voltage_phase_ab
+        name: AC Voltage
+      - entity: sensor.solaredge_ac_power_output
+      - entity: sensor.solaredge_heatsink_temp
+      - entity: sensor.solaredge_inverter_efficiency
+      - entity: sensor.solaredge_ac_frequency
+      - entity: sensor.solaredge_status
+    title: SolarEdge
+    state_color: true
+    show_header_toggle: false
+  - type: entities
+    entities:
+      - entity: sensor.solar_production_hourly
+        name: Production - This Hour
+      - entity: sensor.solar_production_daily
+        name: Production - Today
+      - entity: sensor.solar_production_weekly
+        name: Production - This Week
+      - entity: sensor.solar_production_monthly
+        name: Production - This Month
+      - entity: sensor.solaredge_lifetime_production
+    title: Solar Production
+    state_color: true
+    show_header_toggle: false
+  - entities:
+      - entity: sensor.gas_meter
+      - entity: sensor.gas_daily
+    title: Gas
+    type: entities
+  - type: entities
+    entities:
+      - entity: sensor.solcast_forecast
+        name: Today
+      - entity: sensor.solcast_forecast_tomorrow
+        name: Tomorrow
+      - entity: sensor.solcast_forecast_the_day_after_tomorrow
+        name: Day After Tomorrow
+      - entity: sensor.solcast_remaining_api_count
+        name: API Calls Remaining
+      - entity: sensor.solcast_upload
+        name: Latest Upload Result
+    title: SolCast - Solar Forecast
+  - type: entities
+    title: VoltAware
+    entities:
+      - entity: sensor.voltaware_v
+      - entity: sensor.voltaware_i
+      - entity: sensor.voltaware_phase
+      - entity: sensor.voltaware_frequency
+      - entity: sensor.voltaware_active_power
+      - entity: sensor.voltaware_reactive_power
+      - entity: sensor.voltaware_active_exp
+      - entity: sensor.voltaware_active_imp
+      - entity: sensor.voltaware_active_net
+      - entity: sensor.voltaware_reactive_exp
+      - entity: sensor.voltaware_reactive_imp
+      - entity: sensor.voltaware_reactive_net

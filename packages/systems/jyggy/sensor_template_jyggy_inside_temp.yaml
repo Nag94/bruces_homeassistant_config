@@ -1,0 +1,8 @@
+sensor:
+  - platform: template
+    sensors:
+      jyggy_inside_temp:
+        friendly_name: "Inside Temp"
+        value_template: "{{ state_attr('sensor.jyggy_sensor','inside_temp') }}"
+        device_class: temperature
+        unit_of_measurement: '°C'

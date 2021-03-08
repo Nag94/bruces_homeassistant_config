@@ -1,0 +1,26 @@
+sensor:
+  - platform: template
+    sensors:
+        solaredge_status:
+            friendly_name: "SolarEdge Status"
+            value_template: >-
+              {% if state_attr('sensor.solaredge_modbus', 'status') == 1 %}
+                Off
+              {% elif state_attr('sensor.solaredge_modbus', 'status') == 2 %}
+                Sleep
+              {% elif state_attr('sensor.solaredge_modbus', 'status') == 3 %}
+                Wake-Up
+              {% elif state_attr('sensor.solaredge_modbus', 'status') == 4 %}
+                Working
+              {% elif state_attr('sensor.solaredge_modbus', 'status') == 5 %}
+                Throttled
+              {% elif state_attr('sensor.solaredge_modbus', 'status') == 6 %}
+                Shut-Down
+              {% elif state_attr('sensor.solaredge_modbus', 'status') == 7 %}
+                Fault
+              {% elif state_attr('sensor.solaredge_modbus', 'status') == 8 %}
+                Maintenance
+              {% else %}
+                Unknown
+              {% endif %}
+    

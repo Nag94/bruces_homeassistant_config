@@ -1,0 +1,8 @@
+sensor:
+  - platform: template
+    sensors:
+      solaredge_connected_optimisers:
+        friendly_name_template: 'Solaredge Connected Optimisers'
+        value_template: "{{ state_attr('sensor.solaredge_inverters','inverters')[0].connectedOptimizers }}"
+        icon_template: mdi:solar-power
+ 

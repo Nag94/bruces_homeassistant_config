@@ -1,0 +1,50 @@
+automation:
+  - id: kates_door_left_open
+    alias: 'Kates Door Left Open'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.kates_bedroom_door        
+        to: 'on'
+        for: '00:00:20'
+      - platform: state
+        entity_id: binary_sensor.kates_bedroom_door        
+        to: 'off'
+    action:
+      - choose:
+      - choose:
+            # Open - previous message sent
+          - conditions: "{{ is_state('binary_sensor.kates_bedroom_door','on') and (states('input_text.kate_door_message_id') | int) > 0 }}"    
+            sequence:
+              - service: telegram_bot.delete_message
+                data:
+                  message_id: "{{ states('input_text.kate_door_message_id') }}"
+                  chat_id: !secret telegram_chat_id_bruce_and_sarah
+              - service: telegram_bot.send_message
+                data:
+                  target: !secret telegram_chat_id_bruce_and_sarah
+                  message_tag: kate_door
+                  message: "Kate's door is open"
+            # Closed - previous message sent
+          - conditions: "{{ is_state('binary_sensor.kates_bedroom_door','off') and (states('input_text.kate_door_message_id') | int) > 0 }}"    
+            sequence:
+              - service: telegram_bot.delete_message
+                data:
+                  message_id: "{{ states('input_text.kate_door_message_id') }}"
+                  chat_id: !secret telegram_chat_id_bruce_and_sarah
+              - service: input_text.set_value
+                data:
+                  entity_id: input_text.kate_door_message_id
+                  value: 0
+              - service: telegram_bot.send_message
+                data:
+                  target: !secret telegram_chat_id_bruce_and_sarah
+                  message: "Kate's door is closed"        
+            # Open - no previous message sent
+          - conditions: "{{ is_state('binary_sensor.kates_bedroom_door','on')  }}"    
+            sequence:
+              - service: telegram_bot.send_message
+                data:
+                  target: !secret telegram_chat_id_bruce_and_sarah
+                  message_tag: kate_door
+                  message: "Kate's door is open"
+                  

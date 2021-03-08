@@ -1,0 +1,28 @@
+sensor:
+  - platform: rest
+    name: voltaware
+#    resource: http://192.168.xxx.xxx/getmeterdata    
+    resource: !secret voltaware_resource
+    scan_interval: 20
+    timeout: 10
+    device_class: timestamp
+    headers:
+      User-Agent: Home Assistant
+      Content-Type: application/json
+      Accept: application/json
+    value_template:  "{{ value_json.time | replace(', ','T')}}+00:00"
+    json_attributes_path: '$.channels[0]'
+    json_attributes:
+      - V                  # Voltage (V)
+      - I                  # Current (A)
+      - active_net         # net Active Energy - P (Wh)
+      - active_imp         # consumed energy - P (Wh)
+      - active_exp         # produced energy - P (Wh)
+      - reactive_net       # net reactive energy - Q (varh)
+      - reactive_imp       # consumed energy - Q (varh)     
+      - reactive_exp       # produced energy - Q (varh)      
+      - phase              # phase shift (degrees)
+      - frequency          # frequency (Hz)
+      - active_power       # P (W)
+      - reactive_power     # Q (VAR)
+

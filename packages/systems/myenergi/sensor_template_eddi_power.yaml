@@ -1,0 +1,10 @@
+sensor:
+  - platform: template
+    sensors:
+      eddi_power:
+        friendly_name: 'Eddi - Power'
+        availability_template: "{{ states('sensor.eddi') }}"        
+        value_template: "{% if state_attr('sensor.eddi','div') | float > 0.0 %}{{ (state_attr('sensor.eddi','div') / 1000 ) | round(2) }}{% else %}0.0{% endif %}"
+        unit_of_measurement: kW
+        device_class: power        
+        icon_template: mdi:water-boiler

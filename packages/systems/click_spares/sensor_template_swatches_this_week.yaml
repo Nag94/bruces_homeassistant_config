@@ -1,0 +1,7 @@
+sensor:
+  - platform: template
+    sensors:
+      swatches_this_week:
+        friendly_name: "Swatches This Week"
+        availability_template: "{{ states('sensor.click_stats') }}"
+        value_template: "{{ state_attr('sensor.click_stats','ThisWeeksDespatches_Swatches') | int }}"

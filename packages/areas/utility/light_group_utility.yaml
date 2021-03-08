@@ -1,0 +1,5 @@
+light:          
+  - platform: group
+    name: Utility Lights
+    entities:
+    - light.utility_light

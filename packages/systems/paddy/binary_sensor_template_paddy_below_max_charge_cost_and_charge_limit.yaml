@@ -1,0 +1,7 @@
+binary_sensor:
+  - platform: template
+    sensors:
+      paddy_below_max_charge_cost_and_charge_limit:
+        friendly_name: "Below max charge cost"
+        availability_template:  "{{ states('sensor.octopus_agile_current_rate') != 'unknown' }}"        
+        value_template: "{{((states('sensor.octopus_agile_current_rate') | float) <= (states('input_number.paddy_charge_below_x_pence') | float)) and ((states('sensor.vf1ag000366115079_battery_level') | float) <= (states('input_number.paddy_charge_limit') | float)) }}"

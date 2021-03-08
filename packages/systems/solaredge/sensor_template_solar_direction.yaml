@@ -1,0 +1,25 @@
+sensor:
+  - platform: template
+    sensors:
+      solar_direction:
+        friendly_name: "SolarEdge Status"
+        value_template: >-
+          {% if state_attr('sensor.solaredge_modbus', 'status') == 1 %}
+            off
+          {% elif state_attr('sensor.solaredge_modbus', 'status') == 2 %}
+            off
+          {% elif state_attr('sensor.solaredge_modbus', 'status') == 3 %}
+            off
+          {% elif state_attr('sensor.solaredge_modbus', 'status') == 4 %}
+            import
+          {% elif state_attr('sensor.solaredge_modbus', 'status') == 5 %}
+            off
+          {% elif state_attr('sensor.solaredge_modbus', 'status') == 6 %}
+            off
+          {% elif state_attr('sensor.solaredge_modbus', 'status') == 7 %}
+            Fault
+          {% elif state_attr('sensor.solaredge_modbus', 'status') == 8 %}
+            Fault
+          {% else %}
+            Fault
+          {% endif %}   

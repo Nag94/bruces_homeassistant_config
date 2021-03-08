@@ -1,0 +1,7 @@
+sensor:
+  - platform: template
+    sensors:
+        solaredge_ac_voltage_phase_ab:
+            friendly_name: "SolarEdge AC Output Voltage (A-B)"
+            value_template: "{{ state_attr('sensor.solaredge_modbus', 'ac_voltage_phase_ab') }}"
+            device_class: voltage

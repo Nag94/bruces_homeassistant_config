@@ -1,0 +1,7 @@
+sensor:
+  - platform: template
+    sensors:
+      floorplan_powerwall_home_load:
+        friendly_name: "Powerwall Home Load"
+        unit_of_measurement: 'kW'
+        value_template: "{{ (states('sensor.powerwall_load_now') | float) | round(1) }}"

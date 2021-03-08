@@ -1,0 +1,11 @@
+sensor:
+  - platform: template
+    sensors:
+      harvi_home_with_cars:
+        friendly_name_template: 'Harvi - Home incl. Cars'
+        # Grid + Solar + Powerwall
+        availability_template: "{{ states('sensor.zappi_jyggy') and states('sensor.harvi') }}"
+        value_template: "{{ ((  state_attr('sensor.zappi_jyggy','ectp2') | float + state_attr('sensor.harvi','ectp2') | float + state_attr('sensor.harvi','ectp3') | float ) / 1000) | round(1) }}"
+        unit_of_measurement: 'kW'
+        icon_template: mdi:home
+        device_class: power       

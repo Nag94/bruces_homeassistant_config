@@ -1,0 +1,24 @@
+sensor:
+  - platform: rest
+    name: powerwall local status
+    resource: !secret powerwall_status_url
+    scan_interval: 3600
+    timeout: 60
+#    authentication: digest
+#    username: !secret myenergi_serial
+#    password: !secret myenergi_password
+ #   headers:
+ #     User-Agent: Home Assistant
+ #     Content-Type: application/json
+ #     Accept: application/json
+    value_template:  "{{ value_json.version }}"
+    json_attributes_path: '$'
+    json_attributes:
+      - start_time         # 2020-12-29 14:48:06 +0800
+      - up_time_seconds
+      - is_new             # false
+      - version            # 20.4.3
+      - git_hash           
+      - commission_count   # 0
+      - device_type        # teg
+      - sync_type          # v2.1

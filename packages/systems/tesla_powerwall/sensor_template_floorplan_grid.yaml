@@ -1,0 +1,7 @@
+sensor:
+  - platform: template
+    sensors:
+      floorplan_powerwall_grid:
+        friendly_name: "Grid Load"
+        unit_of_measurement: 'kW'
+        value_template: "{{ states('sensor.powerwall_site_now') | round(2) }}"

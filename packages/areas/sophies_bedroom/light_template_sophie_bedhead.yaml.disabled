@@ -1,0 +1,16 @@
+light:
+  - platform: template
+    lights:
+      sophies_bedroom_bedhead:
+        friendly_name: "Sophies Bedroom Bedhead"
+        value_template: "{{ states('switch.sophie_bedhead') }}"
+        turn_on:
+          service: switch.turn_on
+          entity_id: switch.sophie_bedhead
+        turn_off:
+          service: switch.turn_off
+          entity_id: switch.sophie_bedhead
+        set_level:
+          service: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
+          entity_id: switch.sophie_bedhead
+

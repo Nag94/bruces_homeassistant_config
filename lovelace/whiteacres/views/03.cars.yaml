@@ -1,0 +1,90 @@
+title: cars
+path: cars
+icon: 'mdi:car-electric'
+badges: []
+cards:
+  - type: entities
+    entities:
+      - entity: device_tracker.vf1ag000366115079_location
+      - entity: sensor.vf1ag000366115079_charge_state
+      - entity: sensor.vf1ag000366115079_mileage
+      - entity: sensor.vf1ag000366115079_battery_level
+        name: Battery Level
+      - entity: sensor.paddy_charging_power
+      - entity: sensor.vf1ag000366115079_charging_remaining_time
+      - entity: sensor.vf1ag000366115079_plug_state
+      - entity: input_boolean.charge_paddy_when_below_set_price
+        name: Charge below set price
+      - entity: input_number.paddy_charge_below_x_pence
+        name: Charge below x pence
+      - entity: input_number.paddy_charge_limit
+        name: Charge Limit
+#      - entity: sensor.zappi_paddy
+#        name: Zappi Charge Mode
+      - entity: sensor.zappi_paddy_power
+        name: Zappi Power
+      - entity: input_select.zappi_paddy_charge_mode
+        name: Zappi Charge Mode                
+#      - entity: sensor.zappi_paddy_cmt
+#        name: Zappi Command Result 
+    title: Paddy
+    show_header_toggle: false
+  - entities:
+      - entity: sensor.jyggy_location
+        icon: 'mdi:car'
+        name: Last Location
+      - entity: sensor.jyggy_carstate
+        icon: 'mdi:car'
+        name: State
+      - entity: sensor.jyggy_odometer
+        name: Mileage
+      - entity: sensor.jyggy_inside_temp
+        name: Inside Temp
+      - entity: sensor.jyggy_outside_temp
+        name: Outside Temp
+      - entity: sensor.jyggy_battery_level
+        name: Battery Level
+      - entity: switch.jyggy_charging
+        name: Charging?
+      - entity: sensor.jyggy_charging_state
+#      - entity: sensor.jyggy_charge_cable
+      - entity: input_boolean.charge_jyggy_when_below_set_price
+        name: Charge below set price
+      - entity: input_number.jyggy_charge_below_x_pence
+        name: Charge Below x pence
+#      - entity: sensor.jyggy_charge_limit_soc
+#        name: Charge Limit
+      - entity: input_number.jyggy_charge_limit
+        name: Charge Limit
+#      - entity: sensor.zappi_jyggy
+#        name: Zappi Charge Mode
+      - entity: sensor.zappi_jyggy_power
+        name: Zappi Power
+      - entity: input_select.zappi_jyggy_charge_mode
+        name: Zappi Charge Mode       
+#      - entity: sensor.zappi_jyggy_cmt
+#        name: Zappi Command Result
+    show_header_toggle: false
+    title: Jyggy
+    type: entities
+  - card:
+      show_header_toggle: false
+      title: Active Alerts
+    entities:
+      - alert.jyggy_doors_unlocked
+    show_empty: false
+    state_filter:
+      - operator: '!='
+        value: idle
+    type: entity-filter
+  - icon: 'mdi:menu'
+    show_icon: true
+    show_name: false
+    styles:
+      card:
+        - height: 90px
+    tap_action:
+      action: navigate
+      haptic: success
+      navigation_path: /lovelace-switchboard/menu
+    type: 'custom:button-card'

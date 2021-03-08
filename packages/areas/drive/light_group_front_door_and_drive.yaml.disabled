@@ -1,0 +1,9 @@
+# Now done with Zigbee Group
+light:          
+  - platform: group
+    name: Front Door and Drive
+    entities:
+    - light.front_door_1
+    - light.front_door_2
+    - light.drive_1
+    - light.drive_2

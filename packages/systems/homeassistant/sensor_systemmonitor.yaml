@@ -1,0 +1,20 @@
+sensor:      
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /dev/shm
+      - type: disk_use_percent
+        arg: /
+      - type: disk_use_percent
+        arg: /data        
+      - type: memory_free
+      - type: load_1m
+      - type: load_5m
+      - type: load_15m      
+      - type: processor_use
+      - type: network_in 
+        arg: eth0
+      - type: network_out 
+        arg: eth0
+      - type: last_boot
+      - type: processor_temperature

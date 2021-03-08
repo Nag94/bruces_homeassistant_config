@@ -1,0 +1,13 @@
+automation:
+  - id: turn_on_s_heating
+    alias: Turn on Sophie heating
+    trigger:
+      platform: event
+      event_type: ios.notification_action_fired
+      event_data:
+        actionName: TURN_ON_S_HEATING
+    action:
+      - service: climate.set_hvac_mode
+        data: 
+          entity_id: climate.sophies_bedroom_rad
+          hvac_mode: auto

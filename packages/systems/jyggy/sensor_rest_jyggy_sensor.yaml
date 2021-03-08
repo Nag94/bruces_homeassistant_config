@@ -1,0 +1,42 @@
+sensor:
+  - platform: rest
+    name: Jyggy Sensor
+    #https://www.teslafi.com/feed.php?token=xxxxxxxxxxxxxxxxxxxx&command=lastGood
+    resource: !secret teslafi_resource_last_good
+    value_template: "OK"
+    scan_interval: 60
+    json_attributes:
+      - location
+      - conn_charge_cable
+      - battery_level
+      - charge_limit_soc
+      - outside_temp
+      - inside_temp
+      - latitude
+      - longitude
+      - gps_as_of
+      - carState
+      - time_to_full_charge
+      - battery_heater_on
+      - scheduled_charging_start_time
+      - speed
+      - shift_state
+      - odometer
+      - charging_state
+      - car_version
+      - distFromHome
+      - software_update
+      - locked
+      - charger_voltage
+      - charger_actual_current
+
+          
+          
+          
+          
+          
+          
+          
+
+
+          

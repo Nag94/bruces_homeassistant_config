@@ -1,0 +1,24 @@
+automation:
+  - id: kitchen_lights_when_door_opened
+    alias: Kitchen Lights on from door
+    description: Kitchen Lights on when door opened
+    mode: restart
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.kitchen_door
+        from: 'off'
+        to: 'on'
+    condition:
+      - condition: state
+        entity_id: sensor.dark_outside
+        state: 'True'
+      - condition: state
+        entity_id: light.kitchen_lights
+        state: 'off'
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: 
+            - light.kitchen_floor_lamp
+            - light.kitchen_cupboard
+          brightness: 75

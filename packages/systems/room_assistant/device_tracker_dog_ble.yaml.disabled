@@ -1,0 +1,7 @@
+device_tracker:
+  - platform: mqtt
+    devices:
+      dog: 'room-assistant/device_tracker/ble-2c483590281d-tracker'
+    payload_home: 'true'
+    payload_not_home: 'false'
+    source_type: bluetooth

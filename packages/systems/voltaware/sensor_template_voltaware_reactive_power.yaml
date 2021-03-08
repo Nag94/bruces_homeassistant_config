@@ -1,0 +1,8 @@
+sensor:
+  - platform: template
+    sensors:
+      voltaware_reactive_power:
+        friendly_name_template: 'Q'
+        value_template: "{{ state_attr('sensor.voltaware','reactive_power') }}"
+        unit_of_measurement: 'VAR'
+                   

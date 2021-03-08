@@ -1,0 +1,37 @@
+automation:
+  - id: tray_flic_click
+    alias: Litter Tray from Flic click
+    description: Little Tray 
+    mode: queued
+    trigger:
+      platform: event
+      event_type: flic
+      event_data:
+        type: littertray
+    action:       
+      - choose:
+          - conditions: >
+              {{ trigger.event.data.click_type == 'reset' }}
+            sequence:
+              - service: counter.reset
+                data:
+                  entity_id: "counter.litter{{trigger.event.data.button_name}}_poo"
+              - service: counter.reset
+                data:
+                  entity_id: "counter.litter{{trigger.event.data.button_name}}_wee"
+              - service: input_datetime.set_datetime
+                data:
+                  entity_id: "input_datetime.litter{{trigger.event.data.button_name}}"
+                  datetime: "{{ now() }}"       
+              - service: input_datetime.set_datetime
+                data:
+                  entity_id: "input_datetime.litter{{trigger.event.data.button_name}}_last_clean"
+                  datetime: "{{ now() }}"
+        default:
+          - service: counter.increment
+            data:
+              entity_id: "counter.litter{{ trigger.event.data.button_name}}_{{trigger.event.data.click_type}}"
+          - service: input_datetime.set_datetime
+            data:
+              entity_id: "input_datetime.litter{{trigger.event.data.button_name}}_last_clean"
+              datetime: "{{ now() }}"

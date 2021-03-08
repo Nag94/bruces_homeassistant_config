@@ -1,0 +1,5 @@
+light:          
+  - platform: group
+    name: Drum Room Lights
+    entities:
+    - light.drum_room_light

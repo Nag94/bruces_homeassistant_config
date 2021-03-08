@@ -1,0 +1,28 @@
+automation:
+  - id: flic_bedside_kate
+    alias: Kate Bedside Lights from Flic
+    description: control lights and others from Bedside Flic
+    trigger:
+      platform: event
+      event_type: flic
+      event_data:
+        button_name: bedside_kate
+    action:
+      - choose:
+          - conditions: >
+              {{ trigger.event.data.click_type == 'single' }}
+            sequence:
+              - service: light.toggle
+                entity_id: light.kates_bedroom_lamp
+          - conditions: >
+              {{ trigger.event.data.click_type == 'double' }}
+            sequence:
+              - service: "{%if is_state('light.kates_bedroom','on')%}input_boolean.turn_on{%else%}input_boolean.turn_off{%endif%}"
+                entity_id: input_boolean.kate_is_asleep
+              - service: "{%if is_state('light.kates_bedroom','on')%}light.turn_off{%else%}light.turn_on{%endif%}"
+                entity_id: light.kates_bedroom
+          - conditions: >
+              {{ trigger.event.data.click_type == 'hold' }}
+            sequence:
+              - service: light.turn_on
+                entity_id: light.kates_bedroom           

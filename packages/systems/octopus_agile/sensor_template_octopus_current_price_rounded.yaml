@@ -1,0 +1,7 @@
+sensor:
+  - platform: template
+    sensors:
+      octopus_current_price_rounded:
+        friendly_name: "p/kWh"
+        unit_of_measurement: 'p/kWh'
+        value_template: "{{ states('sensor.octopus_agile_current_rate') | round(1) }}"

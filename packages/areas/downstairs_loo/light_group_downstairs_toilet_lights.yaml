@@ -1,0 +1,5 @@
+light:          
+  - platform: group
+    name: Downstairs Toilet Lights
+    entities:
+    - light.downstairs_toilet_light

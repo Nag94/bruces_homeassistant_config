@@ -1,0 +1,7 @@
+badnest:
+  issue_token: !secret badnest_token
+  cookie: !secret badnest_cookie
+  region: us
+
+sensor:
+  - platform: badnest

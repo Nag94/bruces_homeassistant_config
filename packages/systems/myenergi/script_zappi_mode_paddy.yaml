@@ -1,0 +1,47 @@
+script:
+  zappi_mode_paddy:
+    alias: Set charging mode for Zappi - Paddy
+    icon: mdi:car-electric
+    description: Set charging mode for Zappi
+    fields:
+      mode:
+        description: 'what charging mode? Fast, Eco, Eco+, Stopped'
+        example: 'Fast'
+    sequence:
+      - service: shell_command.zappi_set_mode
+        data:
+          myenergi_serial: !secret myenergi_serial
+          myenergi_password: !secret myenergi_password
+          zappi_serial: !secret zappi_serial_paddy
+          zappi_mode: "{% set mapper = {'Fast':'1','Eco': '2','Eco+':'3','Stopped':'4'} %}{{mapper[mode]}}"
+      - alias: repeat this
+        repeat:
+          sequence:
+            - delay: '00:00:05'              
+            - service: homeassistant.update_entity
+              entity_id: sensor.zappi_paddy_cmt
+          until: "{{ states('sensor.zappi_paddy_cmt') != 'Pending' }}"
+      - delay: '00:00:01'
+      - service: homeassistant.update_entity
+        entity_id: sensor.zappi_paddy        
+      - condition: state
+        entity_id: sensor.zappi_paddy_cmt
+        state: 'Failed'
+      - service: input_select.select_option
+        data: 
+          entity_id: input_select.zappi_paddy_charge_mode
+          option: "{{ states('sensor.zappi_paddy') }}"        
+      - service: telegram_bot.send_message
+        data:
+          target: !secret telegram_chat_id_bruce_and_sarah               
+          message: >
+            Zappi Paddy failed to change to {{mode}}
+            
+            Currently set to {{ states('sensor.zappi_paddy') }}
+            
+            Last Online at: {{ state_attr('sensor.zappi_paddy','dat') + ' ' + state_attr('sensor.zappi_paddy','tim') }}
+          inline_keyboard:
+            - 'Fast:/paddy_fast, Eco+:/paddy_ecoplus'
+            - 'Eco:/paddy_eco, Stop:/paddy_stop' 
+            - 'Refresh:/paddy_refresh, OK:/remove_keyboard'          
+          

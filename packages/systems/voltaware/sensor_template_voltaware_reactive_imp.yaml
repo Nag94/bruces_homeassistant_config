@@ -1,0 +1,7 @@
+sensor:
+  - platform: template
+    sensors:
+      voltaware_reactive_imp:
+        friendly_name_template: 'Consumed Energy (Q)'
+        value_template: "{{ state_attr('sensor.voltaware','reactive_imp') / 1000 }}"
+        unit_of_measurement: 'varh'
