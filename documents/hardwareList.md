@@ -21,6 +21,7 @@ Details of [add-ons and integrations](HA_integrations_and_addons.md)
 * [Philips Hue Bridge](https://www.philips-hue.com/en-gb/p/hue-hue-bridge/8718696516850) v2 (Square)
 * [Smart Button](https://www.philips-hue.com/en-gb/p/hue-smart-button/8718699693985) x 8
 * [Dimmer Switch](https://www.philips-hue.com/en-gb/p/hue-dimmer-switch/8718696743157) x 6
+* Lily Outdoor Spots x 3
 * Ambiance Spot x 7
 * Color Lamp x 7
 * Lightstrip Plus v3 x 3
@@ -73,7 +74,7 @@ Details of [add-ons and integrations](HA_integrations_and_addons.md)
 
 # Ceiling Fans
 * Fantasia Fan x 2
-* Wi-Fi [Sonoff iFan03 x 2](https://sonoff.tech/product/wifi-diy-smart-switches/ifan03)
+* Wi-Fi [Sonoff iFan03](https://sonoff.tech/product/wifi-diy-smart-switches/ifan03) x 2
 
 # Electric Blankets
 * Controlled by zigbee smart plugs
@@ -82,7 +83,7 @@ Details of [add-ons and integrations](HA_integrations_and_addons.md)
 * Monitored by Kasa Power monitoring Plug
 
 # WirelessTags
-* [Wireless Sensor Tags](https://wirelesstag.net/) x ?
+* [Wireless Sensor Tags](https://wirelesstag.net/) x 4
 
 # Intruder Alarm
 * [Texecom Elite Alarm Panel](https://www.texe.com/uk/products/series/control-panels/premier-elite-series/)
@@ -106,6 +107,7 @@ Details of [add-ons and integrations](HA_integrations_and_addons.md)
 * [G3 Flex](https://eu.store.ui.com/collections/unifi-protect-cameras/products/unifi-video-g3-flex-camera) x 7 
 * [G4 Bullet](https://eu.store.ui.com/collections/unifi-protect-cameras/products/unifi-protect-g4-bullet-camera) x 2
 * [G4 Pro](https://eu.store.ui.com/collections/unifi-protect-cameras/products/unifi-protect-g4-pro-camera) x 2
+* [G4 Doorbell](https://store.ui.com/collections/unifi-protect-cameras/products/uvc-g4-doorbell)
 
 # Network (Unifi)
 * [Dream Machine](https://eu.store.ui.com/collections/unifi-network-routing-switching/products/unifi-dream-machine)
@@ -155,6 +157,9 @@ Details of [add-ons and integrations](HA_integrations_and_addons.md)
 
 # Dog Activity Tracker
 * [Surepet Animo](https://www.surepetcare.com/en-gb/animo) - linked into room presence system
+
+# Bluetooth LE Tracker Card
+* Credit Card Bluetooth LE Tracker (mainly as Driver ID for my car tracker)
 
 # SONOS
 * [SONOS One](https://www.sonos.com/en-gb/shop/one.html) (with Alexa) x 4
