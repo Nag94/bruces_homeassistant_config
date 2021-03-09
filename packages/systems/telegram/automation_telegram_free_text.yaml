@@ -269,8 +269,8 @@ automation:
               - service: telegram_bot.send_message
                 data:
                   target: "{{trigger.event.data.chat_id}}"
-                  message: "Paddy ({{ states('sensor.vf1ag000366115079_battery_level') }}%) is {% if states('sensor.zappi_paddy_mode') != 'Stopped' %}Charging ({{ states('sensor.zappi_paddy_mode') }}) @ {{ states('sensor.zappi_paddy_power') }}kW{% elif is_state('sensor.zappi_paddy_status','EV Connected') %}Plugged in{% elif is_state('device_tracker.vf1ag000366115079_location','home') or is_state('device_tracker.vf1ag000366115079_location','Home') %}unplugged{% else %}not at home{% endif %}
-                inline_keyboard:
+                  message: "Paddy ({{ states('sensor.vf1ag000366115079_battery_level') }}%) is {% if states('sensor.zappi_paddy_mode') != 'Stopped' %}Charging ({{ states('sensor.zappi_paddy_mode') }}) @ {{ states('sensor.zappi_paddy_power') }}kW{% elif is_state('sensor.zappi_paddy_status','EV Connected') %}Plugged in{% elif is_state('device_tracker.vf1ag000366115079_location','home') or is_state('device_tracker.vf1ag000366115079_location','Home') %}unplugged{% else %}not at home{% endif %}"
+                  inline_keyboard:
                     - 'Fast:/paddy_fast, Eco+:/paddy_ecoplus'
                     - 'Eco:/paddy_eco, Stop:/paddy_stop' 
                     - 'Refresh:/paddy_refresh, OK:/remove_keyboard'         
