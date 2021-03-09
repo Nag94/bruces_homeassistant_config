@@ -307,7 +307,7 @@ elements:
               - type: conditional
                 conditions: 
                   - entity: sensor.zappi_jyggy_mode
-                    state: fast
+                    state: Fast
                 elements:
                   - type: icon
                     icon: 'mdi:flash'
@@ -503,7 +503,7 @@ elements:
         ################################################ 
           - type: conditional
             conditions: 
-              - entity: sensor.zappi_jyggy_status
+              - entity: sensor.zappi_paddy_status
                 state: Charging
             elements:
               - type: conditional
@@ -552,7 +552,7 @@ elements:
               - type: conditional
                 conditions: 
                   - entity: sensor.zappi_paddy_mode
-                    state: eco
+                    state: Eco
                 elements:
                   - type: icon
                     icon: 'mdi:flash'
@@ -589,7 +589,7 @@ elements:
               - type: conditional
                 conditions: 
                   - entity: sensor.zappi_paddy_mode
-                    state: fast
+                    state: Fast
                 elements:
                   - type: icon
                     icon: 'mdi:flash'
