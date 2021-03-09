@@ -1,4 +1,4 @@
-`# Home Assistant Server Add-ons and Integrations
+# Home Assistant Server Add-ons and Integrations
 
 ## Add-Ons
 * [File Editor](https://github.com/home-assistant/addons/tree/master/configurator) - Edit YAML from browser
@@ -18,7 +18,6 @@
 * [AccuWeather](https://www.home-assistant.io/integrations/accuweather/) - Weather Forecasting
 * [Apple TV](https://www.home-assistant.io/integrations/apple_tv) - Apple TV status and remote control - 1 per device
 * [Denon AVR](https://www.home-assistant.io/integrations/denonavr) - AV Amplifier status and control
-* [~~GDACS~~](https://www.home-assistant.io/integrations/gdacs) - Disaster notification
 * [Google Cast](https://www.home-assistant.io/integrations/cast) - For Casting to TV / Chromecast
 * [~~Hive~~](https://www.home-assistant.io/integrations/hive) - Hive Heating - Using Custom component at the moment
 * [HomeKit](https://www.home-assistant.io/integrations/homekit) - To make Home Assistant accessible through Siri / iPhone - 1 per camera or TV, 1 for other devices
