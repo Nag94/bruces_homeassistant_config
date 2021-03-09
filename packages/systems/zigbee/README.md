@@ -3,9 +3,11 @@
 On Zigbee I have.....
 * Aqara Door sensors
 * Smart Plugs
+* Environment Sensor (Temp / Humidity / CO2)
 
 and Hue products that are not on the Hue Bridge
 * Hue bulbs
+* Hue Dimmers
 * outdoor movement sensors
 * indoor movements sensors
 
