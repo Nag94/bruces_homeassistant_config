@@ -96,6 +96,7 @@ Details of [add-ons and integrations](HA_integrations_and_addons.md)
 * [La-Z-Spa Helsinki with wi-fi Egg](https://www.lay-z-spa.co.uk/lay-z-spa-helsinki-airjet-hot-tub.html)
 
 # Hive
+* [Hive Hub](https://www.hivehome.com/) (Square wired ethernet)
 * [Hive Thermostat](https://www.hivehome.com/products/hive-active-heating)
 * [Hive Link](https://www.hivehome.com/products/hive-active-heating)
 * [Hive TRV](https://www.hivehome.com/products/hive-radiator-valve) x ?
