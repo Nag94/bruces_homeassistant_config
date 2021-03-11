@@ -126,6 +126,7 @@ Details of [add-ons and integrations](HA_integrations_and_addons.md)
 
 # Solar 13.12 kWp
 * [Solaredge 8000W HD-Wave inverter](https://www.solaredge.com/uk/products/pv-inverter/single-phase#/)
+* [Solaredge Modbus Meter](https://www.solaredge.com/uk/products/metering-and-sensors/solaredge-modbus-meter#/)
 * [Perlight Mono](http://www.perlight.com/mono) Black+ 320W panels (PLM-320MB-60) x 41
 * [Solaredge P370 Optimiser](https://www.solaredge.com/uk/products/power-optimizer#/) x 41
 * [Elster Single Phase Meter A100C](https://www.rayleigh.com/elster-a100c-mid-certified-single-phase-class-1-solar-generation-meter.html)
@@ -135,7 +136,8 @@ Details of [add-ons and integrations](HA_integrations_and_addons.md)
 * Tesla Backup Gateway
 
 # Smart Meter
-* SMETS2 Meter
+* SMETS2 Electric Meter [Kaifa MA120](https://zigbeealliance.org/zigbee_products/kaifa-ma120-single-phase-electricity-meter-2/)
+* Gas Meter
 * [Hildebrand Bright (IHD / CAD)](https://www.hildebrand.co.uk/our-products/display/)
 
 # Electric Cars 
