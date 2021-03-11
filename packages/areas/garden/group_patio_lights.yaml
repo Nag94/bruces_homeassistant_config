@@ -7,3 +7,5 @@ group:
     - light.patio_gazebo_wall
     - light.patio_garage
     - light.back_door
+    - light.garden_colour
+    - light.shed_light
