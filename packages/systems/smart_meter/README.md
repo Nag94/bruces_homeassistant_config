@@ -1,5 +1,8 @@
 # Smart Meters
 
+* Electric Meter [Kaifa MA120](https://zigbeealliance.org/zigbee_products/kaifa-ma120-single-phase-electricity-meter-2/)
+* Gas Meter
+
 The electric and gas meters are connected to a [Hildebrand IHD/CAD](https://www.hildebrand.co.uk/our-products/display/).
 This takes live data from the Smart meters through the Secure Zigbee PAN.
 This is then made available through an API and an MQTT server.
