@@ -5,17 +5,17 @@ automation:
     trigger: 
       - platform: state
         entity_id: 
-          - binary_sensor.back_door        
-          - binary_sensor.back_gate_door
-          - binary_sensor.conservatory_door   
-          - binary_sensor.patio_motion    
+          - binary_sensor.back_door         
+          - binary_sensor.back_gate_door 
+          - binary_sensor.conservatory_door    
+          - binary_sensor.patio_motion     
           - binary_sensor.patio_garage_motion
         to: 'on'
       - platform: state
         entity_id: 
-          - binary_sensor.motion_gazebo
-          - binary_sensor.motion_bins
-          - binary_sensor.motion_patio
+          - binary_sensor.motion_gazebo 
+          - binary_sensor.motion_bins 
+          - binary_sensor.motion_patio 
         to: person
         attribute: event_object   
     condition:
@@ -26,8 +26,58 @@ automation:
         entity_id: input_boolean.patio_lights_manually_on
         state: 'off'
     action:
-      - service: light.turn_on
-        entity_id: light.patio_lights
-      - delay: 00:02:00
-      - service: light.turn_off
-        entity_id: light.patio_lights        
+      - choose:
+          - conditions: "{{ trigger.entity_id in ['binary_sensor.back_door','binary_sensor.back_gate_door','binary_sensor.motion_bins'] }}"
+            sequence:
+              - service: light.turn_on
+                entity_id: 
+                  - light.back_door
+                  - light.patio_light
+              - delay: 00:02:00
+              - service: light.turn_off
+                entity_id: 
+                 - light.patio_lights   
+                 - light.back_door
+                 - light.shed_outside_lights
+          - conditions: "{{ trigger.entity_id in ['binary_sensor.conservatory_door','binary_sensor.motion_patio','binary_sensor.patio_motion'] }}"
+            sequence:
+              - service: light.turn_on
+                entity_id: 
+                  - light.garden_colour
+                  - light.patio_light
+              - delay: 00:02:00
+              - service: light.turn_off
+                entity_id: 
+                 - light.patio_lights   
+                 - light.back_door
+                 - light.shed_outside_lights
+   
+          - conditions: "{{ trigger.entity_id == 'binary_sensor.motion_gazebo' }}"
+            sequence:
+              - service: light.turn_on
+                entity_id: 
+                  - light.garden_colour
+                  - light.patio_gazebo
+                  - light.patio_gazebo_wall
+                  - light.garden_colour
+                  - light.shed_outside_lights
+              - delay: 00:02:00
+              - service: light.turn_off
+                entity_id: 
+                 - light.patio_lights   
+                 - light.back_door
+                 - light.shed_outside_lights
+     
+          - conditions: "{{ trigger.entity_id == 'binary_sensor.patio_garage_motion' }}"
+            sequence:
+              - service: light.turn_on
+                entity_id: 
+                  - light.shed_outside_lights
+                  - light.patio_garage
+              - delay: 00:02:00
+              - service: light.turn_off
+                entity_id: 
+                 - light.patio_lights   
+                 - light.back_door
+                 - light.shed_outside_lights
+             

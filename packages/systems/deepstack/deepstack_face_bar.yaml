@@ -1,9 +1,7 @@
 image_processing:
   - platform: deepstack_face
-    ip_address: 192.168.11.84
-#    port: 5000
+    ip_address: !secret jetson_nano_ip
     port: 80
-#    api_key: mysecretkey
     timeout: 5
     detect_only: False
     save_file_folder: /config/snapshots/

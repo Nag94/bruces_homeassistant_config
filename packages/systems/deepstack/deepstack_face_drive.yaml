@@ -1,6 +1,6 @@
 image_processing:
   - platform: deepstack_face
-    ip_address: 192.168.11.84
+    ip_address: !secret jetson_nano_ip
     port: 80
     timeout: 5
     detect_only: False
