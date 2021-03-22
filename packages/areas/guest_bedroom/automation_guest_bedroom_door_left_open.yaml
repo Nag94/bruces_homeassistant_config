@@ -1,6 +1,10 @@
 automation:
   - id: guests_door_left_open
-    alias: 'Guests Door Left Open'
+    alias: "Guests Door Left Open"
+
+    description: >-
+      Warning when Guest Door left open
+
     trigger:
       - platform: state
         entity_id: binary_sensor.guest_bedroom_door
@@ -9,6 +13,7 @@ automation:
       - platform: state
         entity_id: binary_sensor.guest_bedroom_door
         to: 'off'
+
     action:
       - choose:
             # Open - previous message sent
@@ -23,6 +28,7 @@ automation:
                   target: !secret telegram_chat_id_bruce_and_sarah
                   message_tag: guest_door
                   message: "Guest's door is open"
+
             # Closed - previous message sent
           - conditions: "{{ is_state('binary_sensor.guest_bedroom_door','off') and (states('input_text.guest_door_message_id') | int) > 0 }}"   
             sequence: 
@@ -38,6 +44,7 @@ automation:
                 data:
                   target: !secret telegram_chat_id_bruce_and_sarah
                   message: "Guest's door is closed"        
+                  
             # Open - no previous message sent
           - conditions: "{{ is_state('binary_sensor.guest_bedroom_door','on')  }}"    
             sequence:

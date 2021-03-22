@@ -1,10 +1,15 @@
-# Could check for light already being on, then leave it alone ?
-# What if Hall is on, but drive is not ?
+
 
 automation:
   - id: any_motion_front_door_lights_on
-    alias: Turn on Front Door Lights in Dark with Motion
+    alias: "Turn on Front Door Lights in Dark with Motion"
     mode: restart
+
+    description: >-
+      Turn on Front Door Lights in Dark with Motion
+      Could check for light already being on, then leave it alone ?
+      What if Hall is on, but drive is not ?
+      
     trigger: 
       - platform: state
         entity_id: 
@@ -14,10 +19,12 @@ automation:
           - binary_sensor.front_door_ding
           - binary_sensor.drive_motion
         to: 'on'
+
     condition:
       - condition: state
         entity_id: binary_sensor.dark_outside
         state: 'on'
+
     action:
       - choose:
       # Door bell rang / Door Opened

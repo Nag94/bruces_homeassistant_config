@@ -2,6 +2,10 @@ automation:
   - id: dimmer_control_patio_lights
     alias: 'Dimmer Control of Patio Lights'
     mode: restart
+
+    description: >-
+      patio lights on and off with dimmer control
+
     trigger:
     - platform: event
       event_type: zha_event
@@ -9,13 +13,15 @@ automation:
         device_ieee: "00:17:88:01:04:f6:fe:76"
     - platform: state
       entity_id: light.patio_lights
-      to: 'off'      
+      to: 'off'    
+
     action:
       - choose:
           - conditions: "{{ trigger.entity_id == 'light.patio_lights' }}"
             sequence:
               - service: input_boolean.turn_off
-                entity_id: input_boolean.patio_lights_manually_on            
+                entity_id: input_boolean.patio_lights_manually_on       
+                     
         default:
           - service: input_boolean.turn_{{ trigger.event.data.args.button }}
             entity_id: input_boolean.patio_lights_manually_on

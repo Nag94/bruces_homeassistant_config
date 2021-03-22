@@ -1,13 +1,17 @@
 automation:
   - id: bar_lights_when_door_opened
     alias: "Bar Lights on from door"
-    description: Bar Lights on when door opened
     mode: restart
+
+    description: >-
+      Bar Lights on when door opened
+      
     trigger:
       - platform: state
         entity_id: binary_sensor.bar_door
         from: 'off'
         to: 'on'
+
     condition:
       - condition: state
         entity_id: binary_sensor.dark_outside
@@ -15,6 +19,7 @@ automation:
       - condition: state
         entity_id: light.bar_lights
         state: 'off'
+
     action:
       - alias: "Bar Lights on from door"
         service: light.turn_on

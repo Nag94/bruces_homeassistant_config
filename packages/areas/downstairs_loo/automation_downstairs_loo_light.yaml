@@ -1,8 +1,10 @@
 automation:
-# Door Open / Closed        
   - id: downstairs_loo_light
     alias: "Downstairs Loo Light from Door and occupancy"
-    description:  Downstairs Loo Door 
+    
+    description:  >-
+      Downstairs Loo Door controlled by door and occupancy sensor
+
     mode: restart
     trigger: 
       - platform: state
@@ -18,6 +20,7 @@ automation:
         event: start
       - platform: event
         event_type: automation_reloaded        
+
     action:
       - choose:
           # Closed

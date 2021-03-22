@@ -1,6 +1,10 @@
 automation:
   - id: downstairs_toilet_door_left_closed
     alias: "Downstairs Toilet Door Left Closed"
+    
+    description: >-
+      Telegram messages to warn that Toilet Door left closed for a long time
+
     trigger:
       - platform: state
         entity_id: binary_sensor.downstairs_toilet_door        
@@ -9,6 +13,7 @@ automation:
       - platform: state
         entity_id: binary_sensor.downstairs_toilet_door        
         to: 'on'
+        
     action:
       - choose:
             # Closed - previous message sent
