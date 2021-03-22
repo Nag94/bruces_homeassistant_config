@@ -1,6 +1,4 @@
 homekit:
-#  auto_start: false
-
   - filter:
       include_domains:
         - climate
@@ -37,7 +35,6 @@ homekit:
         - switch.sarah_is_asleep
         - switch.sophie_is_asleep
         - water_heater.hot_water
-#      - binary_sensor.bathroom_door
 #      - binary_sensor.downstairs_co
 #      - binary_sensor.downstairs_smoke
 #      - binary_sensor.garage_co
@@ -119,13 +116,13 @@ homekit:
     filter:
       include_entities:    
         - light.back_door
-        - light.conservatory_icicles
+        - light.conservatory_icicles 
         - light.conservatory_tree
         - light.downstairs_toilet_light
         - light.drive_lights
         - light.drive_curtain
         - light.drive_icicles
-        - light.drive_tree
+        - light.drive_tree 
         - light.front_door_lights
         - light.kate_lightstrip
         - light.kitchen_ceiling_1
@@ -134,7 +131,7 @@ homekit:
         - light.kitchen_cupboard
         - light.kitchen_kickboard
         - light.kitchen_worktop
-        - light.log_burner
+        - light.log_burner 
         - light.patio_garage
         - light.patio_gazebo
         - light.patio_gazebo_wall
@@ -143,7 +140,10 @@ homekit:
         - light.shed_light
         - light.shed_outside_lights
         - light.utility        
-
+        - light.garden_colour_1
+        - light.garden_colour_2
+        - light.garden_colour_3
+        
   - name: Doors
     port: 56335
     filter:
@@ -233,5 +233,11 @@ homekit:
       alarm_control_panel.full_set:
         code: 1884        
         
-        
+  - name: Zigbee Sensors
+    port: 56338
+    filter:
+      include_entities:
+        - sensor.master_bedroom_environment_co2
+        - sensor.master_bedroom_environment_humidity
+        - sensor.master_bedroom_environment_temperature
 # Put cameras into YAML, then they can have linked motion sensors ?        

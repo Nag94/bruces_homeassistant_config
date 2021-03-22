@@ -20,8 +20,8 @@ automation:
         attribute: event_object   
     condition:
       - condition: state
-        entity_id: sensor.dark_outside
-        state: 'True'
+        entity_id: binary_sensor.dark_outside
+        state: 'on'
       - condition: state
         entity_id: input_boolean.patio_lights_manually_on
         state: 'off'

@@ -20,8 +20,8 @@ automation:
         to: 'on'
     condition:
       - condition: state
-        entity_id: sensor.dark_outside
-        state: 'True'
+        entity_id: binary_sensor.dark_outside
+        state: 'on'
       - condition: state
         entity_id: light.landing_light_3
         state: 'off'
@@ -37,10 +37,10 @@ automation:
 # don't know why but this didn't work when it was a condition on the automation ?        
 #    condition:
 #      - condition: template
-#        value_template: "{{ (is_state('sensor.dark_outside','True')) and (is_state('light.landing_light_3','off')) and (state_attr('light.landing_light_1', 'brightness') == 10 or is_state('light.landing_light_1','off')) }}"
+#        value_template: "{{ (is_state('binary_sensor.dark_outside','on')) and (is_state('light.landing_light_3','off')) and (state_attr('light.landing_light_1', 'brightness') == 10 or is_state('light.landing_light_1','off')) }}"
     action:
 #      - choose:
-#          - conditions: "{{ (is_state('sensor.dark_outside','True')) and (is_state('light.landing_light_3','off')) and (state_attr('light.landing_light_1', 'brightness') == 10 or is_state('light.landing_light_1','off')) }}"
+#          - conditions: "{{ (is_state('binary_sensor.dark_outside','on')) and (is_state('light.landing_light_3','off')) and (state_attr('light.landing_light_1', 'brightness') == 10 or is_state('light.landing_light_1','off')) }}"
 #            sequence:
       - service: light.turn_on
         data:

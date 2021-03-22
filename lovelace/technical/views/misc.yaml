@@ -12,7 +12,7 @@ cards:
         icon: 'mdi:thermometer'
       - entity: sensor.outside_light
         icon: 'mdi:brightness-7'
-      - entity: sensor.dark_outside
+      - entity: binary_sensor.dark_outside
         icon: 'mdi:brightness-3'
   - type: entities
     entities:
@@ -46,7 +46,7 @@ cards:
     type: 'custom:tesla-style-solar-power-card'
   - type: history-graph
     entities:
-      - entity: sensor.dark_outside
+      - entity: binary_sensor.dark_outside
     hours_to_show: 24
     refresh_interval: 0
   - type: entities

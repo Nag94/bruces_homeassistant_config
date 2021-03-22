@@ -1,0 +1,30 @@
+script:
+  eddi_on_or_off:
+    alias: Set Power for Eddi
+    icon: mdi:water-boiler
+    description: Set Power for eddi
+    fields:
+      mode:
+        description: 'Eddi on or off?'
+        example: 'on'
+    sequence:
+      - service: shell_command.eddi_on_or_off
+        data:
+          myenergi_serial: !secret myenergi_serial
+          myenergi_password: !secret myenergi_password
+          eddi_serial: !secret eddi_serial
+          eddi_mode: "{% if mode == 'on' %}1{% else %}0{% endif %}"
+          
+
+#cgi-eddi-mode-EID-ModeNo
+#
+#Action
+#Sets the mode of the EDDI. 
+#
+#Inputs
+#EID
+#The character ‘E’ followed by the serial number of the Eddi.
+#
+#ModeNo
+#0=Stop Mode
+#1=Normal Mode

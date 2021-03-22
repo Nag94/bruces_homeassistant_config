@@ -4,4 +4,4 @@ sensor:
       eddi_active_heater:
         friendly_name: Active Heater
         availability_template: "{{ states('sensor.eddi') }}"
-        value_template: "{% if states('sensor.eddi_power') == '0' %}off{% else %}on{% endif %}"                
+        value_template: "{% if states('sensor.eddi_power') | int == 0 %}off{% else %}on{% endif %}"                

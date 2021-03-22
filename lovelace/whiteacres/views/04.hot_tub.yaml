@@ -98,6 +98,8 @@ cards:
         name: Target Temperature
       - entity: sensor.hottub_water_temp
         name: Water Temperature
+      - entity: sensor.hottub_pump_temp
+        name: Pump Temperature        
       - entity: input_datetime.hottub_ready_by
         name: Ready by
       - entity: sensor.hottub_summary

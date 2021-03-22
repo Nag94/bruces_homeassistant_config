@@ -15,10 +15,11 @@ automation:
           - conditions: "{{ trigger.entity_id == 'light.utility_light' }}"
             sequence:
               - service: input_boolean.turn_off
-                entity_id: input_boolean.utility_light_manually_on            
-        default:
-          - service: input_boolean.turn_{{ trigger.event.data.args.button }}
-            entity_id: input_boolean.utility_light_manually_on
-          - service: light.turn_{{ trigger.event.data.args.button }}
-            entity_id: light.utility_light
+                entity_id: input_boolean.utility_light_manually_on      
+          - conditions: "{{ trigger.event.data.args.button in ['on','off'] }}"   
+            sequence:          
+              - service: input_boolean.turn_{{ trigger.event.data.args.button }}
+                entity_id: input_boolean.utility_light_manually_on
+              - service: light.turn_{{ trigger.event.data.args.button }}
+                entity_id: light.utility_light
 

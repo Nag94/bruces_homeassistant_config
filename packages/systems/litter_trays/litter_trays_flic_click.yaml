@@ -10,8 +10,7 @@ automation:
         type: littertray
     action:       
       - choose:
-          - conditions: >
-              {{ trigger.event.data.click_type == 'reset' }}
+          - conditions: "{{ trigger.event.data.click_type == 'reset' }}"
             sequence:
               - service: counter.reset
                 data:

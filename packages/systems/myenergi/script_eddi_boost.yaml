@@ -11,7 +11,7 @@ script:
         description: 'how many minutes boost?'
         example: '20'        
       heater:
-        description: 'which heater? 1 or 2'
+        description: 'which heater? 1 or 2 (or Relay 11 or 12)'
         example: '1'           
     sequence:
       - service: shell_command.eddi_boost
@@ -23,3 +23,25 @@ script:
           heater: "{{ heater }}"
           boost_duration: "{% if mode == 'off' %}0{% else %}{{ duration | int }}{% endif %}"
           
+#cgi-eddi-boost-EID-BoostOn-HeaterNo-DurationMinutes
+#
+#Action
+#Set the boost mode on the EDDI
+#
+#Inputs
+#EID
+#Letter “E” followed by the Serial No of the EDDI
+#
+#BoostOn
+#0=No action
+#1=Boost off
+#10=Start manual boost
+#
+#HeaterNo
+#1=Heater 1
+#2=Heater 2
+#11=Relay 1 (If fitted)
+#12=Relay 2 (If fitted)
+#
+#DurationMinutes
+#Number of minutes boost is to run.

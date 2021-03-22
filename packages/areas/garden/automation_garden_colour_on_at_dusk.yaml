@@ -1,0 +1,24 @@
+automation:
+  - id: garden_colour_lights_on_when_dark
+    alias: Garden Colour Lights on when dark
+    mode: restart
+    trigger: 
+      - platform: state
+        entity_id: binary_sensor.dark_outside
+        to: 'on'
+      - platform: state
+        entity_id: alarm_control_panel.full_set
+        to: 'disarmed'        
+      - platform: homeassistant
+        event: start
+      - platform: event
+        event_type: automation_reloaded    
+    action:
+      - choose:
+          - conditions: "{{ is_state('binary_sensor.dark_outside','on') and is_state('switch.sarah_is_asleep','off') and is_state('switch.bruce_is_asleep','off') and is_state('alarm_control_panel.full_set','disarmed')}}"
+            sequence:
+              - service: light.turn_on
+                entity_id: light.garden_colour
+        default:
+          - service: light.turn_off
+            entity_id: light.garden_colour        

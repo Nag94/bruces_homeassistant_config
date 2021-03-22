@@ -1,6 +1,9 @@
 binary_sensor:
   - platform: template
     sensors:
+      whitacres_low_battery:
+        friendly_name: 'Hive - Low Battery'
+        value_template: "{{ (states('sensor.whiteacres_battery_level') | float) < 20.0 }}"    
       lounge_rad_low_battery:
         friendly_name: 'Lounge Rad - Low Battery'
         value_template: "{{ (states('sensor.lounge_rad_battery_level') | float) < 20.0 }}"

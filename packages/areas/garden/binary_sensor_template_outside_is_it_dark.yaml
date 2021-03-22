@@ -1,0 +1,6 @@
+binary_sensor:
+  - platform: template
+    sensors:
+      dark_outside:
+        friendly_name: "Dark Outside"
+        value_template: "{{ states('sensor.outside_light') | int < 250 }}"

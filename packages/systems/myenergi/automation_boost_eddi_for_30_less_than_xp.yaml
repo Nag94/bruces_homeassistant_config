@@ -7,6 +7,10 @@ automation:
         entity_id: octopusagile.rates
       - platform: state
         entity_id: input_number.eddi_heat_below_x_pence
+      - platform: homeassistant
+        event: start
+      - platform: event
+        event_type: automation_reloaded            
     condition:
       - condition: numeric_state
         entity_id: sensor.octopus_agile_current_rate

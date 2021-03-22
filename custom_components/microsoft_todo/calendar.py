@@ -1,6 +1,6 @@
 import logging
 import os
-from datetime import timedelta, datetime
+from datetime import timedelta
 
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
@@ -204,21 +204,11 @@ class MSToDoListDevice(CalendarEventDevice):
 
     @property
     def device_state_attributes(self):
-        _LOGGER.debug("Total Tasks: %i", len(self._tasks))
         if len(self._tasks) == 0:
             return None
 
         attributes = {}
-        try:
-            attributes[ALL_TASKS] = [t["subject"] for t in self._tasks]
-            _LOGGER.debug("ALL_TASKS count: %i", len(attributes[ALL_TASKS]))
-            
-            __overdue = lambda x: x["dueDateTime"] != None and datetime.strptime(x["dueDateTime"]["dateTime"].split("T")[0], '%Y-%m-%d') < datetime.now()
-            attributes["overdue_tasks"] = [t["subject"] for t in filter(__overdue,self._tasks)]
-            _LOGGER.debug("overdue_tasks count: %i", len(attributes["overdue_tasks"]))
-        except Exception as ex:
-            _LOGGER.error("Unable to set attributes: %s", ex)
-            raise
+        attributes[ALL_TASKS] = [t["subject"] for t in self._tasks]
 
         return attributes
 

@@ -1,6 +1,9 @@
 import logging
 from .const import LIGHTWAVE_LINK2, LIGHTWAVE_ENTITIES, LIGHTWAVE_WEBHOOK
-from homeassistant.components.climate import ClimateEntity
+try:
+    from homeassistant.components.climate import ClimateEntity
+except ImportError:
+    from homeassistant.components.climate import ClimateDevice as ClimateEntity
 from homeassistant.components.climate.const import (
     HVAC_MODE_OFF, HVAC_MODE_HEAT, SUPPORT_TARGET_TEMPERATURE, SUPPORT_PRESET_MODE, CURRENT_HVAC_HEAT, CURRENT_HVAC_IDLE, CURRENT_HVAC_OFF)
 from homeassistant.const import (
@@ -12,17 +15,17 @@ DEPENDENCIES = ['lightwave2']
 _LOGGER = logging.getLogger(__name__)
 PRESET_NAMES = {"Auto": None, "20%": 20, "40%": 40, "60%": 60, "80%": 80, "100%": 100}
 
-async def async_setup_entry(hass, entry, async_add_entities):
+async def async_setup_entry(hass, config_entry, async_add_entities):
     """Find and return LightWave thermostats."""
 
     climates = []
-    link = hass.data[LIGHTWAVE_LINK2]
-    url = hass.data[LIGHTWAVE_WEBHOOK]
+    link = hass.data[DOMAIN][config_entry.entry_id][LIGHTWAVE_LINK2]
+    url = hass.data[DOMAIN][config_entry.entry_id][LIGHTWAVE_WEBHOOK]
 
     for featureset_id, name in link.get_climates():
         climates.append(LWRF2Climate(name, featureset_id, link, url))
 
-    hass.data[LIGHTWAVE_ENTITIES].extend(climates)
+    hass.data[DOMAIN][config_entry.entry_id][LIGHTWAVE_ENTITIES].extend(climates)
     async_add_entities(climates)
 
 

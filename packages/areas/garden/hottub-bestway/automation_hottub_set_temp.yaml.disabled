@@ -17,8 +17,8 @@ automation:
         entity_id: 'sensor.hottub_pump_temp'
         above: 20.0
     action:
-      - wait_template: "{{ (as_timestamp(now()) - as_timestamp(states.switch.hottub_filter.last_updated)) > 120}}"
-        timeout: "00:02:00"
+      - wait_template: "{{ (as_timestamp(now()) - as_timestamp(states.switch.hottub_filter.last_updated)) > 180}}"
+        timeout: "00:03:00"
       - condition: state
         entity_id: 'switch.hottub_filter'
         state: 'on'
@@ -26,7 +26,7 @@ automation:
         entity_id: 'sensor.hottub_pump_temp'
         above: 20.0
       - condition: template  
-        value_template: "{{ (as_timestamp(now()) - as_timestamp(states.switch.hottub_filter.last_updated)) > 120}}"      
+        value_template: "{{ (as_timestamp(now()) - as_timestamp(states.switch.hottub_filter.last_updated)) > 180}}"      
       - service: input_number.set_value
         data:
           entity_id: input_number.hottub_water_temp

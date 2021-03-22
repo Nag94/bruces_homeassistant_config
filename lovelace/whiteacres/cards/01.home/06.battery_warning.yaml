@@ -17,6 +17,11 @@ entities:
     state_filter:
       - operator: '>'
         value: 30
+  - entity: sensor.kitchen_sink_water_leak_battery
+    name: Kitchen Sink
+    state_filter:
+      - operator: <
+        value: 25  
   - entity: sensor.ipod_touch_battery_level_2
     name: Lounge iPod
     state_filter:

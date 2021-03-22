@@ -10,8 +10,8 @@ automation:
         to: 'on'
     condition:
       - condition: state
-        entity_id: sensor.dark_outside
-        state: 'True'
+        entity_id: binary_sensor.dark_outside
+        state: 'on'
       - condition: state
         entity_id: light.master_bedroom_lights
         state: 'off'
