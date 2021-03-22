@@ -1,8 +1,11 @@
 # HomeKit
 
-Exposes Home Assisstant Entities to HomeKit.
+Exposes Home Assistant Entities to HomeKit.
+
 Some things link themselves directly.
 eg. Hue
-So this only exposes non-HomeKit entitties.
+So this only exposes non-HomeKit entities.
 
-I don't startup the HomeKit integration until Home Assistant is fully started to ensure the entities are populated.
+They are split into multiple bridges for performance reasons.
+Each Camera is on a bridge of their own.
+

@@ -1,6 +1,6 @@
 automation:
   - id: downstairs_toilet_door_left_closed
-    alias: 'Downstairs Toilet Door Left Closed'
+    alias: "Downstairs Toilet Door Left Closed"
     trigger:
       - platform: state
         entity_id: binary_sensor.downstairs_toilet_door        
@@ -10,7 +10,6 @@ automation:
         entity_id: binary_sensor.downstairs_toilet_door        
         to: 'on'
     action:
-      - choose:
       - choose:
             # Closed - previous message sent
           - conditions: "{{ is_state('binary_sensor.downstairs_toilet_door','off') and (states('input_text.downstairs_toilet_door_message_id') | int) > 0 }}"    
@@ -24,6 +23,7 @@ automation:
                   target: !secret telegram_chat_id_bruce_and_sarah
                   message_tag: downstairs_toilet_door
                   message: "Downstairs Toilet door has been closed for 10 minutes"
+                  
             # Open - previous message sent
           - conditions: "{{ is_state('binary_sensor.downstairs_toilet_door','on') and (states('input_text.downstairs_toilet_door_message_id') | int) > 0 }}"    
             sequence:
@@ -39,6 +39,7 @@ automation:
                 data:
                   target: !secret telegram_chat_id_bruce_and_sarah
                   message: "Downstairs toilet door is open"        
+                  
             # Closed - no previous message sent
           - conditions: "{{ is_state('binary_sensor.downstairs_toilet_door','off')  }}"    
             sequence:

@@ -825,20 +825,8 @@ elements:
         entity: sensor.solar_production_daily
         style:
           color: orange
-          top: 7%
+          top: 5%
           left: 69%    
-      - type: state-label
-        entity: input_number.solcast_latest_today_forecast
-        style:
-          color: black
-          top: 2%
-          left: 69%  
-#      - type: state-label
-#        entity: input_number.solcast_last_night_forecast
-#        style:
-#          color: black
-#          top: 2%
-#          left: 69%  
       - type: conditional
         conditions:
           - entity: sensor.solaredge_status
@@ -848,7 +836,7 @@ elements:
             icon: 'mdi:alert-circle-outline'
             entity: sensor.solar_production
             style:
-              top: 11%
+              top: 10%
               left: 64%
               color: red
               transform: 'scale(2,2)'
@@ -865,7 +853,7 @@ elements:
             icon: 'mdi:weather-sunset'
             entity: sensor.solar_production
             style:
-              top: 11%
+              top: 10%
               left: 64%
               color: grey
               transform: 'scale(2,2)'
@@ -880,7 +868,7 @@ elements:
             icon: 'mdi:weather-night'
             entity: sensor.solar_production
             style:
-              top: 11%
+              top: 10%
               left: 64%
               color: grey
               transform: 'scale(2,2)'
@@ -893,7 +881,7 @@ elements:
             icon: 'mdi:white-balance-sunny'
             entity: sensor.solar_production
             style:
-              top: 11%
+              top: 10%
               left: 64%
               color: orange
               transform: 'scale(2,2)'
@@ -901,13 +889,13 @@ elements:
             entity: sensor.solar_production
             style:
               color: orange
-              top: 22%
+              top: 21%
               left: 74%
           - type: icon
             icon: 'mdi:arrow-down-bold'
             style:
               color: orange
-              top: 22%
+              top: 21%
               left: 62%
               transform: 'scale(2,2)'
   - type: conditional
@@ -978,7 +966,7 @@ elements:
             icon: 'mdi:weather-lightning-rainy'
             entity: sensor.solar_production
             style:
-              top: 11%
+              top: 10%
               left: 64%
               color: grey
               transform: 'scale(2,2)'
@@ -991,7 +979,7 @@ elements:
             icon: 'mdi:weather-lightning'
             entity: sensor.solar_production
             style:
-              top: 11%
+              top: 10%
               left: 64%
               color: grey
               transform: 'scale(2,2)'
@@ -1004,7 +992,7 @@ elements:
             icon: 'mdi:weather-windy'
             entity: sensor.solar_production
             style:
-              top: 11%
+              top: 10%
               left: 64%
               color: grey
               transform: 'scale(2,2)'
@@ -1017,7 +1005,7 @@ elements:
             icon: 'mdi:weather-snowy-rainy'
             entity: sensor.solar_production
             style:
-              top: 11%
+              top: 10%
               left: 64%
               color: grey
               transform: 'scale(2,2)'
@@ -1030,7 +1018,7 @@ elements:
             icon: 'mdi:weather-snowy'
             entity: sensor.solar_production
             style:
-              top: 11%
+              top: 10%
               left: 64%
               color: grey
               transform: 'scale(2,2)'
@@ -1043,7 +1031,7 @@ elements:
             icon: 'mdi:weather-rainy'
             entity: sensor.solar_production
             style:
-              top: 11%
+              top: 10%
               left: 64%
               color: grey
               transform: 'scale(2,2)'
@@ -1056,7 +1044,7 @@ elements:
             icon: 'mdi:weather-hail'
             entity: sensor.solar_production
             style:
-              top: 11%
+              top: 10%
               left: 64%
               color: grey
               transform: 'scale(2,2)'
@@ -1069,7 +1057,7 @@ elements:
             icon: 'mdi:weather-cloudy'
             entity: sensor.solar_production
             style:
-              top: 11%
+              top: 10%
               left: 64%
               color: grey
               transform: 'scale(2,2)'
@@ -1091,14 +1079,14 @@ elements:
             entity: sensor.octopus_agile_current_rate
             style:
               colr: red
-              top: 11%
-              left: 20%    
+              top: 10%
+              left: 22%    
           - type: icon
             icon: 'mdi:alert-outline'
             entity: binary_sensor.grid_status
             style:
               color: red
-              top: 22%
+              top: 21%
               left: 3%
               transform: 'scale(2,2)'
           - type: icon
@@ -1106,7 +1094,7 @@ elements:
             entity: sensor.solaredge_modbus_meter_1
             style:
               color: red
-              top: 11%
+              top: 10%
               left: 4%
               transform: 'scale(2,2)'    
       - type: conditional
@@ -1125,7 +1113,7 @@ elements:
                 style:
                   color: black
                   top: 17%
-                  left: 20%
+                  left: 19%
               - type: state-label
                 entity: sensor.floorplan_powerwall_home_load
                 style:
@@ -1136,7 +1124,7 @@ elements:
                 entity: sensor.solaredge_modbus_meter_1
                 style:
                   color: grey
-                  top: 11%
+                  top: 10%
                   left: 4%
                   transform: 'scale(2,2)'
           - type: conditional
@@ -1150,7 +1138,7 @@ elements:
                 style:
                   color: black
                   top: 17%
-                  left: 20%
+                  left: 19%
               - type: state-label
                 entity: sensor.floorplan_powerwall_home_load
                 style:
@@ -1161,7 +1149,7 @@ elements:
                 entity: sensor.solaredge_modbus_meter_1
                 style:
                   color: black
-                  top: 11%
+                  top: 10%
                   left: 4%
                   transform: 'scale(2,2)'
               - type: icon
@@ -1169,15 +1157,15 @@ elements:
                 entity: sensor.solaredge_modbus_meter_1
                 style:
                   color: green
-                  top: 22%
+                  top: 21%
                   left: 3%
                   transform: 'scale(2,2)'
               - type: state-label
                 entity: sensor.export_power
                 style:
                   color: green
-                  top: 26%
-                  left: 15%
+                  top: 21%
+                  left: 16%
           - type: conditional
             conditions: 
               - entity: sensor.grid_direction
@@ -1189,7 +1177,7 @@ elements:
                 style:
                   color: black
                   top: 17%
-                  left: 20%
+                  left: 19%
               - type: state-label
                 entity: sensor.floorplan_powerwall_home_load
                 style:
@@ -1199,14 +1187,14 @@ elements:
                 entity: sensor.octopus_agile_current_rate
                 style:
                   colr: black
-                  top: 11%
-                  left: 20%    
+                  top: 10%
+                  left: 22%    
               - type: icon
                 icon: 'mdi:transmission-tower'
                 entity: sensor.solaredge_modbus_meter_1
                 style:
                   color: black
-                  top: 11%
+                  top: 10%
                   left: 4%
                   transform: 'scale(2,2)'
               - type: icon
@@ -1214,15 +1202,15 @@ elements:
                 entity: sensor.solaredge_modbus_meter_1
                 style:
                   color: red
-                  top: 22%
+                  top: 21%
                   left: 3%
                   transform: 'scale(2,2)'
               - type: state-label
                 entity: sensor.import_power
                 style:
                   color: red
-                  top: 23%
-                  left: 15%
+                  top: 25%
+                  left: 16%
            
 ################################################
 ##            Access Points                   ##
@@ -1256,12 +1244,12 @@ elements:
     ################################################            
       - type: conditional
         conditions:
-          - entity: sensor.whiteacres_heating_boost
+          - entity: sensor.whiteacres_boost
             state: 'ON'          
         elements:
           - type: icon
             icon: 'mdi:radiator'
-            entity: sensor.whiteacres_heating_state
+            entity: sensor.whiteacres_state
             style:
               color: orange
               top: 57%
@@ -1373,7 +1361,7 @@ elements:
             style:
               color: orange
               top: 49.5%
-              left: 23%   
+              left: 24%   
             tap_action:          
               action: call-service
               service: hive.boost_heating
@@ -1424,14 +1412,14 @@ elements:
     ################################################            
       - type: conditional
         conditions:
-          - entity: sensor.whiteacres_heating_state
-            state: 'ON'
-          - entity: sensor.whiteacres_heating_boost
+          - entity: sensor.whiteacres_state
+            state: 'MANUAL'
+          - entity: sensor.whiteacres_boost
             state: 'OFF'       
         elements:
           - type: icon
             icon: 'mdi:radiator'
-            entity: sensor.whiteacres_heating_state
+            entity: sensor.whiteacres_state
             title: Click to Turn Off
             style:
               color: red
@@ -1562,7 +1550,7 @@ elements:
             style:
               color: red
               top: 49.5%
-              left: 23%        
+              left: 24%        
             tap_action:          
               action: call-service
               service: climate.set_hvac_mode
@@ -1617,14 +1605,14 @@ elements:
     ################################################            
       - type: conditional
         conditions:
-          - entity: sensor.whiteacres_heating_state
+          - entity: sensor.whiteacres_state
             state: 'OFF'
-          - entity: sensor.whiteacres_heating_mode
+          - entity: sensor.whiteacres_mode
             state: 'SCHEDULE'                  
         elements:
           - type: icon
             icon: 'mdi:radiator'
-            entity: sensor.whiteacres_heating_state
+            entity: sensor.whiteacres_state
             title: Click to Boost
             style:
               color: grey
@@ -1755,7 +1743,7 @@ elements:
             style:
               color: grey
               top: 49.5%
-              left: 23%    
+              left: 24%    
             tap_action:          
               action: call-service
               service: hive.boost_heating
@@ -1788,7 +1776,7 @@ elements:
           - entity: sensor.downstairs_loo_rad_state
             state: 'OFF'
           - entity: sensor.downstairs_loo_rad_mode
-            state: 'schedule' 
+            state: 'SCHEDULE' 
         elements:
           - type: icon
             icon: 'mdi:radiator'
@@ -1810,12 +1798,12 @@ elements:
     ################################################     
       - type: conditional
         conditions:
-          - entity: sensor.whiteacres_heating_mode
+          - entity: sensor.whiteacres_mode
             state: 'OFF'     
         elements:
           - type: icon
             icon: 'mdi:radiator-off'
-            entity: sensor.whiteacres_heating_mode
+            entity: sensor.whiteacres_mode
             title: Click to switch to Scheduled
             style:
               color: blue
@@ -1890,7 +1878,7 @@ elements:
             style:
               color: blue
               top: 49.5%
-              left: 23%        
+              left: 24%        
             tap_action:          
               action: call-service
               service: climate.set_hvac_mode
@@ -1928,8 +1916,8 @@ elements:
 
       - type: conditional
         conditions:
-          - entity: sensor.whiteacres_heating_mode
-            state: 'ON'     
+          - entity: sensor.whiteacres_mode
+            state: 'MANUAL'     
         elements:
                     
           - type: conditional
@@ -2020,7 +2008,7 @@ elements:
                 style:
                   color: blue
                   top: 49.5%
-                  left: 23%        
+                  left: 24%        
                 tap_action:          
                   action: call-service
                   service: climate.set_hvac_mode
@@ -2067,6 +2055,121 @@ elements:
                     hvac_mode: 'auto'
 
 
+
+################################################
+##            Radiators - Unavailable         ##
+################################################            
+
+      - type: conditional
+        conditions:
+          - entity: sensor.whiteacres_availability
+            state: 'Offline'            
+        elements:
+          - type: icon
+            icon: 'mdi:radiator-off'
+            entity: sensor.whiteacres_availability
+            style:
+              color: red
+              top: 40%
+              left: 56%          
+      - type: conditional
+        conditions:
+          - entity: sensor.lounge_bay_rad_availability
+            state: 'Offline'       
+        elements:
+          - type: icon
+            icon: 'mdi:radiator-off'
+            entity: sensor.lounge_bay_rad_availability
+            style:
+              color: red
+              top: 95%
+              left: 24%
+      - type: conditional
+        conditions:
+          - entity: sensor.lounge_rad_availability
+            state: 'Offline'
+        elements:
+          - type: icon
+            icon: 'mdi:radiator-off'
+            entity: sensor.lounge_rad_availability
+            style:
+              color: red
+              top: 74%
+              left: 39%
+      - type: conditional
+        conditions:
+          - entity: sensor.hall_rad_availability
+            state: 'Offline'
+        elements:
+          - type: icon
+            icon: 'mdi:radiator-off'
+            entity: sensor.hall_rad_availability
+            style:
+              color: red
+              top: 62%
+              left: 48%
+      - type: conditional
+        conditions:
+          - entity: sensor.conservatory_rad_availability
+            state: 'Offline' 
+        elements:
+          - type: icon
+            icon: 'mdi:radiator-off'
+            entity: sensor.conservatory_rad_availability
+            style:
+              color: red
+              top: 27%
+              left: 40%
+      - type: conditional
+        conditions:
+          - entity: sensor.kitchen_tall_rad_availability
+            state: 'Offline'
+        elements:
+          - type: icon
+            icon: 'mdi:radiator-off'
+            entity: sensor.kitchen_tall_rad_availability
+            style:
+              color: red
+              top: 35.6%
+              left: 38%
+      - type: conditional
+        conditions:
+          - entity: sensor.kitchen_rad_availability
+            state: 'Offline'
+        elements:
+          - type: icon
+            icon: 'mdi:radiator-off'
+            entity: sensor.kitchen_rad_availability
+            style:
+              color: red
+              top: 49.5%
+              left: 24%
+      - type: conditional
+        conditions:
+          - entity: sensor.bar_rad_availability
+            state: 'Offline'
+        elements:
+          - type: icon
+            icon: 'mdi:radiator-off'
+            entity: sensor.bar_rad_availability
+            style:
+              color: red
+              top: 67%
+              left: 67%
+      - type: conditional
+        conditions:
+          - entity: sensor.downstairs_loo_availability
+            state: 'Offline'
+        elements:
+          - type: icon
+            icon: 'mdi:radiator-off'
+            entity: sensor.downstairs_loo_availability
+            style:
+              color: red
+              top: 66%
+              left: 54%
+
+
 ################################################
 ##            Radiators - Low Battery         ##
 ################################################            
@@ -2077,7 +2180,7 @@ elements:
     elements:
       - type: conditional
         conditions:
-          - entity: sensor.hive_thermostat_low_battery
+          - entity: binary_sensor.whiteacres_low_battery
             state: 'on'            
         elements:
           - type: icon
@@ -2089,8 +2192,10 @@ elements:
               left: 56%          
       - type: conditional
         conditions:
-          - entity: sensor.lounge_bay_rad_low_battery
-            state: 'on'       
+          - entity: binary_sensor.lounge_bay_rad_low_battery
+            state: 'on'     
+          - entity: sensor.lounge_bay_rad_availability
+            state: 'Online'                
         elements:
           - type: icon
             icon: 'mdi:battery-alert'
@@ -2101,8 +2206,10 @@ elements:
               left: 24%
       - type: conditional
         conditions:
-          - entity: sensor.lounge_rad_low_battery
+          - entity: binary_sensor.lounge_rad_low_battery
             state: 'on'
+          - entity: sensor.lounge_rad_low_battery_rad_availability
+            state: 'Online'    
         elements:
           - type: icon
             icon: 'mdi:battery-alert'
@@ -2113,8 +2220,10 @@ elements:
               left: 39%
       - type: conditional
         conditions:
-          - entity: sensor.hall_rad_low_battery
+          - entity: binary_sensor.hall_rad_low_battery
             state: 'on'
+          - entity: sensor.hall_rad_low_battery_rad_availability
+            state: 'Online'  
         elements:
           - type: icon
             icon: 'mdi:battery-alert'
@@ -2125,8 +2234,10 @@ elements:
               left: 48%
       - type: conditional
         conditions:
-          - entity: sensor.conservatory_rad_low_battery
+          - entity: binary_sensor.conservatory_rad_low_battery
             state: 'on' 
+          - entity: sensor.conservatory_rad_availability
+            state: 'Online'  
         elements:
           - type: icon
             icon: 'mdi:battery-alert'
@@ -2137,8 +2248,10 @@ elements:
               left: 40%
       - type: conditional
         conditions:
-          - entity: sensor.kitchen_tall_rad_low_battery
+          - entity: binary_sensor.kitchen_tall_rad_low_battery
             state: 'on'
+          - entity: sensor.kitchen_tall_rad_availability
+            state: 'Online'  
         elements:
           - type: icon
             icon: 'mdi:battery-alert'
@@ -2149,8 +2262,10 @@ elements:
               left: 38%
       - type: conditional
         conditions:
-          - entity: sensor.kitchen_rad_low_battery
+          - entity: binary_sensor.kitchen_rad_low_battery
             state: 'on'
+          - entity: sensor.kitchen_rad_availability
+            state: 'Online'  
         elements:
           - type: icon
             icon: 'mdi:battery-alert'
@@ -2158,11 +2273,13 @@ elements:
             style:
               color: red
               top: 49.5%
-              left: 23%
+              left: 24%
       - type: conditional
         conditions:
-          - entity: sensor.bar_rad_low_battery
+          - entity: binary_sensor.bar_rad_low_battery
             state: 'on'
+          - entity: sensor.bar_rad_availability
+            state: 'Online'  
         elements:
           - type: icon
             icon: 'mdi:battery-alert'
@@ -2173,8 +2290,10 @@ elements:
               left: 67%
       - type: conditional
         conditions:
-          - entity: sensor.downstairs_loo_low_battery
+          - entity: binary_sensor.downstairs_loo_low_battery
             state: 'on'
+          - entity: sensor.downstairs_loo_rad_availability
+            state: 'Online'  
         elements:
           - type: icon
             icon: 'mdi:battery-alert'
@@ -2183,7 +2302,8 @@ elements:
               color: red
               top: 66%
               left: 54%
-          
+
+              
 ################################################
 ##            Doors                           ##
 ################################################    
@@ -2380,10 +2500,10 @@ elements:
           top: 2%
           left: 29%
       - type: state-label
-        entity: sensor.outside_light
+        entity: sensor.outside_light_rounded
         style:
           top: 2%
-          left: 10%
+          left: 12.5%
 ################################################
 ##            Radiators                       ##
 ################################################  
@@ -2391,7 +2511,7 @@ elements:
         entity: sensor.lounge_rad_current_temperature
         style:
           top: 75%
-          left: 23%
+          left: 26%
       - type: state-label
         entity: sensor.bar_rad_current_temperature
         style:
@@ -2564,6 +2684,18 @@ elements:
         state: 'on'
     elements:    
       - type: state-icon
+        entity: light.garden_colour
+        style:
+          top: 4%
+          left: 4%
+        tap_action:
+          action: toggle           
+        hold_action:
+          action: call-service
+          service: input_boolean.toggle
+          service_data:
+            entity_id: input_boolean.floorplan_show_garden_switches          
+      - type: state-icon
         entity: light.front_door_lights
         style:
           top: 75%
@@ -2598,6 +2730,11 @@ elements:
           left: 23%
         tap_action:
           action: toggle
+        hold_action:
+          action: call-service
+          service: input_boolean.toggle
+          service_data:
+            entity_id: input_boolean.floorplan_show_garden_switches              
       - type: state-icon
         entity: light.patio_gazebo
         style:
@@ -2605,6 +2742,11 @@ elements:
           left: 83%
         tap_action:
           action: toggle
+        hold_action:
+          action: call-service
+          service: input_boolean.toggle
+          service_data:
+            entity_id: input_boolean.floorplan_show_garden_switches              
       - type: state-icon
         entity: light.patio_garage
         style:
@@ -2612,18 +2754,35 @@ elements:
           left: 75%
         tap_action:
           action: toggle
+        hold_action:
+          action: call-service
+          service: input_boolean.toggle
+          service_data:
+            entity_id: input_boolean.floorplan_show_garden_switches              
       - type: state-icon
         entity: light.shed_light
         style:
           top: 24%
           left: 95%
+        tap_action:
+          action: toggle   
+        hold_action:
+          action: call-service
+          service: input_boolean.toggle
+          service_data:
+            entity_id: input_boolean.floorplan_show_garden_switches                
       - type: state-icon
         entity: light.shed_outside_lights
         style:
           top: 24%
           left: 85%          
         tap_action:
-          action: toggle          
+          action: toggle  
+        hold_action:
+          action: call-service
+          service: input_boolean.toggle
+          service_data:
+            entity_id: input_boolean.floorplan_show_garden_switches              
       - type: state-icon
         entity: light.patio_gazebo_wall
         style:
@@ -2631,6 +2790,11 @@ elements:
           left: 95%
         tap_action:
           action: toggle
+        hold_action:
+          action: call-service
+          service: input_boolean.toggle
+          service_data:
+            entity_id: input_boolean.floorplan_show_garden_switches              
       - type: state-icon
         entity: light.drive_lights
         style:
@@ -2675,7 +2839,7 @@ elements:
         entity: light.lounge_lights
         style:
           top: 79%
-          left: 23%
+          left: 26%
         hold_action:
           action: call-service
           service: input_boolean.toggle
@@ -3576,4 +3740,4 @@ elements:
 #              navigation_path: /lovelace-remote/remote
               
               
-image: '/local/_groundfloor.png'
+image: '/local/groundfloor_new.png'

@@ -17,7 +17,11 @@ automation:
       - platform: homeassistant
         event: start
       - platform: event
-        event_type: automation_reloaded            
+        event_type: automation_reloaded    
+      - platform: state
+        entity_id: sensor.zappi_jyggy_mode
+      - platform: state
+        entity_id: sensor.zappi_paddy_mode
     action:
       choose:
         # Charging as price low
@@ -48,7 +52,37 @@ automation:
               data:
                 reserve_percent: 1
 
-        # Preventing too much usage Overnight between charges            
+        # Preventing too much usage Overnight when cars charging         
+        - conditions:
+            - condition: state
+              entity_id: binary_sensor.powerwall_at_or_below_max_charge_cost_and_charge_limit
+              state: 'off'        
+            - condition: time
+              after: '00:00:00'
+              before: '06:30:00'  
+            - condition: or
+              conditions:
+                - condition: state
+                  entity_id: sensor.zappi_jyggy_mode
+                  state: Fast      
+                - condition: state
+                  entity_id: sensor.zappi_paddy_mode
+                  state: Fast                    
+          sequence:
+            - service: tesla_gateway.set_operation
+              data:
+                real_mode: self_consumption
+            - delay: '00:00:05'
+            - service: input_number.set_value
+              data:
+                entity_id: input_number.powerwall_reserve_requested              
+                value: "{{ states('sensor.powerwall_charge') | int  }}"
+            - service: tesla_gateway.set_reserve
+              data:
+                reserve_percent: "{{ states('sensor.powerwall_charge') | int }}"
+
+
+        # Preventing too much usage Overnight between charges           
         - conditions:
             - condition: state
               entity_id: binary_sensor.powerwall_at_or_below_max_charge_cost_and_charge_limit
@@ -69,27 +103,27 @@ automation:
               data:
                 reserve_percent: "{{ [ states('sensor.powerwall_charge') | int , states('input_number.overnight_powerwall_max_charge') | int]|min }}"
                 
-        # Ensure we have 10% by 14:00
-        - conditions:
-            condition: time
-            after: '06:30:00'
-            before: '14:00:00'  
-          sequence:
-            - service: input_number.set_value
-              data:
-                entity_id: input_number.powerwall_charge_below_x_pence
-                value: 2.0
-            - service: tesla_gateway.set_operation
-              data:
-                real_mode: self_consumption
-            - delay: '00:00:05'
-            - service: input_number.set_value
-              data:
-                entity_id: input_number.powerwall_reserve_requested              
-                value: "{{ [0,[ (states('sensor.powerwall_charge') - 10) , 10]|min] | max }}"
-            - service: tesla_gateway.set_reserve
-              data:
-                reserve_percent: "{{ [0,[ (states('sensor.powerwall_charge') - 10) , 10]|min] | max }}"
+#        # Ensure we have 10% by 14:00
+#        - conditions:
+#            condition: time
+#            after: '06:30:00'
+#            before: '14:00:00'  
+#          sequence:
+#            - service: input_number.set_value
+#              data:
+#                entity_id: input_number.powerwall_charge_below_x_pence
+#                value: 2.0
+#            - service: tesla_gateway.set_operation
+#              data:
+#                real_mode: self_consumption
+#            - delay: '00:00:05'
+#            - service: input_number.set_value
+#              data:
+#                entity_id: input_number.powerwall_reserve_requested              
+#                value: "{{ [0,[ (states('sensor.powerwall_charge') - 10) , 10]|min] | max }}"
+#            - service: tesla_gateway.set_reserve
+#              data:
+#                reserve_percent: "{{ [0,[ (states('sensor.powerwall_charge') - 10) , 10]|min] | max }}"
                 
         # Ensure we have 30% by 15:00
         - conditions:
@@ -113,10 +147,10 @@ automation:
               data:
                 reserve_percent: "{{ [0,[ (states('sensor.powerwall_charge') - 10) , 30]|min] | max }}"    
                 
-        # Ensure we have 30% by 15:00
+        # Ensure we have 50% by 16:00
         - conditions:
             condition: time
-            after: '06:30:00'
+            after: '12:00:00'
             before: '15:59:30'  
           sequence:
             - service: input_number.set_value

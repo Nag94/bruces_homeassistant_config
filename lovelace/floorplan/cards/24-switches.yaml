@@ -13,6 +13,8 @@ card:
       name: Presence
     - entity: input_boolean.floorplan_temperatures
       name: Temperatures
+    - entity: input_boolean.floorplan_hotwater
+      name: Hot Water
     - entity: input_boolean.floorplan_lights
       name: Lights  
     - entity: input_boolean.floorplan_cameras    
