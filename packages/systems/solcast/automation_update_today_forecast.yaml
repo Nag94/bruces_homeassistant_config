@@ -1,0 +1,11 @@
+automation:
+  - id: solcast_update_tpday_forecast
+    alias: "Solcast Update Today Forecast"
+    trigger:
+      platform: state
+      entity_id: sensor.solcast_forecast
+    action:
+      - service: input_number.set_value
+        data:
+          entity_id: input_number.solcast_latest_today_forecast
+          value: "{{ (states('sensor.solar_production_daily') | float + states('sensor.solcast_forecast') | float ) | round(1) }}"
