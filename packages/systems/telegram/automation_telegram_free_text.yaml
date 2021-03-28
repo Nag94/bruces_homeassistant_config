@@ -400,7 +400,7 @@ automation:
                   message: >
                     Hottub is {{ states('sensor.hottub_summary') }} at {{ states('input_number.hottub_water_temp') | int }}°C.  
                     
-                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target') | int }}°C by {{ states('input_datetime.hottub_ready_by')[:5] }}
+                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target') | int }}°C by {{ states('input_datetime.hottub_ready_by') }}
                   inline_keyboard:
                     - 'Set Time:/tub_set_time, Schedule On:/tub_sched_on'
                     - 'Set Temp:/tub_set_temp, Schedule Off:/tub_sched_off' 
@@ -566,7 +566,7 @@ automation:
                   message: >
                     Hottub is {{ states('sensor.hottub_summary') }} at {{ states('input_number.hottub_water_temp') | int }}°C.  
                     
-                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target') | int }}°C by {{ states('input_datetime.hottub_ready_by')[:5] }}
+                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target') | int }}°C by {{ states('input_datetime.hottub_ready_by') }}
                   inline_keyboard:
                     - 'Set Time:/tub_set_time, Schedule On:/tub_sched_on'
                     - 'Set Temp:/tub_set_temp, Schedule Off:/tub_sched_off' 
@@ -585,7 +585,7 @@ automation:
                   message: >
                     Hottub is {{ states('sensor.hottub_summary') }} at {{ states('input_number.hottub_water_temp') | int }}°C.  
                     
-                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target') | int }}°C by {{ states('input_datetime.hottub_ready_by')[:5] }}
+                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target') | int }}°C by {{ states('input_datetime.hottub_ready_by') }}
                   inline_keyboard:
                     - 'Set Time:/tub_set_time, Schedule On:/tub_sched_on'
                     - 'Set Temp:/tub_set_temp, Schedule Off:/tub_sched_off' 

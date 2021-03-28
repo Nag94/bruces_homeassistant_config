@@ -27,10 +27,13 @@ homekit:
         - switch.bruce_is_asleep
         - switch.electric_blanket_bruce
         - switch.electric_blanket_sarah
-        - switch.hottub_bubbles      
-        - switch.hottub_filter
-        - switch.hottub_heat
-        - switch.hottub_power
+        - binary_sensor.spa_circ_pump
+        - binary_sensor.spa_filter1
+        - climate.spa_climate
+        - fan.spa_pump1
+        - fan.spa_pump2
+        - switch.spa_temp_range
+        - switch.spa_light1
         - switch.kate_is_asleep
         - switch.sarah_is_asleep
         - switch.sophie_is_asleep

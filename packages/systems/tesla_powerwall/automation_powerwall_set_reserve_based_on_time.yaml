@@ -134,7 +134,7 @@ automation:
             - service: input_number.set_value
               data:
                 entity_id: input_number.powerwall_charge_below_x_pence
-                value: 2.0
+                value: 0.5
             - service: tesla_gateway.set_operation
               data:
                 real_mode: self_consumption
@@ -156,7 +156,7 @@ automation:
             - service: input_number.set_value
               data:
                 entity_id: input_number.powerwall_charge_below_x_pence
-                value: 2.0
+                value: 0.5
             - service: tesla_gateway.set_operation
               data:
                 real_mode: self_consumption

@@ -1,0 +1,8 @@
+sensor: 
+  - platform: average
+    entities: 
+      - sensor.floorplan_hottub_load
+    name: HotTub Load
+    duration:
+      minutes: 1
+      

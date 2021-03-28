@@ -24,3 +24,4 @@ automation:
         - '21:50:00'        
     action:
       - service: solcast.update_forecast
+#      - service: solcastx.update_forecast      

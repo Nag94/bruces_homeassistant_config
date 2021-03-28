@@ -1,4 +1,4 @@
-sensor:
+sensor: 
   - platform: template
     sensors:
       floorplan_hottub_load:

@@ -6,3 +6,4 @@ sensor:
             unit_of_measurement: 'kWh'            
             device_class: power
             value_template: "{{ state_attr('sensor.solcast_forecast', 'tomorrow')  }}"    
+#            value_template: "{{ state_attr('sensor.solcast_forecast_a', 'tomorrow') | float + state_attr('sensor.solcast_forecast_b', 'tomorrow') | float  }}"                

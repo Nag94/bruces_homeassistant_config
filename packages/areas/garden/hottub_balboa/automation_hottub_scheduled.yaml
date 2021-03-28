@@ -1,0 +1,104 @@
+automation:
+  - id: hottub_heat_on_schedule
+    alias: Set Temperature to Target Minus Time
+    mode: restart
+    variables: 
+      HoursLeft: "{{ ((as_timestamp(states('input_datetime.hottub_ready_by')) - as_timestamp(now())) / 3600) }}"
+    trigger:
+      - platform: homeassistant
+        event: start
+      - platform: event
+        event_type: automation_reloaded    
+      - platform: state
+        entity_id: 
+          - input_boolean.hottub_scheduled   
+          - input_number.hottub_standard_temp
+          - input_datetime.hottub_ready_by       
+          - binary_sensor.hottub_at_or_below_max_heat_cost
+          - sensor.hottub_summary
+          - binary_sensor.agile_plunge
+          - binary_sensor.agile_peak
+    action:
+      - choose:
+          # If plunge pricing - Set to 40
+          - conditions:
+              - condition: state
+                entity_id: binary_sensor.agile_plunge
+                state: 'on'
+            sequence:
+              - service: logbook.log
+                data:
+                  domain: switch
+                  entity_id: climate.spa_climate
+                  name: "Hot Tub"
+                  message: "Heat for plunge pricing"
+              - service: climate.set_temperature
+                target:
+                  entity_id: climate.spa_climate                
+                data: 
+                  temperature: 40
+      
+          # IF cheap pricing - heat
+          - conditions:
+              - condition: state
+                entity_id: binary_sensor.hottub_at_or_below_max_heat_cost
+                state: 'on' 
+            sequence:
+              - service: logbook.log
+                data:
+                  domain: switch
+                  entity_id: climate.spa_climate
+                  name: "Hot Tub"
+                  message: "Heat for cheap pricing"
+              - service: climate.set_temperature
+                target:
+                  entity_id: climate.spa_climate
+                data: 
+                  temperature: 39
+
+          # ELIF scheduled and time left
+          - conditions: "{{ is_state('input_boolean.hottub_scheduled','on') and HoursLeft > 0 }}"
+            sequence:
+              - service: logbook.log
+                data:
+                  domain: switch
+                  entity_id: climate.spa_climate
+                  name: "Hot Tub"
+                  message: "Heating off for peak"
+              - service: climate.set_temperature
+                target:
+                  entity_id: climate.spa_climate
+                data: 
+                  temperature: "{{ [28,(states('input_number.hottub_standard_temp') | float) - (((HoursLeft - 0.5) * 2.3) | round(1))]|max  }}"
+             
+
+          # ELIF Temp to Target-3 for peak period
+          - conditions: 
+              - condition: state
+                entity_id: binary_sensor.agile_peak
+                state: 'on'
+            sequence:
+              - service: logbook.log
+                data:
+                  domain: switch
+                  entity_id: climate.spa_climate
+                  name: "Hot Tub"
+                  message: "Heating for Schedule"
+              - service: climate.set_temperature
+                target:
+                  entity_id: climate.spa_climate
+                data: 
+                  temperature: "{{ [(states('input_number.hottub_standard_temp') | float) - 3.0, 28]|max  }}"             
+                  
+        default: 
+          - service: logbook.log
+            data:
+              domain: switch
+              entity_id: climate.spa_climate
+              name: "Hot Tub"
+              message: "Not Scheduled - Set to Standard Temp"
+          - service: climate.set_temperature
+            target:
+              entity_id: climate.spa_climate
+            data: 
+              temperature: "{{ states('input_number.hottub_standard_temp') | float}}"

@@ -15,6 +15,12 @@ influxdb:
       - sensor.zappi_*_power     
       - sensor.voltaware_*      
     entities:
+      - input_number.hottub_standard_temp
+      - input_number.hottub_water_target
+      - input_number.hottub_water_temp
+      - sensor.floorplan_hottub_load
+      - sensor.hottub_hvac_action
+      - sensor.hottub_water_temp
       - fan.loft_fan
       - sensor.bruce_iphone_battery
       - sensor.drive_temperature   

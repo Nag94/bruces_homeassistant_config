@@ -27,8 +27,7 @@ automation:
       #{% set percentage_per_half_hour = (100*(charge_rate/2.0)/powerwall_capacity) %}
     action:
       - choose:
-          - conditions: >
-              {{ states.octopusagile.rates == none }}
+          - conditions: "{{ states.octopusagile.rates == none }}"
             sequence:
               - service: notify.telegram_bruce
                 data:
@@ -52,11 +51,14 @@ automation:
                   message: >
                     Solar Forecast for Tomorrow: {{ states('sensor.solcast_forecast_tomorrow') }}kWh
                     
+                    Powerwall Charge Level: {{ states('sensor.powerwall_charge')  | float }}%                    
+                    
                     {% set charge_slots_needed =  (0.5 + (((states('input_number.overnight_powerwall_max_charge') | float) + overnight_usage_percent - (states('sensor.powerwall_charge')  | float) )/percentage_per_half_hour)) | int  %}
 
-                    {{ charge_slots_needed }} half hour periods.  
+                    {% if charge_slots_needed < 1 %}No charging required{% else %}{{ charge_slots_needed }} half hour periods.  
 
-                    Max Price of {{ states('input_number.powerwall_charge_below_x_pence')  }}p
+                    Max Price of {{ states('input_number.powerwall_charge_below_x_pence')  }}p{% endif %}
+                    
         default:
           - service: input_number.set_value
             data:
@@ -74,10 +76,12 @@ automation:
               title: "Powerwall: Charging overnight to {{ states('input_number.overnight_powerwall_max_charge')}}%"
               message: >
                 Solar Forecast for Tomorrow: {{ states('sensor.solcast_forecast_tomorrow') }}kWh
+                    
+                Powerwall Charge Level: {{ states('sensor.powerwall_charge')  | float }}%          
                 
                 {% set charge_slots_needed =  (0.5 + (((states('input_number.overnight_powerwall_max_charge') | float) + overnight_usage_percent - (states('sensor.powerwall_charge')  | float) )/percentage_per_half_hour)) | int  %}
 
-                {{ charge_slots_needed }} half hour periods.
+                {% if charge_slots_needed < 1 %}No charging required{% else %}{{ charge_slots_needed }} half hour periods.  
                 
-                Max Price of {{ states('input_number.powerwall_charge_below_x_pence')  }}p
+                Max Price of {{ states('input_number.powerwall_charge_below_x_pence')  }}p{% endif %}
 

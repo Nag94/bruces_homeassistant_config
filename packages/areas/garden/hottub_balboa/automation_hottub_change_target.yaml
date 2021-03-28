@@ -1,0 +1,25 @@
+automation:
+  - id: hottub_change_target
+    alias: HotTub Change Target
+    trigger:
+      - platform: state
+        entity_id: 
+          - input_number.hottub_water_target
+          - sensor.hottub_target_temp
+      - platform: homeassistant
+        event: start
+      - platform: event
+        event_type: automation_reloaded
+    action:
+      - choose:
+          - conditions: "{{ trigger.entity_id == 'input_number.hottub_water_target' }}"
+            sequence:
+              - service: climate.set_temperature
+                data: 
+                  entity_id: climate.spa_climate
+                  temperature: "{{ states('input_number.hottub_water_target') | int}}"
+        default:
+          - service: input_number.set_value
+            data:
+              entity_id: input_number.hottub_water_target
+              value: "{{ states('sensor.hottub_target_temp') | int }}"

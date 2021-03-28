@@ -8,23 +8,28 @@ cards:
     custom_fields:
       readyby:
         card:
-          type: entity
-          entity: input_datetime.hottub_ready_by
-          name: Ready By
-          style: |
-            ha-card {
-              box-shadow: none;
-            }
-        tap_action:
-          action: call-service
-          service: script.turn_on
-          service_data:
-            entity_id: script.hottub_readyby_tap
-        double_tap_action:
-          action: call-service
-          service: script.turn_on
-          service_data:
-            entity_id: script.hottub_readby_double_tap
+          type: conditional
+          conditions:
+            - entity: input_boolean.hottub_scheduled
+              state: "on"
+          card:
+            type: entity
+            entity: input_datetime.hottub_ready_by
+            name: Ready By
+            style: |
+              ha-card {
+                box-shadow: none;
+              }
+          tap_action:
+            action: call-service
+            service: script.turn_on
+            service_data:
+              entity_id: script.hottub_readyby_tap
+          double_tap_action:
+            action: call-service
+            service: script.turn_on
+            service_data:
+              entity_id: script.hottub_readby_double_tap
       graph:
         card:
           type: sensor
@@ -58,48 +63,47 @@ cards:
       service: script.turn_on
       service_data:
         entity_id: script.hottub_card_double_tap
-    hold_action:
-      action: more-info
-      entity_id: switch.hottub_heat
     state:
-      - value: error
-        icon: 'mdi:alert-circle'
-        color: red
       - value: offline
         icon: 'mdi:access-point-off'
         color: red
+      - value: filtering
+        icon: 'mdi:air-filter'
+        color: red      
+      - value: circulating
+        icon: 'mdi:water-pump'
+        color: blue           
       - value: 'off'
         icon: 'mdi:power'
         color: red
       - value: scheduled
         icon: 'mdi:clock'
         color: orange
-      - value: 'on'
-        icon: 'mdi:power'
-        color: green
-      - value: filtering
-        icon: 'mdi:air-filter'
-        color: green
       - value: heating
         icon: 'mdi:fire'
         color: red
-      - value: at temperature
-        icon: 'mdi:fire'
-        color: green
-      - value: bubbles
-        icon: 'mdi:chart-bubble'
-        color: green
+
   - entities:
-      - entity: switch.hottub_power
-      - entity: switch.hottub_filter
-      - entity: switch.hottub_heat
-      - entity: switch.hottub_bubbles
+      - entity: climate.spa_climate
+        name: Spa
       - entity: input_number.hottub_water_target
-        name: Target Temperature
-      - entity: sensor.hottub_water_temp
-        name: Water Temperature
-      - entity: sensor.hottub_pump_temp
-        name: Pump Temperature        
+        name: Immediate Target Temperature      
+      - entity: input_number.hottub_standard_temp
+        name: Standard Target Temperature          
+      - entity: binary_sensor.spa_circ_pump
+        name: Circulation Pump
+      - entity: binary_sensor.spa_filter1
+        name: Filter Pump
+#      - entity: binary_sensor.spa_filter2
+#        name: Filter 2        
+      - entity: fan.spa_pump1
+        name: Jets 1
+      - entity: fan.spa_pump2
+        name: Jets 2      
+      - entity: switch.spa_light1
+        name: Lights
+      - entity: switch.spa_temp_range
+        name: High Temp Range
       - entity: input_datetime.hottub_ready_by
         name: Ready by
       - entity: sensor.hottub_summary
@@ -112,8 +116,6 @@ cards:
         name: Heat below x pence
       - entity: sensor.hottub_heating_this_week
         name: Heating Time This Week
-      - entity: sensor.hottub_status
-        name: Last Updated    
     show_header_toggle: false
     title: Hot Tub
     type: entities
@@ -129,3 +131,7 @@ cards:
       haptic: success
       navigation_path: /lovelace-switchboard/menu
     type: 'custom:button-card'
+  - type: logbook
+    entities:
+      - sensor.hottub_summary
+hours_to_show: 24

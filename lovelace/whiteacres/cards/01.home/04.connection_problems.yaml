@@ -3,6 +3,10 @@ card:
   title: Connection Problems
   type: glance
 entities:
+  - entity: sensor.hottub_summary
+    name: Hot Tub
+    state_filter:
+      - offline
   - entity: sensor.hive_hub_status
     name: Hive Hub
     state_filter:

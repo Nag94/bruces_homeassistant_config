@@ -1,0 +1,7 @@
+sensor:
+  - platform: template
+    sensors:
+      hottub_preset_mode:
+        availability_template: "{{ not is_state('binary_sensor.spa_circ_pump','unavailable') }}"
+        friendly_name: "HotTub Preset Mode"
+        value_template: "{{ state_attr('climate.spa_climate','preset_mode') }}"
