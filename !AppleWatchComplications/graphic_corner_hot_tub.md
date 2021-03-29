@@ -7,7 +7,7 @@
 
 * Leading: 
 ```
-{{ [states*'sensor.hottub_water_temp')|int,28]|min }}
+{{ [states('sensor.hottub_water_temp')|float,28]|min }}
 ```
 * Outer: 
 ```
@@ -28,8 +28,8 @@ state_attr('climate.spa_climate','hvac_action') != 'heating'and is_state('binary
 ```
 * Gauge: 
 ```
-{{ [(states('input_number.hottub_water_temp') | float - [states('input_number.hottub_water_temp')|int,28]|min ) /
-(states('input_number.hottub_water_target') | float - [states('input_number.hottub_water_temp')|int,28]|min), 1]|min}} 
+{% if states('input_number.hottub_water_temp')|float > states('input_number.hottub_water_target')|float %}1.0{%
+else%}{{ (states('input_number.hottub_water_temp')|float - 28.0 )/(states('input_number.hottub_water_target')|float - 28.0)}}{%endif%}
 ```
 
 
