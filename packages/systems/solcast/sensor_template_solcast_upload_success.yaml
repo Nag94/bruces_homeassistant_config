@@ -3,4 +3,5 @@ binary_sensor:
     sensors:
       solcast_upload_success:
         friendly_name: "Solcast Upload Successful"
+        availability_template: "{{ states('sensor.solcast_upload') != 'unknown'}}"
         value_template: "{{ ((as_timestamp(now()) - state_attr('sensor.solcast_upload','date') | as_timestamp) < 100800)  and is_state('sensor.solcast_upload','200') }}"

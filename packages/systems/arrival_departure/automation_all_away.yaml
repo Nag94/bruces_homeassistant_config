@@ -1,13 +1,16 @@
 automation:
-  # Check everything off when no-one at home
   - id: all_away_is_everything_off
-    alias: Check everything off when noone at home
-    description: Check everything off when noone at home
+    alias: 'Check everything off when noone at home'
+    
+    description: >
+      Check everything off when noone at home
+
     trigger:
       - platform: state
         entity_id: group.someone_home
         from: home
         to: not_home
+        
     condition:
       condition: or
       conditions:
@@ -47,6 +50,7 @@ automation:
             - binary_sensor.main_bathroom_door
             - binary_sensor.downstairs_toilet_door
           state: 'off'
+          
     action:
       - service: telegram_bot.send_message
         data:

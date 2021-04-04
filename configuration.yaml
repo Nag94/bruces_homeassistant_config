@@ -5,8 +5,9 @@ frontend:
   themes: !include_dir_merge_named themes
 
 #logger:
-#  default: info
+#  default: error
 #  logs:
+#    custom_components.balboa: debug
 #    homeassistant.core: debug
 #    homeassistant.components.zha: debug
 #    bellows.zigbee.application: debug
@@ -86,25 +87,27 @@ lovelace:
       type: module
     - url: /hacsfiles/fan-control-entity-row/fan-control-entity-row.js
       type: module
-    - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js?v=30
+    - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
       type: module
-    - url: /hacsfiles/icloud3/icloud3-event-log-card.js?v=2.3.3
+    - url: /hacsfiles/icloud3/icloud3-event-log-card.js
       type: module
     - url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
       type: module
 #    - url: /hacsfiles/dual-gauge-card/dual-gauge-card.js
 #      type: module
-    - url: /local/custom_cards/agile-rates-card.js?v=3.3
+    - url: /local/custom_cards/agile-rates-card.js
       type: module
 #    - url: /hacsfiles/ozw-network-visualization-card/ozw-network-visualization-card.js
 #      type: module
     - url: /local/zha-network-card.js
       type: module
-    - url: /hacsfiles/tesla-style-solar-power-card/tesla-style-solar-power-card.js?v=4
+    - url: /hacsfiles/tesla-style-solar-power-card/tesla-style-solar-power-card.j
       type: module      
     - url: /hacsfiles/lovelace-layout-card/layout-card.js
       type: module     
     - url: /hacsfiles/text-element-card/text-element.js
+      type: module
+    - url: /local/file-loader.js
       type: module
 
 

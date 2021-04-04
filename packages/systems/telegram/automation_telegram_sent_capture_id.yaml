@@ -2,9 +2,14 @@ automation:
   - id: event_telegram_sent_capture_id
     alias: 'Telegram capture message ID'
     mode: parallel
+    
+    description: >
+      Capture Message ID into helper for later
+      
     trigger:
       - platform: event
         event_type: telegram_sent
+        
     action:
       - choose:
           - conditions: "{{ trigger.event.data.message_tag == 'startup' }}"
@@ -17,8 +22,9 @@ automation:
           - conditions: "{{ trigger.event.data.message_tag is defined }}"
             sequence:
               - service: input_text.set_value
-                data:
+                target:
                   entity_id: "input_text.{{ trigger.event.data.message_tag }}_message_id"
+                data:
                   value: "{{ trigger.event.data.message_id }}"           
         
                 

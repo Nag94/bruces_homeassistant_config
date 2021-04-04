@@ -1,8 +1,11 @@
 automation:
   - id: alarm_state_changed
     alias: Alarm State Changed
-    description: Alarm State Changed
     mode: queued
+    
+    description: >
+      Alarm State Changed
+      
     trigger:
       - platform: state
         entity_id: alarm_control_panel.full_set
@@ -20,7 +23,7 @@ automation:
           - conditions: "{{ trigger.to_state.state == 'triggered' }}"
             sequence:
                 # Give it a couple of seconds to update which sensor has triggered
-              - delay: 00:00:02
+              - delay: 2
               - service: telegram_bot.send_message
                 data:
                   target: !secret telegram_chat_id_bruce_and_sarah
@@ -56,28 +59,21 @@ automation:
           - conditions: "{{ (trigger.to_state.state == 'pending') and (trigger.from_state.state == 'disarmed') and (is_state('group.bruce_or_sarah_home', 'home')) and (now() > now().replace(hour=21)) }}"
             sequence:
               - service: light.turn_off
-                entity_id: light.lounge_all
-              - service: light.turn_off
-                entity_id: light.conservatory
-              - service: light.turn_off
-                entity_id: light.bar
-              - service: light.turn_off
-                entity_id: light.lounge
-              - service: light.turn_off
-                entity_id: light.patio
-              - service: light.turn_off
-                entity_id: light.christmas
-              - service: light.turn_off
-                entity_id: light.utility_light
-              - service: light.turn_off
-                entity_id: light.kitchen_all
-              - service: light.turn_off
-                entity_id: light.downstairs_toilet_light
-              - service: light.turn_off
-                entity_id: light.under_stairs_light
-              - delay: 00:00:01        
+                target:
+                  entity_id: 
+                    - light.lounge_all
+                    - light.conservatory
+                    - light.bar
+                    - light.lounge
+                    - light.patio
+                    - light.christmas
+                    - light.utility_light
+                    - light.kitchen_all
+                    - light.downstairs_toilet_light
+                    - light.under_stairs_light
+              - delay: 1       
               - service: scene.turn_on
-                data:
+                target:
                   entity_id: >
                     {%if is_state('input_boolean.bruce_is_asleep','off') and 
                       is_state('input_boolean.sarah_is_asleep','off')%}scene.gotobed_lights_bedroom{%else%}scene.gotobed_lights{%endif%}
@@ -86,7 +82,8 @@ automation:
           - conditions: "{{ trigger.to_state.state == 'disarmed' and is_state('input_text.alarm_user','Maid For')}}"
             sequence:
               - service: input_boolean.turn_off
-                entity_id: input_boolean.was_alarm_armed            
+                target:
+                  entity_id: input_boolean.was_alarm_armed            
               - service: logbook.log
                 data:
                   domain: alarm_control_panel
@@ -103,8 +100,9 @@ automation:
           - conditions: "{{ trigger.to_state.state == 'disarmed' }}"
             sequence:
               - service: input_boolean.turn_off
-                entity_id: input_boolean.was_alarm_armed
-              - delay: 00:00:02                
+                target:
+                  entity_id: input_boolean.was_alarm_armed
+              - delay: 2               
               - service: logbook.log
                 data:
                   domain: alarm_control_panel
@@ -115,9 +113,11 @@ automation:
           - conditions: "{{ trigger.to_state.state == 'armed_away' and is_state('input_text.alarm_user','Cat Sit') }}"
             sequence:
               - service: light.turn_off
-                entity_id: light.home_lights
+                target:
+                  entity_id: light.home_lights
               - service: input_boolean.turn_on
-                entity_id: input_boolean.was_alarm_armed
+                target:
+                  entity_id: input_boolean.was_alarm_armed
               - service: logbook.log
                 data:
                   domain: alarm_control_panel
@@ -134,10 +134,12 @@ automation:
           - conditions: "{{ trigger.to_state.state == 'armed_away' and is_state('input_text.alarm_user','Maid For')}}"
             sequence:
               - service: light.turn_off
-                entity_id: light.home_lights
+                target:
+                  entity_id: light.home_lights
               - service: input_boolean.turn_on
-                entity_id: input_boolean.was_alarm_armed
-              - delay: 00:00:02
+                target:
+                  entity_id: input_boolean.was_alarm_armed
+              - delay: 2
               - service: logbook.log
                 data:
                   domain: alarm_control_panel
@@ -154,10 +156,12 @@ automation:
           - conditions: "{{ trigger.to_state.state == 'armed_away'  }}"
             sequence:
               - service: light.turn_off
-                entity_id: light.home_lights
+                target:
+                  entity_id: light.home_lights
               - service: input_boolean.turn_on
-                entity_id: input_boolean.was_alarm_armed
-              - delay: 00:00:02
+                target:
+                  entity_id: input_boolean.was_alarm_armed
+              - delay: 2
               - service: logbook.log
                 data:
                   domain: alarm_control_panel
@@ -166,7 +170,7 @@ automation:
 
           - conditions: "{{ trigger.to_state.state == 'armed_home'  }}"   
             sequence:
-              - delay: 00:00:02
+              - delay: 2
               - service: logbook.log
                 data:
                   domain: alarm_control_panel
@@ -176,10 +180,12 @@ automation:
           - conditions: "{{ trigger.to_state.state == 'armed_night'  }}"   
             sequence:
               - service: light.turn_off
-                entity_id: light.downstairs_lights
+                target:
+                  entity_id: light.downstairs_lights
               - service: light.turn_off
-                entity_id: light.outside_lights            
-              - delay: 00:00:02
+                target:
+                  entity_id: light.outside_lights            
+              - delay: 2
               - service: logbook.log
                 data:
                   domain: alarm_control_panel

@@ -1,11 +1,16 @@
 automation:
   - id: cupboard_and_worktop_on_when_lights_2_on_first
-    alias: Turn on cupboard when kitchen 2 lights on first
+    alias: 'Turn on cupboard when kitchen 2 lights on first'
+    
+    description: >
+      If Lights switch 2 turned on first, switch on cupboard & worktop
+      
     trigger: 
       - platform: state
         entity_id: light.kitchen_ceiling_2
         from: 'off'
         to: 'on'
+        
     condition:
       - condition: state
         entity_id: 
@@ -13,8 +18,10 @@ automation:
           - light.kitchen_ceiling_3
           - light.kitchen_ceiling_4
         state: 'off'
+        
     action:
       - service: light.turn_on
-        entity_id: 
-          - light.kitchen_cupboard 
-          - light.kitchen_worktop
+        target:
+          entity_id: 
+            - light.kitchen_cupboard 
+            - light.kitchen_worktop

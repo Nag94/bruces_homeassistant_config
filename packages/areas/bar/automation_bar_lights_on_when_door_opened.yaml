@@ -1,6 +1,6 @@
 automation:
   - id: bar_lights_when_door_opened
-    alias: "Bar Lights on from door"
+    alias: 'Bar Lights on from door'
     mode: restart
 
     description: >-
@@ -23,8 +23,9 @@ automation:
     action:
       - alias: "Bar Lights on from door"
         service: light.turn_on
-        data:
+        target:
           entity_id: 
             - light.bar_bar
             - light.bar_palm
+        data:
           brightness: 75

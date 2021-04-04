@@ -1,33 +1,38 @@
 automation:
   - id: eddi_boost_when_below_Xp
     alias: 'Hot Water: Turn on when below Xp'
-    description: When Price is below Xp boost eddi
+    
+    description: >
+      When Price is below Xp boost eddi
+      
     trigger:
-      - platform: state
-        entity_id: octopusagile.rates
-      - platform: state
-        entity_id: input_number.eddi_heat_below_x_pence
       - platform: homeassistant
         event: start
       - platform: event
-        event_type: automation_reloaded            
+        event_type: automation_reloaded       
+      - platform: state
+        entity_id: 
+          - octopusagile.rates
+          - input_number.eddi_heat_below_x_pence
+        
     condition:
       - condition: numeric_state
         entity_id: sensor.octopus_agile_current_rate
         below: input_number.eddi_heat_below_x_pence
+        
     action:
       - service: script.eddi_boost
         data:
           mode: "on"
           duration: 30
           heater: 1
-      - delay: '00:00:02'          
+      - delay: 2          
       - alias: repeat this
         repeat:
           sequence:
             - service: homeassistant.update_entity
               entity_id: sensor.eddi_cmt
-            - delay: '00:00:02'               
+            - delay: 2               
           until: "{{ states('sensor.eddi_cmt') | int > 250 }}"
       - service: homeassistant.update_entity
         entity_id: sensor.eddi 

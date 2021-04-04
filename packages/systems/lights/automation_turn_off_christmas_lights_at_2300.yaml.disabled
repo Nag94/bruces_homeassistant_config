@@ -2,19 +2,25 @@ automation:
   - id: turn_off_outside_christmas_at_2300
     alias: 'Turn off Christmas lights at 2300'
     mode: single
+	
+	description: >
+	  Christmas lights off at 11pm
+	  
     trigger:
-      - platform: time
-        at: "23:00:00"
       - platform: homeassistant
         event: start
       - platform: event
         event_type: automation_reloaded     
+      - platform: time
+        at: '23:00:00'
+		
     condition:
       condition: time
-      after: "23:00:00"      
+      after: '23:00:00'
+	  
     action:
       - service: light.turn_off
-        data:
+        target:
           entity_id: 
             - light.drive_icicles
             - light.conservatory_icicles            

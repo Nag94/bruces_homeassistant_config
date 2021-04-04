@@ -1,12 +1,11 @@
-# Turn on landing lights low for 10 mins.
-# Not if already on at a different brightness.
-# Not if it is daylight
-
 automation:
   - id: landing_lights_when_landing_door_opened
-    alias: Landing Lights on from landing doors
-    description: Landing Lights on for 10 minutes when landing Door Opened
+    alias: 'Landing Lights on from landing doors'
     mode: restart
+    
+    description: >
+      Landing Lights on for 10 minutes when landing Door Opened
+
     trigger:
       - platform: state
         entity_id: 
@@ -18,6 +17,7 @@ automation:
           - binary_sensor.landing
         from: 'off'
         to: 'on'
+        
     condition:
       - condition: state
         entity_id: binary_sensor.dark_outside
@@ -33,7 +33,8 @@ automation:
           - condition: state
             entity_id: light.landing_light_1
             attribute: brightness
-            state: 10        
+            state: 10     
+            
 # don't know why but this didn't work when it was a condition on the automation ?        
 #    condition:
 #      - condition: template
@@ -43,16 +44,20 @@ automation:
 #          - conditions: "{{ (is_state('binary_sensor.dark_outside','on')) and (is_state('light.landing_light_3','off')) and (state_attr('light.landing_light_1', 'brightness') == 10 or is_state('light.landing_light_1','off')) }}"
 #            sequence:
       - service: light.turn_on
-        data:
+        target:
           entity_id: 
             - light.landing_light_1
             - light.landing_light_2
+        data:
           brightness: 10
       - delay: 00:09:40
       - service: light.turn_off
-        data:
+        target:
           entity_id: light.landing_lights
+        data:
           transition: 20
   
       
-            
+# Turn on landing lights low for 10 mins.
+# Not if already on at a different brightness.
+# Not if it is daylight            

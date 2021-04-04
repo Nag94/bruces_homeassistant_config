@@ -1,6 +1,10 @@
 automation:
   - id: turn_on_heating
     alias: Turn on heating
+    
+    description: >
+      turn on heating
+      
     trigger:
       - platform: event
         event_type: ios.notification_action_fired
@@ -10,13 +14,15 @@ automation:
         event_type: ios.action_fired
         event_data:
           actionName: 'heating_on'
+          
     action:
       - service: water_heater.set_operation_mode
-        data:
+        target:
           entity_id: water_heater.hot_water
+        data:
           operation_mode: eco
       - service: climate.set_hvac_mode
-        data: 
+        target: 
           entity_id:
             - climate.heating
             - climate.kitchen_tall_rad
@@ -31,16 +37,20 @@ automation:
             - climate.lounge_rad
             - climate.conservatory_rad
             - climate.kitchen_rad
+        data:
           hvac_mode: 'auto'
       - service: climate.set_hvac_mode
-        data: 
+        target: 
           entity_id: 
             - climate.kates_bedroom_rad
             - climate.kates_bathroom_rad
+        data:
           hvac_mode: "{% if is_state('calendar.kate_yarbury','on') %}auto{% else %}off{% endif %}"
       - service: climate.set_hvac_mode
-        data: 
+        target: 
           entity_id: climate.sophies_bedroom_rad
+        data:
           hvac_mode: "{% if is_state('calendar.sophie_yarbury','on') %}auto{% else %}off{% endif %}"
       - service: input_boolean.turn_off
-        entity_id: input_boolean.away_heating_off
+        target:
+          entity_id: input_boolean.away_heating_off

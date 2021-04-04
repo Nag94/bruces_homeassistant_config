@@ -1,7 +1,11 @@
 automation:
   - id: lights_on_turn_off_sleep_switches
-    alias: Turn off sleep switches when lights on
+    alias: 'Turn off sleep switches when lights on'
     mode: parallel
+    
+    description: >
+      Lights on, turn off Asleep Switches
+      
     trigger:
       - platform: state
         entity_id:
@@ -10,6 +14,7 @@ automation:
           - light.master_bedroom_wall_left           
           - light.master_bedroom_wall_right          
         to: 'on'   
+        
     condition:
       - condition: time
         after: 05:30:00
@@ -21,18 +26,23 @@ automation:
           - condition: state
             entity_id: input_boolean.sarah_is_asleep
             state: 'on'            
+            
     action:
       - choose:
           - conditions: "{{ trigger.entity_id == 'light.master_bedroom_bedside_left' }}"
             sequence:
               - service: input_boolean.turn_off
-                entity_id: input_boolean.bruce_is_asleep  
+                target:
+                  entity_id: input_boolean.bruce_is_asleep  
           - conditions: "{{ trigger.entity_id == 'light.master_bedroom_bedside_right' }}"
             sequence:
               - service: input_boolean.turn_off
-                entity_id: input_boolean.sarah_is_asleep                  
+                target:
+                  entity_id: input_boolean.sarah_is_asleep                  
         default:
           - service: input_boolean.turn_off
-            entity_id: input_boolean.sarah_is_asleep  
+            target:
+              entity_id: input_boolean.sarah_is_asleep  
           - service: input_boolean.turn_off
-            entity_id: input_boolean.bruce_is_asleep  
+            target:
+              entity_id: input_boolean.bruce_is_asleep  

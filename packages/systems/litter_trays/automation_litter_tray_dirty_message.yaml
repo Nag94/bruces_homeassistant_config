@@ -1,9 +1,16 @@
 automation:
   - id: litter_tray_needs_cleaning
     alias: 'Litter Tray notification'
-    description: Telegram message about Litter Trays
     mode: queued
+    
+    description: >
+      Telegram message about Litter Trays    
+      
     trigger:
+      - platform: homeassistant
+        event: start
+      - platform: event
+        event_type: automation_reloaded       
       - platform: state
         entity_id: 
 #          - binary_sensor.litter_trays_dirty
@@ -17,10 +24,7 @@ automation:
           - '12:00:00'
           - '17:00:00'
           - '19:00:00'        
-      - platform: homeassistant
-        event: start
-      - platform: event
-        event_type: automation_reloaded   
+
     action:  
       - choose:
             # Litter Trays Dirty and Message already sent
@@ -31,8 +35,9 @@ automation:
                   message_id: "{{ states('input_text.litter_tray_message_id') }}"
                   chat_id: !secret telegram_chat_id_bruce_and_sarah
               - service: input_text.set_value
-                data:
+                target:
                   entity_id: input_text.litter_tray_message_id
+                data:
                   value: '0'                  
               - service: telegram_bot.send_message
                 data:
@@ -83,8 +88,9 @@ automation:
                   message_id: "{{ states('input_text.litter_tray_message_id') }}"
                   chat_id: !secret telegram_chat_id_bruce_and_sarah
               - service: input_text.set_value
-                data:
+                target:
                   entity_id: input_text.litter_tray_message_id
+                data:
                   value: '0'                  
               - service: telegram_bot.send_message
                 data:

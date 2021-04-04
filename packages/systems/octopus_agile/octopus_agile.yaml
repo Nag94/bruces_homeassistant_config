@@ -1,5 +1,8 @@
 octopusagile:
   region_code: "L"
+#  mpan: 2200999999999
+#  serial: 20J9999999
+#  auth: sk_live_ABCDEaBzDv9aBc3AbCDEFgh
   mpan: !secret octopus_mpan
   serial: !secret octopus_serial
   auth: !secret octopus_auth

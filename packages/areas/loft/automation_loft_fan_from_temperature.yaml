@@ -5,23 +5,29 @@ automation:
     trigger:
       - platform: numeric_state
         entity_id: sensor.nuc_cpu_temperature
-        above: 48
+        above: 49
         for: 
-          minutes: 1
+          minutes: 2
       - platform: numeric_state
         entity_id: sensor.nuc_cpu_temperature
         below: 46
         for:
-          minutes: 1
+          minutes: 2
       - platform: numeric_state
         entity_id: sensor.loft_cabinet_temperature
         above: input_number.loft_fan_thermostat
       - platform: numeric_state
         entity_id: sensor.loft_cabinet_temperature
-        value_template: "{{ (states('input_number.loft_fan_thermostat') | float - states('sensor.loft_cabinet_temperature') | float) > 2 }}"
-        above: 2.0
+        value_template: "{{ (states('input_number.loft_fan_thermostat') | float - states('sensor.loft_cabinet_temperature') | float) }}"
+        above: 0.0
         for: 
           minutes: 2
+      - platform: numeric_state
+        entity_id: sensor.loft_cabinet_temperature
+        value_template: "{{ (states('input_number.loft_fan_thermostat') | float - states('sensor.loft_cabinet_temperature') | float) }}"
+        below: -1.0
+        for: 
+          minutes: 2          
       - platform: state
         entity_id: input_number.loft_fan_thermostat
       - platform: homeassistant

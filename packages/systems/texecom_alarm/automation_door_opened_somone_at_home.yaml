@@ -1,32 +1,38 @@
 automation:
-  # Someone has arrived - disarm alarm
   - id: disarm_alarm_when_arriving_home
     alias: Disarm alarm when someone arrives home
-    description: disarm alarm if somone home home  
     mode: single
+    
+    description: >
+      disarm alarm if somone home home  
+
     trigger:
-      platform: state
-      entity_id: 
-        - binary_sensor.front_door
-        - binary_sensor.back_door    
-        - binary_sensor.conservatory_door
-      from: 'off'        
-      to: 'on'
+      - platform: state
+        entity_id: 
+          - binary_sensor.front_door
+          - binary_sensor.back_door    
+          - binary_sensor.conservatory_door
+        from: 'off'        
+        to: 'on'
+        
     condition:
       - condition: state
         entity_id: input_boolean.was_alarm_armed
         state: 'on'
+        
     action:
       - service: input_text.set_value
-        data:
+        target:
           entity_id: input_value.alarm_user
+        data:          
           value: "{{ states('input_text.last_person_to_arrive') }}"
       - service: light.turn_on
-        entity_id: light.hall_stairs_lightstrip
+        target:
+          entity_id: light.hall_stairs_lightstrip
         data:
           brightness: 42
           color_temp: 396
-      - delay: 00:00:02
+      - delay: 2
       - service: telegram_bot.send_message
         data:
           target: !secret telegram_chat_id_bruce_and_sarah
@@ -44,8 +50,9 @@ automation:
           title: "{{ states('input_text.last_person_to_arrive') }} arriving."
           message: "Alarm disarming......"
       - service: alarm_control_panel.alarm_disarm 
-        data:
+        target:
           entity_id: alarm_control_panel.full_set
+        data:
           code: !secret alarm_code
       - wait_template: "{{ is_state('alarm_control_panel.full_set','disarmed') }}"
         timeout: 00:00:10

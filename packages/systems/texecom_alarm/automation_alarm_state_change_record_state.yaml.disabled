@@ -1,8 +1,11 @@
 automation:
   - id: alarm_state_changed_update_drop_down
     alias: Alarm State Changed Update DropDown
-    description: Alarm State Changed Update Dropdown
     mode: queued
+	
+    description: >
+	  Alarm State Changed Update Dropdown
+
     trigger:
       - platform: state
         entity_id: alarm_control_panel.full_set
@@ -10,6 +13,7 @@ automation:
         event: start
       - platform: event
         event_type: automation_reloaded           
+		
     action:
       - choose:
           - conditions: "{{ 3==5 and (trigger.to_state.state == 'pending') and (trigger.from_state.state == 'disarmed') }}"
@@ -28,8 +32,9 @@ automation:
                   option: 'Pending Disarm'                
         default:
           - service: input_text.set_value
-            data:
+            target:
               entity_id: input_text.alarm_status_debug
+			data:
               value: "from: {{ trigger.from_state.state }} to: {{ trigger.to_state.state }}"
           - service: input_select.select_option
             target:

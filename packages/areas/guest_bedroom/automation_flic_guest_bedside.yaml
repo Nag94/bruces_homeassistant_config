@@ -1,6 +1,6 @@
 automation:
   - id: flic_bedside_guest
-    alias: Guest Bedside Lights from Flic
+    alias: 'Guest Bedside Lights from Flic'
     mode: queued
 
     description: >-
@@ -17,16 +17,20 @@ automation:
           - conditions: "{{ trigger.event.data.click_type == 'single' }}"
             sequence:
               - service: light.toggle
-                entity_id: light.guest_bedroom_bedside
+                target:
+                  entity_id: light.guest_bedroom_bedside
 
           - conditions: "{{ trigger.event.data.click_type == 'double' }}"
             sequence:
-              - service: "{%if is_state('light.guest_bedroom','on')%}input_boolean.turn_on{%else%}input_boolean.turn_off{%endif%}"
-                entity_id: input_boolean.guest_is_asleep
-              - service: "{%if is_state('light.guest_bedroom','on')%}light.turn_off{%else%}light.turn_on{%endif%}"
-                entity_id: light.guest_bedroom
+              - service: "input_boolean.turn_{{ states('light.guest_bedroom') }}"
+                target:
+                  entity_id: input_boolean.guest_is_asleep
+              - service: "light.turn_{{ 'off' if is_state('light.guest_bedroom','on') else 'on' }}"
+                target:
+                  entity_id: light.guest_bedroom
                 
           - conditions: "{{ trigger.event.data.click_type == 'hold' }}"
             sequence:
               - service: light.turn_on
-                entity_id: light.guest_bedroom             
+                target:
+                  entity_id: light.guest_bedroom             

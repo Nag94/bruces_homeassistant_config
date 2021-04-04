@@ -1,8 +1,11 @@
 automation:
   - id: hottub_set_temp
-    alias: HotTub Set Temp
-    description: Capture Hot Tub Temperature if realistic
+    alias: 'HotTub Set Temp'
     mode: restart
+    
+    description: >
+      Capture Hot Tub Temperature if realistic
+    
     trigger:
       - platform: state
         entity_id: 'sensor.hottub_water_temp'
@@ -10,13 +13,16 @@ automation:
         event: start
       - platform: event
         event_type: automation_reloaded    
+        
     condition:
       - condition: numeric_state
         entity_id: 'sensor.hottub_water_temp'
         above: 1.0
+        
     action:
       - service: input_number.set_value
-        data:
+        target:
           entity_id: input_number.hottub_water_temp
+        data:
           value: "{{ states('sensor.hottub_water_temp') | float }}"                
       

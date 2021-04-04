@@ -1,14 +1,19 @@
 automation:
   - id: hottub_turn_on_off_scheduled_when_time_changed
-    alias: HotTub Turn on or off scheduled when time changed
+    alias: 'HotTub Turn on or off scheduled when time changed'
+    
+    description: >
+      Schedule on or off based on time change or other factors
+      
     trigger:
       - platform: state
         entity_id: input_datetime.hottub_ready_by
       - platform: time
         at: input_datetime.hottub_ready_by
+        
     action:
       - choose:
-          - conditions: "{{ trigger.entity_id == 'input_datetime.hottub_ready_by' }}"
+          - conditions: "{{ trigger.platform == 'time' }}"
             sequence:
               - service: input_boolean.turn_off
                 target:

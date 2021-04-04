@@ -5,7 +5,7 @@ script:
       - service: image_processing.scan
         data:
           entity_id: image_processing.bar_face
-      - delay: 00:00:03
+      - delay: 3
       - service: image_processing.scan
         data:
           entity_id: image_processing.bins_face            

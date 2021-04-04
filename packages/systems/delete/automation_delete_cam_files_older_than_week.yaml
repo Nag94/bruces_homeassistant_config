@@ -1,9 +1,14 @@
 automation:
   - id: delete_cam_files_over_a_week
-    alias: "Delete Cam Files older than a week"
+    alias: 'Delete Cam Files older than a week'
+    
+    description: >
+      Delete old cam files based on date stamp
+      
     trigger:
-      platform: time
-      at: '04:10:00'            
+      - platform: time
+        at: '04:10:00'            
+        
     action:
       - service: delete.files_in_folder
         data:

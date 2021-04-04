@@ -1,9 +1,14 @@
 automation:
   - id: telegram_text
     alias: 'Process Telegram Text'
+    
+    description: >
+      Free Text Telegram Control
+      
     trigger:
       - platform: event
         event_type: telegram_text
+        
     action:
       - choose:
           - conditions: "{{ trigger.event.data.text.lower() == 'powerwall' }}"

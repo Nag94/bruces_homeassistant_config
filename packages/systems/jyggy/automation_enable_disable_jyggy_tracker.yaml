@@ -1,11 +1,16 @@
 automation:
   - id: enable_disable_jyggy_tracker
     alias: enable or disable jyggy tracker
-    description: enable disable jyggy tracker using shift status
     mode: restart
+    
+    description: >
+      enable disable jyggy tracker using shift status
+
     trigger: 
       - platform: state
         entity_id: sensor.jyggy_carstate
+        
     action:
-      service: automation.turn_{% if is_state('sensor.jyggy_carstate','Driving') %}on{% else %}off{% endif %}
-      entity_id: automation.update_jyggy_tracker_using_lat_and_long
+      service: automation.turn_{{ 'on' if is_state('sensor.jyggy_carstate','Driving') else 'off' }}
+      target:
+        entity_id: automation.update_jyggy_tracker_using_lat_and_long

@@ -1,13 +1,13 @@
-#person.bruce_hartley:
-#  entity_picture: /local/bruce.jpg
-#person.sarah_hartley:
-#  entity_picture: /local/sarah.jpg
-#person.sophie_hartley:
-#  entity_picture: /local/sophie.jpg
-#person.kate_hartley:
-#  entity_picture: /local/kate.jpg
-#person.jyggy:
-#  entity_picture: /local/tesla.png
+person.bruce_hartley:
+  entity_picture: /local/bruce.jpg
+person.sarah_hartley:
+  entity_picture: /local/sarah.jpg
+person.sophie_hartley:
+  entity_picture: /local/sophie.jpg
+person.kate_hartley:
+  entity_picture: /local/kate.jpg
+person.jyggy:
+  entity_picture: /local/tesla.png
 device_tracker.kate_iphone:
   entity_picture: /local/kate.jpg
 device_tracker.kate_iphone_2:
@@ -44,6 +44,8 @@ sensor.octopus_current_price_rounded:
   icon: mdi:currency-gbp
 sensor.electricity_demand_rounded:
   icon: mdi:flash
+binary_sensor.hot_tub_door:
+  device_class: door  
 binary_sensor.master_bedroom_door:
   device_class: door
 binary_sensor.downstairs_toilet_door:

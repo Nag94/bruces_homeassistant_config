@@ -2,16 +2,21 @@ automation:
   - id: ring_motion_front_door_lights_on
     alias: Turn on Front Door Lights at night with Ring Motion
     mode: single
+	
+	description: >
+	  Front Door Lights from Ring Motion
+	  
     trigger: 
-      - platform: time
-        at: '23:00:01'
       - platform: homeassistant
         event: start
       - platform: event
         event_type: automation_reloaded  
+      - platform: time
+        at: '23:00:01'
       - platform: state
         entity_id: sensor.dark_outside
         to: 'True'
+		
     action:
       - choose:
           - conditions: 
@@ -23,7 +28,9 @@ automation:
                 after: '14:30:00'                
             sequence:
               - service: light.turn_on
-                entity_id: light.christmas
+			    target:
+                  entity_id: light.christmas
         default:
           - service: light.turn_off
-            entity_id: light.christmas
+		    target:
+              entity_id: light.christmas

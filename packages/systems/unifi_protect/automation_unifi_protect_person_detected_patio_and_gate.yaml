@@ -1,16 +1,20 @@
 automation:
   - id: unifi_protect_person_detected_patio_and_gate
-    mode: single
     alias: Send message when person detected Patio or Gate Opened
-    description: 'record and send a video when person seen'
+    mode: single
+    
+    description: >
+      record and send a video when person seen
+      
     trigger:
-    - platform: state
-      entity_id: binary_sensor.back_gate_door
-      to: 'on'    
-    - platform: state
-      entity_id: binary_sensor.motion_patio
-      to: person
-      attribute: event_object
+      - platform: state
+        entity_id: binary_sensor.back_gate_door
+        to: 'on'    
+      - platform: state
+        entity_id: binary_sensor.motion_patio
+        to: person
+        attribute: event_object
+        
     variables:
       # This code was used when I had one automation that covered all cameras, so it had to know which camera was triggered    
       cam_name: "{{ 'camera.' + trigger.entity_id.split('_')[2] }}"
@@ -18,14 +22,16 @@ automation:
       pic_file: "{{  trigger.entity_id.split('_')[2]  + '_' + now().strftime('%d%m%H%M')  }}"      
       pic_folder: "/config/www/cam_snaps/" 
       gate_file: "{{ 'patio_' + now().strftime('%d%m%H%M')  }}"       
+      
     action:
       - choose:
           - conditions: "{{ trigger.entity_id == 'binary_sensor.back_gate_door' }}"
             sequence:
               - service: camera.record
+                target:
+                  entity_id: "{{ gate_cam }}"                 
                 data:
                   duration: 10
-                  entity_id: "{{ gate_cam }}"
                   filename: "{{ pic_folder + gate_file }}.mp4"    
               - service: telegram_bot.send_message
                 data:
@@ -48,13 +54,15 @@ automation:
               - delay: 00:05:00     
         default:
           - service: input_text.set_value
-            data:
+            target:
               entity_id: input_text.camera_patio_object_detected
+            data:
               value: "{{ trigger.to_state.attributes.event_object }}"        
           - service: camera.record
+            target:
+              entity_id: "{{ cam_name }}"            
             data:
               duration: 10
-              entity_id: "{{ cam_name }}"
               filename: "{{ pic_folder + pic_file }}.mp4"    
           - service: telegram_bot.send_message
             data:
@@ -76,6 +84,7 @@ automation:
                 - 'Show Video:/vdd_{{pic_file}}, OK:/remove_keyboard'    
           - delay: 00:05:00    
           - service: input_text.set_value
-            data:
+            target:
               entity_id: input_text.camera_patio_object_detected
+            data:
               value: ""              

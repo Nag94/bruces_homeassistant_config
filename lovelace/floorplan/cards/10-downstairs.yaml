@@ -633,6 +633,46 @@ elements:
       - entity: input_boolean.floorplan_hottub
         state: 'on'        
     elements:
+      - type: conditional
+        conditions:       
+          - entity: binary_sensor.hottub_temp_reached
+            state: 'on'
+        elements:
+          - type: state-label
+            entity: input_number.hottub_water_temp
+            style:
+              top: 19%
+              left: 91%
+              color: green      
+      - type: conditional
+        conditions:       
+          - entity: sensor.hottub_hvac_action
+            state: 'heating'
+        elements:
+          - type: state-label
+            entity: input_number.hottub_water_temp
+            style:
+              top: 19%
+              left: 91%
+              color: red    
+      - type: conditional
+        conditions:       
+          - entity: sensor.hottub_hvac_action
+            state: 'idle'
+          - entity: binary_sensor.hottub_temp_reached
+            state: 'off'            
+        elements:
+          - type: state-label
+            entity: input_number.hottub_water_temp
+            style:
+              top: 19%
+              left: 91%
+              color: blue                
+      - type: state-icon
+        entity: binary_sensor.hot_tub_door
+        style:
+          top: 3%
+          left: 90%        
       - type: state-icon
         entity: switch.spa_light1
         style:
@@ -644,7 +684,22 @@ elements:
           action: call-service
           service: input_boolean.toggle
           service_data:
-            entity_id: input_boolean.floorplan_show_garden_switches       
+            entity_id: input_boolean.floorplan_show_garden_switches  
+      - type: conditional
+        conditions:       
+          - entity: sensor.hottub_summary
+            state: 'in use'
+        elements:
+          - type: icon
+            icon: 'mdi:pool'
+            style:
+              top: 8%
+              left: 88%
+              color: red
+              transform: 'scale(2,2)'
+            tap_action:          
+              action: navigate
+              navigation_path: /lovelace-whiteacres/hottub
       - type: conditional
         conditions:       
           - entity: sensor.hottub_summary
@@ -660,12 +715,6 @@ elements:
             tap_action:          
               action: navigate
               navigation_path: /lovelace-whiteacres/hottub
-          - type: state-label
-            entity: input_number.hottub_water_temp
-            style:
-              top: 19%
-              left: 91%
-              color: green
       - type: conditional
         conditions:        
           - entity: sensor.hottub_summary
@@ -696,12 +745,6 @@ elements:
             tap_action:          
               action: navigate
               navigation_path: /lovelace-whiteacres/hottub
-          - type: state-label
-            entity: input_number.hottub_water_temp
-            style:
-              top: 19%
-              left: 91%
-              color: grey
       - type: conditional
         conditions:       
           - entity: sensor.hottub_summary
@@ -717,12 +760,6 @@ elements:
             tap_action:          
               action: navigate
               navigation_path: /lovelace-whiteacres/hottub
-          - type: state-label
-            entity: input_number.hottub_water_temp
-            style:
-              top: 19%
-              left: 91%
-              color: red
       - type: conditional
         conditions:         
           - entity: sensor.hottub_summary
@@ -738,12 +775,6 @@ elements:
             tap_action:          
               action: navigate
               navigation_path: /lovelace-whiteacres/hottub
-          - type: state-label
-            entity: input_number.hottub_water_temp
-            style:
-              top: 19%
-              left: 91%
-              color: blue
       - type: conditional
         conditions:         
           - entity: sensor.hottub_summary
@@ -754,17 +785,11 @@ elements:
             style:
               top: 8%
               left: 88%
-              color: blue
+              color: orange
               transform: 'scale(2,2)'
             tap_action:          
               action: navigate
               navigation_path: /lovelace-whiteacres/hottub
-          - type: state-label
-            entity: input_number.hottub_water_temp
-            style:
-              top: 19%
-              left: 91%
-              color: blue              
       - type: conditional
         conditions:      
           - entity: sensor.hottub_summary
@@ -775,17 +800,12 @@ elements:
             style:
               top: 8%
               left: 88%
-              color: yellow
+              color: black
               transform: 'scale(2,2)'
             tap_action:          
               action: navigate
               navigation_path: /lovelace-whiteacres/hottub
-          - type: state-label
-            entity: input_number.hottub_water_temp
-            style:
-              top: 19%
-              left: 91%
-              color: yellow
+
           
 ################################################
 ##            Powerwall                       ##

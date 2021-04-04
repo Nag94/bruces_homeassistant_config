@@ -1,31 +1,38 @@
 automation:
   - id: flic_bedside_bruce
-    alias: Bruce Bedside Lights from Flic
+    alias: 'Bruce Bedside Lights from Flic'
     mode: queued
-    description: control lights and others from Bedside Flic
+    
+    description: >
+      control lights and others from Bedside Flic
+    
     trigger:
       - platform: event
         event_type: flic
         event_data:
           button_name: bedside_bruce
+          
     action:
       - choose:
           - conditions: "{{ trigger.event.data.click_type == 'single' and is_state('alarm_control_panel.full_set','armed_night')}}"
             sequence:
               - service: input_text.set_value
-                data:
+                target:
                   entity_id: input_text.alarm_user
+                data:
                   value: 'Bruce'               
               - service: light.toggle
-                entity_id: light.master_bedroom_bedside_left    
+                target:
+                  entity_id: light.master_bedroom_bedside_left    
               - service: telegram_bot.send_message
                 data:
                   target: !secret telegram_chat_id_bruce
                   message: "Alarm disarming.............."
                   message_tag: alarm_disarming             
               - service: alarm_control_panel.alarm_disarm
-                data:
+                target:
                   entity_id: alarm_control_panel.full_set
+                data:
                   code: !secret alarm_code
               - wait_for_trigger:
                   - platform: state
@@ -40,7 +47,8 @@ automation:
           - conditions: "{{ trigger.event.data.click_type == 'single' and is_state('input_boolean.someone_has_been_downstairs','off') }}"
             sequence:
               - service: light.toggle
-                entity_id: light.master_bedroom_bedside_left
+                target:
+                  entity_id: light.master_bedroom_bedside_left
               - service: telegram_bot.send_message
                 data:
                   target: !secret telegram_chat_id_bruce
@@ -49,26 +57,31 @@ automation:
           - conditions: "{{ trigger.event.data.click_type == 'single' }}"
             sequence:
               - service: light.toggle
-                entity_id: light.master_bedroom_bedside_left
+                target:
+                  entity_id: light.master_bedroom_bedside_left
           - conditions: "{{ trigger.event.data.click_type == 'double' }}"
             sequence:
               - service: light.turn_off
-                entity_id: 
-                  - light.master_bedroom_wall_left
-                  - light.master_bedroom_wall_right
-                  - light.master_bedroom_lamp
-                  - light.master_bedroom_wardrobe
-                  - light.master_bedroom_wardrobe_bars
-                  - light.master_bedroom_bedside_left
+                target:
+                  entity_id: 
+                    - light.master_bedroom_wall_left
+                    - light.master_bedroom_wall_right
+                    - light.master_bedroom_lamp
+                    - light.master_bedroom_wardrobe
+                    - light.master_bedroom_wardrobe_bars
+                    - light.master_bedroom_bedside_left
               - service: switch.turn_off
-                entity_id: switch.electric_blanket_bruce     
+                target:
+                  entity_id: switch.electric_blanket_bruce     
               - service: input_boolean.turn_on
-                entity_id: input_boolean.bruce_is_asleep
+                target:
+                  entity_id: input_boolean.bruce_is_asleep
               - condition: template
                 value_template: "{{ (is_state('input_boolean.sarah_is_asleep','on') or states('person.sarah_hartley')|lower != 'home') and is_state('alarm_control_panel.full_set','disarmed') and is_state('binary_sensor.lounge_door','off') and is_state('binary_sensor.kitchen_door','off') }}"
               - service: light.turn_on
-                data:
+                target:
                   entity_id: light.master_bedroom_bedside_left
+                data:
                   brightness: 10
                   rgb_color: [255,0,0]
                   transition: 1
@@ -78,8 +91,9 @@ automation:
                   message: "Alarm arming.............."
                   message_tag: alarm_arming                  
               - service: alarm_control_panel.alarm_arm_night 
-                data:
+                target:
                   entity_id: alarm_control_panel.full_set
+                data:
                   code: !secret alarm_code
               - wait_for_trigger:
                   - platform: state
@@ -87,8 +101,9 @@ automation:
                     to: armed_night
                 timeout: 00:00:20
               - service: light.turn_on
-                data:
+                target:
                   entity_id: light.master_bedroom_bedside_left
+                data:
                   brightness: 10
                   rgb_color: [0,255,0]
                   transition: 1                
@@ -98,31 +113,36 @@ automation:
                   chat_id: !secret telegram_chat_id_bruce_and_sarah
                   message: "Alarm currently {{states('alarm_control_panel.full_set').replace('_',' ')}}"
               - service: light.turn_on
-                data:
+                target:
                   entity_id: light.master_bedroom_bedside_left
+                data:
                   brightness: 10
                   color_temp: 447
                   transition: 1
-              - delay: '00:00:01'
+              - delay: 1
               - service: light.turn_off
-                entity_id: 
-                  - light.master_bedroom_bedside_left
-                  - light.downstairs
-                  - light.landing_lights
-                  - light.hall_stairs_lightstrip
-                  - light.kitchen_floor_lamp
+                target:
+                  entity_id: 
+                    - light.master_bedroom_bedside_left
+                    - light.downstairs
+                    - light.landing_lights
+                    - light.hall_stairs_lightstrip
+                    - light.kitchen_floor_lamp
                 
           - conditions: "{{ trigger.event.data.click_type == 'hold' }}"
             sequence:
               - service: fan.turn_off
-                entity_id: fan.master_bedroom_fan
+                target:
+                  entity_id: fan.master_bedroom_fan
               - service: switch.turn_off
-                entity_id: switch.electric_blanket_sarah                
+                target:
+                  entity_id: switch.electric_blanket_sarah                
               - service: light.turn_off
-                entity_id:
-                  - light.master_bedroom_lights
-                  - light.downstairs_lights
-                  - light.outside_lights                  
-                  - light.landing_lights
-                  - light.hall_stairs_lightstrip
+                target:
+                  entity_id:
+                    - light.master_bedroom_lights
+                    - light.downstairs_lights
+                    - light.outside_lights                  
+                    - light.landing_lights
+                    - light.hall_stairs_lightstrip
                   

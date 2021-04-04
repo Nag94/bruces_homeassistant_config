@@ -1,6 +1,6 @@
 automation:
   - id: downstairs_toilet_door_left_closed
-    alias: "Downstairs Toilet Door Left Closed"
+    alias: 'Downstairs Toilet Door Left Closed'
     
     description: >-
       Telegram messages to warn that Toilet Door left closed for a long time
@@ -37,8 +37,9 @@ automation:
                   message_id: "{{ states('input_text.downstairs_toilet_door_message_id') }}"
                   chat_id: !secret telegram_chat_id_bruce_and_sarah
               - service: input_text.set_value
-                data:
+                target:
                   entity_id: input_text.downstairs_toilet_door_message_id
+                data:
                   value: 0
               - service: telegram_bot.send_message
                 data:

@@ -1,9 +1,14 @@
 automation:
   - id: telegram_command
     alias: 'Process Telegram Command'
+    
+    description: >
+      Telegram commands
+      
     trigger:
       - platform: event
         event_type: telegram_command
+        
     action:
       - choose:
             # /solar

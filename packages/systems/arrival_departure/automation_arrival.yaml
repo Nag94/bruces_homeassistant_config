@@ -1,7 +1,10 @@
 automation:
     - id: turn_on_lights_when_arrive_home
-      alias: Turn on the lights when somone arrives home
-      description: Turn on lights when arrive home if dark
+      alias: 'Turn on the lights when somone arrives home'
+
+      description: >
+        Turn on lights when arrive home if dark
+        
       trigger:
         - platform: state
           entity_id: 
@@ -15,29 +18,29 @@ automation:
         - platform: state
           entity_id: binary_sensor.front_door
           to: 'on'
+          
       condition:
         - condition: state
           entity_id: binary_sensor.dark_outside
           state: 'on'
         - condition: state
-          entity_id: input_boolean.bruce_is_asleep
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.sarah_is_asleep
+          entity_id: 
+            - input_boolean.bruce_is_asleep
+            - input_boolean.sarah_is_asleep
           state: 'off'
         - condition: template
           value_template: "{{ states('alarm_control_panel.full_set') != 'armed_night' }}"
+          
       action:
           - service: light.turn_on
-            entity_id: light.patio
-          - service: light.turn_on
-            entity_id: light.drive
-#          - service: light.turn_on
-#            entity_id: light.hall         
+            target:
+              entity_id: 
+                - light.patio
+                - light.drive
           - delay: 00:02:00
           - service: light.turn_off
-            entity_id: light.patio
-          - service: light.turn_off
-            entity_id: light.drive
-          - service: light.turn_off
-            entity_id: light.hall         
+            target:
+              entity_id: 
+                - light.patio
+                - light.drive
+     

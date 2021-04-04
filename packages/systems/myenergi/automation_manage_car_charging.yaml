@@ -1,0 +1,38 @@
+automation:
+  - id: manage_car_charging
+    alias: 'Manage Car Charging'
+
+    description: >
+      Manage Car Charging
+
+    trigger:
+      - platform: homeassistant
+        event: start
+      - platform: event
+        event_type: automation_reloaded      
+      - platform: state
+        entity_id: 
+          - binary_sensor.agile_peak
+          - binary_sensor.agile_plunge            
+          - sensor.jyggy_charge_cable
+          - binary_sensor.jyggy_below_max_charge_cost
+          - sensor.zappi_paddy_connected
+          - binary_sensor.paddy_below_max_charge_cost_and_charge_limit
+          - binary_sensor.paddy_needs_charge          
+
+        
+    action:
+      - service: script.zappi_mode_jyggy
+        data:
+          mode: >
+            {%- if is_state('binary_sensor.agile_plunge','on') or is_state('binary_sensor.jyggy_below_max_charge_cost','on') -%}Fast{%- elif
+            is_state('binary_sensor.agile_peak','on') -%}Stopped{%- elif
+            is_state('binary_sensor.jyggy_needs_charge','on') -%}Eco+{%- else -%}Stopped{%- endif -%}
+
+      - service: script.zappi_mode_paddy
+        data:
+          mode:  >
+            {%- if is_state('binary_sensor.agile_plunge','on') or is_state('input_boolean.charge_paddy_when_below_set_price','on') -%}Fast{%- elif
+            is_state('binary_sensor.agile_peak','on') -%}Stopped{%- elif
+            is_state('binary_sensor.paddy_needs_charge','on') -%}Eco+{%- else -%}Stopped{%- endif -%}
+

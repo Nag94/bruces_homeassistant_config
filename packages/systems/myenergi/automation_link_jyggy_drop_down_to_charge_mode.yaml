@@ -1,16 +1,22 @@
 automation:
   - id: link_zappi_jyggy_charge_mode
-    alias: Link Jyggy Charge Mode Drop Down
+    alias: 'Link Jyggy Charge Mode Drop Down'
+    
+    description: >
+      Jyggy Charge Mode Drop Down
+      
     trigger:
-      - platform: state
-        entity_id: input_select.zappi_jyggy_charge_mode
-      - platform: state
-        entity_id: sensor.zappi_jyggy_mode
       - platform: homeassistant
         event: start
       - platform: event
         event_type: automation_reloaded      
+      - platform: state
+        entity_id: 
+          - input_select.zappi_jyggy_charge_mode
+          - sensor.zappi_jyggy_mode
+        
     condition: "{{ states('sensor.zappi_jyggy_mode') != Unavailable }}"
+    
     action:
       - choose:
           - conditions: "{{ trigger.entity_id == 'input_select.zappi_jyggy_charge_mode'}}"
@@ -20,7 +26,8 @@ automation:
                   mode: "{{ states('input_select.zappi_jyggy_charge_mode') }}"
         default:
           - service: input_select.select_option
-            data: 
+            target: 
               entity_id: input_select.zappi_jyggy_charge_mode
+            data:
               option: "{{ states('sensor.zappi_jyggy_mode') }}"
    

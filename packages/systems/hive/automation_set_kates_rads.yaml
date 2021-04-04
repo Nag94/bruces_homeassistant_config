@@ -1,32 +1,37 @@
 automation:
-  # Set Girls Radiators based on calendar
   - id: set_kates_radiators
-    alias: Set kates radiators
-    description: set Kates rads from calendar
+    alias: 'Set kates radiators'
+    
+    description: >
+      set Kates rads from calendar
+      
     trigger:
       - platform: time
         at: 
           - '06:00:00'
           - '13:00:00'
+          
     action:
       - choose:
           - conditions: "{{ is_state('calendar.kate_yarbury','on') }}"
             sequence:
               - service: climate.set_hvac_mode
-                data: 
+                target: 
                   entity_id: 
                     - climate.kates_bedroom_rad
                     - climate.kates_bathroom_rad                  
+                data:
                   hvac_mode: 'auto'
           - conditions: 
               - condition: time
                 after: '12:00:00'
             sequence:
               - service: climate.set_hvac_mode
-                data: 
+                target: 
                   entity_id: 
                     - climate.kates_bedroom_rad
                     - climate.kates_bathroom_rad                  
+                data:
                   hvac_mode: 'off'                  
                   
                   

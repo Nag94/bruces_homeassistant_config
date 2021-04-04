@@ -357,6 +357,12 @@ entities:
     state_filter:
       - operator: <
         value: 25
+  - entity: binary_sensor.hot_tub_door
+    name: Hot Tub Cover
+    state_filter:
+      - attribute: battery_level
+        operator: <
+        value: 25        
   - entity: binary_sensor.back_gate_door
     name: Back Gate
     state_filter:

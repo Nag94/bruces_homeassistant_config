@@ -1,6 +1,6 @@
 automation:
   - id: conservatory_fan_on_off_from_dimmer
-    alias: "Switch on and off Fan with dimmer hold on"
+    alias: 'Switch on and off Fan with dimmer hold on'
     
     description: >-
       turn on and off conservatory fan with dimmer
@@ -19,5 +19,5 @@ automation:
 
     action:
       - service: fan.{{ trigger.data.subtype }}
-        data:
+        target:
           entity_id: fan.conservatory_fan

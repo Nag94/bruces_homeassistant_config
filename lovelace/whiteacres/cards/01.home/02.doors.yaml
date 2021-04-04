@@ -6,6 +6,10 @@ entities:
     name: Jyggy
     state_filter:
       - unlocked
+  - entity: binary_sensor.hot_tub_door
+    name: Hot Tub Lid
+    state_filter:
+      - 'on'      
   - entity: binary_sensor.back_gate
     name: Back Gate
     state_filter:

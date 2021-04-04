@@ -1,10 +1,14 @@
 automation:
-  - id: weeklysnapshot
-    alias: dailysnapshot
-    initial_state: True
+  - id: saily_snapshot
+    alias: 'Daily Snapshot'
+    
+    description: >
+      Daily Snapshot
+      
     trigger:
       - platform: time
         at: 03:00:00
+        
     action:
     - service: hassio.snapshot_full
       data:

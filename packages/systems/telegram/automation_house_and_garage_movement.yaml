@@ -1,8 +1,11 @@
 automation:
   - id: house_or_garage_movement
     alias: 'House or Garage Movement Notification'
-    description: Telegram message about house or garage movement
     mode: single
+    
+    description: >
+      Telegram message about house or garage movement
+
     trigger:
       - platform: state
         entity_id: 
@@ -17,6 +20,7 @@ automation:
         event: start
       - platform: event
         event_type: automation_reloaded   
+        
     action:  
       - choose:
             # Movement and message already sent
@@ -64,7 +68,8 @@ automation:
                   target: !secret telegram_chat_id_bruce_and_sarah
                   message: "Movement alert Cleared"
               - service: input_text.set_value
-                data:
+                target:
                   entity_id: input_text.house_garage_movement_message_id
+                data:
                   value: '0'
                 

@@ -2,15 +2,22 @@ automation:
   - id: worktop_light_on_from_sensor
     alias: Turn on Worktop Light from Sensor
     mode: restart
+	
+	description: >
+	  Turn on Worktop light from movement sensor
+	  
     trigger: 
       - platform: state
         entity_id: binary_sensor.kitchen_worktop_sensor_motion
         from: 'off'
         to: 'on'
+		
     condition:
       - condition: sun
         after: sunset
         after_offset: -01:00:00
+		
     action:
       - service: light.turn_on
-        entity_id: light.kitchen_worktop
+        target:
+		  entity_id: light.kitchen_worktop

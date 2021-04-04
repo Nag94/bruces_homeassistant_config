@@ -1,7 +1,11 @@
 automation:
   - id: washing_machine_progress
-    alias: "Washing Machine Progress"
+    alias: 'Washing Machine Progress'
     mode: queued
+    
+    description: >
+      update progress state machine
+      
     trigger:
       - platform: homeassistant
         event: start
@@ -37,6 +41,7 @@ automation:
       - platform: numeric_state
         entity_id: sensor.washing_machine_power
         below: 0.01
+        
     action:
       - choose:
           - conditions:
@@ -48,8 +53,9 @@ automation:
                 state: 'off'
             sequence:
               - service: input_text.set_value
-                data:
+                target:
                   entity_id: input_text.washing_machine_progress
+                data:
                   value: 'Waiting to Start'           
           - conditions:
               - condition: numeric_state
@@ -60,19 +66,22 @@ automation:
                 state: 'Waiting to Start'
             sequence:
               - service: input_text.set_value
-                data:
+                target:
                   entity_id: input_text.washing_machine_progress
+                data:
                   value: 'Filling'     
               - service: input_boolean.turn_on
-                entity_id: input_boolean.washing_machine_switch
+                target:
+                  entity_id: input_boolean.washing_machine_switch
           - conditions:
               - condition: numeric_state
                 entity_id: sensor.washing_machine_power
                 above: 1500.0
             sequence:
               - service: input_text.set_value
-                data:
+                target:
                   entity_id: input_text.washing_machine_progress
+                data:
                   value: 'Heating'             
           - conditions:
               - condition: numeric_state
@@ -83,8 +92,9 @@ automation:
                 state: 'Heating'
             sequence:
               - service: input_text.set_value
-                data:
+                target:
                   entity_id: input_text.washing_machine_progress
+                data:
                   value: 'Washing'     
           - conditions:
               - condition: numeric_state
@@ -95,8 +105,9 @@ automation:
                 state: 'Washing'
             sequence:
               - service: input_text.set_value
-                data:
+                target:
                   entity_id: input_text.washing_machine_progress
+                data:
                   value: 'Spinning'                    
           - conditions:
               - condition: numeric_state
@@ -107,8 +118,9 @@ automation:
                 state: 'Spinning'
             sequence:
               - service: input_text.set_value
-                data:
+                target:
                   entity_id: input_text.washing_machine_progress
+                data:
                   value: 'Washing'         
           - conditions:
               - condition: numeric_state
@@ -119,8 +131,9 @@ automation:
                 state: 'Spinning'
             sequence:
               - service: input_text.set_value
-                data:
+                target:
                   entity_id: input_text.washing_machine_progress
+                data:
                   value: 'Final Spin'            
           - conditions:
               - condition: numeric_state
@@ -128,11 +141,13 @@ automation:
                 below: 0.01
             sequence:
               - service: input_text.set_value
-                data:
+                target:
                   entity_id: input_text.washing_machine_progress
+                data:
                   value: 'Off'            
               - service: input_boolean.turn_off
-                entity_id: input_boolean.washing_machine_switch
+                target:
+                  entity_id: input_boolean.washing_machine_switch
           - conditions:
               - condition: numeric_state
                 entity_id: sensor.washing_machine_power
@@ -142,8 +157,9 @@ automation:
                 state: 'Finishing'
             sequence:
               - service: input_text.set_value
-                data:
+                target:
                   entity_id: input_text.washing_machine_progress
+                data:
                   value: 'Finished'        
           - conditions:
               - condition: numeric_state
@@ -154,12 +170,14 @@ automation:
                 state: 'Final Spin'
             sequence:
               - service: input_text.set_value
-                data:
+                target:
                   entity_id: input_text.washing_machine_progress
+                data:
                   value: 'Finishing'
         default:
           - service: input_text.set_value
-            data:
+            target:
               entity_id: input_text.washing_machine_progress
+            data:
               value: 'unknown'      
        #   - delay: '00:01:00'

@@ -1,0 +1,19 @@
+automation:
+  - id: system_start_notication
+    alias: system_start_notification
+    mode: single
+    
+    description: >
+      Send notification on Home Assistant start
+      
+    trigger:
+      - platform: homeassistant
+        event: start
+        
+    action:
+      - service: telegram_bot.send_message
+        data:
+          chat_id: !secret telegram_chat_id_bruce
+          message: Home Assistant is starting up again 🎉
+          message_tag: "startup"
+

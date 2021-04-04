@@ -1,9 +1,14 @@
 automation:
   - id: telegram_callback
     alias: 'Process Telegram Callbacks'
+    
+    description: >
+      Call Back Handling
+      
     trigger:
       - platform: event
         event_type: telegram_callback
+        
     action:
       - choose:
             #Remove Keyboard
@@ -149,7 +154,7 @@ automation:
                 entity_id: 
                   - fan.conservatory_fan
                   - fan.master_bedroom_fan
-              - delay: 00:00:02
+              - delay: 2
               - service: telegram_bot.edit_message
                 data:
                   message_id: "{{ trigger.event.data.message.message_id }}"
@@ -226,7 +231,7 @@ automation:
                   - light.outside
                   - light.downstairs
                   - light.upstairs     
-              - delay: 00:00:02                  
+              - delay: 2                
               - service: telegram_bot.edit_message
                 data:
                   message_id: "{{ trigger.event.data.message.message_id }}"
@@ -314,7 +319,7 @@ automation:
                   inline_keyboard: []
 
             # cars
-          - conditions: "{{ trigger.event.data.text.lower() == 'cars'  }}"
+          - conditions: "{{ trigger.event.data.text.lower() == '/cars'  }}"
             sequence:
               - service: telegram_bot.send_message
                 data:

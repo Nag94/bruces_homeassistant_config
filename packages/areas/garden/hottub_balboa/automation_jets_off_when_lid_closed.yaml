@@ -1,0 +1,21 @@
+automation:
+  - id: hottub_jets_off_when_closed
+    alias: 'Hot Tub Jets Off When Closed'
+    mode: restart
+    
+    description: >
+      Lid closed, jets off
+      
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.hot_tub_door       
+        from: 'on'
+        to: 'off'
+        
+    action:
+      - service: fan.turn_off
+        target:
+          entity_id:
+            - fan.spa_pump1
+            - fan.spa_pump2
+          

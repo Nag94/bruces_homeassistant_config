@@ -1,0 +1,14 @@
+automation:
+  - id: purge_recorder_database
+    alias: system_recorder_purge
+    mode: single
+    
+    description: >
+      Purge recorder database
+      
+    trigger:
+      - platform: time_pattern
+        minutes: 12
+        
+    action:
+      - service: recorder.purge

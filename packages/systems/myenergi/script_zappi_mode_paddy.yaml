@@ -17,11 +17,11 @@ script:
       - alias: repeat this
         repeat:
           sequence:
-            - delay: '00:00:05'              
+            - delay: 5              
             - service: homeassistant.update_entity
               entity_id: sensor.zappi_paddy_cmt
           until: "{{ states('sensor.zappi_paddy_cmt') != 'Pending' }}"
-      - delay: '00:00:01'
+      - delay: 1
       - service: homeassistant.update_entity
         entity_id: sensor.zappi_paddy        
       - condition: state

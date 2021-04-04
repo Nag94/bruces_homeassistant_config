@@ -1,8 +1,11 @@
 automation:
   - id: kate_lightstrip_control_from_brightness
-    alias: Kate Lightstrip On or Off with hue brightness
+    alias: 'Kate Lightstrip On or Off with hue brightness'
     mode: restart
-    description: Kate lightstrip on or off with Hue Brightness
+    
+    description: >
+      Kate lightstrip on or off with Hue Brightness
+      
     trigger:
       - platform: state
         entity_id: light.kates_bedroom
@@ -11,13 +14,16 @@ automation:
         entity_id: light.kates_bedroom_light
         attribute: brightness
         to: 244
+        
     action:
       - choose:
           - conditions: "{{ state_attr('light.kates_bedroom_light','brightness') | int == 244 }}"
             sequence:
               - service: light.turn_on
-                entity_id: light.kate_lightstrip          
+                target:
+                  entity_id: light.kate_lightstrip          
           - conditions: "{{ is_state('light.kates_bedroom','off') }}"
             sequence:
               - service: light.turn_off
-                entity_id: light.kate_lightstrip
+                target:
+                  entity_id: light.kate_lightstrip

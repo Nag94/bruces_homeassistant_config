@@ -1,6 +1,10 @@
 automation:
   - id: solcast_update_forecast
-    alias: "Solcast Update Forecast"
+    alias: 'Solcast Update Forecast'
+    
+    description: >
+      Update forecast each hour
+      
     trigger:
       platform: time
       at:
@@ -21,7 +25,8 @@ automation:
         - '18:00:00'                                
         - '19:00:00'                                        
         - '20:00:00'                                                                                       
-        - '21:50:00'        
+        - '21:50:00'   
+        
     action:
       - service: solcast.update_forecast
 #      - service: solcastx.update_forecast      

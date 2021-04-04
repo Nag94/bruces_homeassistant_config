@@ -12,7 +12,7 @@ script:
         entity_id: media_player.lounge_skyq
       - service: media_player.turn_on 
         entity_id: media_player.lounge_tv
-      - delay: '00:00:02'
+      - delay: 2
       - service: androidtv.adb_command
         data:
           entity_id: media_player.lounge_android

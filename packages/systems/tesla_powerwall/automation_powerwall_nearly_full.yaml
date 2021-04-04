@@ -1,16 +1,21 @@
 automation:
   - id: powerwall_nearly_full
     alias: 'Powerwall Nearly at 100'
-    description: notify soon to be full
     mode: single
+    
+    description: >
+      notify soon to be full
+
     trigger:
       - platform: numeric_state
         entity_id: sensor.powerwall_charge
         above: 97
+        
     condition:
       - condition: numeric_state
         entity_id: sensor.solaredge_ac_power_output
         above: 100
+        
     action:
       - service: telegram_bot.send_message
         data:

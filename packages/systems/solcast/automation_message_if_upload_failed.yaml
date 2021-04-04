@@ -1,13 +1,19 @@
 automation:
   - id: solcast_report_failed_upload
-    alias: "Solcast Report Failed Upload"
+    alias: 'Solcast Report Failed Upload'
+    
+    description: >
+      Report failed upload
+    
     trigger:
       platform: time
       at: 07:00:00
+      
     condition:
-      condition: state
-      entity_id: binary_sensor.solcast_upload_success
-      state: 'off'
+      - condition: state
+        entity_id: binary_sensor.solcast_upload_success
+        state: 'off'
+      
     action:
       - service: telegram_bot.send_message
         data:

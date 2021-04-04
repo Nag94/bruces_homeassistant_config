@@ -1,7 +1,10 @@
 automation:
   - id: set_most_recent_to_arrive
     alias: Record last person to arrive
-    description: Who was last person to arrive
+    
+    description: >
+      Who was last person to arrive
+    
     trigger:
       - platform: state
         entity_id:            
@@ -13,8 +16,10 @@ automation:
           - person.kate_hartley
           - person.moira
         to: home
+        
     action:
       - service: input_text.set_value
-        data:
+        target:
           entity_id: input_text.last_person_to_arrive
+        data:
           value: "{{ trigger.from_state.attributes.friendly_name }}"

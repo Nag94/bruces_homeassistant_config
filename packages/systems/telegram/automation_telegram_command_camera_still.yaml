@@ -1,6 +1,10 @@
 automation:
   - id: telegram_callback_camera_still
     alias: 'Show a camera still'
+    
+    description: >
+      Show a camera still
+      
     trigger:
       - platform: event
         event_type: telegram_callback
@@ -42,13 +46,15 @@ automation:
         event_type: telegram_callback
         event_data:
           command: '/still_bar'      
+            
     variables:
       pic_file: "{{ trigger.event.data.command[7:] + '_' + now().strftime('%d%m%y%H%M%S') }}"          
+      
     action:
       - service: camera.snapshot
+        target:
+          entity_id: "camera.{{ trigger.event.data.command[7:]}}"
         data:
-          entity_id: >
-            camera.{{ trigger.event.data.command[7:]}}
           filename: "/config/www/cam_snaps/{{ pic_file }}.jpg"
       - service: telegram_bot.send_photo
         data:

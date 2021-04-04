@@ -1,6 +1,6 @@
 automation:
   - id: guests_door_left_open
-    alias: "Guests Door Left Open"
+    alias: 'Guests Door Left Open'
 
     description: >-
       Warning when Guest Door left open

@@ -1,6 +1,10 @@
 automation:
   - id: sophies_door_left_open
     alias: 'Sophies Door Left Open'
+    
+    description: >
+      Sophie door open alert
+      
     trigger:
       - platform: state
         entity_id: binary_sensor.sophies_bedroom_door
@@ -9,6 +13,7 @@ automation:
       - platform: state
         entity_id: binary_sensor.sophies_bedroom_door
         to: 'off'
+        
     action:
       - choose:
             # Open - previous message sent

@@ -1,18 +1,22 @@
 automation:
   - id: jyggy_charge_when_below_set_price
     alias: 'Jyggy Charge When Below Set Price'
-    description: When Price is below input_number turn on
+	
+    description: >
+	  When Price is below input_number turn on
+	  
     trigger:
-      - entity_id: input_boolean.charge_jyggy_when_below_set_price
-        platform: state
-      - entity_id: sensor.jyggy_charge_cable
-        platform: state
-      - entity_id: binary_sensor.jyggy_below_max_charge_cost
-        platform: state
       - platform: homeassistant
         event: start
       - platform: event
-        event_type: automation_reloaded         
+        event_type: automation_reloaded  	
+      - platform: state
+        entity_id: 
+          - input_boolean.charge_jyggy_when_below_set_price
+          - sensor.jyggy_charge_cable
+          - binary_sensor.jyggy_below_max_charge_cost
+          - binary_sensor.agile_plunge
+
     condition:
       - condition: state
         entity_id: person.jyggy
@@ -24,14 +28,15 @@ automation:
             state: Fast
           - condition: state
             entity_id: sensor.zappi_jyggy_mode
-            state: Stopped         
+            state: Stopped    
+			
     action:
       - choose:
-          - conditions: "{{ is_state('input_boolean.charge_jyggy_when_below_set_price','on') }}"
+          - conditions: "{{ is_state('input_boolean.charge_jyggy_when_below_set_price','on') or is_state('input_boolean.agile_plunge','on') }}"
             sequence:
               - service: script.zappi_mode_jyggy
                 data:
-                  mode: "{%if is_state('binary_sensor.jyggy_below_max_charge_cost','on')-%}Fast{%-else-%}Stopped{%-endif%}"
+                  mode: "Fast"
         default:
           - service: script.zappi_mode_jyggy
             data:

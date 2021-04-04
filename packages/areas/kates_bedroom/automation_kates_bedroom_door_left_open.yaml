@@ -1,6 +1,10 @@
 automation:
   - id: kates_door_left_open
     alias: 'Kates Door Left Open'
+    
+    description: >
+      Message if door left open
+      
     trigger:
       - platform: state
         entity_id: binary_sensor.kates_bedroom_door        
@@ -9,8 +13,8 @@ automation:
       - platform: state
         entity_id: binary_sensor.kates_bedroom_door        
         to: 'off'
+        
     action:
-      - choose:
       - choose:
             # Open - previous message sent
           - conditions: "{{ is_state('binary_sensor.kates_bedroom_door','on') and (states('input_text.kate_door_message_id') | int) > 0 }}"    

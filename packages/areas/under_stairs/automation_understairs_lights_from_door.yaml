@@ -2,6 +2,10 @@ automation:
   - id: under_stairs_light_from_door
     alias: Under stairs lights on and off from door
     mode: restart
+    
+    description: >
+      Understairs light on and off with door and timer
+    
     trigger: 
       - platform: homeassistant
         event: start
@@ -12,9 +16,12 @@ automation:
         to: 
           - 'on'
           - 'off'
+          
     action:
       - service: light.turn_{{ states('binary_sensor.under_stairs_door') }}
-        entity_id: light.under_stairs_light          
+        target:
+          entity_id: light.under_stairs_light          
       - delay: 00:15:00
       - service: light.turn_off
-        entity_id: light.under_stairs_light            
+        target:
+          entity_id: light.under_stairs_light            

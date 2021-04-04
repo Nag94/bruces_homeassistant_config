@@ -1,18 +1,23 @@
 automation:
   - id: paddy_charge_when_below_set_price
     alias: 'Paddy Charge When Below Set Price'
-    description: When Price is below input_number turn on
+	
+    description: >
+	  When Price is below input_number turn on
+	  
     trigger:
-      - entity_id: input_boolean.charge_paddy_when_below_set_price
-        platform: state
-      - entity_id: sensor.zappi_paddy_connected
-        platform: state
-      - entity_id: binary_sensor.paddy_below_max_charge_cost_and_charge_limit
-        platform: state
       - platform: homeassistant
         event: start
       - platform: event
-        event_type: automation_reloaded         
+        event_type: automation_reloaded     	
+      - platform: state
+        entity_id: 
+          - input_boolean.charge_paddy_when_below_set_price
+          - sensor.zappi_paddy_connected
+          - binary_sensor.paddy_below_max_charge_cost_and_charge_limit
+          - binary_sensor.agile_plunge
+   
+		
     condition:
       - condition: state
         entity_id: sensor.zappi_paddy_connected
@@ -24,14 +29,15 @@ automation:
             state: Fast
           - condition: state
             entity_id: sensor.zappi_paddy_mode
-            state: Stopped         
+            state: Stopped       
+			
     action:
       - choose:
-          - conditions: "{{ is_state('input_boolean.charge_paddy_when_below_set_price','on') }}"
+          - conditions: "{{ is_state('input_boolean.charge_paddy_when_below_set_price','on') or is_state('input_boolean.agile_plunge','on')}}"
             sequence:
               - service: script.zappi_mode_paddy
                 data:
-                  mode: "{% if is_state('binary_sensor.paddy_below_max_charge_cost_and_charge_limit','on') %}Fast{% else %}Stopped{% endif %}"
+                  mode: "Fast"
         default:
           - service: script.zappi_mode_paddy
             data:

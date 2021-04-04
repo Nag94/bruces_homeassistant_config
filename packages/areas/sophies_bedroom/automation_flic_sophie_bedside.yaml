@@ -1,9 +1,9 @@
 automation:
   - id: flic_bedside_sophie
-    alias: Sophie Bedside Lights from Flic
+    alias: 'Sophie Bedside Lights from Flic'
 
     description: >-
-      control lights and others from Bedside Flic
+      control lights and Asleep switch from Bedside Flic
 
     trigger:
       platform: event
@@ -16,16 +16,20 @@ automation:
           - conditions: "{{ trigger.event.data.click_type == 'single' }}"
             sequence:
               - service: light.toggle
-                entity_id: light.sophies_bedroom_lamp
+                target:
+                  entity_id: light.sophies_bedroom_bedhead
 
           - conditions: "{{ trigger.event.data.click_type == 'double' }}"
             sequence:
-              - service: "{%if is_state('light.sophies_bedroom','on')%}input_boolean.turn_on{%else%}input_boolean.turn_off{%endif%}"
-                entity_id: input_boolean.sophie_is_asleep
-              - service: "{%if is_state('light.sophies_bedroom','on')%}light.turn_off{%else%}light.turn_on{%endif%}"
-                entity_id: light.sophies_bedroom
+              - service: "input_boolean.turn_{{ states('light.sophies_bedroom') }}"
+                target:
+                  entity_id: input_boolean.sophie_is_asleep
+              - service: "light.turn_{{ 'off' if is_state('light.sophies_bedroom','on') else 'on' }}"
+                target:
+                  entity_id: light.sophies_bedroom
 
           - conditions: "{{ trigger.event.data.click_type == 'hold' }}"
             sequence:
               - service: light.turn_on
-                entity_id: light.sophies_bedroom          
+                target:
+                  entity_id: light.sophies_bedroom          

@@ -1,7 +1,10 @@
 automation:
-  # Turn off lights from ios notifcation button
   - id: turn_off_lights
-    alias: Turn off all lights
+    alias: 'Turn off all lights'
+
+    description: >
+      Turn off lights from ios notifcation button
+        
     trigger:
       - platform: event
         event_type: ios.action_fired
@@ -11,7 +14,8 @@ automation:
         event_type: ios.notification_action_fired
         event_data:
           actionName: TURN_OFF_LIGHTS
+          
     action:
       service: light.turn_off
-      data:
+      target:
         entity_id: light.home

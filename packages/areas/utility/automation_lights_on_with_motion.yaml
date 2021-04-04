@@ -1,7 +1,11 @@
 automation:
   - id: utility_light_on_with_motion
-    alias: Turn on Utility light with motion sensor
+    alias: 'Turn on Utility light with motion sensor'
     mode: restart
+    
+    description: >
+      Utility light from motion sensor
+      
     trigger:
       - platform: homeassistant
         event: start
@@ -12,6 +16,7 @@ automation:
         to: 'on'
       - platform: state
         entity_id: input_boolean.utility_light_manually_on
+        
     action:
       - choose:
         # Motion
@@ -19,18 +24,22 @@ automation:
             {{ trigger.entity_id == 'binary_sensor.utility_motion' and is_state('input_boolean.utility_light_manually_on','off') and ( is_state('alarm_control_panel.full_set','disarmed') or  is_state('alarm_control_panel.full_set','armed_home'))  }}
           sequence:
             - service: light.turn_on
-              entity_id: light.utility_light
+              target:
+                entity_id: light.utility_light
             - delay: 00:02:00
             - service: light.turn_off
-              entity_id: light.utility_light
+              target:
+                entity_id: light.utility_light
         - conditions: >
             {{ is_state('input_boolean.utility_light_manually_on','on')  }}
           sequence:
             - service: light.turn_on
-              entity_id: light.utility_light
+              target:
+                entity_id: light.utility_light
         # Restart of Home Assistant
         default:
           - delay: 00:02:00
           - service: light.turn_off
-            entity_id: light.utility_light
+            target:
+              entity_id: light.utility_light
     

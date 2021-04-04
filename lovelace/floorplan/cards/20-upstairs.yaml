@@ -6,8 +6,6 @@ elements:
 ################################################
   - type: conditional
     conditions:
-      - entity: binary_sensor.littertray_drum_dirty
-        state: 'on'
       - entity: input_boolean.floorplan_litter_trays
         state: 'on' 
     elements:        

@@ -1,7 +1,8 @@
 automation:
   - id: garden_colour_lights_on_when_dark
-    alias: "Garden Colour Lights on when dark"
+    alias: 'Garden Colour Lights on when dark'
     mode: restart
+    
     description: >-
       Lights on at dusk
 
@@ -22,8 +23,10 @@ automation:
           - conditions: "{{ is_state('binary_sensor.dark_outside','on') and is_state('switch.sarah_is_asleep','off') and is_state('switch.bruce_is_asleep','off') and is_state('alarm_control_panel.full_set','disarmed')}}"
             sequence:
               - service: light.turn_on
-                entity_id: light.garden_colour
+                target:
+                  entity_id: light.garden_colour
 
         default:
           - service: light.turn_off
-            entity_id: light.garden_colour        
+            target:
+              entity_id: light.garden_colour        
