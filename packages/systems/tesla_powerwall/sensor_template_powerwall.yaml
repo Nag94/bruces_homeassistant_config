@@ -3,7 +3,7 @@ sensor:
     sensors:
       powerwall:
         friendly_name_template: 'Powerwall'
-        value_template: "{% if states('sensor.powerwall_battery_now') | float < -100.0 or states('sensor.powerwall_battery_now') | float > 100.0  %}{{ (states('sensor.powerwall_battery_now')| float / 1000.0) | round(1) }}{% else %}{{0.0 | float}}{% endif %}"        
+        value_template: "{{ ((states('sensor.powerwall_battery_now')| float / 1000.0) | round(1)) if (states('sensor.powerwall_battery_now') | float < -100.0 or states('sensor.powerwall_battery_now') | float > 100.0) else 0.0 }}"        
         unit_of_measurement: 'kW'
         icon_template: mdi:battery
         device_class: power    

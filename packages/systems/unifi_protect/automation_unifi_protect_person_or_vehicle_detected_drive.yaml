@@ -7,14 +7,16 @@ automation:
       record and send a video when person seen
       
     trigger:
+      - platform: homeassistant
+        event: start
+      - platform: event
+        event_type: automation_reloaded        
       - platform: state
         entity_id:  binary_sensor.motion_drive
-        to: person
+        to: 
+          - person
+          - vehicle
         attribute: event_object
-      - platform: state
-        entity_id:  binary_sensor.motion_drive
-        to: vehicle
-        attribute: event_object      
         
     variables:
       # This code was used when I had one automation that covered all cameras, so it had to know which camera was triggered
@@ -23,36 +25,39 @@ automation:
       pic_folder: "/config/www/cam_snaps/"          
       
     action:
-      - service: input_text.set_value
-        target:
-          entity_id: input_text.camera_drive_object_detected
-        data:
-          value: "{{ trigger.to_state.attributes.event_object }}"    
-      - service: camera.record
-        target:
-          entity_id: "{{ cam_name }}"        
-        data:
-          duration: 10
-          filename: "{{ pic_folder + pic_file }}.mp4"     
-      - service: telegram_bot.send_message
-        data:
-          target: !secret telegram_chat_id_bruce_and_sarah
-          message_tag: object_detected_drive
-          message: >
-            I have seen a {{ trigger.to_state.attributes.event_object }} on the {{ trigger.entity_id.split('_')[2] }} camera.
-            
-            Recording 10 seconds...........
-      - wait_template: >
-          {% set filename = pic_folder + pic_file + '.mp4' %}{{ filename in states.sensor.cam_snaps.attributes.file_list }}
-        timeout: '00:00:20'
-      - service: telegram_bot.edit_message
-        data:
-          message_id: "{{ states('input_text.object_detected_drive_message_id') }}"
-          chat_id: !secret telegram_chat_id_bruce_and_sarah   
-          message: "I have seen a {{ trigger.to_state.attributes.event_object }} on the {{ trigger.entity_id.split('_')[2] }} camera."
-          inline_keyboard:
-            - 'Show Video:/vdd_{{pic_file}}, OK:/remove_keyboard'      
-      - delay: 00:05:00
+      - choose:
+          - conditions: "{{ trigger.entity_id == 'binary_sensor.motion_drive' }}"
+            sequence:       
+              - service: input_text.set_value
+                target:
+                  entity_id: input_text.camera_drive_object_detected
+                data:
+                  value: "{{ trigger.to_state.attributes.event_object }}"    
+              - service: camera.record
+                target:
+                  entity_id: "{{ cam_name }}"        
+                data:
+                  duration: 10
+                  filename: "{{ pic_folder + pic_file }}.mp4"     
+              - service: telegram_bot.send_message
+                data:
+                  target: !secret telegram_chat_id_bruce_and_sarah
+                  message_tag: object_detected_drive
+                  message: >
+                    I have seen a {{ trigger.to_state.attributes.event_object }} on the {{ trigger.entity_id.split('_')[2] }} camera.
+                    
+                    Recording 10 seconds...........
+              - wait_template: >
+                  {% set filename = pic_folder + pic_file + '.mp4' %}{{ filename in states.sensor.cam_snaps.attributes.file_list }}
+                timeout: '00:00:20'
+              - service: telegram_bot.edit_message
+                data:
+                  message_id: "{{ states('input_text.object_detected_drive_message_id') }}"
+                  chat_id: !secret telegram_chat_id_bruce_and_sarah   
+                  message: "I have seen a {{ trigger.to_state.attributes.event_object }} on the {{ trigger.entity_id.split('_')[2] }} camera."
+                  inline_keyboard:
+                    - 'Show Video:/vdd_{{pic_file}}, OK:/remove_keyboard'      
+              - delay: 00:05:00
       - service: input_text.set_value
         target:
           entity_id: input_text.camera_drive_object_detected

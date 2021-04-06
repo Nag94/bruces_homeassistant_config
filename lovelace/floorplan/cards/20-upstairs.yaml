@@ -1461,7 +1461,7 @@ elements:
     elements:
       - type: conditional
         conditions:
-          - entity: sensor.whiteacres_water_state
+          - entity: sensor.hotwater_state
             state: 'ON'
         elements:
           - type: icon

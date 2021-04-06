@@ -3,7 +3,7 @@ sensor:
     sensors:
       powerwall_discharging:
         friendly_name_template: 'Powerwall Discharging'
-        value_template: "{% if states('sensor.powerwall_battery_now')| float > 0.05 %}{{ states('sensor.powerwall_battery_now')| float  | round(1) }}{% else %}{{ 0.0 }}{% endif %}"
+        value_template: "{{ (states('sensor.powerwall_battery_now')| float  | round(1)) if states('sensor.powerwall_battery_now')| float > 0.05 else 0.0 }}"
         unit_of_measurement: 'kW'
         icon_template: mdi:battery
         device_class: power   

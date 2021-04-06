@@ -74,10 +74,7 @@ automation:
               - delay: 1       
               - service: scene.turn_on
                 target:
-                  entity_id: >
-                    {%if is_state('input_boolean.bruce_is_asleep','off') and 
-                      is_state('input_boolean.sarah_is_asleep','off')%}scene.gotobed_lights_bedroom{%else%}scene.gotobed_lights{%endif%}
-              
+                  entity_id: "{{ 'Conservatory Fan is on' if (is_state('input_boolean.bruce_is_asleep','off') and is_state('input_boolean.sarah_is_asleep','off')) else 'scene.gotobed_lights' }}"
               
           - conditions: "{{ trigger.to_state.state == 'disarmed' and is_state('input_text.alarm_user','Maid For')}}"
             sequence:

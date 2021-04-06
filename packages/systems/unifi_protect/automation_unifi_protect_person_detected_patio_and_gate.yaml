@@ -7,6 +7,10 @@ automation:
       record and send a video when person seen
       
     trigger:
+      - platform: homeassistant
+        event: start
+      - platform: event
+        event_type: automation_reloaded      
       - platform: state
         entity_id: binary_sensor.back_gate_door
         to: 'on'    
@@ -52,39 +56,40 @@ automation:
                   inline_keyboard:
                     - 'Show Video:/vdd_{{gate_file}}, OK:/remove_keyboard'    
               - delay: 00:05:00     
-        default:
-          - service: input_text.set_value
-            target:
-              entity_id: input_text.camera_patio_object_detected
-            data:
-              value: "{{ trigger.to_state.attributes.event_object }}"        
-          - service: camera.record
-            target:
-              entity_id: "{{ cam_name }}"            
-            data:
-              duration: 10
-              filename: "{{ pic_folder + pic_file }}.mp4"    
-          - service: telegram_bot.send_message
-            data:
-              target: !secret telegram_chat_id_bruce_and_sarah     
-              message_tag: object_detected_patio    
-              message: >
-                I have seen a {{ trigger.to_state.attributes.event_object }} on the {{ trigger.entity_id.split('_')[2] }} camera.
-                
-                Recording 10 seconds.............
-          - wait_template: >
-              {{ pic_file in states.sensor.cam_snaps.attributes.file_list }}
-            timeout: '00:00:20'
-          - service: telegram_bot.edit_message
-            data:
-              message_id: "{{ states('input_text.object_detected_patio_message_id') }}"
-              chat_id: !secret telegram_chat_id_bruce_and_sarah    
-              message: "I have seen a {{ trigger.to_state.attributes.event_object }} on the {{ trigger.entity_id.split('_')[2] }} camera."
-              inline_keyboard:
-                - 'Show Video:/vdd_{{pic_file}}, OK:/remove_keyboard'    
-          - delay: 00:05:00    
-          - service: input_text.set_value
-            target:
-              entity_id: input_text.camera_patio_object_detected
-            data:
-              value: ""              
+          - conditions: "{{ trigger.entity_id == 'binary_sensor.motion_patio' }}"
+            sequence:
+              - service: input_text.set_value
+                target:
+                  entity_id: input_text.camera_patio_object_detected
+                data:
+                  value: "{{ trigger.to_state.attributes.event_object }}"        
+              - service: camera.record
+                target:
+                  entity_id: "{{ cam_name }}"            
+                data:
+                  duration: 10
+                  filename: "{{ pic_folder + pic_file }}.mp4"    
+              - service: telegram_bot.send_message
+                data:
+                  target: !secret telegram_chat_id_bruce_and_sarah     
+                  message_tag: object_detected_patio    
+                  message: >
+                    I have seen a {{ trigger.to_state.attributes.event_object }} on the {{ trigger.entity_id.split('_')[2] }} camera.
+                    
+                    Recording 10 seconds.............
+              - wait_template: >
+                  {{ pic_file in states.sensor.cam_snaps.attributes.file_list }}
+                timeout: '00:00:20'
+              - service: telegram_bot.edit_message
+                data:
+                  message_id: "{{ states('input_text.object_detected_patio_message_id') }}"
+                  chat_id: !secret telegram_chat_id_bruce_and_sarah    
+                  message: "I have seen a {{ trigger.to_state.attributes.event_object }} on the {{ trigger.entity_id.split('_')[2] }} camera."
+                  inline_keyboard:
+                    - 'Show Video:/vdd_{{pic_file}}, OK:/remove_keyboard'    
+              - delay: 00:05:00    
+      - service: input_text.set_value
+        target:
+          entity_id: input_text.camera_patio_object_detected
+        data:
+          value: ""              
