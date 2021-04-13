@@ -5,6 +5,6 @@ sensor:
             friendly_name: "SolCast the Day After Tomorrow"
             unit_of_measurement: 'kWh'
             device_class: power            
-            value_template: "{{ state_attr('sensor.solcast_forecast', 'the day after tomorrow')  }}"    
+            value_template: "{{ state_attr('sensor.solcast_forecast', 'the day after tomorrow') | round(1)  }}"    
 #            value_template: "{{ state_attr('sensor.solcast_forecast_a', 'the day after tomorrow') | float + state_attr('sensor.solcast_forecast_b', 'the day after tomorrow') | float}}"                
             

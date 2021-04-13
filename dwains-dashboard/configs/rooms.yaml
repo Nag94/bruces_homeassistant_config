@@ -117,14 +117,25 @@
      door: binary_sensor.drum_room_door     
    - name: Garden
      icon: mdi:flower
-     device: group.hottub_switches
      light: group.patio_lights_group
      temperature: sensor.patio_temperature     
      motion: binary_sensor.patio_motion
-     page_entities:
-       entities:
-         - entity: sensor.hottub_water_temp
-
+   - name: Hot Tub
+     icon: mdi:hot-tub
+     device: group.hottub_switches
+     door: binary_sensor.hot_tub_door  
+     light: light.hottub_lights
+     temperature: input_number.hottub_water_temp         
+     motion: binary_sensor.hot_tub_door
+   - name: Garage
+     icon: mdi:garage
+     door: binary_sensor.garage_back_door  
+     motion: binary_sensor.shed_garage
+   - name: Shed
+     icon: mdi:garage-open
+     light: light.shed_light
+     motion: binary_sensor.shed_garage     
+     door: binary_sensor.shed_door  
       
 #     window: binary_sensor.hallway_window_contact
 #     safety: sensor.smoke_sensor
@@ -138,19 +149,6 @@
 #       entities:
 #         - entity: sensor.hallway_motion_battery_level
 #         - entity: sensor.smokedetector_battery
-#   - name: Garage
-#     icon: mdi:garage
-#     light: group.garage_lights
-#     door: group.garage_doors
-#     addons:
-#       - name: Hello room
-#         icon: mdi:puzzle
-#         path: 'dwains-theme/addons/rooms/hello-room/page.yaml'
-#         button_path: 'dwains-theme/addons/rooms/hello-room/button.yaml'
-#         data:
-#           some_data: 'This is some data parsed.'
-#           some_other_data: 'and some other data.'
-#           entity: vacuum.roborock
 #   - name: Master Bedroom
 #     icon: fal:bed
 #     more_entities:

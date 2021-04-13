@@ -12,10 +12,10 @@ automation:
         for: 00:00:04
       - platform: state
         entity_id: input_boolean.lounge_ambilight_required
-      - platform: homeassistant
-        event: start
-      - platform: event
-        event_type: automation_reloaded    
+#      - platform: homeassistant
+#        event: start
+#      - platform: event
+#        event_type: automation_reloaded    
       
     condition:
       - condition: state

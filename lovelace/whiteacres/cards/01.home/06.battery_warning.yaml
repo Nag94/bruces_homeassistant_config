@@ -92,6 +92,11 @@ entities:
     state_filter:
       - operator: <
         value: 25
+  - entity: sensor.garage_back_door_battery
+    name: Shed Door
+    state_filter:
+      - operator: <
+        value: 25           
   - entity: sensor.shed_door_battery
     name: Shed Door
     state_filter:

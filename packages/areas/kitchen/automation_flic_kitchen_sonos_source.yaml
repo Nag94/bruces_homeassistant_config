@@ -13,7 +13,7 @@ automation:
     
     action:
       - choose:
-          - conditions: "{{ trigger.event.data.click_type == 'single' and is_state('media_player.kitchen_sonos','playing') and state_attr('media_player.kitchen_sonos','source') == 'BBC Radio 1 England'}}"
+          - conditions: "{{ trigger.event.data.click_type == 'single' and is_state('media_player.kitchen_sonos','playing') and is_state_attr('media_player.kitchen_sonos','source','BBC Radio 1 England') }}"
             sequence:
               - service: sonos.unjoin
                 target:
@@ -31,7 +31,7 @@ automation:
                   entity_id: media_player.kitchen_sonos
                 data:
                   source: BBC Radio 1 England                  
-          - conditions: "{{ trigger.event.data.click_type == 'double' and is_state('media_player.kitchen_sonos','playing') and state_attr('media_player.kitchen_sonos','source') == 'BBC Radio 2'}}"
+          - conditions: "{{ trigger.event.data.click_type == 'double' and is_state('media_player.kitchen_sonos','playing') and is_state_attr('media_player.kitchen_sonos','source','BBC Radio 2') }}"
             sequence:
               - service: sonos.unjoin
                 target:
@@ -49,7 +49,7 @@ automation:
                   entity_id: media_player.kitchen_sonos
                 data:
                   source: BBC Radio 2               
-          - conditions: "{{ trigger.event.data.click_type == 'hold' and is_state('media_player.kitchen_sonos','playing') and state_attr('media_player.kitchen_sonos','source') == 'KISS 97.2 (Top 40 & Pop Music)'}}"
+          - conditions: "{{ trigger.event.data.click_type == 'hold' and is_state('media_player.kitchen_sonos','playing') and is_state_attr('media_player.kitchen_sonos','source','KISS 97.2 (Top 40 & Pop Music)') }}"
             sequence:
               - service: sonos.unjoin
                 target:

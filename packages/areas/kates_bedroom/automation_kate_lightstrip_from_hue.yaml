@@ -17,7 +17,7 @@ automation:
         
     action:
       - choose:
-          - conditions: "{{ state_attr('light.kates_bedroom_light','brightness') | int == 244 }}"
+          - conditions: "{{ state_attr('light.kates_bedroom_light','brightness',244) }}"
             sequence:
               - service: light.turn_on
                 target:

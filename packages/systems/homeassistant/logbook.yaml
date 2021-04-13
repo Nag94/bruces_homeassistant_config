@@ -104,7 +104,7 @@ logbook:
     entities:
 #      - alarm_control_panel.full_set
       - automation.turn_off_kate_asleep_switch_from_lights_on
-      - automation.landing_lights_on_from_landing_doors
+#      - automation.landing_lights_on_from_landing_doors
       - automation.dimmer_control_of_utility_lights
       - sensor.solcast_remaining_api_count
       - sensor.solaredge_status
@@ -210,22 +210,22 @@ logbook:
       - sensor.hottub_status
       - sensor.icloud3_event_log
       - sensor.ipod_touch_activity_2
-      - sensor.jyggy_battery_heater_on
+      - binary_sensor.jyggy_battery_heater_on
       - sensor.jyggy_carstate
       - sensor.jyggy_charge_cable
       - sensor.jyggy_distfromhome
       - sensor.jyggy_gps_as_of
       - sensor.jyggy_latitude
-      - sensor.jyggy_locked
+      - binary_sensor.jyggy_locked
       - sensor.jyggy_longitude
-      - sensor.jyggy_plugged_in
+      - binary_sensor.jyggy_plugged_in
       - sensor.jyggy_scheduled_charging_start_time
       - sensor.jyggy_scheduled_software_update
       - sensor.jyggy_shift_state
       - sensor.jyggy_speed
       - sensor.lounge_source
       - sensor.lounge_source_state
-      - sensor.paddy_plugged_in
+      - binary_sensor.paddy_plugged_in
       - sensor.powerwall_direction
       - sensor.solaredge_ac_total_current
       - sensor.solaredge_ac_voltage_phase_ab
@@ -251,7 +251,6 @@ logbook:
       - sensor.zappi_jyggy
       - sensor.zappi_jyggy_fwv
       - sensor.zappi_paddy
-      - sensor.zappi_paddy_connected
       - sensor.zappi_paddy_fwv
       - switch.hottub_filter
       - switch.hottub_power

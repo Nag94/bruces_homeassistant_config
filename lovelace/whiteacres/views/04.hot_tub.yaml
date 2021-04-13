@@ -182,6 +182,39 @@ cards:
       - sensor.hottub_summary
     hours_to_show: 24
 
+  - entities:
+      - color: blue
+        entity: input_number.hottub_water_temp
+        name: Water
+        show_points: false
+      - color: green
+        entity: input_number.hottub_water_target
+        name: Guide
+        show_points: false        
+  #    - color: yellow
+     #   entity: input_number.hottub_standard_temp
+   #     name: Target Temp
+      - color: red
+        entity: sensor.hottub_heating_on        
+        name: Heater On
+        show_line: false
+        show_points: false
+        show_legend: false
+        y_axis: secondary        
+    font_size: 75
+    font_size_header: 22
+ #   lower_bound: 32
+    hour24: true
+    line_width: 3
+    name: ' '
+    hours_to_show: 12
+    points_per_hour: 6
+    show:
+      extrema: true
+      icon: false
+      labels: true
+      points: true
+    type: 'custom:mini-graph-card'
 
 
 

@@ -10,13 +10,16 @@ automation:
     trigger: 
       - platform: state
         entity_id:  binary_sensor.motion_drive
+        to: 'on'
+      - platform: state
+        entity_id:  binary_sensor.motion_drive
         to: vehicle
         attribute: event_object    
 
     action:
       - alias: 'Call plate Recogniser 10 times'
         repeat:
-          count: 10
+          count: 3
           sequence:
             - service: image_processing.scan
               target:

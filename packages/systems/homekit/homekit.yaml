@@ -2,11 +2,12 @@ homekit:
   - filter:
       include_domains:
         - climate
+      exclude_entities:
+        - climate.spa_climate
       include_entities:
         - binary_sensor.front_door_ding
         - fan.conservatory_fan
         - fan.master_bedroom_fan
-        - lock.jyggy_doors
         - person.bruce_hartley
         - person.cat_sitter
         - person.cleaner
@@ -27,36 +28,19 @@ homekit:
         - switch.bruce_is_asleep
         - switch.electric_blanket_bruce
         - switch.electric_blanket_sarah
-        - binary_sensor.spa_circ_pump
-        - binary_sensor.spa_filter1
-        - climate.spa_climate
-        - fan.spa_pump1
-        - fan.spa_pump2
-        - switch.spa_temp_range
-        - switch.spa_light1
         - switch.kate_is_asleep
         - switch.sarah_is_asleep
         - switch.sophie_is_asleep
         - water_heater.hot_water
-#      - binary_sensor.downstairs_co
-#      - binary_sensor.downstairs_smoke
-#      - binary_sensor.garage_co
-#      - binary_sensor.garage_smoke
-#      - binary_sensor.loft_co
-#      - binary_sensor.loft_smoke
-#      - binary_sensor.upstairs_1_co
-#      - binary_sensor.upstairs_1_smoke
-#      - binary_sensor.upstairs_2_co
-#      - binary_sensor.upstairs_2_smoke
 
-  
   - name: Lounge SkyQ
     port: 56332
     mode: accessory
     filter:
       include_entities:
         - media_player.lounge_skyq
- 
+
+        - lock.jyggy_doors 
   - name: Hue Lights
     port: 56333
     filter:
@@ -167,10 +151,13 @@ homekit:
         - binary_sensor.master_bedroom_wardrobe_door_2
         - binary_sensor.master_bedroom_ensuite_door        
         - binary_sensor.shed_door      
+        - binary_sensor.garage_back_door            
         - binary_sensor.sophies_bedroom_door        
         - binary_sensor.under_stairs_door
              
     entity_config:   
+      binary_sensor.garage_back_door:
+        linked_battery_sensor: sensor.garage_back_door_battery       
       binary_sensor.bar_door:
         linked_battery_sensor: sensor.bar_door_battery      
       binary_sensor.drum_room_door:
@@ -196,9 +183,9 @@ homekit:
       binary_sensor.master_bedroom_door:
         linked_battery_sensor: sensor.master_bedroom_door_battery
       binary_sensor.sophies_bedroom_door:
-        linked_battery_sensor: sensor.bedroom_door_battery
+        linked_battery_sensor: sensor.sophies_bedroom_door_battery
       binary_sensor.under_stairs_door:
-        linked_battery_sensor: sensor.stairs_door_battery
+        linked_battery_sensor: sensor.under_stairs_door_battery
 
   - name: Motion
     port: 56336
@@ -244,3 +231,39 @@ homekit:
         - sensor.master_bedroom_environment_humidity
         - sensor.master_bedroom_environment_temperature
 # Put cameras into YAML, then they can have linked motion sensors ?        
+
+
+  - name: Jyggy Doors
+    port: 56339
+    mode: accessory
+    filter:
+      include_entities:
+        - lock.jyggy_doors
+
+  - name: Hot Tub
+    port: 56340
+    filter:
+      include_entities:        
+        - binary_sensor.spa_circ_pump
+        - binary_sensor.spa_filter1
+        - climate.spa_climate
+        - fan.spa_pump1
+        - fan.spa_pump2
+        - switch.spa_temp_range
+        - switch.spa_light1        
+        
+#  - name: Nest Protect
+#    port: 56341
+#    filter:
+#      include_entities:       
+#      - binary_sensor.downstairs_co
+#      - binary_sensor.downstairs_smoke
+#      - binary_sensor.garage_co
+#      - binary_sensor.garage_smoke
+#      - binary_sensor.loft_co
+#      - binary_sensor.loft_smoke
+#      - binary_sensor.upstairs_1_co
+#      - binary_sensor.upstairs_1_smoke
+#      - binary_sensor.upstairs_2_co
+#      - binary_sensor.upstairs_2_smoke
+        

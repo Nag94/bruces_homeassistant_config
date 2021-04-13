@@ -35,13 +35,9 @@ automation:
             attribute: brightness
             state: 10     
             
-# don't know why but this didn't work when it was a condition on the automation ?        
-#    condition:
-#      - condition: template
-#        value_template: "{{ (is_state('binary_sensor.dark_outside','on')) and (is_state('light.landing_light_3','off')) and (state_attr('light.landing_light_1', 'brightness') == 10 or is_state('light.landing_light_1','off')) }}"
     action:
 #      - choose:
-#          - conditions: "{{ (is_state('binary_sensor.dark_outside','on')) and (is_state('light.landing_light_3','off')) and (state_attr('light.landing_light_1', 'brightness') == 10 or is_state('light.landing_light_1','off')) }}"
+#          - conditions: "{{ (is_state('binary_sensor.dark_outside','on')) and (is_state('light.landing_light_3','off')) and (is_state_attr('light.landing_light_1', 'brightness',10) or is_state('light.landing_light_1','off')) }}"
 #            sequence:
       - service: light.turn_on
         target:
@@ -53,11 +49,13 @@ automation:
       - delay: 00:09:40
       - service: light.turn_off
         target:
-          entity_id: light.landing_lights
+          entity_id:
+            - light.landing_light_1
+            - light.landing_light_2                  
         data:
           transition: 20
-  
-      
+
+
 # Turn on landing lights low for 10 mins.
 # Not if already on at a different brightness.
 # Not if it is daylight            

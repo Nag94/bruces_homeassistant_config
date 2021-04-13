@@ -110,7 +110,7 @@ elements:
     ################################################           
       - type: conditional
         conditions: 
-          - entity: sensor.jyggy_plugged_in
+          - entity: binary_sensor.jyggy_plugged_in
             state: 'on'
         elements:
           - type: conditional
@@ -352,7 +352,7 @@ elements:
 #        state: 'on'   
 #      - entity: device_tracker.vf1ag000366115079_location
 #        state: unavailable
-#      - entity: sensor.paddy_plugged_in
+#      - entity: binary_sensor.paddy_plugged_in
 #        state: 'on'
 #    elements:
 #      - type: image
@@ -397,7 +397,7 @@ elements:
 ################################################            
       - type: conditional
         conditions:
-          - entity: sensor.paddy_plugged_in
+          - entity: binary_sensor.paddy_plugged_in
             state: 'on'
         elements:
           - type: conditional
@@ -819,13 +819,13 @@ elements:
         entity: sensor.powerwall_charge_corrected
         style:
           top: 49%
-          left: 87%
+          left: 86%
           transform: 'scale(2,2)'
       - type: state-label
         entity: sensor.powerwall_stored_energy
         style:
           top: 45%
-          left: 89.5%
+          left: 89%
           color: green
       - type: conditional
         conditions:
@@ -1190,12 +1190,12 @@ elements:
                 entity: sensor.floorplan_powerwall_home_load
                 style:
                   color: black
-                  top: 17%
+                  top: 15%
                   left: 19%
               - type: state-label
                 entity: sensor.floorplan_powerwall_home_load
                 style:
-                  top: 17%
+                  top: 15%
                   left: 28%  
               - type: icon
                 icon: 'mdi:transmission-tower'
@@ -1210,14 +1210,14 @@ elements:
                 entity: sensor.solaredge_modbus_meter_1
                 style:
                   color: green
-                  top: 21%
-                  left: 3%
+                  top: 19%
+                  left: 4%
                   transform: 'scale(2,2)'
               - type: state-label
                 entity: sensor.export_power
                 style:
                   color: green
-                  top: 21%
+                  top: 24%
                   left: 16%
           - type: conditional
             conditions: 
@@ -2370,6 +2370,11 @@ elements:
         style:
           top: 24%
           left: 90%    
+      - type: state-icon
+        entity: binary_sensor.garage_back_door
+        style:
+          top: 32%
+          left: 81%             
       - type: state-icon
         entity: binary_sensor.back_door
         style:
@@ -3793,4 +3798,4 @@ elements:
 #              navigation_path: /lovelace-remote/remote
               
               
-image: '/local/groundfloor_new.png'
+image: '/local/floorplan_ground_floor.png'

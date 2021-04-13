@@ -2057,4 +2057,4 @@ elements:
           service_data: 
             entity_id: input_boolean.floorplan_show_toggle_switches  
 
-image: '/local/firstfloor-1503.png'
+image: '/local/floorplan_first_floor.png'

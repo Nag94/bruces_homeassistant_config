@@ -7,6 +7,9 @@ frontend:
 #logger:
 #  default: error
 #  logs:
+#    homeassistant.components.rest_command: debug  
+#    homeassistant.components.rest: debug      
+#    custom_components.surepetcare: debug  
 #    custom_components.balboa: debug
 #    homeassistant.core: debug
 #    homeassistant.components.zha: debug
@@ -25,7 +28,7 @@ frontend:
 lovelace:
   mode: yaml
   dashboards:
-    lovelace-cameras: # Needs to contain a hyphen (-)
+    lovelace-cctvcameras: # Needs to contain a hyphen (-)
       mode: yaml
       title: Cameras
       filename: ui-cameras.yaml

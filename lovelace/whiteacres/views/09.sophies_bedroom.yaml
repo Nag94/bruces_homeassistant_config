@@ -56,6 +56,4 @@ cards:
       platform: sonos
       show_group_count: true
     type: 'custom:mini-media-player'
-  - entity: climate.sophies_bedroom_rad
-    name: Bedroom
-    type: thermostat
+

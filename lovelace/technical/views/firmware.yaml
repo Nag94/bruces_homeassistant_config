@@ -9,8 +9,16 @@ cards:
         name: Zappi - Jyggy
       - entity: sensor.zappi_paddy_fwv
         name: Zappi - Paddy
+      - entity: sensor.myenergi_fwv
+        name: myEnergi Hub
 #      - entity: sensor.harvi_fwv
 #        name: Harvi
       - entity: sensor.eddi_fwv
         name: Eddi
     title: MyEnergi Firmware Versions
+  - type: entities
+    entities:
+      - entity: sensor.myenergi_asn
+        name: myEnergi ASN
+
+   

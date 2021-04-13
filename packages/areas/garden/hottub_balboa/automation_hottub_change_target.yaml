@@ -7,14 +7,15 @@ automation:
       Change target when input number updated
       
     trigger:
+      - platform: homeassistant
+        event: start
+      - platform: event
+        event_type: automation_reloaded    
       - platform: state
         entity_id: 
           - input_number.hottub_water_target
           - sensor.hottub_target_temp
-      - platform: homeassistant
-        event: start
-      - platform: event
-        event_type: automation_reloaded
+
         
     action:
       - choose:

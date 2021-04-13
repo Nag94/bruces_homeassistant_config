@@ -339,16 +339,5 @@ cards:
       platform: sonos
       show_group_count: true
     type: 'custom:mini-media-player'
-  - cards:
-      - entity: climate.kitchen_rad
-        name: nr. Utility
-        type: thermostat
-      - entity: climate.kitchen_tall_rad
-        name: Kitchen Tall
-        type: thermostat
-      - entity: climate.conservatory_rad
-        name: Convservatory
-        type: thermostat
-    type: horizontal-stack
   - entity: media_player.kitchen_apple_tv
     type: media-control

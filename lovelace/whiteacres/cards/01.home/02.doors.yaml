@@ -62,14 +62,14 @@ entities:
     name: Bathroom
     state_filter:
       - 'off'
-  - entity: binary_sensor.bar_door
-    name: Bar
-    state_filter:
-      - 'on'
-  - entity: binary_sensor.master_bedroom_ensuite_door
-    name: En-Suite
-    state_filter:
-      - 'on'
+#  - entity: binary_sensor.bar_door
+#    name: Bar
+#    state_filter:
+#      - 'on'
+#  - entity: binary_sensor.master_bedroom_ensuite_door
+#    name: En-Suite
+#    state_filter:
+#      - 'on'
   - entity: binary_sensor.master_bedroom_wardrobe_door_1
     name: Wardrobe 1
     state_filter:
@@ -82,5 +82,9 @@ entities:
     name: Shed
     state_filter:
       - 'on'      
+  - entity: binary_sensor.garage_back_door
+    name: Shed
+    state_filter:
+      - 'on'          
 show_empty: false
 type: entity-filter

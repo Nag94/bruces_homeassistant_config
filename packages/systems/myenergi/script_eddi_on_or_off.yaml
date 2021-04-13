@@ -14,6 +14,20 @@ script:
           myenergi_password: !secret myenergi_password
           eddi_serial: !secret eddi_serial
           eddi_mode: "{% if mode == 'on' %}1{% else %}0{% endif %}"
+      - delay: 3          
+      - alias: "Wait until command is complete"
+        wait_template: "{{ state_attr('sensor.eddi','cmt') > 250 }}"                
+      - condition: template      
+        value_template: "{{ (states('sensor.eddi_status') not in ('stopped','reached') and mode == 'off') or (states('sensor.eddi_status') == 'stopped' and mode == 'on')  }}"
+      - service: telegram_bot.send_message
+        data:
+          target: !secret telegram_chat_id_bruce         
+          message: >
+            Eddi failed to change to {{mode}}
+                
+            Currently set to {{ states('sensor.eddi_status') }}
+            
+            Last Online at: {{ state_attr('sensor.eddi','dat') + ' ' + state_attr('sensor.eddi','tim') }}            
           
 
 #cgi-eddi-mode-EID-ModeNo

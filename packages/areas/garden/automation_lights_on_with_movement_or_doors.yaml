@@ -68,7 +68,7 @@ automation:
               - service: light.turn_on
                 target:
                   entity_id: 
-                    - light.garden_colour
+  #                  - light.garden_colour
                     - light.patio_gazebo
                     - light.patio_gazebo_wall
                     - light.garden_colour

@@ -51,10 +51,8 @@ automation:
           target: !secret telegram_chat_id_bruce_and_sarah
           title: Alarm is setting
           message: >
-            {% if is_state('fan.bedroom_fan','on') %}Bedroom Fan is on
-            {% endif %}
-            {% if is_state('fan.conservatory_fan','on') %}Conservatory Fan is on
-            {% endif %}
+            {{ 'Bedroom Fan is on' if is_state('fan.bedroom_fan','on') }}
+            {{ 'Conservatory Fan is on' if is_state('fan.conservatory_fan','on') }}
             {% if is_state('input_boolean.watching_skytv','on') %}TV on in lounge
             {% endif %}
             {% if is_state('media_player.kitchen_sonos','playing') %}SONOS playing in the kitchen

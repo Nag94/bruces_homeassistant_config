@@ -74,79 +74,77 @@ automation:
                 data:
                   target: "{{trigger.event.data.chat_id}}"                
                   message: >
-                    {% if is_state('binary_sensor.grid_status','off') %}There is a powercut!
+                    {{ 'There is a powercut!' if is_state('binary_sensor.grid_status','off') }}
 
-                    {% endif %}Alarm currently {{states('alarm_control_panel.full_set').replace('_',' ')}}
+                    Alarm currently {{states('alarm_control_panel.full_set').replace('_',' ')}}
                     
                     Powerwall at {{states('sensor.powerwall_charge_corrected')}}% ({% if is_state('sensor.powerwall_direction','import') %}Discharging{% elif is_state('sensor.powerwall_direction','export')%}Charging{% else %}on standby{% endif %})
                     
                     Solar Power Now: {{ states('sensor.solar_production')}} kW
                     
-                    Today's Solar Production: {{ states('sensor.solar_production_daily')| round(1) }} kWh
+                    Solar Production Today: {{ states('sensor.solar_production_daily')| round(1) }} kWh
                     
-                    Today's Solar Forecast: {{ states('input_number.solcast_latest_today_forecast') }} kWh
+                    Solar Forecast (Today): {{ states('input_number.solcast_latest_today_forecast') }} kWh
                   
-                    Tomorrow's Solar Forecast: {{ states('input_number.solcast_forecast_tomorrow') }} kWh
+                    Solar Forecast (Tomorrow): {{ states('input_number.solcast_forecast_tomorrow') }} kWh
                     
                     Paddy ({{ states('sensor.vf1ag000366115079_battery_level') }}%) is {% if states('sensor.zappi_paddy_mode') != 'Stopped' %}Charging ({{ states('sensor.zappi_paddy_mode') }}) @ {{ states('sensor.zappi_paddy_power') }}kW{% elif is_state('sensor.zappi_paddy_status','EV Connected') %}Plugged in{% elif is_state('device_tracker.vf1ag000366115079_location','home') or is_state('device_tracker.vf1ag000366115079_location','Home') %}unplugged{% else %}not at home{% endif %}
                     
                     Jyggy ({{ states('sensor.jyggy_battery_level') }}%) is {% if states('sensor.zappi_jyggy_mode') != 'Stopped' %}Charging ({{ states('sensor.zappi_jyggy_mode') }}) @ {{ states('sensor.zappi_jyggy_power') }}kW{% elif is_state('sensor.zappi_jyggy_status','EV Connected') %}Plugged in{% elif is_state('sensor.jyggy_location','Home') or is_state('sensor.jyggy_location','home') %}unplugged{% else %}not at home{% endif %}
 
-                    {% if not is_state('sensor.hottub_summary','off') %}HotTub is {{states('sensor.hottub_summary') }}
+                    HotTub is {{states('sensor.hottub_summary') }}
 
-                    {% endif %}{% if is_state('fan.bedroom_fan','on') %}Bedroom Fan is on
+                    {{ 'Bedroom Fan is on' if is_state('fan.bedroom_fan','on') }}
 
-                    {% endif %}{% if is_state('fan.conservatory_fan','on') %}Conservatory Fan is on
+                    {{ 'Conservatory Fan is on' if is_state('fan.conservatory_fan','on') }}
                     
-                    {% endif %}{% if is_state('switch.electric_blanket_bruce','on') and is_state('switch.electric_blanket_sarah','on') %}Both electric blankets are on
+                    {% if is_state('switch.electric_blanket_bruce','on') and is_state('switch.electric_blanket_sarah','on') %}Both electric blankets are on
                     
                     {% elif is_state('switch.electric_blanket_bruce','on') %}Bruce's electric blanket is on
                     
                     {% elif is_state('switch.electric_blanket_sarah','on') %}Sarah's electric blanket is on                    
 
-                    {% endif %}{% if is_state('light.downstairs','on') %}Lights are on downstairs
+                    {% endif %}{{ 'Lights are on downstairs' if is_state('light.downstairs','on') }}
 
-                    {% endif %}{% if is_state('light.outside','on') %}Lights are on Outside
+                    {{ 'Lights are on Outside' if is_state('light.outside','on') }}
 
-                    {% endif %}{% if is_state('light.upstairs','on') %}Lights are on upstairs
+                    {{ 'Lights are on upstairs' if is_state('light.upstairs','on') }}
 
-                    {% endif %}{% if is_state('input_boolean.watching_skytv','on') %}TV on in lounge
+                    {{ 'TV on in lounge' if is_state('input_boolean.watching_skytv','on') }}
 
-                    {% endif %}{% if is_state('media_player.kitchen_sonos','playing') %}SONOS playing in the kitchen
+                    {{ 'SONOS playing in the kitchen' if is_state('media_player.kitchen_sonos','playing') }}
 
-                    {% endif %}{% if is_state('media_player.sophies_sonos','playing') %}SONOS playing in Sophie bedroom
+                    {{ 'SONOS playing in Sophie bedroom' if is_state('media_player.sophies_sonos','playing') }}
 
-                    {% endif %}{% if is_state('media_player.kates_sonos','playing') %}SONOS playing in Kate bedroom
+                    {{ 'SONOS playing in Kate bedroom' if is_state('media_player.kates_sonos','playing') }}
 
-                    {% endif %}{% if is_state('media_player.lounge_sonos','playing') %}SONOS playing in the Lounge
+                    {{ 'SONOS playing in the Lounge' if is_state('media_player.lounge_sonos','playing') }}
 
-                    {% endif %}{% if is_state('media_player.bar_sonos','playing') %}SONOS playing in the Bar
+                    {{ 'SONOS playing in the Bar' if is_state('media_player.bar_sonos','playing') }}
 
-                    {% endif %}{% if is_state('binary_sensor.front_door','on') %}Conservatory door is open
+                    {{ 'Conservatory door is open' if is_state('binary_sensor.front_door','on') }}
 
-                    {% endif %}{% if is_state('binary_sensor.front_door','on') %}Front door is open
+                    {{ 'Front door is open' if is_state('binary_sensor.front_door','on') }}
 
-                    {% endif %}{% if is_state('binary_sensor.back_gate_door','on') %}Back gate is open
+                    {{ 'Back gate is open' if is_state('binary_sensor.back_gate_door','on') }}
 
-                    {% endif %}{% if is_state('binary_sensor.back_door','on') %}Back door is open
+                    {{ 'Back door is open' if is_state('binary_sensor.back_door','on') }}
 
-                    {% endif %}{% if is_state('binary_sensor.under_stairs_door','on') %}Understairs door is open
+                    {{ 'Understairs door is open' if is_state('binary_sensor.under_stairs_door','on') }}
 
-                    {% endif %}{% if is_state('binary_sensor.master_bedroom_door','on') %}Master bedroom door is open
+                    {{ 'Master bedroom door is open' if is_state('binary_sensor.master_bedroom_door','on') }}
 
-                    {% endif %}{% if is_state('binary_sensor.lounge_door','on') %}Lounge door is open
+                    {{ 'Lounge door is open' if is_state('binary_sensor.lounge_door','on') }}
 
-                    {% endif %}{% if is_state('binary_sensor.sophies_bedroom_door','on') %}Sophie's door is open
+                    {{ 'Sophie\'s door is open' if is_state('binary_sensor.sophies_bedroom_door','on') }}
 
-                    {% endif %}{% if is_state('binary_sensor.kates_bedroom_door','on') %}Kate's door is open
+                    {{ 'Kate\'s door is open' if is_state('binary_sensor.kates_bedroom_door','off') }}
 
-                    {% endif %}{% if is_state('binary_sensor.guest_bedroom_door','on') %}Guest's door is open
+                    {{ 'Guest\'s door is open' if is_state('binary_sensor.guest_bedroom_door','on') }}
 
-                    {% endif %}{% if is_state('binary_sensor.downstairs_toilet_door','off') %}Downstairs Loo door is closed
+                    {{ 'Downstairs Loo door is closed' if is_state('binary_sensor.downstairs_toilet_door','off') }}
 
-                    {% endif %}{% if is_state('binary_sensor.main_bathroom_door','off') %}Bathroom door is closed
-
-                    {% endif %}
+                    {{ 'Bathroom door is closed' if is_state('binary_sensor.main_bathroom_door','off') }}
                     
             # /alarm and Alarm Disarmed
           - conditions: "{{ trigger.event.data.text.lower() == 'alarm' and is_state('alarm_control_panel.full_set','disarmed') }}"

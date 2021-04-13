@@ -1,0 +1,10 @@
+sensor:
+  - platform: template
+    sensors:
+      hottub_heating_on:
+        availability_template: "{{ not is_state('binary_sensor.spa_circ_pump','unavailable') }}"
+        friendly_name: "HotTub Heating On"
+        value_template: "{{ 1 if is_state_attr('climate.spa_climate','hvac_action','heating') else 0 }}"
+
+
+

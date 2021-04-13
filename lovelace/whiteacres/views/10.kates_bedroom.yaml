@@ -74,11 +74,4 @@ cards:
       platform: sonos
       show_group_count: true
     type: 'custom:mini-media-player'
-  - cards:
-      - entity: climate.kates_bedroom_rad
-        name: Bedroom
-        type: thermostat
-      - entity: climate.kates_bathroom_rad
-        name: Bathroom
-        type: thermostat
-    type: horizontal-stack
+

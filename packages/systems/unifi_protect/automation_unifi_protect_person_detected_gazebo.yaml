@@ -10,21 +10,19 @@ automation:
       - platform: homeassistant
         event: start
       - platform: event
-        event_type: automation_reloaded         
+        event_type: automation_reloaded        
       - platform: state
         entity_id: binary_sensor.motion_gazebo
         to: person
         attribute: event_object
         
     variables:
-      # This code was used when I had one automation that covered all cameras, so it had to know which camera was triggered    
-      cam_name: "{{ 'camera.' + trigger.entity_id.split('_')[2] }}"
-      pic_file: "{{  trigger.entity_id.split('_')[2]  + '_' + now().strftime('%d%m%H%M')  }}"      
+      pic_file: "{{ 'gazebo_' + now().strftime('%d%m%H%M') }}"
       pic_folder: "/config/www/cam_snaps/"      
       
     action:
       - choose:
-          - conditions: "{{ trigger.entity_id == 'binary_sensor.motion_gazebo' }}"
+          - conditions: "{{ trigger.platform == 'state' }}"
             sequence:
               - service: input_text.set_value
                 target:
@@ -33,7 +31,7 @@ automation:
                   value: "{{ trigger.to_state.attributes.event_object }}"
               - service: camera.record
                 target:
-                  entity_id: "{{ cam_name }}"
+                  entity_id: camera.gazebo
                 data:
                   duration: 10
                   filename: "{{ pic_folder + pic_file }}.mp4"   
@@ -42,7 +40,7 @@ automation:
                   target: !secret telegram_chat_id_bruce_and_sarah    
                   message_tag: object_detected_gazebo   
                   message: >
-                    I have seen a {{ trigger.to_state.attributes.event_object }} on the {{ trigger.entity_id.split('_')[2] }} camera.
+                    I have seen a {{ trigger.to_state.attributes.event_object }} on the Gazebo camera.
                     
                     Recording 10 seconds..........
               - wait_template: >
@@ -52,7 +50,7 @@ automation:
                 data:
                   message_id: "{{ states('input_text.object_detected_gazebo_message_id') }}"
                   chat_id: !secret telegram_chat_id_bruce_and_sarah   
-                  message: "I have seen a {{ trigger.to_state.attributes.event_object }} on the {{ trigger.entity_id.split('_')[2] }} camera."    
+                  message: "I have seen a {{ trigger.to_state.attributes.event_object }} on the Gazebo camera."    
                   inline_keyboard:
                     - 'Show Video:/vdd_{{pic_file}}, OK:/remove_keyboard'      
               - delay: 00:05:00   

@@ -139,10 +139,6 @@ cards:
       platform: sonos
       show_group_count: true
     type: 'custom:mini-media-player'
-  - entity: climate.master_bedroom_rad
-    name: Bedroom
-    theme: default
-    type: thermostat
   - entities:
       - entity: switch.electric_blanket_sarah
         name: Electric Blanket - Sarah
