@@ -3649,84 +3649,84 @@ elements:
           left: 56%
       - type: conditional
         conditions:     
-          - entity: sensor.washing_machine_progress
-            state: 'heating'
+          - entity: input_text.washing_machine_progress
+            state: 'Heating'
         elements:
           - type: icon
             icon: 'mdi:washing-machine'
-            entity: sensor.washing_machine_progress
+            entity: input_text.washing_machine_progress
             style:
               color: red
               top: 63%
               left: 19% 
       - type: conditional
         conditions:    
-          - entity: sensor.washing_machine_progress
-            state: 'final spin'
+          - entity: input_text.washing_machine_progress
+            state: 'Final Spin'
         elements:
           - type: icon
             icon: 'mdi:washing-machine'
-            entity: sensor.washing_machine_progress
+            entity: input_text.washing_machine_progress
             style:
               color: purple
               top: 63%
               left: 19%           
       - type: conditional
         conditions:    
-          - entity: sensor.washing_machine_progress
-            state: 'spin'
+          - entity: input_text.washing_machine_progress
+            state: 'Spin'
         elements:
           - type: icon
             icon: 'mdi:washing-machine'
-            entity: sensor.washing_machine_progress
+            entity: input_text.washing_machine_progress
             style:
               color: orange
               top: 63%
               left: 19%             
       - type: conditional
         conditions:     
-          - entity: sensor.washing_machine_progress
-            state: 'filling'
+          - entity: input_text.washing_machine_progress
+            state: 'Filling'
         elements:
           - type: icon
             icon: 'mdi:washing-machine'
-            entity: sensor.washing_machine_progress
+            entity: input_text.washing_machine_progress
             style:
               color: blue
               top: 63%
               left: 19%          
       - type: conditional
         conditions:       
-          - entity: sensor.washing_machine_progress
-            state: 'finishing'
+          - entity: input_text.washing_machine_progress
+            state: 'Finishing'
         elements:
           - type: icon
             icon: 'mdi:washing-machine'
-            entity: sensor.washing_machine_progress
+            entity: input_text.washing_machine_progress
             style:
               color: green
               top: 63%
               left: 19%          
       - type: conditional
         conditions:       
-          - entity: sensor.washing_machine_progress
-            state: 'emptied'
+          - entity: input_text.washing_machine_progress
+            state: 'Emptied'
         elements:
           - type: icon
             icon: 'mdi:washing-machine'
-            entity: sensor.washing_machine_progress
+            entity: input_text.washing_machine_progress
             style:
               color: grey
               top: 63%
               left: 19%             
       - type: conditional
         conditions:
-          - entity: sensor.washing_machine_progress
-            state: 'standby'
+          - entity: input_text.washing_machine_progress
+            state: 'Standby'
         elements:
           - type: icon
             icon: 'mdi:washing-machine'
-            entity: sensor.washing_machine_progress
+            entity: input_text.washing_machine_progress
             style:
               color: grey
               top: 63%

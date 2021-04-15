@@ -23,7 +23,7 @@ automation:
     action:
       - choose:
             # Home Assistant Re-start of Automation Re-load
-          - conditions: "{{ trigger.plaform in ['homeassistant','event'] }}"
+          - conditions: "{{ trigger.platform in ('homeassistant','event') }}"
             sequence:
               - alias: "Wait until previous Zappi Jyggy command is complete"
                 wait_template: "{{ state_attr('sensor.zappi_jyggy','cmt') > 250 }}"               

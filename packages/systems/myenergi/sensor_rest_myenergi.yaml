@@ -1,7 +1,7 @@
 rest:
   - resource: https://s7.myenergi.net/cgi-jstatus-*
-    scan_interval: 10
-    timeout: 60
+    scan_interval: 5
+    timeout: 30
     authentication: digest
     username: !secret myenergi_serial
     password: !secret myenergi_password

@@ -86,24 +86,15 @@ binary_sensor.shed_door:
   device_class: door  
 sensor.master_bedroom_environment_co2:
   icon: mdi:molecule-co2
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+sensor.zappi_jyggy_power:
+  icon: mdi:car-electric
+sensor.zappi_paddy_power:
+  icon: mdi:car-electric-outline  
+sensor.solaredge_ac_power_kw_output:
+  icon: mdi:solar-power
+sensor.powerwall_battery_now:
+  icon: mdi:battery-charging
+sensor.jyggy_odometer:
+  icon: mdi:sign-direction
+sensor.jyggy_charging_state:
+  icon: mdi:flash
