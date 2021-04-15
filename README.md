@@ -22,4 +22,5 @@ Main features are:
 * Big and Easy to Use Phone Menu<br><img src="documents/images/phone_menu.jpg" width=100>
 ## [Hardware List](documents/hardwareList.md)
 ## [Add-ons, integrations and custom components](documents/HA_integrations_and_addons.md)
+## [Helpers Created through UI](documents/helpers.md)
 
