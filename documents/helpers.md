@@ -1,3 +1,7 @@
+# Helpers
+
+All these helpers are defined through the UI.  
+
 Title	|	entity id	|	type
 ------------------------------	|	------------------------------	|	------------------------------
 04f0dc66_scene	|	input_number.0017880104f0dc66_scene	|	Number
