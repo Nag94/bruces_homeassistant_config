@@ -1,10 +1,10 @@
 # Home Assistant Configuration
 
 This is the Home Assistant configuration I've put together over the last year or so.
-The config file is split into a large number of [packages](/bruces_homeassistant_config/tree/main/packages) to allow it to be browsed and reused more easily.
+The config file is split into a large number of [packages](packages) to allow it to be browsed and reused more easily.
 I'm doing my best to document each section so you can see what it is doing.
 
-Most config files are in the packages directory.  So browse around in there !
+Most config files are in the [packages](packages) directory.  So browse around in there !
 
 Main features are:
 
