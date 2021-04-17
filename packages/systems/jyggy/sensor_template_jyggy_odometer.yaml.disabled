@@ -1,8 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      jyggy_odometer:
-        value_template: "{{ state_attr('sensor.jyggy_sensor','odometer')|int }}"
-        friendly_name: "Odometer"
-        unit_of_measurement: 'miles'
-        icon_template: mdi:counter

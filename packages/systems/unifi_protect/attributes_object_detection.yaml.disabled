@@ -1,9 +1,0 @@
-sensor:  
-  - platform: attributes
-    friendly_name: "Object Detected"
-    attribute: event_object
-    entities:
-      - binary_sensor.motion_bins
-      - binary_sensor.motion_gazebo
-      - binary_sensor.motion_drive
-      - binary_sensor.motion_patio

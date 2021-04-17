@@ -1,7 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      fridge_freezer_setpoint:
-        value_template: '{{ states.sensor.kitchen_fridge.attributes["components"]["freezer"]["thermostatCoolingSetpoint"]["coolingSetpoint"]["value"] }}'
-        device_class: temperature
-        unit_of_measurement: '°C'

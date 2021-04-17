@@ -1,6 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      jyggy_scheduled_charging_start_time:
-        value_template: "{{ state_attr('sensor.jyggy_sensor','scheduled_charging_start_time') }}"
-        friendly_name: "Scheduled Start Time"

@@ -1,6 +1,0 @@
-binary_sensor:
-  - platform: template
-    sensors:
-      fridge_door:
-        value_template: '{{ states.sensor.kitchen_fridge.attributes["components"]["cooler"]["contactSensor"]["contact"]["value"] }}'
-        device_class: door

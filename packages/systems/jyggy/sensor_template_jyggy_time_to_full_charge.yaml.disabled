@@ -1,8 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      jyggy_time_to_full_charge:
-        value_template: "{{ state_attr('sensor.jyggy_sensor','time_to_full_charge') }}"
-        friendly_name: "Time to Full Charge"
-        unit_of_measurement: 'hrs'
-        icon_template: mdi:timer-outline

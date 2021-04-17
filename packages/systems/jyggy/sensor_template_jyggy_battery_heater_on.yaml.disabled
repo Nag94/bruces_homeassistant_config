@@ -1,7 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      jyggy_battery_heater_on:
-        value_template: "{% if state_attr('sensor.jyggy_sensor','battery_heater_on') == 1 %}on{% else %}off{% endif %}"
-        friendly_name: "Battery Heater On"
-        icon_template: "{% if state_attr('sensor.jyggy_sensor','battery_heater_on') == 1 %}mdi:radiator{% else %}mdi:radiator-disabled{% endif %}"

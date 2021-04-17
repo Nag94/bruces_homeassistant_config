@@ -1,7 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      jyggy_charge_cable:
-        friendly_name: "Charge Cable"
-        value_template: "{{ state_attr('sensor.jyggy_sensor','conn_charge_cable') }}"
-        icon_template: "{% if state_attr('sensor.jyggy_sensor','conn_charge_cable') == '<invalid>' %}mdi:power-plug-off{% else %}mdi:power-plug{% endif %}"

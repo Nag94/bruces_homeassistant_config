@@ -1,9 +1,0 @@
-sensor:  
-  - platform: attributes
-    friendly_name: "Firmware Version"
-    attribute: fwv
-    entities:
-      - sensor.eddi
-      - sensor.zappi_jyggy
-      - sensor.zappi_paddy
-#      - sensor.harvi

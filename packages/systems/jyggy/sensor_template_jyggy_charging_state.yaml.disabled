@@ -1,7 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      jyggy_charging_state:
-        friendly_name: "Charging State"
-        value_template: "{{ state_attr('sensor.jyggy_sensor','charging_state') }}"
-        icon_template: "{% if state_attr('sensor.jyggy_sensor','charging_state') == 'Disconnected' %}mdi:power-plug-off{% else %}mdi:power-plug{% endif %}"        

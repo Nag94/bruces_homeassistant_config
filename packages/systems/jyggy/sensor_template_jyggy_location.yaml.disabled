@@ -1,6 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      jyggy_location:
-        friendly_name: "Jyggy"
-        value_template: "{{ state_attr('sensor.jyggy_sensor','location') }}"

@@ -1,7 +1,0 @@
-binary_sensor:
-  - platform: template
-    sensors:
-      jyggy_needs_charge:
-        value_template: "{{ states('sensor.jyggy_battery_level')|int < states('input_number.jyggy_charge_limit')|int }}"
-        friendly_name: "Jyggy Needs Charge"
-        icon_template: mdi:flash

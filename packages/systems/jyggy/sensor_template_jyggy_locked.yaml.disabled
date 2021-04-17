@@ -1,6 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      jyggy_locked:
-        value_template: "{{ state_attr('sensor.jyggy_sensor','locked') }}"
-        friendly_name: "Locked"
