@@ -15,7 +15,7 @@ automation:
       condition: or
       conditions:
         - condition: state
-          entity_id: alarm_control_panel.full_set
+          entity_id: alarm_control_panel.texecom
           state: disarmed
         - condition: state
           entity_id: 
@@ -58,7 +58,7 @@ automation:
           message_tag: all_away
           title: "Everyone is Out"
           message: >
-            {% if is_state('alarm_control_panel.full_set','disarmed') %}Alarm is not set
+            {% if is_state('alarm_control_panel.texecom','disarmed') %}Alarm is not set
             
             {% endif %}{% if is_state('fan.bedroom_fan','on') %}Bedroom Fan is on
             
@@ -111,7 +111,7 @@ automation:
             {% endif %}
             
           inline_keyboard: >
-            [{% if is_state('alarm_control_panel.full_set','disarmed') %}[['Arm Alarm', '/empty_house_arm_away']], {% endif 
+            [{% if is_state('alarm_control_panel.texecom','disarmed') %}[['Arm Alarm', '/empty_house_arm_away']], {% endif 
             %}{% if is_state('fan.bedroom_fan','on') or is_state('fan.conservatory_fan','on') %}[['Fans Off', '/fans_off']], {% endif 
             %}{% if is_state('light.downstairs','on') or is_state('light.outside','on') or is_state('light.upstairs','on')  %}[['Lights Off', '/lights_off']], {% endif 
             %} [['OK', '/remove_keyboard']]]

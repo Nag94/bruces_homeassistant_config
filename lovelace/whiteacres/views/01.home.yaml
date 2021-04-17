@@ -7,7 +7,7 @@ visible:
   - user: 1de5d8e2c14c47939a8174d6e4147f31
   - user: 5b3b262300294eb5ae1308855791b6a2
 badges:
-  - entity: alarm_control_panel.full_set
+  - entity: alarm_control_panel.texecom
     name: Alarm
   - entities:
       - entity: sensor.jyggy_time_to_home

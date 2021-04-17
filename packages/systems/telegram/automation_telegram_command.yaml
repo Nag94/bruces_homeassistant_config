@@ -66,7 +66,7 @@ automation:
                   message: "All Litter Trays are clean"
       
             # /alarm and Alarm Disarmed
-          - conditions: "{{ trigger.event.data.command.lower() == '/alarm' and is_state('alarm_control_panel.full_set','disarmed') }}"
+          - conditions: "{{ trigger.event.data.command.lower() == '/alarm' and is_state('alarm_control_panel.texecom','disarmed') }}"
             sequence:
               - service: telegram_bot.send_message
                 data:
@@ -87,7 +87,7 @@ automation:
                 data:
                   target: "{{trigger.event.data.chat_id}}"
                   message: >
-                    Alarm currently {{states('alarm_control_panel.full_set').replace('_',' ')}}
+                    Alarm currently {{states('alarm_control_panel.texecom').replace('_',' ')}}
                     
                     Which Alarm Status do you want?                  
                   inline_keyboard:
@@ -103,7 +103,7 @@ automation:
                   message: >
                     {{ 'There is a powercut!' if is_state('binary_sensor.grid_status','off') }}
 
-                    Alarm currently {{states('alarm_control_panel.full_set').replace('_',' ')}}
+                    Alarm currently {{states('alarm_control_panel.texecom').replace('_',' ')}}
                     
                     Powerwall at {{states('sensor.powerwall_charge_corrected')}}% ({% if is_state('sensor.powerwall_direction','import') %}Discharging{% elif is_state('sensor.powerwall_direction','export')%}Charging{% else %}on standby{% endif %})
                     

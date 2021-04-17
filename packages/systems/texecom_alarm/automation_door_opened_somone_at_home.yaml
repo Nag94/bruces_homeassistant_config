@@ -51,14 +51,14 @@ automation:
           message: "Alarm disarming......"
       - service: alarm_control_panel.alarm_disarm 
         target:
-          entity_id: alarm_control_panel.full_set
+          entity_id: alarm_control_panel.texecom
         data:
           code: !secret alarm_code
-      - wait_template: "{{ is_state('alarm_control_panel.full_set','disarmed') }}"
+      - wait_template: "{{ is_state('alarm_control_panel.texecom','disarmed') }}"
         timeout: 00:00:10
       - service: telegram_bot.edit_message
         data:
           chat_id: !secret telegram_chat_id_bruce_and_sarah
           message_id: "{{ states('input_text.alarm_disarming_message_id') }}"  
-          title: "Alarm is now {{states('alarm_control_panel.full_set').replace('_',' ')}}"
+          title: "Alarm is now {{states('alarm_control_panel.texecom').replace('_',' ')}}"
           message: "{{ states('input_text.last_person_to_arrive') }} has arrived."    

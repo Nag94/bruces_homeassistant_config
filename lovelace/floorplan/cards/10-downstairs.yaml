@@ -2727,7 +2727,7 @@ elements:
         state: 'on'      
     elements:            
       - type: state-icon
-        entity: alarm_control_panel.full_set
+        entity: alarm_control_panel.texecom
         title: Intruder Alarm System
         style:
           top: 61%

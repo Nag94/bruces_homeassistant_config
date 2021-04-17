@@ -83,9 +83,9 @@ automation:
             - condition: state
               entity_id: binary_sensor.powerwall_at_or_below_max_charge_cost_and_charge_limit
               state: 'off'        
-            - condition: time
-              after: '00:00:00'
-              before: '06:30:00'  
+#            - condition: time
+#              after: '00:00:00'
+#              before: '06:30:00'  
             - condition: or
               conditions:
                 - condition: state

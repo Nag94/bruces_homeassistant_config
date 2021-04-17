@@ -10,7 +10,7 @@ automation:
         entity_id: binary_sensor.front_door
         to: 'on'
       - platform: state
-        entity_id: alarm_control_panel.full_set
+        entity_id: alarm_control_panel.texecom
         from: disarmed
         to: pending
         
@@ -19,7 +19,7 @@ automation:
         entity_id: binary_sensor.front_door
         state: 'on'
       - condition: state
-        entity_id: alarm_control_panel.full_set
+        entity_id: alarm_control_panel.texecom
         state: pending
       - condition: state
         entity_id: sensor.alarm_log

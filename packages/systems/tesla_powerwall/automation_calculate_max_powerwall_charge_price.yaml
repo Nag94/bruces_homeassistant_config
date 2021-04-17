@@ -64,7 +64,7 @@ automation:
           - service: telegram_bot.send_message
             data:
               target: !secret telegram_chat_id_bruce
-              title: "Solar Today/Tomorrow: {{ states('sensor.solcast_forecast') | int + ' / ' + states('sensor.solcast_forecast_tomorrow') | int }}kWh"
+              title: "Solar Today/Tomorrow: {{ states('sensor.solcast_forecast') | int }}/{{states('sensor.solcast_forecast_tomorrow') | int }}kWh"
               message: >
 
                 {% set charge_slots_needed =  (0.5 + (((states('input_number.overnight_powerwall_max_charge') | float) + overnight_usage_percent - (states('sensor.powerwall_charge')  | float) )/percentage_per_half_hour)) | int  %}

@@ -51,7 +51,7 @@ cloud:
       media_player.lounge_skyq:
         name: Lounge TV
         description: The Lounge TV
-      alarm_control_panel.full_set:
+      alarm_control_panel.texecom:
         name: Alarm System
         description: Alarm System Panel
       binary_sensor.front_door:

@@ -29,7 +29,7 @@ automation:
             - input_boolean.sarah_is_asleep
           state: 'off'
         - condition: template
-          value_template: "{{ states('alarm_control_panel.full_set') != 'armed_night' }}"
+          value_template: "{{ states('alarm_control_panel.texecom') != 'armed_night' }}"
           
       action:
           - service: light.turn_on

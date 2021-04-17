@@ -74,7 +74,7 @@ automation:
                   transition: 10
                 
             # Movement - alarm not set - door closed
-          - conditions: "{{ trigger.entity_id=='binary_sensor.downstairs_toilet_motion' and states('binary_sensor.downstairs_toilet_door') == 'off' and states('sensor.downstairs_toilet_illuminance') | float < 50.0 and states('alarm_control_panel.full_set') != 'armed_away' }}"
+          - conditions: "{{ trigger.entity_id=='binary_sensor.downstairs_toilet_motion' and states('binary_sensor.downstairs_toilet_door') == 'off' and states('sensor.downstairs_toilet_illuminance') | float < 50.0 and states('alarm_control_panel.texecom') != 'armed_away' }}"
             sequence:     
               - service: light.turn_on
                 target:
@@ -89,7 +89,7 @@ automation:
                   entity_id: timer.downstairs_loo       
               
             # Movement - alarm not set - and dark
-          - conditions: "{{ trigger.entity_id == 'binary_sensor.downstairs_toilet_motion' and states('sensor.downstairs_toilet_illuminance') | float  < 50.0 and states('alarm_control_panel.full_set') != 'armed_away' }}"
+          - conditions: "{{ trigger.entity_id == 'binary_sensor.downstairs_toilet_motion' and states('sensor.downstairs_toilet_illuminance') | float  < 50.0 and states('alarm_control_panel.texecom') != 'armed_away' }}"
             sequence:  
               - alias: "Downstairs Toilet Light On"          
                 service: light.turn_on

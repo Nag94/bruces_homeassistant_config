@@ -76,7 +76,7 @@ automation:
                   message: >
                     {{ 'There is a powercut!' if is_state('binary_sensor.grid_status','off') }}
 
-                    Alarm currently {{states('alarm_control_panel.full_set').replace('_',' ')}}
+                    Alarm currently {{states('alarm_control_panel.texecom').replace('_',' ')}}
                     
                     Powerwall at {{states('sensor.powerwall_charge_corrected')}}% ({% if is_state('sensor.powerwall_direction','import') %}Discharging{% elif is_state('sensor.powerwall_direction','export')%}Charging{% else %}on standby{% endif %})
                     
@@ -147,7 +147,7 @@ automation:
                     {{ 'Bathroom door is closed' if is_state('binary_sensor.main_bathroom_door','off') }}
                     
             # /alarm and Alarm Disarmed
-          - conditions: "{{ trigger.event.data.text.lower() == 'alarm' and is_state('alarm_control_panel.full_set','disarmed') }}"
+          - conditions: "{{ trigger.event.data.text.lower() == 'alarm' and is_state('alarm_control_panel.texecom','disarmed') }}"
             sequence:
               - service: telegram_bot.send_message
                 data:
@@ -168,7 +168,7 @@ automation:
                 data:
                   target: "{{trigger.event.data.chat_id}}"
                   message: >
-                    Alarm currently {{states('alarm_control_panel.full_set').replace('_',' ')}}
+                    Alarm currently {{states('alarm_control_panel.texecom').replace('_',' ')}}
                     
                     Which Alarm Status do you want?                  
                   inline_keyboard:
@@ -439,7 +439,7 @@ automation:
 #            sequence:
 
             # Alarm Disarm already disarmed
-          - conditions: "{{ ((trigger.event.data.text.lower()  | regex_match('.*alarm.*disarm.*')) or (trigger.event.data.text.lower()  | regex_match('.*disarm.*alarm.*'))) and is_state('alarm_control_panel.full_set','disarmed') }}"
+          - conditions: "{{ ((trigger.event.data.text.lower()  | regex_match('.*alarm.*disarm.*')) or (trigger.event.data.text.lower()  | regex_match('.*disarm.*alarm.*'))) and is_state('alarm_control_panel.texecom','disarmed') }}"
             sequence:  
               - service: telegram_bot.send_message
                 data:
@@ -460,29 +460,29 @@ automation:
                   message_tag: alarm_disarming                  
               - service: alarm_control_panel.alarm_disarm 
                 data:
-                  entity_id: alarm_control_panel.full_set
+                  entity_id: alarm_control_panel.texecom
                   code: !secret alarm_code
-              - wait_template: "{{ is_state('alarm_control_panel.full_set','disarmed') }}"
+              - wait_template: "{{ is_state('alarm_control_panel.texecom','disarmed') }}"
                 timeout: 00:00:10
               - service: telegram_bot.edit_message
                 data:
                   chat_id: "{{trigger.event.data.chat_id}}"
                   message_id: "{{ states('input_text.alarm_disarming_message_id') }}"                     
-                  message: "Alarm is now {{states('alarm_control_panel.full_set').replace('_',' ')}}"
+                  message: "Alarm is now {{states('alarm_control_panel.texecom').replace('_',' ')}}"
                    
 
 
             # Alarm Arm already armed 
-          - conditions: "{{ ((trigger.event.data.text.lower()  | regex_match('.*alarm.*arm.*')) or (trigger.event.data.text.lower()  | regex_match('.*arm.*alarm.*')) or (trigger.event.data.text.lower()  | regex_match('.*set.*alarm.*') or trigger.event.data.text.lower()  | regex_match('.*alarm.*night.*')) or (trigger.event.data.text.lower()  | regex_match('.*night.*alarm.*'))) and states('alarm_control_panel.full_set')[0:6]=='armed_' }}"
+          - conditions: "{{ ((trigger.event.data.text.lower()  | regex_match('.*alarm.*arm.*')) or (trigger.event.data.text.lower()  | regex_match('.*arm.*alarm.*')) or (trigger.event.data.text.lower()  | regex_match('.*set.*alarm.*') or trigger.event.data.text.lower()  | regex_match('.*alarm.*night.*')) or (trigger.event.data.text.lower()  | regex_match('.*night.*alarm.*'))) and states('alarm_control_panel.texecom')[0:6]=='armed_' }}"
             sequence:  
               - service: alarm_control_panel.alarm_arm_night 
                 data:
-                  entity_id: alarm_control_panel.full_set
+                  entity_id: alarm_control_panel.texecom
                   code: !secret alarm_code
               - service: telegram_bot.send_message
                 data:
                   target: "{{trigger.event.data.chat_id}}"
-                  message: "Alarm already set to {{states('alarm_control_panel.full_set').replace('_',' ')}}"
+                  message: "Alarm already set to {{states('alarm_control_panel.texecom').replace('_',' ')}}"
                   inline_keyboard:
                     - 'Disarm:/disarm'
                     - 'OK:/remove_keyboard'   
@@ -497,18 +497,18 @@ automation:
                   message_tag: alarm_arming   
               - service: alarm_control_panel.alarm_arm_night 
                 data:
-                  entity_id: alarm_control_panel.full_set
+                  entity_id: alarm_control_panel.texecom
                   code: !secret alarm_code
               - wait_for_trigger:
                   - platform: state
-                    entity_id: alarm_control_panel.full_set
+                    entity_id: alarm_control_panel.texecom
                     to: armed_night
                 timeout: 00:00:20
               - service: telegram_bot.edit_message
                 data:
                   message_id: "{{ states('input_text.alarm_arming_message_id') }}"                
                   chat_id: "{{trigger.event.data.chat_id}}"
-                  message: "Alarm currently {{states('alarm_control_panel.full_set').replace('_',' ')}}"
+                  message: "Alarm currently {{states('alarm_control_panel.texecom').replace('_',' ')}}"
                   
       # Alarm Home
           - conditions: "{{ (trigger.event.data.text.lower()  | regex_match('.*alarm.*home.*')) or (trigger.event.data.text.lower()  | regex_match('.*home.*alarm.*')) or (trigger.event.data.text.lower()  | regex_match('.*alarm.*home.*')) or (trigger.event.data.text.lower()  | regex_match('.*arm.*home.*')) or (trigger.event.data.text.lower()  | regex_match('.*home.*arm.*')) or (trigger.event.data.text.lower()  | regex_match('.*shed.*alarm.*')) or (trigger.event.data.text.lower()  | regex_match('.*garage.*alarm.*')) or (trigger.event.data.text.lower()  | regex_match('.*alarm.*shed.*')) or (trigger.event.data.text.lower()  | regex_match('.*alarm.*garage.*'))}}"            
@@ -520,18 +520,18 @@ automation:
                   message_tag: alarm_arming   
               - service: alarm_control_panel.alarm_arm_home 
                 data:
-                  entity_id: alarm_control_panel.full_set
+                  entity_id: alarm_control_panel.texecom
                   code: !secret alarm_code
               - wait_for_trigger:
                   - platform: state
-                    entity_id: alarm_control_panel.full_set
+                    entity_id: alarm_control_panel.texecom
                     to: armed_home
                 timeout: 00:00:20
               - service: telegram_bot.edit_message
                 data:
                   message_id: "{{ states('input_text.alarm_arming_message_id') }}"                
                   chat_id: "{{trigger.event.data.chat_id}}"
-                  message: "Alarm currently {{states('alarm_control_panel.full_set').replace('_',' ')}}"
+                  message: "Alarm currently {{states('alarm_control_panel.texecom').replace('_',' ')}}"
             
       # Alarm Arm
           - conditions: "{{ (trigger.event.data.text.lower()  | regex_match('.*alarm.*arm.*')) or (trigger.event.data.text.lower()  | regex_match('.*arm.*alarm.*')) or (trigger.event.data.text.lower()  | regex_match('.*set.*alarm.*')) }}"
@@ -543,18 +543,18 @@ automation:
                   message_tag: alarm_arming                   
               - service: alarm_control_panel.alarm_arm_away 
                 data:
-                  entity_id: alarm_control_panel.full_set
+                  entity_id: alarm_control_panel.texecom
                   code: !secret alarm_code
               - wait_for_trigger:
                   - platform: state
-                    entity_id: alarm_control_panel.full_set
+                    entity_id: alarm_control_panel.texecom
                     to: armed_away
                 timeout: 00:00:20
               - service: telegram_bot.edit_message
                 data:
                   message_id: "{{ states('input_text.alarm_arming_message_id') }}"                
                   chat_id: "{{trigger.event.data.chat_id}}"
-                  message: "Alarm currently {{states('alarm_control_panel.full_set').replace('_',' ')}}"
+                  message: "Alarm currently {{states('alarm_control_panel.texecom').replace('_',' ')}}"
                   
             # Hot tub set with only time
           - conditions: "{{ (trigger.event.data.text.lower()  | regex_match('.*tub.*[0-9][0-9]:[0-9][0-9].*')) or (trigger.event.data.text.lower()  | regex_match('.*tub.*[0-9][0-9]:[0-9][0-9].*')) }}"

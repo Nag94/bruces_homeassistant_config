@@ -22,6 +22,51 @@ entities:
     state_filter:
       - operator: <
         value: 25  
+  - entity: input_number.tray_drum_battery
+    name: Flic - Tray Drum
+    state_filter:
+      - operator: <
+        value: 25  
+  - entity: input_number.tray_utility_battery
+    name: Flic - Tray Utility
+    state_filter:
+      - operator: <
+        value: 25   
+  - entity: input_number.tray_shower_battery
+    name: Flic - Tray Shower
+    state_filter:
+      - operator: <
+        value: 25   
+  - entity: input_number.bedside_bruce_battery
+    name: Flic - Bedside Bruce
+    state_filter:
+      - operator: <
+        value: 25      
+  - entity: input_number.bedside_sarah_battery
+    name: Flic - Bedside Sarah
+    state_filter:
+      - operator: <
+        value: 25      
+  - entity: input_number.bedside_sophie_battery
+    name: Flic - Bedside Sophie
+    state_filter:
+      - operator: <
+        value: 25      
+  - entity: input_number.bedside_kate_battery
+    name: Flic - Bedside Kate
+    state_filter:
+      - operator: <
+        value: 25     
+  - entity: input_number.bedside_guest_battery
+    name: Flic - Bedside Guest
+    state_filter:
+      - operator: <
+        value: 25            
+  - entity: input_number.tray_downstairs_battery
+    name: Flic - Tray Downstairs
+    state_filter:
+      - operator: <
+        value: 25          
   - entity: sensor.ipod_touch_battery_level_2
     name: Lounge iPod
     state_filter:

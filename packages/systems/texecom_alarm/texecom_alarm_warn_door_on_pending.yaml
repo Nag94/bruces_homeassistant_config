@@ -6,7 +6,7 @@ automation:
     description: Intruder Alarm warn doors on arming
     trigger:
       - platform: state
-        entity_id: alarm_control_panel.full_set
+        entity_id: alarm_control_panel.texecom
         from: 'disarmed'
         to: 'pending'
     condition:

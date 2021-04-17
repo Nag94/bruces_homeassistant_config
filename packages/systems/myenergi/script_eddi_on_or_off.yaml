@@ -5,25 +5,38 @@ script:
     description: Set Power for eddi
     fields:
       mode:
-        description: 'Eddi on or off?'
-        example: 'on'
+        name: Mode
+        description: 'Eddi on (True) or off (False)?'
+        required: true
+        default: false
+        example: true
+        selector: 
+          boolean:
     sequence:
+      - alias: "Wait until previous command is complete"
+        wait_template: "{{ state_attr('sensor.eddi','cmt') > 250 }}"         
       - service: shell_command.eddi_on_or_off
         data:
           myenergi_serial: !secret myenergi_serial
           myenergi_password: !secret myenergi_password
           eddi_serial: !secret eddi_serial
-          eddi_mode: "{% if mode == 'on' %}1{% else %}0{% endif %}"
-      - delay: 3          
+          eddi_mode: "{{ 1 if mode else 0 }}"
+      - delay: 1
+      - alias: "Wait for myEnergi Update"
+        wait_for_trigger:
+          - platform: state
+            entity_id: sensor.eddi
+      - delay: 1            
       - alias: "Wait until command is complete"
-        wait_template: "{{ state_attr('sensor.eddi','cmt') > 250 }}"                
+        wait_template: "{{ state_attr('sensor.eddi','cmt') > 250 }}"         
+      - delay: 2        
       - condition: template      
-        value_template: "{{ (states('sensor.eddi_status') not in ('stopped','reached') and mode == 'off') or (states('sensor.eddi_status') == 'stopped' and mode == 'on')  }}"
+        value_template: "{{ (states('sensor.eddi_status') not in ('stopped','reached') and not mode) or (states('sensor.eddi_status') == 'stopped' and mode )  }}"
       - service: telegram_bot.send_message
         data:
           target: !secret telegram_chat_id_bruce         
           message: >
-            Eddi failed to change to {{mode}}
+            Eddi failed to change to {{'on' if mode else 'off'}}
                 
             Currently set to {{ states('sensor.eddi_status') }}
             

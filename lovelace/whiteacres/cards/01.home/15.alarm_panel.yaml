@@ -1,5 +1,5 @@
 type: alarm-panel
-entity: alarm_control_panel.full_set
+entity: alarm_control_panel.texecom
 states:
   - arm_night
   - arm_home

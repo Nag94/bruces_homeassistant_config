@@ -8,7 +8,7 @@ automation:
       
     trigger:
       - platform: state
-        entity_id: alarm_control_panel.full_set
+        entity_id: alarm_control_panel.texecom
         to:
           - triggered
           - armed_away

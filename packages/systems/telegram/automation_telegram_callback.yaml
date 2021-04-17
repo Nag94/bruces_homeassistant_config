@@ -67,7 +67,7 @@ automation:
                   inline_keyboard: []  
               - service: alarm_control_panel.alarm_arm_away
                 data:
-                  entity_id: alarm_control_panel.full_set
+                  entity_id: alarm_control_panel.texecom
                   code: !secret alarm_code
               - service: telegram_bot.answer_callback_query
                 data:
@@ -75,7 +75,7 @@ automation:
                   callback_query_id: '{{ trigger.event.data.id }}'                 
               - wait_for_trigger:
                   - platform: state
-                    entity_id: alarm_control_panel.full_set
+                    entity_id: alarm_control_panel.texecom
                     to: "armed_away"
                 timeout: 00:00:20
               - service: telegram_bot.edit_message
@@ -84,7 +84,7 @@ automation:
                   chat_id: "{{ trigger.event.data.chat_id }}"     
                   title: "Everyone is Out"                  
                   message: >
-                    {% if is_state('alarm_control_panel.full_set','disarmed') %}Alarm is not set
+                    {% if is_state('alarm_control_panel.texecom','disarmed') %}Alarm is not set
                     
                     {% endif %}{% if is_state('fan.bedroom_fan','on') %}Bedroom Fan is on
                     
@@ -137,7 +137,7 @@ automation:
                     {% endif %}
                     
                   inline_keyboard: >
-                    [{% if is_state('alarm_control_panel.full_set','disarmed') %}[['Arm Alarm', '/empty_house_arm_away']], {% endif 
+                    [{% if is_state('alarm_control_panel.texecom','disarmed') %}[['Arm Alarm', '/empty_house_arm_away']], {% endif 
                     %}{% if is_state('fan.bedroom_fan','on') or is_state('fan.conservatory_fan','on') %}[['Fans Off', '/fans_off']], {% endif 
                     %}{% if is_state('light.downstairs','on') or is_state('light.outside','on') or is_state('light.upstairs','on')  %}[['Lights Off', '/lights_off']], {% endif 
                     %} [['OK', '/remove_keyboard']]]
@@ -161,7 +161,7 @@ automation:
                   chat_id: "{{ trigger.event.data.chat_id }}"      
                   title: "Everyone is Out"                  
                   message: >
-                    {% if is_state('alarm_control_panel.full_set','disarmed') %}Alarm is not set
+                    {% if is_state('alarm_control_panel.texecom','disarmed') %}Alarm is not set
                     
                     {% endif %}{% if is_state('fan.bedroom_fan','on') %}Bedroom Fan is on
                     
@@ -214,7 +214,7 @@ automation:
                     {% endif %}
                     
                   inline_keyboard: >
-                    [{% if is_state('alarm_control_panel.full_set','disarmed') %}[['Arm Alarm', '/arm_away']], {% endif 
+                    [{% if is_state('alarm_control_panel.texecom','disarmed') %}[['Arm Alarm', '/arm_away']], {% endif 
                     %}{% if is_state('fan.bedroom_fan','on') or is_state('fan.conservatory_fan','on') %}[['Fans Off', '/fans_off']], {% endif 
                     %}{% if is_state('light.downstairs','on') or is_state('light.outside','on') or is_state('light.upstairs','on')  %}[['Lights Off', '/lights_off']], {% endif 
                     %} [['OK', '/remove_keyboard']]]
@@ -238,7 +238,7 @@ automation:
                   chat_id: "{{ trigger.event.data.chat_id }}"      
                   title: "Everyone is Out"                  
                   message: >
-                    {% if is_state('alarm_control_panel.full_set','disarmed') %}Alarm is not set
+                    {% if is_state('alarm_control_panel.texecom','disarmed') %}Alarm is not set
                     
                     {% endif %}{% if is_state('fan.bedroom_fan','on') %}Bedroom Fan is on
                     
@@ -291,7 +291,7 @@ automation:
                     {% endif %}
                     
                   inline_keyboard: >
-                    [{% if is_state('alarm_control_panel.full_set','disarmed') %}[['Arm Alarm', '/arm_away']], {% endif 
+                    [{% if is_state('alarm_control_panel.texecom','disarmed') %}[['Arm Alarm', '/arm_away']], {% endif 
                     %}{% if is_state('fan.bedroom_fan','on') or is_state('fan.conservatory_fan','on') %}[['Fans Off', '/fans_off']], {% endif 
                     %}{% if is_state('light.downstairs','on') or is_state('light.outside','on') or is_state('light.upstairs','on')  %}[['Lights Off', '/lights_off']], {% endif 
                     %} [['OK', '/remove_keyboard']]]
@@ -443,7 +443,7 @@ automation:
                     - 'OK:/remove_keyboard'                
               - service: alarm_control_panel.alarm_{{trigger.event.data.command[1:]}}
                 data:
-                  entity_id: alarm_control_panel.full_set
+                  entity_id: alarm_control_panel.texecom
                   code: !secret alarm_code
               - service: telegram_bot.answer_callback_query
                 data:
@@ -451,7 +451,7 @@ automation:
                   callback_query_id: '{{ trigger.event.data.id }}'    
               - wait_for_trigger:
                   - platform: state
-                    entity_id: alarm_control_panel.full_set
+                    entity_id: alarm_control_panel.texecom
                     to: "{{ trigger.event.data.command.replace('arm_','armed_') }}"
                 timeout: 00:00:20
               - service: telegram_bot.edit_message
@@ -459,7 +459,7 @@ automation:
                   message_id: "{{ trigger.event.data.message.message_id }}"
                   chat_id: "{{ trigger.event.data.chat_id }}"                
                   message: >
-                    Alarm currently {{ states('alarm_control_panel.full_set').replace('_',' ') }}
+                    Alarm currently {{ states('alarm_control_panel.texecom').replace('_',' ') }}
                     
                     Which Alarm Status do you want?
                   inline_keyboard:
@@ -476,7 +476,7 @@ automation:
                   message: "Alarm Disarming....."                   
               - service: alarm_control_panel.alarm_{{trigger.event.data.command[1:]}}
                 data:
-                  entity_id: alarm_control_panel.full_set
+                  entity_id: alarm_control_panel.texecom
                   code: !secret alarm_code
               - service: telegram_bot.answer_callback_query
                 data:
@@ -484,7 +484,7 @@ automation:
                   callback_query_id: '{{ trigger.event.data.id }}'    
               - wait_for_trigger:
                   - platform: state
-                    entity_id: alarm_control_panel.full_set
+                    entity_id: alarm_control_panel.texecom
                     to: disarmed
                 timeout: 00:00:20
               - service: telegram_bot.edit_message

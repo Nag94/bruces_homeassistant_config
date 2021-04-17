@@ -2,17 +2,48 @@ script:
   zappi_mode:
     alias: Set charging mode for Zappi
     icon: mdi:car-electric
-    description: Set charging mode for Zappi
+    
+    description: >
+      Set charging mode for Zappi
+      
     fields:
       mode:
+        name: 'Mode'
+        required: true
+        default: Stopped
         description: 'what charging mode? Fast, Eco, Eco+, Stopped'
-        example: 'Fast'
+        example: 'Fast'        
+        selector: 
+          select:        
+            options:
+              - 'Fast'
+              - 'Eco'
+              - 'Eco+'
+              - 'Stopped'
+
       serial: 
+        name: 'Serial No.'
+        required: true
+        default: '123456'
         description: 'Zappi Serial Number?'
-        example: 123456
+        example: !secret zappi_serial_jyggy
+        selector: 
+          select:        
+            options:
+              - '123456'
+              - '123457'
       name: 
+        name: 'Description'
+        required: true
+        default: 'Jyggy'
         description: 'Zappi Name?'
         example: 'jyggy'
+        selector: 
+          select:        
+            options:
+              - 'Jyggy'
+              - 'Paddy'
+              
     sequence:
       - alias: "Wait until previous commands are complete"
         wait_template: "{{ state_attr('sensor.zappi_jyggy','cmt') | int > 250 and state_attr('sensor.zappi_paddy','cmt') | int > 250 }}"     
@@ -23,7 +54,12 @@ script:
           myenergi_password: !secret myenergi_password
           zappi_serial: "{{ serial }}"
           zappi_mode: "{% set mapper = {'Fast':'1','Eco': '2','Eco+':'3','Stopped':'4'} %}{{mapper[mode]}}"
-      - delay: 3
+      - alias: "Wait for myEnergi Update"
+        wait_for_trigger:
+          - platform: state
+            entity_id: 
+              - sensor.zappi_jyggy
+              - sensor.zappi_paddy              
       - alias: "Wait until command is complete"
         wait_template: "{{ (name == 'jyggy' and state_attr('sensor.zappi_jyggy','cmt') | int > 250) or (name == 'paddy' and state_attr('sensor.zappi_paddy','cmt') | int > 250)}}"     
       - condition: template      

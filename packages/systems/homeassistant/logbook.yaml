@@ -102,7 +102,7 @@ logbook:
 #      - automation.*
       
     entities:
-#      - alarm_control_panel.full_set
+#      - alarm_control_panel.texecom
       - automation.turn_off_kate_asleep_switch_from_lights_on
 #      - automation.landing_lights_on_from_landing_doors
       - automation.dimmer_control_of_utility_lights
@@ -118,11 +118,7 @@ logbook:
       - automation.downstairs_loo_timer_end
       - automation.downstairs_toilet_door_left_closed
       - automation.enable_or_disable_jyggy_tracker
-      - automation.hot_tub_filter_off_after_five_minutes
-      - automation.hottub_pump_on_every_30
-      - automation.hottub_set_temp
       - automation.house_or_garage_movement_notification
-      - automation.litter_tray_from_flic_click
       - automation.litter_tray_notification
       - automation.process_telegram_callbacks
       - automation.reset_asleep_switches
@@ -137,7 +133,6 @@ logbook:
       - automation.solcast_update_forecast
       - automation.switch_hue_with_ceiling_4_switch
       - automation.system_recorder_purge
-      - automation.telegram_capture_message_id
       - automation.telegram_capture_message_id
       - automation.turn_off_cupboard_when_kitchen_lights_off
       - automation.turn_on_or_off_wardrobe_bars_with_two_wardrobe_doors

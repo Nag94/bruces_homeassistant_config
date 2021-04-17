@@ -12,7 +12,7 @@ global:
    weather: weather.home # Configure a weather entity see HA docs for more info.
    outside_temperature: sensor.outside_temp # Configure a sensor here!
   # outside_humidity: sensor.dark_sky_humidity # Configure a sensor here!
-   alarm: alarm_control_panel.full_set #Alarm panel entity.
+   alarm: alarm_control_panel.texecom #Alarm panel entity.
    inside_temperature: climate.whiteacres #Can be 'climate.' or an 'sensor.' entity.
 
   # favorites_homepage: 'true' #Uncomment this line if you want the house information favorites on your homepage.
