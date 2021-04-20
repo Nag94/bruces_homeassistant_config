@@ -2,6 +2,7 @@ sensor:
   - platform: template
     sensors:
       outside_light_rounded:
+        unique_id: outside_light_rounded
         friendly_name: "Outside Light"
         value_template: "{{ states('sensor.outside_light') | int }}"
         device_class: "illuminance"
