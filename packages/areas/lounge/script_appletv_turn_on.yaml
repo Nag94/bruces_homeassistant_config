@@ -1,31 +1,40 @@
 script:
     appletv_turn_on:
+#      id: appletv_turn_on
       alias: Apple TV Turn On
       sequence:
  #     - service: hdmi_cec.power_on
       - service: media_player.turn_on 
-        entity_id: media_player.lounge_android
+        target:
+          entity_id: media_player.lounge_android
       - service: media_player.turn_on 
-        entity_id: media_player.lounge_tv
+        target:
+          entity_id: media_player.lounge_tv
       - service: media_player.turn_on
-        entity_id: media_player.lounge_amp
-      - service: media_player.select_source
-        data:
+        target:
           entity_id: media_player.lounge_amp
+      - service: media_player.select_source
+        target:
+          entity_id: media_player.lounge_amp
+        data:
           source: 'Apple TV'
       - service: media_player.turn_on
-        entity_id: media_player.lounge_apple_tv
+        target:
+          entity_id: media_player.lounge_apple_tv
       - delay: 2
       - service: androidtv.adb_command
-        data:
+        target:
           entity_id: media_player.lounge_android
+        data:
           command: "input keyevent KEYCODE_F4"
       - service: remote.send_command
+        target:
+          entity_id: remote.lounge_apple_tv   
         data:
           command: top_menu
-          entity_id: remote.lounge_apple_tv          
       - condition: time
         after: '18:00:00'
       - service: input_boolean.turn_on
-        entity_id: input_boolean.lounge_ambilight_required
+        target:
+          entity_id: input_boolean.lounge_ambilight_required
         

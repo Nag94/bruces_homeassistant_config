@@ -3,27 +3,36 @@ script:
       alias: sky TV Turn On
       sequence:
       - service: media_player.turn_on
-        entity_id: media_player.lounge_amp
-      - service: media_player.select_source
-        data:
+        target:
           entity_id: media_player.lounge_amp
+      - service: media_player.select_source
+        target:
+          entity_id: media_player.lounge_amp
+        data:
           source: 'SkyQ'
       - service: media_player.turn_on
-        entity_id: media_player.lounge_skyq
+        target:
+          entity_id: media_player.lounge_skyq
       - service: media_player.turn_on 
-        entity_id: media_player.lounge_tv
+        target:
+          entity_id: media_player.lounge_tv
       - delay: 2
       - service: androidtv.adb_command
-        data:
+        target:
           entity_id: media_player.lounge_android
+        data:
           command: "input keyevent KEYCODE_F4"
       - service: media_player.turn_on 
-        entity_id: media_player.lounge_tv
+        target:
+          entity_id: media_player.lounge_tv
       - service: input_boolean.turn_on
-        entity_id: input_boolean.watching_skytv
+        target:
+          entity_id: input_boolean.watching_skytv
       - condition: time
         after: '18:00:00'
       - service: input_boolean.turn_on
-        entity_id: input_boolean.lounge_ambilight_required
+        target:
+          entity_id: input_boolean.lounge_ambilight_required
       - service: media_player.turn_on 
-        entity_id: media_player.lounge_tv
+        target:
+          entity_id: media_player.lounge_tv
