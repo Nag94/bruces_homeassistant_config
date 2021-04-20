@@ -70,6 +70,14 @@ lovelace:
       icon: mdi:remote
       show_in_sidebar: true
       require_admin: false        
+    lovelace-bedroom-remote: # Needs to contain a hyphen (-)
+      mode: yaml
+      title: Remote
+      filename: ui-bedroom-remote.yaml
+      icon: mdi:remote
+      show_in_sidebar: true
+      require_admin: false        
+
     lovelace-ipod: # Needs to contain a hyphen (-)
       mode: yaml
       title: iPod Remote
@@ -104,7 +112,7 @@ lovelace:
 #      type: module
     - url: /local/zha-network-card.js
       type: module
-    - url: /hacsfiles/tesla-style-solar-power-card/tesla-style-solar-power-card.j
+    - url: /hacsfiles/tesla-style-solar-power-card/tesla-style-solar-power-card.js
       type: module      
     - url: /hacsfiles/lovelace-layout-card/layout-card.js
       type: module     
