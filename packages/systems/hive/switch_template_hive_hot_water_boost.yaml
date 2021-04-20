@@ -2,6 +2,7 @@ switch:
   - platform: template
     switches:
       hive_water_boost:
+        unique_id: hive_water_boost
         value_template: "{{ is_state('sensor.hotwater_boost', 'ON') }}"
         turn_on:
           service: hive.boost_hot_water

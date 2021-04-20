@@ -2,6 +2,7 @@ sensor:
   - platform: template
     sensors:
       master_bedroom_environment_battery_percentage:
+        unique_id: master_bedroom_environment_battery_percentage
         friendly_name: "Battery"
         value_template: "{{ ((state_attr('sensor.master_bedroom_environment_battery','battery_voltage') - 3.2)/0.005) | round(0) }}"
         device_class: battery

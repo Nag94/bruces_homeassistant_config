@@ -1,8 +1,9 @@
 sensor:
   - platform: template
     sensors:
-        solaredge_dc_power_input:
-            friendly_name: "DC Power Input"
-            value_template: "{{ state_attr('sensor.solaredge_modbus', 'dc_power_input') }}"
-            unit_of_measurement: 'W'
-            device_class: power   
+      solaredge_dc_power_input:
+        unique_id: solaredge_dc_power_input
+        friendly_name: "DC Power Input"
+        value_template: "{{ state_attr('sensor.solaredge_modbus', 'dc_power_input') }}"
+        unit_of_measurement: 'W'
+        device_class: power   

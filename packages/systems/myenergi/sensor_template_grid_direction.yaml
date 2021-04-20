@@ -1,0 +1,7 @@
+sensor:
+  - platform: template
+    sensors:
+      grid_direction:
+        unique_id: grid_direction
+        friendly_name: Grid off import or export
+        value_template: "{% if states('sensor.zappi_jyggy_grid_import') | float > 0.15 %}import{% elif states('sensor.zappi_jyggy_grid_export') | float > 0.15 %}export{% else %}off{% endif %}"            

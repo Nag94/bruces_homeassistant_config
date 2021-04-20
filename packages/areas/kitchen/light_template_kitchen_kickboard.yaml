@@ -2,6 +2,7 @@ light:
   - platform: template
     lights:
       kitchen_kickboard:
+        unique_id: kitchen_kickboard
         friendly_name: "Kitchen Kickboard"
         availability_template: "{{ states('switch.kitchen_kickboard') in ('on','off') }}"
         value_template: "{{ states('switch.kitchen_kickboard') }}"

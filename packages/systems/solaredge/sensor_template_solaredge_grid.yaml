@@ -2,6 +2,7 @@ sensor:
   - platform: template
     sensors:
       solaredge_grid:
+        unique_id: solaredge_grid
         friendly_name: Grid
         unit_of_measurement: "kW"
         icon_template: "mdi:transmission-tower"

@@ -2,5 +2,6 @@ binary_sensor:
   - platform: template
     sensors:
       agile_plunge:
+        unique_id: agile_plunge
         friendly_name: "Agile Plunge"
         value_template: "{{ (states('sensor.electricity_demand_cost') | float) < 0.0 }}"

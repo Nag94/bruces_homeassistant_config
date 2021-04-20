@@ -2,5 +2,6 @@ binary_sensor:
   - platform: template
     sensors:
       agile_peak:
+        unique_id: agile_peak
         friendly_name: "Agile Peak"
         value_template: "{{ now().strftime('%-H') in ['16','17','18'] }}"

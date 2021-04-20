@@ -1,8 +1,9 @@
 sensor:
   - platform: template
     sensors:
-        solaredge_meter_ac_voltage:
-            friendly_name: "AC Voltage"
-            value_template: "{{ state_attr('sensor.solaredge_modbus_meter_1', 'ac_voltage_phase_ln') }}"
-#            unit_of_measurement: 'V'   
-            device_class: voltage
+      solaredge_meter_ac_voltage:
+        unique_id: solaredge_meter_ac_voltage
+        friendly_name: "AC Voltage"
+        value_template: "{{ state_attr('sensor.solaredge_modbus_meter_1', 'ac_voltage_phase_ln') }}"
+#       unit_of_measurement: 'V'   
+        device_class: voltage

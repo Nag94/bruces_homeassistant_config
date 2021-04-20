@@ -2,6 +2,7 @@ switch:
   - platform: template
     switches:
         switch_landing_skytv:
+            unique_id: switch_landing_skytv
             friendly_name: Sky TV on with Amp and TV Landing
             value_template: >
               {%if states('media_player.landing_skyq') == 'off' -%}

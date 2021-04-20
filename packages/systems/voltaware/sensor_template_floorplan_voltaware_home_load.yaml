@@ -2,6 +2,7 @@ sensor:
   - platform: template
     sensors:
       floorplan_voltaware_home_load:
+        unique_id: floorplan_voltaware_home_load
         friendly_name: "Home Load"
         unit_of_measurement: 'kW'
         value_template: "{{ (states('sensor.voltaware_active_power') | float / 1000.0 ) | round(1) }}"

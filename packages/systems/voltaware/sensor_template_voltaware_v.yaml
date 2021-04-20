@@ -2,6 +2,7 @@ sensor:
   - platform: template
     sensors:
       voltaware_v:
+        unique_id: voltaware_v
         friendly_name_template: 'Voltage'
         value_template: "{{ state_attr('sensor.voltaware','V') / 1000 }}"
         unit_of_measurement: 'V'

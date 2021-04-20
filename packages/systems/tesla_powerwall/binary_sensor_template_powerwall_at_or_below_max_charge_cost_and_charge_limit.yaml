@@ -2,6 +2,7 @@ binary_sensor:
   - platform: template
     sensors:
       powerwall_at_or_below_max_charge_cost_and_charge_limit:
+        unique_id: powerwall_at_or_below_max_charge_cost_and_charge_limit
         # Allow charge to go 5% above Max Target to allow for overnight usage
         # Don't need to, as setting the reserve stops overnight use draining battery
         friendly_name: "Powerwall at or below max charge cost"

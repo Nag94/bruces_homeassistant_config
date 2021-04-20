@@ -2,6 +2,7 @@ sensor:
   - platform: template
     sensors:
       powerwall:
+        unique_id: powerwall
         friendly_name_template: 'Powerwall'
         value_template: "{{ ((states('sensor.powerwall_battery_now')| float / 1000.0) | round(1)) if (states('sensor.powerwall_battery_now') | float < -100.0 or states('sensor.powerwall_battery_now') | float > 100.0) else 0.0 }}"        
         unit_of_measurement: 'kW'

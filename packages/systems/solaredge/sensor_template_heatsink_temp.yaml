@@ -1,8 +1,9 @@
 sensor:
   - platform: template
     sensors:
-        solaredge_heatsink_temp:
-            friendly_name: "Inverter Heat sink Temperature"
-            value_template: "{{ state_attr('sensor.solaredge_modbus', 'heat_sink_temperature') }}"
-            unit_of_measurement: '°C'
-            device_class: temperature
+      solaredge_heatsink_temp:
+        unique_id: solaredge_heatsink_temp
+        friendly_name: "Inverter Heat sink Temperature"
+        value_template: "{{ state_attr('sensor.solaredge_modbus', 'heat_sink_temperature') }}"
+        unit_of_measurement: '°C'
+        device_class: temperature

@@ -2,6 +2,7 @@ sensor:
   - platform: template
     sensors:
       powerwall_stored_energy:
+        unique_id: powerwall_stored_energy
         friendly_name: "Powerwall Stored Energy"
         unit_of_measurement: 'kWh'
         value_template: "{{ ((((states('sensor.powerwall_charge') | float) * 1.05) - 5.0 ) * 0.135) | round(1)  }}"

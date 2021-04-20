@@ -1,0 +1,8 @@
+sensor:
+  - platform: template
+    sensors:
+      hottub_hvac_action:
+        unique_id: hottub_hvac_action
+        availability_template: "{{ not is_state('binary_sensor.spa_circ_pump','unavailable') }}"
+        friendly_name: "HotTub HVAC Action"
+        value_template: "{{ state_attr('climate.spa_climate','hvac_action') }}"

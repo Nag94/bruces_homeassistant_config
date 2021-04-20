@@ -2,5 +2,6 @@ sensor:
   - platform: template
     sensors:
       powerwall_direction:
+        unique_id: powerwall_direction
         friendly_name: Powerwall off import or export
         value_template: "{% if states('sensor.powerwall_battery_now') | float > 0.05 %}import{% elif states('sensor.powerwall_battery_now') | float < - 0.05%}export{% else %}off{% endif %}"     

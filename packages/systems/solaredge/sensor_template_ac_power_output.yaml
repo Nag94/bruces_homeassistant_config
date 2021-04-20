@@ -1,8 +1,9 @@
 sensor:
   - platform: template
     sensors:
-        solaredge_ac_power_output:
-            friendly_name: "AC Power Output"
-            value_template: "{{ state_attr('sensor.solaredge_modbus', 'ac_power_output') }}"
-            unit_of_measurement: 'W'
-            device_class: power
+      solaredge_ac_power_output:
+        unique_id: solaredge_ac_power_output
+        friendly_name: "AC Power Output"
+        value_template: "{{ state_attr('sensor.solaredge_modbus', 'ac_power_output') }}"
+        unit_of_measurement: 'W'
+        device_class: power

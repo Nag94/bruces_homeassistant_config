@@ -2,6 +2,7 @@ sensor:
   - platform: template
     sensors:
       powerwall_charge_corrected:
+        unique_id: powerwall_charge_corrected
         friendly_name: "Powerwall Charge"
         unit_of_measurement: '%'
         value_template: "{{ (((states('sensor.powerwall_charge') | float) * 1.05) - 5.0 ) | int  }}"

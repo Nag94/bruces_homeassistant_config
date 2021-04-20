@@ -2,6 +2,7 @@ fan:
   - platform: template
     fans:
       loft_fan:
+        unique_id: loft_fan
         friendly_name: "Loft fan"
         value_template: "{{ states('switch.loft_fan') }}"
         turn_on:

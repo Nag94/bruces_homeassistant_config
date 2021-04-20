@@ -2,6 +2,7 @@ sensor:
   - platform: template
     sensors:
       washing_machine_power:
+        unique_id: washing_machine_power
         friendly_name: "Washing Machine Power"
         unit_of_measurement: 'W'
         value_template: "{{ state_attr('switch.washing_machine', 'current_power_w')   }}"

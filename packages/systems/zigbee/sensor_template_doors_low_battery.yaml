@@ -1,45 +1,63 @@
 binary_sensor:
   - platform: template
     sensors:
+      garage_back_door_low_battery:
+        unique_id: garage_door_low_battery
+        friendly_name: 'Garage Back Door - Low Battery'
+        value_template: "{{ (states('sensor.garage_back_door_battery') | float) < 20.0 }}"    
       bar_door_low_battery:
+        unique_id: bar_door_low_battery
         friendly_name: 'Bar Door - Low Battery'
         value_template: "{{ (states('sensor.bar_door_battery') | float) < 20.0 }}"
       conservatory_door_low_battery:
+        unique_id: conservatory_door_low_battery
         friendly_name: 'Conservatory Door - Low Battery'
         value_template: "{{ (states('sensor.conservatory_door_battery') | float) < 20.0 }}"
       downstairs_toilet_door_low_battery:
+        unique_id: downstairs_toilet_door_low_battery
         friendly_name: 'Downstairs Toilet Door - Low Battery'
         value_template: "{{ (states('sensor.downstairs_toilet_door_battery') | float) < 20.0 }}"    
       drum_room_door_low_battery:
+        unique_id: drum_room_door_low_battery
         friendly_name: 'Drum Room Door - Low Battery'
         value_template: "{{ (states('sensor.drum_room_door_battery') | float) < 20.0 }}"        
       front_door_low_battery:
+        unique_id: front_door_low_battery
         friendly_name: 'Front Door - Low Battery'
         value_template: "{{ (states('sensor.front_door_battery') | float) < 20.0 }}"
       guest_bedroom_low_battery:
+        unique_id: guest_bedroom_low_battery
         friendly_name: 'Guest Bedroom Door - Low Battery'
         value_template: "{{ (states('sensor.guest_bedroom_door_battery') | float) < 20.0 }}"        
       kates_bedroom_door_low_battery:
+        unique_id: kates_bedroom_door_low_battery
         friendly_name: "Kate's Bedroom Door - Low Battery"
         value_template: "{{ (states('sensor.kates_bedroom_door_battery') | float) < 20.0 }}"           
       kitchen_door_low_battery:
+        unique_id: kitchen_door_low_battery
         friendly_name: 'Kitchen Door - Low Battery'
         value_template: "{{ (states('sensor.kitchen_door_battery') | float) < 20.0 }}"    
       lounge_door_low_battery:
+        unique_id: lounge_door_low_battery
         friendly_name: 'Lounge Door - Low Battery'
         value_template: "{{ (states('sensor.lounge_door_battery') | float) < 20.0 }}"
       master_bedroom_door_low_battery:
+        unique_id: master_bedroom_door_low_battery
         friendly_name: 'Master Bedroom Door - Low Battery'
         value_template: "{{ (states('sensor.master_bedroom_door_battery') | float) < 20.0 }}"
       sophies_bedroom_door_low_battery:
+        unique_id: sophies_bedroom_door_low_battery
         friendly_name: "Sophie's Bedroom Door - Low Battery"
         value_template: "{{ (states('sensor.sophies_bedroom_door_battery') | float) < 20.0 }}"
       under_stairs_door_low_battery:
+        unique_id: under_stairs_door_low_battery
         friendly_name: 'Under Stairs Door - Low Battery'
         value_template: "{{ (states('sensor.under_stairs_door_battery') | float) < 20.0 }}"
       wardrobe_door_1_low_battery:
+        unique_id: wardrobe_door_1_low_battery
         friendly_name: 'Wardrobe Door 1 - Low Battery'
         value_template: "{{ (states('sensor.wardrobe_door_1_battery') | float) < 20.0 }}"        
       wardrobe_door_2_low_battery:
+        unique_id: wardrobe_door_2_low_battery
         friendly_name: 'Wardrobe Door 2 - Low Battery'
         value_template: "{{ (states('sensor.wardrobe_door_2_battery') | float) < 20.0 }}"        

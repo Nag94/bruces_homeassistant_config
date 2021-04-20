@@ -2,6 +2,7 @@ sensor:
   - platform: template
     sensors:
       master_bedroom_environment_average_co2:
+        unique_id: master_bedroom_environment_average_co2
         friendly_name: "Average CO2"
         value_template: "{{ states('sensor.master_bedroom_co2_statistics') | int }}"
         icon_template: mdi:molecule-co2

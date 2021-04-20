@@ -2,6 +2,7 @@ sensor:
   - platform: template
     sensors:
       voltaware_phase:
+        unique_id: voltaware_phase
         friendly_name_template: 'Phase Shift'
         value_template: "{{ state_attr('sensor.voltaware','phase') / 1000 }}"
         unit_of_measurement: '°'

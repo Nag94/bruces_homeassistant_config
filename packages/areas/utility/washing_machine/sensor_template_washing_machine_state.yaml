@@ -2,6 +2,7 @@ sensor:
   - platform: template
     sensors:
       washing_machine_state:
+        unique_id: washing_machine_state
         friendly_name: "Washing Machine State"
         value_template: >
           {% if (states('sensor.washing_machine_power') | float) > 700.00 %}Heating{% 

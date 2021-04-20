@@ -1,0 +1,10 @@
+sensor:
+  - platform: template
+    sensors:
+      hottub_filter_last_changed:
+        unique_id: hottub_filter_last_changed
+        friendly_name: "HotTub Filter Last Changed"      
+        unit_of_measurement: days
+        value_template: "{{ ((as_timestamp(now()) - as_timestamp(states('input_datetime.hottub_filter_last_changed'))) | int)// 86400 }}"
+        icon_template: mdi:air-filter
+        

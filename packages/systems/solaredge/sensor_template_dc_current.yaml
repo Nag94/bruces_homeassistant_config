@@ -1,7 +1,8 @@
 sensor:
   - platform: template
     sensors:
-        solaredge_dc_current:
-            friendly_name: "DC Current"
-            value_template: "{{ state_attr('sensor.solaredge_modbus', 'dc_current') }}"
-            device_class: current   
+      solaredge_dc_current:
+        unique_id: solaredge_dc_current
+        friendly_name: "DC Current"
+        value_template: "{{ state_attr('sensor.solaredge_modbus', 'dc_current') }}"
+        device_class: current   

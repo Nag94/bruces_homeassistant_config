@@ -1,6 +1,7 @@
 lock:
   - platform: template
     name: Jyggy Doors
+    unique_id: jyggy_doors
     value_template: "{{ 'unlocked' if is_state('binary_sensor.jyggy_locked','off') else 'locked' }}"
     lock:
       - service: rest_command.jyggy_api

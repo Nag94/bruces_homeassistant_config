@@ -2,6 +2,7 @@ switch:
   - platform: template
     switches:
       sarah_is_asleep:
+        unique_id: sarah_is_asleep
         value_template: "{{ is_state('input_boolean.sarah_is_asleep', 'on') }}"
         turn_on:
           service: input_boolean.turn_on

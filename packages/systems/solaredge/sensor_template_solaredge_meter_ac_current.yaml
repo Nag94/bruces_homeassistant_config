@@ -1,8 +1,9 @@
 sensor:
   - platform: template
     sensors:
-        solaredge_meter_ac_current:
-            friendly_name: "AC Current"
-            value_template: "{{ state_attr('sensor.solaredge_modbus_meter_1', 'ac_current') }}"
-            unit_of_measurement: 'A'
-            device_class: current
+      solaredge_meter_ac_current:
+        unique_id: solaredge_meter_ac_current
+        friendly_name: "AC Current"
+        value_template: "{{ state_attr('sensor.solaredge_modbus_meter_1', 'ac_current') }}"
+        unit_of_measurement: 'A'
+        device_class: current

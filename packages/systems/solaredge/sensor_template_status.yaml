@@ -1,26 +1,27 @@
 sensor:
   - platform: template
     sensors:
-        solaredge_status:
-            friendly_name: "SolarEdge Status"
-            value_template: >-
-              {% if state_attr('sensor.solaredge_modbus', 'status') == 1 %}
-                Off
-              {% elif state_attr('sensor.solaredge_modbus', 'status') == 2 %}
-                Sleep
-              {% elif state_attr('sensor.solaredge_modbus', 'status') == 3 %}
-                Wake-Up
-              {% elif state_attr('sensor.solaredge_modbus', 'status') == 4 %}
-                Working
-              {% elif state_attr('sensor.solaredge_modbus', 'status') == 5 %}
-                Throttled
-              {% elif state_attr('sensor.solaredge_modbus', 'status') == 6 %}
-                Shut-Down
-              {% elif state_attr('sensor.solaredge_modbus', 'status') == 7 %}
-                Fault
-              {% elif state_attr('sensor.solaredge_modbus', 'status') == 8 %}
-                Maintenance
-              {% else %}
-                Unknown
-              {% endif %}
+      solaredge_status:
+        unique_id: solaredge_status
+        friendly_name: "SolarEdge Status"
+        value_template: "{% set mapper = {1:'Off',2:'Sleep',3:'Wake-Up',4:'Working',5:'Throttled',6:'Shut-Down',7:'Fault',7:'Maintenance'} %}{{ mapper[state_attr('sensor.solaredge_modbus', 'status')] }}"
+#          {% if is_state_attr('sensor.solaredge_modbus', 'status', 1) %}
+#            Off
+#          {% elif is_state_attr('sensor.solaredge_modbus', 'status', 2) %}
+#            Sleep
+#          {% elif is_state_attr('sensor.solaredge_modbus', 'status', 3) %}
+#            Wake-Up
+#          {% elif is_state_attr('sensor.solaredge_modbus', 'status', 4) %}
+#            Working
+#          {% elif is_state_attr('sensor.solaredge_modbus', 'status', 5) %}
+#            Throttled
+#          {% elif is_state_attr('sensor.solaredge_modbus', 'status', 6) %}
+#            Shut-Down
+#          {% elif is_state_attr('sensor.solaredge_modbus', 'status', 7) %}
+#            Fault
+#          {% elif is_state_attr('sensor.solaredge_modbus', 'status', 8) %}
+#            Maintenance
+#          {% else %}
+#            Unknown
+#          {% endif %}
     

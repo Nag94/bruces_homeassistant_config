@@ -2,6 +2,7 @@ sensor:
   - platform: template
     sensors:
       voltaware_home_load:
+        unique_id: voltaware_home_load
         friendly_name: "Home Load"
         unit_of_measurement: 'kW'
         value_template: "{{ ((states('sensor.voltaware_i') | float * states('sensor.voltaware_v') | float ) / 1000.0) | round(2) }}"

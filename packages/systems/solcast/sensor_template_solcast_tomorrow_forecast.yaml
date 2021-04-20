@@ -1,9 +1,10 @@
 sensor:
   - platform: template
     sensors:
-        solcast_forecast_tomorrow:
-            friendly_name: "SolCast Tomorrow"
-            unit_of_measurement: 'kWh'            
-            device_class: power
-            value_template: "{{ state_attr('sensor.solcast_forecast', 'tomorrow') | round(1) }}"    
-#            value_template: "{{ state_attr('sensor.solcast_forecast_a', 'tomorrow') | float + state_attr('sensor.solcast_forecast_b', 'tomorrow') | float  }}"                
+      solcast_forecast_tomorrow:
+        unique_id: solcast_forecast_tomorrow
+        friendly_name: "SolCast Tomorrow"
+        unit_of_measurement: 'kWh'            
+        device_class: power
+        value_template: "{{ state_attr('sensor.solcast_forecast', 'tomorrow') | round(1) }}"    
+#       value_template: "{{ state_attr('sensor.solcast_forecast_a', 'tomorrow') | float + state_attr('sensor.solcast_forecast_b', 'tomorrow') | float  }}"                

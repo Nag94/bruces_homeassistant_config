@@ -2,6 +2,7 @@ switch:
   - platform: template
     switches:
       jyggy_charging:
+        unique_id: jyggy_charging
         value_template: "{% if is_state('sensor.jyggy_carstate','Charging') %}on{% else %}off{% endif %}"
         turn_on:
           service: script.start_charging

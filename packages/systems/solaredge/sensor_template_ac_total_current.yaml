@@ -1,7 +1,8 @@
 sensor:
   - platform: template
     sensors:
-        solaredge_ac_total_current:
-            friendly_name: "AC Total Current"
-            value_template: "{{ state_attr('sensor.solaredge_modbus', 'ac_total_current') }}"
-            device_class: current
+      solaredge_ac_total_current:
+        unique_id: solaredge_ac_total_current
+        friendly_name: "AC Total Current"
+        value_template: "{{ state_attr('sensor.solaredge_modbus', 'ac_total_current') }}"
+        device_class: current

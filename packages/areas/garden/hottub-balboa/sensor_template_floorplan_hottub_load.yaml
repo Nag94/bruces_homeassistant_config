@@ -1,0 +1,9 @@
+sensor: 
+  - platform: template
+    sensors:
+      floorplan_hottub_load:
+        unique_id: hottub_load
+        friendly_name: "HotTub Load"
+        unit_of_measurement: 'kW'
+        # Powerwall All Load - zappis - Voltaware home load
+        value_template: "{{ (states('sensor.powerwall_load_now') | float - states('sensor.zappi_jyggy_power') | float - states('sensor.zappi_paddy_power') | float - states('sensor.voltaware_active_power') | float / 1000)| round(1) }}"
