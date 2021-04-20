@@ -8,21 +8,20 @@ automation:
     
     trigger:
       - platform: state
-        entity_id: 'sensor.hottub_water_temp'
+        entity_id: sensor.hottub_water_temp
       - platform: homeassistant
         event: start
       - platform: event
         event_type: automation_reloaded    
         
     condition:
-      - condition: numeric_state
-        entity_id: 'sensor.hottub_water_temp'
-        above: 1.0
+      - condition: template
+        value_template: "{{ states('sensor.hottub_water_temp') | float > 1 and states('sensor.hottub_water_temp') != states('input_number.hottub_water_temp') }}"
         
     action:
       - service: input_number.set_value
         target:
           entity_id: input_number.hottub_water_temp
         data:
-          value: "{{ states('sensor.hottub_water_temp') | float }}"                
+          value: "{{ states('sensor.hottub_water_temp') }}"                
       

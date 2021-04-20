@@ -1,9 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      hottub_target_temp:
-        availability_template: "{{ not is_state('binary_sensor.spa_circ_pump','unavailable') }}"
-        friendly_name: "HotTub Target Temp"
-        device_class: temperature
-        unit_of_measurement: '°C'
-        value_template: "{{ state_attr('climate.spa_climate','temperature') }}"

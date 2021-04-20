@@ -1,8 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      hottub_price:
-        availability_template: "{{ not is_state('binary_sensor.spa_circ_pump','unavailable') }}"
-        friendly_name: "HotTub Price"
-        unit_of_measurement: 'p'
-        value_template: "{{ (states('sensor.octopus_agile_current_rate') | float * 3.5) if state_attr('climate.spa_climate','hvac_action') == 'heating' else 0 }}"

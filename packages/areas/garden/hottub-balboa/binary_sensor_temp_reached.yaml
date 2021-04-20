@@ -2,6 +2,7 @@ binary_sensor:
   - platform: template
     sensors:
       hottub_temp_reached:
+        unique_id: hottub_temp_reached
         friendly_name: "Hottub Temp Reached"
         availability_template:  "{{ states('binary_sensor.spa_circ_pump') != 'unavailable' }}"       
         value_template: "{{ states('input_number.hottub_water_temp') >= states('input_number.hottub_standard_temp') and is_state('sensor.hottub_hvac_action','idle') }}"
