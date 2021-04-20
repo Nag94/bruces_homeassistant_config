@@ -669,11 +669,6 @@ elements:
               left: 91%
               color: blue                
       - type: state-icon
-        entity: binary_sensor.hot_tub_door
-        style:
-          top: 3%
-          left: 90%        
-      - type: state-icon
         entity: switch.spa_light1
         style:
           top: 12%
@@ -1135,6 +1130,15 @@ elements:
               top: 10%
               left: 22%    
           - type: icon
+            icon: 'mdi:transmission-tower'
+#            entity: sensor.solaredge_modbus_meter_1
+            entity: sensor.zappi_jyggy_grid
+            style:
+              color: red
+              top: 10%
+              left: 4%
+              transform: 'scale(2,2)'    
+          - type: icon
             icon: 'mdi:alert-outline'
             entity: binary_sensor.grid_status
             style:
@@ -1142,14 +1146,6 @@ elements:
               top: 21%
               left: 3%
               transform: 'scale(2,2)'
-          - type: icon
-            icon: 'mdi:transmission-tower'
-            entity: sensor.solaredge_modbus_meter_1
-            style:
-              color: red
-              top: 10%
-              left: 4%
-              transform: 'scale(2,2)'    
       - type: conditional
         conditions:
           - entity: binary_sensor.grid_status
@@ -1174,7 +1170,8 @@ elements:
                   left: 28%        
               - type: icon
                 icon: 'mdi:transmission-tower'
-                entity: sensor.solaredge_modbus_meter_1
+#                entity: sensor.solaredge_modbus_meter_1
+                entity: sensor.zappi_jyggy_grid
                 style:
                   color: grey
                   top: 10%
@@ -1199,7 +1196,8 @@ elements:
                   left: 28%  
               - type: icon
                 icon: 'mdi:transmission-tower'
-                entity: sensor.solaredge_modbus_meter_1
+#                entity: sensor.solaredge_modbus_meter_1
+                entity: sensor.zappi_jyggy_grid
                 style:
                   color: black
                   top: 10%
@@ -1207,14 +1205,16 @@ elements:
                   transform: 'scale(2,2)'
               - type: icon
                 icon: 'mdi:arrow-up-bold'
-                entity: sensor.solaredge_modbus_meter_1
+#                entity: sensor.solaredge_modbus_meter_1
+                entity: sensor.zappi_jyggy_grid
                 style:
                   color: green
                   top: 19%
                   left: 4%
                   transform: 'scale(2,2)'
               - type: state-label
-                entity: sensor.export_power
+#                entity: sensor.export_power
+                entity: sensor.zappi_jyggy_grid_export
                 style:
                   color: green
                   top: 24%
@@ -1244,22 +1244,25 @@ elements:
                   left: 22%    
               - type: icon
                 icon: 'mdi:transmission-tower'
-                entity: sensor.solaredge_modbus_meter_1
+#                entity: sensor.solaredge_modbus_meter_1
+                entity: sensor.zappi_jyggy_grid
                 style:
                   color: black
                   top: 10%
                   left: 4%
                   transform: 'scale(2,2)'
               - type: icon
-                icon: 'mdi:arrow-down-bold'
                 entity: sensor.solaredge_modbus_meter_1
+                icon: 'mdi:arrow-down-bold'
+                entity: sensor.zappi_jyggy_grid
                 style:
                   color: red
                   top: 21%
                   left: 3%
                   transform: 'scale(2,2)'
               - type: state-label
-                entity: sensor.import_power
+#                entity: sensor.import_power
+                entity: sensor.zappi_jyggy_grid_import
                 style:
                   color: red
                   top: 25%

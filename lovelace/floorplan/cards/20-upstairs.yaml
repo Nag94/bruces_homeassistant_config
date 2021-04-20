@@ -1467,7 +1467,7 @@ elements:
           - type: icon
             icon: 'mdi:fire'
             style:
-              top: 39%
+              top: 48%
               left: 69.5%
               color: red
               transform: 'scale(2,2)'    
@@ -1479,8 +1479,8 @@ elements:
           - type: state-label
             entity: sensor.eddi_water_temp
             style:
-              top: 41%
-              left: 82%
+              top: 43.5%
+              left: 72.5%
               color: red
           - type: icon
             icon: 'mdi:arrow-up-bold'
@@ -1503,8 +1503,8 @@ elements:
           - type: state-label
             entity: sensor.eddi_water_temp
             style:
-              top: 41%
-              left: 82%
+              top: 43.5%
+              left: 72.5%
               color: blue
       - type: conditional
         conditions:
@@ -1514,9 +1514,9 @@ elements:
           - type: state-label
             entity: sensor.eddi_water_temp
             style:
-              top: 41%
-              left: 82%
-              color: green        
+              top: 43.5%
+              left: 72.5%
+              color: red        
       - type: conditional
         conditions:
           - entity: sensor.eddi_status
@@ -1525,8 +1525,8 @@ elements:
           - type: state-label
             entity: sensor.eddi_water_temp
             style:
-              top: 41%
-              left: 82%
+              top: 43.5%
+              left: 72.5%
               color: grey                     
 
 ################################################
