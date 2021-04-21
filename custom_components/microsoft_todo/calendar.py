@@ -1,6 +1,6 @@
 import logging
 import os
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
@@ -154,8 +154,15 @@ class MSToDoAuthCallbackView(HomeAssistantView):
         self.client_secret = client_secret
         self.setup_args = setup_args
 
+    def get_token(self, code):
+        return self.oauth.fetch_token(
+            TOKEN_URL,
+            client_secret=self.client_secret,
+            code=code
+        )
+
     @callback
-    def get(self, request):
+    async def get(self, request):
         hass = request.app["hass"]
         data = request.query
 
@@ -167,11 +174,7 @@ class MSToDoAuthCallbackView(HomeAssistantView):
             _LOGGER.error(error_msg)
             return Response(text=html_response.format(error_msg), content_type="text/html")
 
-        token = self.oauth.fetch_token(
-            TOKEN_URL,
-            client_secret=self.client_secret,
-            code=data.get("code")
-        )
+        token = await hass.async_add_executor_job(self.get_token, data.get("code"))
 
         save_json(hass.config.path(MS_TODO_AUTH_FILE), token)
 
@@ -204,11 +207,21 @@ class MSToDoListDevice(CalendarEventDevice):
 
     @property
     def device_state_attributes(self):
+        _LOGGER.debug("Total Tasks: %i", len(self._tasks))
         if len(self._tasks) == 0:
             return None
 
         attributes = {}
-        attributes[ALL_TASKS] = [t["subject"] for t in self._tasks]
+        try:
+            attributes[ALL_TASKS] = [t["subject"] for t in self._tasks]
+            _LOGGER.debug("ALL_TASKS count: %i", len(attributes[ALL_TASKS]))
+            
+            __overdue = lambda x: x["dueDateTime"] != None and datetime.strptime(x["dueDateTime"]["dateTime"].split("T")[0], '%Y-%m-%d') < datetime.now()
+            attributes["overdue_tasks"] = [t["subject"] for t in filter(__overdue,self._tasks)]
+            _LOGGER.debug("overdue_tasks count: %i", len(attributes["overdue_tasks"]))
+        except Exception as ex:
+            _LOGGER.error("Unable to set attributes: %s", ex)
+            raise
 
         return attributes
 
