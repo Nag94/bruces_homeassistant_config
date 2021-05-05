@@ -22,6 +22,4 @@ automation:
     action:
       - service: scene.turn_on
         data:
-          entity_id: >
-            {{ 'scene.gotobed_lights_bedroom' if (is_state('input_boolean.bruce_is_asleep','off') and 
-              is_state('input_boolean.sarah_is_asleep','off')) else 'scene.gotobed_lights' }}
+          entity_id: "{{ 'scene.gotobed_lights_bedroom' if (is_state('input_boolean.bruce_is_asleep','off') and is_state('input_boolean.sarah_is_asleep','off')) else 'scene.gotobed_lights' }}"
