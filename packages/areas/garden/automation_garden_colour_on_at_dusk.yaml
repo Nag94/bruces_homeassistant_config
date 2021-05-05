@@ -11,7 +11,7 @@ automation:
         entity_id: binary_sensor.dark_outside
         to: 'on'
       - platform: state
-        entity_id: alarm_control_panel.full_set
+        entity_id: alarm_control_panel.texecom
         to: 'disarmed'        
       - platform: homeassistant
         event: start
@@ -20,7 +20,7 @@ automation:
 
     action:
       - choose:
-          - conditions: "{{ is_state('binary_sensor.dark_outside','on') and is_state('switch.sarah_is_asleep','off') and is_state('switch.bruce_is_asleep','off') and is_state('alarm_control_panel.full_set','disarmed')}}"
+          - conditions: "{{ is_state('binary_sensor.dark_outside','on') and is_state('switch.sarah_is_asleep','off') and is_state('switch.bruce_is_asleep','off') and is_state('alarm_control_panel.texecom','disarmed')}}"
             sequence:
               - service: light.turn_on
                 target:
