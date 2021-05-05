@@ -8,9 +8,7 @@ sensor:
           {% if (states('sensor.washing_machine_power') | float) > 700.00 %}Heating{% 
           elif (states('sensor.washing_machine_power') | float) > 190.00 %}Fast-Spin{% 
           elif (states('sensor.washing_machine_power') | float) > 90.00 %}Spin{% 
-          elif (states('sensor.washing_machine_power') | float) > 50.00 %}Washing{% 
-          elif (states('sensor.washing_machine_power') | float) > 5.00 %}Standby{%           
-          elif (states('sensor.washing_machine_power') | float) > 1.00 %}Standby{% 
-          elif (states('sensor.washing_machine_power') | float) > 0.00 %}Soft-Off{% 
+          elif (states('sensor.washing_machine_power') | float) > 5.50 %}Washing{%           
+          elif (states('sensor.washing_machine_power') | float) > 0.00 %}Standby{% 
           else %}Off{% endif %}
         

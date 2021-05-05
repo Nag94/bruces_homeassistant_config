@@ -1,0 +1,40 @@
+automation:
+  - id: washing_machine_finish_notification
+    alias: 'Washing Machine Finish Notification'
+    mode: single 
+    description: >
+      Notify when washing machine finished
+      
+    trigger:
+      - platform: state
+        entity_id: sensor.washing_machine_state
+        from: 
+          - 'Washing'
+          - 'Spin'
+          - 'Fast-Spin'
+        to: 'Standby'
+        for: 10
+      - platform: state
+        entity_id: sensor.washing_machine_state
+        from: 'Standby'
+        to: 'Off'
+        for: 10        
+
+    action:
+      - choose:
+          - conditions: "{{ trigger.to_state.state == 'Standby' }}"
+            sequence:
+              - service: telegram_bot.send_message
+                data:
+                  target: !secret telegram_chat_id_bruce_and_sarah     
+                  message: "Washing machine has finished"
+                  
+          - conditions: "{{ trigger.to_state.state == 'Off' }}"
+            sequence:
+              - service: telegram_bot.send_message
+                data:
+                  target: !secret telegram_chat_id_bruce_and_sarah     
+                  message: >
+                    Washing machine has been emptied
+                    
+                    (Switched Off)

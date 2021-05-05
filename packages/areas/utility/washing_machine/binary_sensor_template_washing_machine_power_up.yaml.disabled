@@ -1,6 +1,0 @@
-binary_sensor:
-  - platform: template
-    sensors:
-      washing_machine_power_up:
-        value_template: "{{ states('sensor.washing_machine_power') | int > 18 }}"
-

@@ -1,5 +1,0 @@
-binary_sensor:
-  - platform: template
-    sensors:
-      washing_machine_power_down:
-        value_template: "{{ states('sensor.washing_machine_power') | int < 10 }}"
