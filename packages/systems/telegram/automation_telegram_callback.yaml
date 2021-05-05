@@ -518,17 +518,17 @@ automation:
           - conditions: "{{ trigger.event.data.command in ('/30m','/1h','/3h') }}"
             sequence:          
               - service: telegram_bot.answer_callback_query
-                data_template:
+                data:
                   callback_query_id: '{{ trigger.event.data.id }}'
                   message: "OK, reminding you in {% if trigger.event.data.command == '/3h'%}3 hours{% elif trigger.event.data.command == '/1h'%}1 hour{% elif trigger.event.data.command == '/30m'%}30 minutes{% endif %}"
               - service: telegram_bot.edit_replymarkup
-                data_template:
+                data:
                   message_id: '{{ trigger.event.data.message.message_id }}'
                   chat_id: '{{ trigger.event.data.user_id }}'
                   inline_keyboard: []
               - delay: "{% if trigger.event.data.command == '/3h'%}03:00:00{% elif trigger.event.data.command == '/1h'%}01:00:00{% elif trigger.event.data.command == '/30m'%}00:30:00{% endif %}"
               - service: notify.telegram_bruce
-                data_template:
+                data:
                   message: '{{ trigger.event.data.message.text }}'
                   data:
                     inline_keyboard:

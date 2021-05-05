@@ -24,8 +24,7 @@ automation:
     action:  
       - choose:
             # Movement and message already sent
-          - conditions: >
-              {{ (is_state('input_boolean.house_motion_detected','on') or is_state('input_boolean.garage_motion_detected','on')) and ((states('input_text.house_garage_movement_message_id') | int) > 0) }}
+          - conditions: "{{ (is_state('input_boolean.house_motion_detected','on') or is_state('input_boolean.garage_motion_detected','on')) and ((states('input_text.house_garage_movement_message_id') | int) > 0) }}"
             sequence:
               - service: telegram_bot.delete_message
                 data:
@@ -42,8 +41,7 @@ automation:
                     - 'OK:/remove_keyboard'                  
 
           # Movement - First Message
-          - conditions: >
-              {{ (is_state('input_boolean.house_motion_detected','on') or is_state('input_boolean.garage_motion_detected','on')) and ((states('input_text.house_garage_movement_message_id') | int) == 0) }}
+          - conditions: "{{ (is_state('input_boolean.house_motion_detected','on') or is_state('input_boolean.garage_motion_detected','on')) and ((states('input_text.house_garage_movement_message_id') | int) == 0) }}"
             sequence:
               - service: telegram_bot.send_message
                 data:
@@ -55,8 +53,7 @@ automation:
                     - 'Clear Alert:/clear_movement_alert'
                     - 'OK:/remove_keyboard'                               
           # Movement Cleared - Message previously Sent                    
-          - conditions: >
-              {{ (is_state('input_boolean.house_motion_detected','off') and is_state('input_boolean.garage_motion_detected','off')) and (states('input_text.house_garage_movement_message_id') | int) > 0 }}
+          - conditions: "{{ (is_state('input_boolean.house_motion_detected','off') and is_state('input_boolean.garage_motion_detected','off')) and (states('input_text.house_garage_movement_message_id') | int) > 0 }}"
             sequence:
               - service: telegram_bot.delete_message
                 data:

@@ -94,57 +94,58 @@ automation:
 
                     HotTub is {{states('sensor.hottub_summary') }}
 
-                    {{ 'Bedroom Fan is on' if is_state('fan.bedroom_fan','on') }}
-
-                    {{ 'Conservatory Fan is on' if is_state('fan.conservatory_fan','on') }}
-                    
+                    {{ 'Bedroom Fan is on
+                    ' if is_state('fan.bedroom_fan','on') }}
+                    {{ 'Conservatory Fan is on
+                    ' if is_state('fan.conservatory_fan','on') }}
                     {% if is_state('switch.electric_blanket_bruce','on') and is_state('switch.electric_blanket_sarah','on') %}Both electric blankets are on
                     
                     {% elif is_state('switch.electric_blanket_bruce','on') %}Bruce's electric blanket is on
                     
                     {% elif is_state('switch.electric_blanket_sarah','on') %}Sarah's electric blanket is on                    
 
-                    {% endif %}{{ 'Lights are on downstairs' if is_state('light.downstairs','on') }}
-
-                    {{ 'Lights are on Outside' if is_state('light.outside','on') }}
-
-                    {{ 'Lights are on upstairs' if is_state('light.upstairs','on') }}
-
-                    {{ 'TV on in lounge' if is_state('input_boolean.watching_skytv','on') }}
-
-                    {{ 'SONOS playing in the kitchen' if is_state('media_player.kitchen_sonos','playing') }}
-
-                    {{ 'SONOS playing in Sophie bedroom' if is_state('media_player.sophies_sonos','playing') }}
-
-                    {{ 'SONOS playing in Kate bedroom' if is_state('media_player.kates_sonos','playing') }}
-
-                    {{ 'SONOS playing in the Lounge' if is_state('media_player.lounge_sonos','playing') }}
-
-                    {{ 'SONOS playing in the Bar' if is_state('media_player.bar_sonos','playing') }}
-
-                    {{ 'Conservatory door is open' if is_state('binary_sensor.front_door','on') }}
-
-                    {{ 'Front door is open' if is_state('binary_sensor.front_door','on') }}
-
-                    {{ 'Back gate is open' if is_state('binary_sensor.back_gate_door','on') }}
-
-                    {{ 'Back door is open' if is_state('binary_sensor.back_door','on') }}
-
-                    {{ 'Understairs door is open' if is_state('binary_sensor.under_stairs_door','on') }}
-
-                    {{ 'Master bedroom door is open' if is_state('binary_sensor.master_bedroom_door','on') }}
-
-                    {{ 'Lounge door is open' if is_state('binary_sensor.lounge_door','on') }}
-
-                    {{ 'Sophie\'s door is open' if is_state('binary_sensor.sophies_bedroom_door','on') }}
-
-                    {{ 'Kate\'s door is open' if is_state('binary_sensor.kates_bedroom_door','off') }}
-
-                    {{ 'Guest\'s door is open' if is_state('binary_sensor.guest_bedroom_door','on') }}
-
-                    {{ 'Downstairs Loo door is closed' if is_state('binary_sensor.downstairs_toilet_door','off') }}
-
-                    {{ 'Bathroom door is closed' if is_state('binary_sensor.main_bathroom_door','off') }}
+                    {% endif %}{{ 'Lights are on downstairs
+                    ' if is_state('light.downstairs','on') }}
+                    {{ 'Lights are on Outside
+                    ' if is_state('light.outside','on') }}
+                    {{ 'Lights are on upstairs
+                    ' if is_state('light.upstairs','on') }}
+                    {{ 'TV on in lounge
+                    ' if is_state('input_boolean.watching_skytv','on') }}
+                    {{ 'SONOS playing in the kitchen
+                    ' if is_state('media_player.kitchen_sonos','playing') }}
+                    {{ 'SONOS playing in Sophie bedroom
+                    ' if is_state('media_player.sophies_sonos','playing') }}
+                    {{ 'SONOS playing in Kate bedroom
+                    ' if is_state('media_player.kates_sonos','playing') }}
+                    {{ 'SONOS playing in the Lounge
+                    ' if is_state('media_player.lounge_sonos','playing') }}
+                    {{ 'SONOS playing in the Bar
+                    ' if is_state('media_player.bar_sonos','playing') }}
+                    {{ 'Conservatory door is open
+                    ' if is_state('binary_sensor.front_door','on') }}
+                    {{ 'Front door is open
+                    ' if is_state('binary_sensor.front_door','on') }}
+                    {{ 'Back gate is open
+                    ' if is_state('binary_sensor.back_gate_door','on') }}
+                    {{ 'Back door is open
+                    ' if is_state('binary_sensor.back_door','on') }}
+                    {{ 'Understairs door is open
+                    ' if is_state('binary_sensor.under_stairs_door','on') }}
+                    {{ 'Master bedroom door is closed
+                    ' if is_state('binary_sensor.master_bedroom_door','off') }}
+                    {{ 'Lounge door is open
+                    ' if is_state('binary_sensor.lounge_door','on') }}
+                    {{ 'Sophie\'s door is open
+                    ' if is_state('binary_sensor.sophies_bedroom_door','on') }}
+                    {{ 'Kate\'s door is open
+                    ' if is_state('binary_sensor.kates_bedroom_door','off') }}
+                    {{ 'Guest\'s door is open
+                    ' if is_state('binary_sensor.guest_bedroom_door','on') }}
+                    {{ 'Downstairs Loo door is closed
+                    ' if is_state('binary_sensor.downstairs_toilet_door','off') }}
+                    {{ 'Bathroom door is closed
+                    ' if is_state('binary_sensor.main_bathroom_door','off') }}
                     
             # /alarm and Alarm Disarmed
           - conditions: "{{ trigger.event.data.text.lower() == 'alarm' and is_state('alarm_control_panel.texecom','disarmed') }}"
