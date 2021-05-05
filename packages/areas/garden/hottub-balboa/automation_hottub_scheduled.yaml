@@ -16,31 +16,32 @@ automation:
           - sensor.hottub_schedule_target_temp
           - input_boolean.hottub_scheduled   
           - input_datetime.hottub_ready_by
+#          - input_number.hottub_heat_below_x_pence
           - binary_sensor.hottub_at_or_below_max_heat_cost
           - sensor.hottub_summary
           - binary_sensor.agile_plunge
           - binary_sensor.agile_peak
-          - binary_sensor.hot_tub_door     
+#          - binary_sensor.hot_tub_door     
           
     action:
       - choose:
-          # If in use - Set to 40
-          - conditions:
-              - condition: state
-                entity_id: binary_sensor.hot_tub_door
-                state: 'on'
-            sequence:
-              - service: logbook.log
-                data:
-                  domain: switch
-                  entity_id: climate.spa_climate
-                  name: "Hot Tub"
-                  message: "Heat to 39 as In Use"
-              - service: input_number.set_value
-                target:
-                  entity_id: input_number.hottub_water_target
-                data:
-                  value: 39
+#          # If in use - Set to 39
+#          - conditions:
+#              - condition: state
+#                entity_id: binary_sensor.hot_tub_door
+#                state: 'on'
+#            sequence:
+#              - service: logbook.log
+#                data:
+#                  domain: switch
+#                  entity_id: climate.spa_climate
+#                  name: "Hot Tub"
+#                  message: "Heat to 39 as In Use"
+#              - service: input_number.set_value
+#                target:
+#                  entity_id: input_number.hottub_water_target
+#                data:
+#                  value: 39
      
           # If plunge pricing - Set to 40
           - conditions:
@@ -66,6 +67,9 @@ automation:
                 entity_id: binary_sensor.hottub_at_or_below_max_heat_cost
                 state: 'on' 
             sequence:
+              - service: switch.turn_on
+                target:
+                  entity_id: switch.spa_temp_range
               - service: logbook.log
                 data:
                   domain: switch

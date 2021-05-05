@@ -6,4 +6,4 @@ sensor:
         friendly_name: "HotTub Load"
         unit_of_measurement: 'kW'
         # Powerwall All Load - zappis - Voltaware home load
-        value_template: "{{ (states('sensor.powerwall_load_now') | float - states('sensor.zappi_jyggy_power') | float - states('sensor.zappi_paddy_power') | float - states('sensor.voltaware_active_power') | float / 1000)| round(1) }}"
+        value_template: "{% set hottubload =  (states('sensor.powerwall_load_now') | float - states('sensor.zappi_jyggy_power') | float - states('sensor.zappi_paddy_power') | float - states('sensor.voltaware_active_power') | float / 1000)| round(1) %}{{ hottubload if hottubload > 0.09 else 0 }}"
