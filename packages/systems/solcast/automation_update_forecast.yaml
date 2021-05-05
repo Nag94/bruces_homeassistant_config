@@ -6,16 +6,9 @@ automation:
       Update forecast each half hour
       
     trigger:
-#      - platform: time
-#        at: '21:50:00'   
       - platform: time_pattern
         minutes: "/30"
-        
-#    condition:
-#      - condition: time
-#        after: '05:00:00'
-#        before: '22:00:00'
-        
+                
     action:
       - service: solcast.update_forecast
 #      - service: solcastx.update_forecast      
