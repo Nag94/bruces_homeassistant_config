@@ -16,15 +16,15 @@ homekit:
         - person.paddy      
         - person.sarah_hartley
         - person.sophie_hartley
-        - sensor.hottub_water_temp
-        - sensor.wirelesstag_back_gate_humidity
-        - sensor.wirelesstag_back_gate_temperature
-        - sensor.wirelesstag_bathroom_humidity
-        - sensor.wirelesstag_bathroom_temperature
-        - sensor.wirelesstag_conservatory_humidity
-        - sensor.wirelesstag_conservatory_temperature
-        - sensor.wirelesstag_loft_humidity
-        - sensor.wirelesstag_loft_temperature
+    #    - sensor.hottub_water_temp
+   #     - sensor.wirelesstag_back_gate_humidity
+    #    - sensor.wirelesstag_back_gate_temperature
+     #   - sensor.wirelesstag_bathroom_humidity
+     #   - sensor.wirelesstag_bathroom_temperature
+     #   - sensor.wirelesstag_conservatory_humidity
+    #    - sensor.wirelesstag_conservatory_temperature
+     #   - sensor.wirelesstag_loft_humidity
+     #   - sensor.wirelesstag_loft_temperature
         - switch.bruce_is_asleep
         - switch.electric_blanket_bruce
         - switch.electric_blanket_sarah
@@ -247,6 +247,7 @@ homekit:
         - binary_sensor.spa_circ_pump
         - binary_sensor.spa_filter1
         - climate.spa_climate
+  #      - sensor.hottub_water_temp
         - fan.spa_pump1
         - fan.spa_pump2
         - switch.spa_temp_range

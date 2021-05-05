@@ -140,7 +140,14 @@ logbook:
       - automation.under_stairs_lights_on_and_off_from_door
       - automation.update_jyggy_tracker_using_lat_and_long
       - automation.washing_machine_progress
+      - automation.solcast_update_today_forecast
+      - automation.powerwall_set_reserve_level_and_mode
+      - sensor.hotwater_state
+      - automation.hottub_set_temp
+      - automation.hottub_store_temp
+      - input_number.solcast_latest_today_forecast
       - binary_sensor.bar
+      - binary_sensor.eddi_active_heate      
       - binary_sensor.elec_high_cost
       - binary_sensor.front_door_motion
       - binary_sensor.kates_bedroom_door
