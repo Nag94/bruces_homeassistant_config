@@ -9,7 +9,7 @@ automation:
       - platform: state
         entity_id: binary_sensor.sophies_bedroom_door
         to: 'on'
-        for: '00:00:20'
+        for: '00:00:30'
       - platform: state
         entity_id: binary_sensor.sophies_bedroom_door
         to: 'off'
