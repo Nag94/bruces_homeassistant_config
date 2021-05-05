@@ -1,11 +1,15 @@
 automation:
   - id: system_shutdown_notication
-    description: Send notification on Home Assistant stop
     alias: system_shutdown_notification
     mode: single
+
+    description: >
+      Send notification on Home Assistant stop
+    
     trigger:
       - platform: homeassistant
         event: shutdown
+        
     action:
       - service: telegram_bot.send_message
         data:
