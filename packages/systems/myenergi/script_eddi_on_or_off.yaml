@@ -2,7 +2,10 @@ script:
   eddi_on_or_off:
     alias: Set Power for Eddi
     icon: mdi:water-boiler
-    description: Set Power for eddi
+    
+    description: >
+      Set Power for eddi
+
     fields:
       mode:
         name: Mode
@@ -12,6 +15,7 @@ script:
         example: true
         selector: 
           boolean:
+
     sequence:
       - alias: "Wait until previous command is complete"
         wait_template: "{{ state_attr('sensor.eddi','cmt') > 250 }}"         

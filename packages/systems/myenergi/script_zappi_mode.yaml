@@ -27,22 +27,22 @@ script:
         default: '123456'
         description: 'Zappi Serial Number?'
         example: !secret zappi_serial_jyggy
-        selector: 
-          select:        
-            options:
-              - '123456'
-              - '123457'
+#        selector: 
+#          select:        
+#            options:
+#              - '123456'
+#              - '123457'
       name: 
         name: 'Description'
         required: true
         default: 'Jyggy'
         description: 'Zappi Name?'
-        example: 'jyggy'
-        selector: 
-          select:        
-            options:
-              - 'Jyggy'
-              - 'Paddy'
+        example: 'Jyggy'
+#        selector: 
+#          select:        
+#            options:
+#              - 'Jyggy'
+#              - 'Paddy'
               
     sequence:
       - alias: "Wait until previous commands are complete"
@@ -61,20 +61,22 @@ script:
               - sensor.zappi_jyggy
               - sensor.zappi_paddy              
       - alias: "Wait until command is complete"
-        wait_template: "{{ (name == 'jyggy' and state_attr('sensor.zappi_jyggy','cmt') | int > 250) or (name == 'paddy' and state_attr('sensor.zappi_paddy','cmt') | int > 250)}}"     
+        #wait_template: "{{ (name == 'jyggy' and state_attr('sensor.zappi_jyggy','cmt') | int > 250) or (name == 'paddy' and state_attr('sensor.zappi_paddy','cmt') | int > 250)}}"     
+        wait_template: "{{ state_attr('sensor.zappi_jyggy','cmt') | int > 250 and state_attr('sensor.zappi_paddy','cmt') | int > 250 }}"
+      - delay: 3
       - condition: template      
-        value_template: "{{ (name == 'jyggy' and (states('input_select.zappi_jyggy_charge_mode') != states('sensor.zappi_jyggy_mode'))) or (name == 'paddy' and (states('input_select.zappi_paddy_charge_mode') != states('sensor.zappi_paddy_mode'))) }}"
+        value_template: "{{ (states('input_select.zappi_jyggy_charge_mode') != states('sensor.zappi_jyggy_mode')) or (states('input_select.zappi_paddy_charge_mode') != states('sensor.zappi_paddy_mode')) }}"
       - service: telegram_bot.send_message
         data:
           target: !secret telegram_chat_id_bruce         
           message: >
             Zappi {{name}} failed to change to {{mode}}
                 
-            {% if name == 'jyggy' %}Currently set to {{ states('sensor.zappi_jyggy') }}
+            {% if name == 'jyggy' %}Currently set to {{ states('sensor.zappi_jyggy_mode') }}
             
             Last Online at: {{ state_attr('sensor.zappi_jyggy','dat') + ' ' + state_attr('sensor.zappi_jyggy','tim') }}     
 
-            {% else %}Currently set to {{ states('sensor.zappi_paddy') }}
+            {% else %}Currently set to {{ states('sensor.zappi_paddy_mode') }}
             
             Last Online at: {{ state_attr('sensor.zappi_paddy','dat') + ' ' + state_attr('sensor.zappi_paddy','tim') }}    
             {% endif %} 
