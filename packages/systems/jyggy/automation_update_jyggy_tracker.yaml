@@ -16,5 +16,5 @@ automation:
       data:
         dev_id: jyggy
         gps:
-          - '{{ states(''sensor.jyggy_latitude'') }}'
-          - '{{ states(''sensor.jyggy_longitude'') }}'
+          - "{{ states('sensor.jyggy_latitude') }}"
+          - "{{ states('sensor.jyggy_longitude') }}"
