@@ -19,7 +19,7 @@ automation:
         attribute: event_object
         
     variables:
-      pic_file: "{{ 'drive_' + now().strftime('%d%m%H%M') + '.mp4' }}"      
+      pic_file: "{{ 'drive_' + now().strftime('%d%m%H%M') }}"      
       pic_folder: "/config/www/cam_snaps/"          
       
     action:
