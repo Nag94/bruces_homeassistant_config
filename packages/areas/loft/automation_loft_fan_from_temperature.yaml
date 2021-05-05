@@ -1,7 +1,10 @@
 automation:
   - id: loft_fan_on_when_cabinet_above_set_value
     alias: 'Turn on loft fan with temp sensor'
-    description: Turn on loft fan when cabinet hot or CPU hotter
+    
+    description: >
+      Turn on loft fan when cabinet hot or CPU hotter
+
     trigger:
       - platform: numeric_state
         entity_id: sensor.nuc_cpu_temperature
@@ -34,6 +37,7 @@ automation:
         event: start
       - platform: event
         event_type: automation_reloaded   
+
     action:
       - choose:
             # NUC processor below 46c and cabinet 2C or more below set value

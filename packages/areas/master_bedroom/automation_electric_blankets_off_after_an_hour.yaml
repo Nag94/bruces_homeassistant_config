@@ -1,6 +1,7 @@
 automation:
   - id: Electric blanket_off_after_an_hour
     alias: 'Turn off Electirc blanket after an hour'
+    mode: parallel
     
     description: >
       turn off Electric blanket after an hour
@@ -31,13 +32,12 @@ automation:
           
     action:
       - choose:
-          - conditions: >
-              {{ trigger.entity_id == 'switch.electric_blanket_sarah' or trigger.entity_id == 'switch.electric_blanket_bruce' }}
+          - conditions: "{{ trigger.entity_id == 'switch.electric_blanket_sarah' or trigger.entity_id == 'switch.electric_blanket_bruce' }}"
             sequence:
               - service: switch.turn_off
                 target:
                   entity_id: "{{ trigger.entity_id }}"
-        # home assistant restart
+
         default:
           - service: switch.turn_off
             target:

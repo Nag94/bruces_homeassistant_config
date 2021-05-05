@@ -15,8 +15,7 @@ automation:
         
     action:
       - choose:
-          - conditions: >
-              {{ is_state('alarm_control_panel.texecom','armed_night') and trigger.entity_id=='input_boolean.bruce_is_asleep'}}
+          - conditions: "{{ is_state('alarm_control_panel.texecom','armed_night') and trigger.entity_id=='input_boolean.bruce_is_asleep'}}"
             sequence:
               - service: input_text.set_value
                 target:
@@ -40,8 +39,8 @@ automation:
                   chat_id: !secret telegram_chat_id_bruce
                   message_id: "{{ states('input_text.alarm_disarming_message_id') }}"                     
                   message: "Alarm is now {{states('alarm_control_panel.texecom').replace('_',' ')}}"    
-          - conditions: >
-              {{ is_state('alarm_control_panel.texecom','armed_night') and trigger.entity_id=='input_boolean.sarah_is_asleep'}}
+
+          - conditions: "{{ is_state('alarm_control_panel.texecom','armed_night') and trigger.entity_id=='input_boolean.sarah_is_asleep'}}"
             sequence:
               - service: input_text.set_value
                 target:
@@ -65,16 +64,16 @@ automation:
                   chat_id: !secret telegram_chat_id_sarah
                   message_id: "{{ states('input_text.alarm_disarming_message_id') }}"                     
                   message: "Alarm is now {{states('alarm_control_panel.texecom').replace('_',' ')}}"
-          - conditions: >
-              {{ trigger.entity_id=='input_boolean.bruce_is_asleep'}}
+
+          - conditions: "{{ trigger.entity_id=='input_boolean.bruce_is_asleep'}}"
             sequence:
               - service: telegram_bot.send_message
                 data:
                   target: !secret telegram_chat_id_bruce
                   message_id: "{{ states('input_text.alarm_disarming_message_id') }}"                     
                   message: "Alarm is now {{states('alarm_control_panel.texecom').replace('_',' ')}}"
-          - conditions: >
-              {{  trigger.entity_id=='input_boolean.sarah_is_asleep'}}
+
+          - conditions: "{{  trigger.entity_id=='input_boolean.sarah_is_asleep'}}"
             sequence:
               - service: telegram_bot.edit_message
                 data:

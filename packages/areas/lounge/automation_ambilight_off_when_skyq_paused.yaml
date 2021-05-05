@@ -12,10 +12,7 @@ automation:
         for: 00:00:04
       - platform: state
         entity_id: input_boolean.lounge_ambilight_required
-#      - platform: homeassistant
-#        event: start
-#      - platform: event
-#        event_type: automation_reloaded    
+  
       
     condition:
       - condition: state
@@ -27,10 +24,7 @@ automation:
       
     action:
       - choose:
-          - conditions: >
-              {{ is_state('light.lounge_ambilight','on') and
-              (is_state('input_boolean.lounge_ambilight_required','off')  or
-              is_state('sensor.lounge_source_state','paused'))  }}
+          - conditions: "{{ is_state('light.lounge_ambilight','on') and (is_state('input_boolean.lounge_ambilight_required','off') or is_state('sensor.lounge_source_state','paused'))  }}"
             sequence:
               - service: light.turn_off
                 entity_id: light.lounge_ambilight
@@ -43,9 +37,7 @@ automation:
               - service: scene.turn_on
                 data:
                   entity_id: scene.lounge_skyq_paused
-          - conditions: >
-              {{  is_state('input_boolean.lounge_ambilight_required','on') and 
-              is_state('sensor.lounge_source_state','playing') }}
+          - conditions: "{{  is_state('input_boolean.lounge_ambilight_required','on') and is_state('sensor.lounge_source_state','playing') }}"
             sequence:
               - service: light.turn_on
                 data:
@@ -73,14 +65,6 @@ automation:
           - service: scene.turn_on
             target:
               entity_id: scene.lounge_skyq_paused
-            
-#        - service: light.turn_on
-#          data:
-#            entity_id: light.lounge
-#            brightness: 30
-#        - service: media_player.turn_on 
-#          entity_id: media_player.lounge_tv
-#        - service: light.turn_on
- #         data:
- #           entity_id: light.lounge_ambilight
- #           effect: Natural
+          - service: light.turn_on
+            target:
+              entity_id: light.lounge_lamp            

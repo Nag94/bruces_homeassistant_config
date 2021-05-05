@@ -27,10 +27,7 @@ automation:
         
     action:
       - choose:
-          - conditions: >
-              {{ is_state('light.master_bedroom_wardrobe_bars','off') 
-              and (trigger.entity_id == 'binary_sensor.master_bedroom_wardrobe_door_1' 
-              or trigger.entity_id == 'binary_sensor.master_bedroom_wardrobe_door_2') }}
+          - conditions: "{{ is_state('light.master_bedroom_wardrobe_bars','off') and (trigger.entity_id == 'binary_sensor.master_bedroom_wardrobe_door_1' or trigger.entity_id == 'binary_sensor.master_bedroom_wardrobe_door_2') }}"
             sequence:
               - service: light.turn_on
                 target:
