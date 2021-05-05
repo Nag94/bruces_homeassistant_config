@@ -33,7 +33,7 @@ entities:
   - entity: binary_sensor.master_bedroom_door
     name: Master Bed
     state_filter:
-      - 'on'
+      - 'off'
   - entity: binary_sensor.downstairs_toilet_door
     name: Loo
     state_filter:

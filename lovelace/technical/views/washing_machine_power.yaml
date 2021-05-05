@@ -11,7 +11,7 @@ cards:
     font_size: 75
     font_size_header: 22
     hour24: true
-    hours_to_show: 2
+    hours_to_show: 1.5
     line_width: 1
     name: Washing Machine Power
     points_per_hour: 240

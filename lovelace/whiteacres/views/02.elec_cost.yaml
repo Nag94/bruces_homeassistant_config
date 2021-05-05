@@ -19,6 +19,8 @@ cards:
     type: 'custom:agile-rates-card'
   - type: entities
     entities:
+      - entity: sensor.export_price
+        name: Current Export Price
       - entity: sensor.octopus_agile_min_rate
         name: Minimum Rate
         icon: 'mdi:currency-gbp'

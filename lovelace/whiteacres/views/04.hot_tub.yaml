@@ -126,16 +126,10 @@ cards:
       - entities:
           - entity: climate.spa_climate
             name: Spa
-#          - entity: input_number.hottub_water_target
-#            name: Immediate Target Temperature      
           - entity: input_number.hottub_standard_temp
-            name:  Target Temperature          
-#          - entity: binary_sensor.spa_circ_pump
-#            name: Circulation Pump
-#          - entity: binary_sensor.spa_filter1
-#            name: Filter Pump
-    #      - entity: binary_sensor.spa_filter2
-    #        name: Filter 2        
+            name:  Target Temperature     
+          - entity: input_number.hottub_water_target
+            name:  Immediate Target Temperature               
           - entity: fan.spa_pump1
             name: Jets 1
           - entity: fan.spa_pump2
@@ -143,9 +137,7 @@ cards:
           - entity: switch.spa_light1
             name: Lights
 #          - entity: switch.spa_temp_range
-#            name: High Temp Range
-#          - entity: input_datetime.hottub_ready_by
-#            name: Ready by
+#            name: Temp Range            
 #          - entity: sensor.hottub_summary
 #            name: Status
           - entity: binary_sensor.hot_tub_door
@@ -160,12 +152,83 @@ cards:
             name: Heating Time This Week
           - entity: sensor.hottub_filter_last_changed
             name: Filter Changed
+            tap_action:
+              action: call-service
+              service: script.hottub_filter_change
+              confirmation:
+                text: Are you cleaning the hottub filter?              
           - entity: sensor.hottub_water_last_changed
             name: Water Changed  
+            tap_action:
+              action: call-service
+              service: script.hottub_water_change
+              confirmation:
+                text: Are you changing the hottub water?                
         show_header_toggle: false
         title: Hot Tub
         type: entities
         state_color: true
+        
+      - entities:
+          - entity: sensor.bathrobe_1_last_washed
+            name: Robe 1 
+            tap_action:
+              action: call-service
+              service: script.wash_robe
+              service_data:
+                bathrobe: 1
+              confirmation:
+                text: Are you washing Robe 1?
+          - entity: sensor.bathrobe_2_last_washed
+            name: Robe 2
+            tap_action:
+              action: call-service
+              service: script.wash_robe
+              service_data:
+                bathrobe: 2
+              confirmation:
+                text: Are you washing Robe 2?            
+          - entity: sensor.bathrobe_3_last_washed
+            name: Robe 3 
+            tap_action:
+              action: call-service
+              service: script.wash_robe
+              service_data:
+                bathrobe: 3
+              confirmation:
+                text: Are you washing Robe 3?            
+          - entity: sensor.bathrobe_4_last_washed
+            name: Robe 4 
+            tap_action:
+              action: call-service
+              service: script.wash_robe
+              service_data:
+                bathrobe: 4
+              confirmation:
+                text: Are you washing Robe 4?            
+          - entity: sensor.bathrobe_5_last_washed
+            name: Robe 5 
+            tap_action:
+              action: call-service
+              service: script.wash_robe
+              service_data:
+                bathrobe: 4
+              confirmation:
+                text: Are you washing Robe 5?            
+          - entity: sensor.bathrobe_6_last_washed
+            name: Robe 6 
+            tap_action:
+              action: call-service
+              service: script.wash_robe
+              service_data:
+                bathrobe: 6
+              confirmation:
+                text: Are you washing Robe 6?            
+          
+          
+        title: Bath Robes Last Washed
+        type: entities
+        
   - icon: 'mdi:menu'
     show_icon: true
     show_name: false

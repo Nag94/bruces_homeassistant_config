@@ -31,3 +31,7 @@ cards:
       - entity: sensor.fridge_fridge_setpoint
       - entity: binary_sensor.refrigerator_door
       - entity: binary_sensor.fridge_rapidcooling
+  - type: logbook
+    entities: 
+      - sensor.washing_machine_state
+    hours_to_show: 4

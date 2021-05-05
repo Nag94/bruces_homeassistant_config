@@ -8,11 +8,17 @@ entities:
   - entity: sensor.floorplan_powerwall_home_load
     icon: mdi:home
     name: Home
-  - entity: sensor.solaredge_grid
+  - entity: sensor.zappi_jyggy_grid
     name: Grid
   - entity: sensor.zappi_jyggy_power
     name: Jyggy
   - entity: sensor.zappi_paddy_power
     name: Paddy
+  - entity: sensor.eddi_power
+    name: Eddi  
+    icon: mdi:water-boiler
+  - entity: sensor.hottub_load
+    name: Hot Tub    
+    icon: mdi:hot-tub
 show_header_toggle: false
 state_color: true

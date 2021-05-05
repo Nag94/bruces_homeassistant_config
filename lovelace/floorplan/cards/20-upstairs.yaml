@@ -511,6 +511,220 @@ elements:
               service_data:
                 entity_id: climate.drum_room_rad
                 time_period: 00:01:00
+
+################################################
+## Radiators - Trying to Heat but off         ##
+################################################             
+
+      - type: conditional
+        conditions:
+          - entity: sensor.whiteacres_state
+            state: 'OFF'
+          - entity: sensor.whiteacres_boost
+            state: 'OFF'            
+        elements:
+          - type: icon
+            icon: 'mdi:radiator-off'
+            entity: sensor.whiteacres_state
+            title: Click to Turn Off
+            style:
+              color: grey
+              top: 57%
+              left: 10%          
+            tap_action:          
+              action: call-service
+              service: climate.set_hvac_mode
+              service_data:
+                entity_id: climate.heating
+                hvac_mode: 'off'       
+          - type: icon
+            icon: 'mdi:radiator-off'
+            entity: sensor.whiteacres_state
+            title: Click to Turn Off
+            style:
+              color: grey
+              top: 9%
+              left: 31%          
+            tap_action:          
+              action: call-service
+              service: climate.set_hvac_mode
+              service_data:
+                entity_id: climate.heating
+                hvac_mode: 'off'      
+      - type: conditional
+        conditions:
+          - entity: sensor.whiteacres_state
+            state: 'OFF'
+        elements:            
+          - type: conditional
+            conditions:
+              - entity: sensor.sophies_bedroom_rad_state
+                state: 'ON'
+              - entity: sensor.sophies_bedroom_rad_boost
+                state: 'OFF'     
+            elements:
+              - type: icon
+                icon: 'mdi:radiator-off'
+                entity: sensor.sophies_bedroom_rad_state
+                title: Click to Turn Off
+                style:
+                  color: red
+                  top: 9%
+                  left: 15.5%          
+                tap_action:          
+                  action: call-service
+                  service: climate.set_hvac_mode
+                  service_data:
+                    entity_id: climate.heating
+                    hvac_mode: 'off'       
+          - type: conditional
+            conditions:
+              - entity: sensor.kates_bedroom_rad_state
+                state: 'ON'
+              - entity: sensor.kates_bedroom_rad_boost
+                state: 'OFF'     
+            elements:
+              - type: icon
+                icon: 'mdi:radiator-off'
+                entity: sensor.kates_bedroom_rad_state
+                title: Click to Turn Off
+                style:
+                  color: red
+                  top: 9%
+                  left: 86%          
+                tap_action:          
+                  action: call-service
+                  service: climate.set_hvac_mode
+                  service_data:
+                    entity_id: climate.heating
+                    hvac_mode: 'off'       
+          - type: conditional
+            conditions:
+              - entity: sensor.kates_bathroom_rad_state
+                state: 'ON'
+              - entity: sensor.kates_bathroom_rad_boost
+                state: 'OFF'     
+            elements:
+              - type: icon
+                icon: 'mdi:radiator-off'
+                entity: sensor.kates_bathroom_rad_state
+                title: Click to Turn Off
+                style:
+                  color: red
+                  top: 9%
+                  left: 67%          
+                tap_action:          
+                  action: call-service
+                  service: climate.set_hvac_mode
+                  service_data:
+                    entity_id: climate.heating
+                    hvac_mode: 'off'       
+          - type: conditional
+            conditions:
+              - entity: sensor.guest_bedroom_rad_state
+                state: 'ON'
+              - entity: sensor.guest_bedroom_rad_boost
+                state: 'OFF'     
+            elements:
+              - type: icon
+                icon: 'mdi:radiator-off'
+                entity: sensor.guest_bedroom_rad_state
+                title: Click to Turn Off
+                style:
+                  color: red
+                  top: 60%
+                  left: 85%          
+                tap_action:          
+                  action: call-service
+                  service: climate.set_hvac_mode
+                  service_data:
+                    entity_id: climate.heating
+                    hvac_mode: 'off'       
+          - type: conditional
+            conditions:
+              - entity: sensor.master_bedroom_rad_state
+                state: 'ON'
+              - entity: sensor.master_bedroom_rad_boost
+                state: 'OFF'     
+            elements:
+              - type: icon
+                icon: 'mdi:radiator-off'
+                entity: sensor.master_bedroom_rad_state
+                title: Click to Turn Off
+                style:
+                  color: red
+                  top: 91%
+                  left: 21.5%          
+                tap_action:          
+                  action: call-service
+                  service: climate.set_hvac_mode
+                  service_data:
+                    entity_id: climate.heating
+                    hvac_mode: 'off'       
+          - type: conditional
+            conditions:
+              - entity: sensor.landing_1_rad_state
+                state: 'ON'
+              - entity: sensor.landing_1_rad_boost
+                state: 'OFF'     
+            elements:
+              - type: icon
+                icon: 'mdi:radiator-off'
+                entity: sensor.landing_1_rad_state
+                title: Click to Turn Off
+                style:
+                  color: red
+                  top: 72%
+                  left: 44%          
+                tap_action:          
+                  action: call-service
+                  service: climate.set_hvac_mode
+                  service_data:
+                    entity_id: climate.heating
+                    hvac_mode: 'off'       
+          - type: conditional
+            conditions:
+              - entity: sensor.landing_2_rad_state
+                state: 'ON'
+              - entity: sensor.landing_2_rad_boost
+                state: 'OFF'     
+            elements:
+              - type: icon
+                icon: 'mdi:radiator-off'
+                entity: sensor.landing_2_rad_state
+                title: Click to Turn Off
+                style:
+                  color: red
+                  top: 58%
+                  left: 52%          
+                tap_action:          
+                  action: call-service
+                  service: climate.set_hvac_mode
+                  service_data:
+                    entity_id: climate.heating
+                    hvac_mode: 'off'       
+          - type: conditional
+            conditions:
+              - entity: sensor.drum_room_rad_state
+                state: 'ON' 
+              - entity: sensor.drum_room_rad_boost
+                state: 'OFF'          
+            elements:
+              - type: icon
+                icon: 'mdi:radiator-off'
+                entity: sensor.drum_room_rad_state
+                title: Click to Turn Off
+                style:
+                  color: red
+                  top: 9%
+                  left: 50%              
+                tap_action:          
+                  action: call-service
+                  service: climate.set_hvac_mode
+                  service_data:
+                    entity_id: climate.heating
+                    hvac_mode: 'off'             
+
       
 
 ################################################
@@ -551,175 +765,180 @@ elements:
               service: climate.set_hvac_mode
               service_data:
                 entity_id: climate.heating
-                hvac_mode: 'off'       
+                hvac_mode: 'off'      
       - type: conditional
         conditions:
-          - entity: sensor.sophies_bedroom_rad_state
+          - entity: sensor.whiteacres_state
             state: 'ON'
-          - entity: sensor.sophies_bedroom_rad_boost
-            state: 'OFF'     
-        elements:
-          - type: icon
-            icon: 'mdi:radiator'
-            entity: sensor.sophies_bedroom_rad_state
-            title: Click to Turn Off
-            style:
-              color: red
-              top: 9%
-              left: 15.5%          
-            tap_action:          
-              action: call-service
-              service: climate.set_hvac_mode
-              service_data:
-                entity_id: climate.heating
-                hvac_mode: 'off'       
-      - type: conditional
-        conditions:
-          - entity: sensor.kates_bedroom_rad_state
-            state: 'ON'
-          - entity: sensor.kates_bedroom_rad_boost
-            state: 'OFF'     
-        elements:
-          - type: icon
-            icon: 'mdi:radiator'
-            entity: sensor.kates_bedroom_rad_state
-            title: Click to Turn Off
-            style:
-              color: red
-              top: 9%
-              left: 86%          
-            tap_action:          
-              action: call-service
-              service: climate.set_hvac_mode
-              service_data:
-                entity_id: climate.heating
-                hvac_mode: 'off'       
-      - type: conditional
-        conditions:
-          - entity: sensor.kates_bathroom_rad_state
-            state: 'ON'
-          - entity: sensor.kates_bathroom_rad_boost
-            state: 'OFF'     
-        elements:
-          - type: icon
-            icon: 'mdi:radiator'
-            entity: sensor.kates_bathroom_rad_state
-            title: Click to Turn Off
-            style:
-              color: red
-              top: 9%
-              left: 67%          
-            tap_action:          
-              action: call-service
-              service: climate.set_hvac_mode
-              service_data:
-                entity_id: climate.heating
-                hvac_mode: 'off'       
-      - type: conditional
-        conditions:
-          - entity: sensor.guest_bedroom_rad_state
-            state: 'ON'
-          - entity: sensor.guest_bedroom_rad_boost
-            state: 'OFF'     
-        elements:
-          - type: icon
-            icon: 'mdi:radiator'
-            entity: sensor.guest_bedroom_rad_state
-            title: Click to Turn Off
-            style:
-              color: red
-              top: 60%
-              left: 85%          
-            tap_action:          
-              action: call-service
-              service: climate.set_hvac_mode
-              service_data:
-                entity_id: climate.heating
-                hvac_mode: 'off'       
-      - type: conditional
-        conditions:
-          - entity: sensor.master_bedroom_rad_state
-            state: 'ON'
-          - entity: sensor.master_bedroom_rad_boost
-            state: 'OFF'     
-        elements:
-          - type: icon
-            icon: 'mdi:radiator'
-            entity: sensor.master_bedroom_rad_state
-            title: Click to Turn Off
-            style:
-              color: red
-              top: 91%
-              left: 21.5%          
-            tap_action:          
-              action: call-service
-              service: climate.set_hvac_mode
-              service_data:
-                entity_id: climate.heating
-                hvac_mode: 'off'       
-      - type: conditional
-        conditions:
-          - entity: sensor.landing_1_rad_state
-            state: 'ON'
-          - entity: sensor.landing_1_rad_boost
-            state: 'OFF'     
-        elements:
-          - type: icon
-            icon: 'mdi:radiator'
-            entity: sensor.landing_1_rad_state
-            title: Click to Turn Off
-            style:
-              color: red
-              top: 72%
-              left: 44%          
-            tap_action:          
-              action: call-service
-              service: climate.set_hvac_mode
-              service_data:
-                entity_id: climate.heating
-                hvac_mode: 'off'       
-      - type: conditional
-        conditions:
-          - entity: sensor.landing_2_rad_state
-            state: 'ON'
-          - entity: sensor.landing_2_rad_boost
-            state: 'OFF'     
-        elements:
-          - type: icon
-            icon: 'mdi:radiator'
-            entity: sensor.landing_2_rad_state
-            title: Click to Turn Off
-            style:
-              color: red
-              top: 58%
-              left: 52%          
-            tap_action:          
-              action: call-service
-              service: climate.set_hvac_mode
-              service_data:
-                entity_id: climate.heating
-                hvac_mode: 'off'       
-      - type: conditional
-        conditions:
-          - entity: sensor.drum_room_rad_state
-            state: 'ON' 
-          - entity: sensor.drum_room_rad_boost
-            state: 'OFF'          
-        elements:
-          - type: icon
-            icon: 'mdi:radiator'
-            entity: sensor.drum_room_rad_state
-            title: Click to Turn Off
-            style:
-              color: red
-              top: 9%
-              left: 50%              
-            tap_action:          
-              action: call-service
-              service: climate.set_hvac_mode
-              service_data:
-                entity_id: climate.heating
-                hvac_mode: 'off'             
+        elements:            
+          - type: conditional
+            conditions:
+              - entity: sensor.sophies_bedroom_rad_state
+                state: 'ON'
+              - entity: sensor.sophies_bedroom_rad_boost
+                state: 'OFF'     
+            elements:
+              - type: icon
+                icon: 'mdi:radiator'
+                entity: sensor.sophies_bedroom_rad_state
+                title: Click to Turn Off
+                style:
+                  color: red
+                  top: 9%
+                  left: 15.5%          
+                tap_action:          
+                  action: call-service
+                  service: climate.set_hvac_mode
+                  service_data:
+                    entity_id: climate.heating
+                    hvac_mode: 'off'       
+          - type: conditional
+            conditions:
+              - entity: sensor.kates_bedroom_rad_state
+                state: 'ON'
+              - entity: sensor.kates_bedroom_rad_boost
+                state: 'OFF'     
+            elements:
+              - type: icon
+                icon: 'mdi:radiator'
+                entity: sensor.kates_bedroom_rad_state
+                title: Click to Turn Off
+                style:
+                  color: red
+                  top: 9%
+                  left: 86%          
+                tap_action:          
+                  action: call-service
+                  service: climate.set_hvac_mode
+                  service_data:
+                    entity_id: climate.heating
+                    hvac_mode: 'off'       
+          - type: conditional
+            conditions:
+              - entity: sensor.kates_bathroom_rad_state
+                state: 'ON'
+              - entity: sensor.kates_bathroom_rad_boost
+                state: 'OFF'     
+            elements:
+              - type: icon
+                icon: 'mdi:radiator'
+                entity: sensor.kates_bathroom_rad_state
+                title: Click to Turn Off
+                style:
+                  color: red
+                  top: 9%
+                  left: 67%          
+                tap_action:          
+                  action: call-service
+                  service: climate.set_hvac_mode
+                  service_data:
+                    entity_id: climate.heating
+                    hvac_mode: 'off'       
+          - type: conditional
+            conditions:
+              - entity: sensor.guest_bedroom_rad_state
+                state: 'ON'
+              - entity: sensor.guest_bedroom_rad_boost
+                state: 'OFF'     
+            elements:
+              - type: icon
+                icon: 'mdi:radiator'
+                entity: sensor.guest_bedroom_rad_state
+                title: Click to Turn Off
+                style:
+                  color: red
+                  top: 60%
+                  left: 85%          
+                tap_action:          
+                  action: call-service
+                  service: climate.set_hvac_mode
+                  service_data:
+                    entity_id: climate.heating
+                    hvac_mode: 'off'       
+          - type: conditional
+            conditions:
+              - entity: sensor.master_bedroom_rad_state
+                state: 'ON'
+              - entity: sensor.master_bedroom_rad_boost
+                state: 'OFF'     
+            elements:
+              - type: icon
+                icon: 'mdi:radiator'
+                entity: sensor.master_bedroom_rad_state
+                title: Click to Turn Off
+                style:
+                  color: red
+                  top: 91%
+                  left: 21.5%          
+                tap_action:          
+                  action: call-service
+                  service: climate.set_hvac_mode
+                  service_data:
+                    entity_id: climate.heating
+                    hvac_mode: 'off'       
+          - type: conditional
+            conditions:
+              - entity: sensor.landing_1_rad_state
+                state: 'ON'
+              - entity: sensor.landing_1_rad_boost
+                state: 'OFF'     
+            elements:
+              - type: icon
+                icon: 'mdi:radiator'
+                entity: sensor.landing_1_rad_state
+                title: Click to Turn Off
+                style:
+                  color: red
+                  top: 72%
+                  left: 44%          
+                tap_action:          
+                  action: call-service
+                  service: climate.set_hvac_mode
+                  service_data:
+                    entity_id: climate.heating
+                    hvac_mode: 'off'       
+          - type: conditional
+            conditions:
+              - entity: sensor.landing_2_rad_state
+                state: 'ON'
+              - entity: sensor.landing_2_rad_boost
+                state: 'OFF'     
+            elements:
+              - type: icon
+                icon: 'mdi:radiator'
+                entity: sensor.landing_2_rad_state
+                title: Click to Turn Off
+                style:
+                  color: red
+                  top: 58%
+                  left: 52%          
+                tap_action:          
+                  action: call-service
+                  service: climate.set_hvac_mode
+                  service_data:
+                    entity_id: climate.heating
+                    hvac_mode: 'off'       
+          - type: conditional
+            conditions:
+              - entity: sensor.drum_room_rad_state
+                state: 'ON' 
+              - entity: sensor.drum_room_rad_boost
+                state: 'OFF'          
+            elements:
+              - type: icon
+                icon: 'mdi:radiator'
+                entity: sensor.drum_room_rad_state
+                title: Click to Turn Off
+                style:
+                  color: red
+                  top: 9%
+                  left: 50%              
+                tap_action:          
+                  action: call-service
+                  service: climate.set_hvac_mode
+                  service_data:
+                    entity_id: climate.heating
+                    hvac_mode: 'off'             
 
               
 ################################################
@@ -1355,7 +1574,7 @@ elements:
             icon: 'mdi:lightbulb-off'
             style:
               top: 85%
-              left: 79%
+              left: 83%
               transform: 'scale(2,2)'
             tap_action:
               action: call-service
@@ -2035,7 +2254,7 @@ elements:
       url_path: 'unifi-protect://'
     style:
       top: 90%
-      left: 92%
+      left: 93%
 
 ################################################
 ##       Switch to show Floorplan Toggles     ##
@@ -2049,7 +2268,7 @@ elements:
         icon: 'mdi:toggle-switch'
         style:
           top: 85%
-          left: 69%
+          left: 75%
           transform: 'scale(2,2)'
         tap_action:
           action: call-service
