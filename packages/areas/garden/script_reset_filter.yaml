@@ -1,0 +1,14 @@
+script:
+  hottub_filter_change:
+    alias: "Hot Tub Filter Change"
+    icon: "mdi:hot-tub"
+
+    description: >
+      Update last filter change for hottub
+      
+    sequence:
+      - service: input_datetime.set_datetime
+        target: 
+          entity_id: input_datetime.hottub_filter_last_changed
+        data:
+          date: "{{ now().strftime('%Y-%m-%d') }}"

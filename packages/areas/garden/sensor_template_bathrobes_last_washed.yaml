@@ -1,0 +1,36 @@
+sensor:
+  - platform: template
+    sensors:
+      bathrobe_1_last_washed:
+        unique_id: bathrobe_1_last_washed
+        unit_of_measurement: days
+        value_template: "{{ ((as_timestamp(now()) - as_timestamp(states('input_datetime.bathrobe_1'))) | int)// 86400 }}"
+        icon_template: mdi:washing-machine        
+      bathrobe_2_last_washed:
+        unique_id: bathrobe_2_last_washed
+        unit_of_measurement: days
+        value_template: "{{ ((as_timestamp(now()) - as_timestamp(states('input_datetime.bathrobe_2'))) | int)// 86400 }}"
+        icon_template: mdi:washing-machine        
+      bathrobe_3_last_washed:
+        unique_id: bathrobe_3_last_washed
+        unit_of_measurement: days
+        value_template: "{{ ((as_timestamp(now()) - as_timestamp(states('input_datetime.bathrobe_3'))) | int)// 86400 }}"
+        icon_template: mdi:washing-machine        
+      bathrobe_4_last_washed:
+        unique_id: bathrobe_4_last_washed
+        unit_of_measurement: days
+        value_template: "{{ ((as_timestamp(now()) - as_timestamp(states('input_datetime.bathrobe_4'))) | int)// 86400 }}"
+        icon_template: mdi:washing-machine        
+      bathrobe_5_last_washed:
+        unique_id: bathrobe_5_last_washed
+        unit_of_measurement: days
+        value_template: "{{ ((as_timestamp(now()) - as_timestamp(states('input_datetime.bathrobe_5'))) | int)// 86400 }}"
+        icon_template: mdi:washing-machine        
+      bathrobe_6_last_washed:
+        unique_id: bathrobe_6_last_washed
+        unit_of_measurement: days
+        value_template: "{{ ((as_timestamp(now()) - as_timestamp(states('input_datetime.bathrobe_6'))) | int)// 86400 }}"
+        icon_template: mdi:washing-machine        
+        
+
+        

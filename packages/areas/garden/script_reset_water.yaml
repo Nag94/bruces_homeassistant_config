@@ -1,0 +1,14 @@
+script:
+  hottub_water_change:
+    alias: "Hot Tub Water Change"
+    icon: "mdi:hot-tub"
+
+    description: >
+      Update last Water change for hottub
+      
+    sequence:
+      - service: input_datetime.set_datetime
+        target: 
+          entity_id: input_datetime.hottub_water_last_changed
+        data:
+          date: "{{ now().strftime('%Y-%m-%d') }}"

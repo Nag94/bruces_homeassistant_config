@@ -1,0 +1,24 @@
+script:
+  wash_robe:
+    alias: "Wash Robe"
+    icon: "mdi:washing-machine"
+
+    description: >
+      Update last washed date for robe
+      
+    fields:
+      bathrobe:
+        description: Bath Robe Number
+        default: 1
+        selector:
+          number:
+            min: 1
+            max: 6
+            step: 1
+
+    sequence:
+      - service: input_datetime.set_datetime
+        target: 
+          entity_id: "input_datetime.bathrobe_{{ bathrobe }}"
+        data:
+          date: "{{ now().strftime('%Y-%m-%d') }}"
