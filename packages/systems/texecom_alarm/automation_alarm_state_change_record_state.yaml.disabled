@@ -16,14 +16,14 @@ automation:
 		
     action:
       - choose:
-          - conditions: "{{ 3==5 and (trigger.to_state.state == 'pending') and (trigger.from_state.state == 'disarmed') }}"
+          - conditions: "{{ (trigger.to_state.state == 'pending') and (trigger.from_state.state == 'disarmed') }}"
             sequence:
               - service: input_select.select_option
                 target:
                   entity_id: input_select.burglar_alarm_status
                 data:
                   option: 'Pending Arm'
-          - conditions: "{{ 3==5 and (trigger.to_state.state == 'pending') }}"
+          - conditions: "{{ trigger.to_state.state == 'pending' }}"
             sequence:
               - service: input_select.select_option
                 target:
