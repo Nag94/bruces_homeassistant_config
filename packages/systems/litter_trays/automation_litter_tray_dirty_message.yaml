@@ -13,7 +13,7 @@ automation:
         event_type: automation_reloaded       
       - platform: state
         entity_id: 
-#          - binary_sensor.litter_trays_dirty
+          - binary_sensor.litter_trays_dirty
           - binary_sensor.littertray_utility_dirty
           - binary_sensor.littertray_shower_dirty
           - binary_sensor.littertray_downstairs_dirty
@@ -43,8 +43,9 @@ automation:
                 data:
                   message_tag: litter_tray                
                   target: !secret telegram_chat_id_bruce_and_sarah
-                  title: Litter Trays needs cleaning
                   message: >
+                    Litter Trays needs cleaning
+                    
                     {% set litter_trays = [states.binary_sensor.littertray_utility_dirty,
                                           states.binary_sensor.littertray_shower_dirty,
                                           states.binary_sensor.littertray_downstairs_dirty,
@@ -65,8 +66,9 @@ automation:
                 data:
                   message_tag: litter_tray
                   target: !secret telegram_chat_id_bruce_and_sarah
-                  title: Litter Tray(s) needs cleaning
                   message: >
+                    Litter Tray(s) needs cleaning                  
+                    
                     {% set litter_trays = [states.binary_sensor.littertray_utility_dirty,
                                           states.binary_sensor.littertray_shower_dirty,
                                           states.binary_sensor.littertray_downstairs_dirty,
@@ -95,8 +97,7 @@ automation:
               - service: telegram_bot.send_message
                 data:
                   target: !secret telegram_chat_id_bruce_and_sarah
-                  title: All Litter Trays are clean
-                  message: []
+                  message: "All Litter Trays are clean"
                   inline_keyboard:
                     - 'Detail:/littertray_detail'
                     - 'OK:/remove_keyboard'                    
