@@ -1156,8 +1156,8 @@ elements:
         elements:
           - type: icon
             icon: 'mdi:transmission-tower'
-#            entity: sensor.solaredge_modbus_meter_1
-            entity: sensor.zappi_jyggy_grid
+            entity: sensor.solaredge_grid
+#            entity: sensor.zappi_jyggy_grid
             style:
               color: red
               top: 10%
@@ -1192,12 +1192,12 @@ elements:
         
           - type: conditional
             conditions: 
-              - entity: sensor.grid_direction
+              - entity: sensor.solaredge_grid_direction
                 state: 'off'
             elements:
               - type: icon
                 icon: 'mdi:transmission-tower'
-                entity: sensor.zappi_jyggy_grid
+                entity: sensor.solaredge_grid
                 style:
                   color: grey
                   top: 10%
@@ -1218,12 +1218,12 @@ elements:
                   
           - type: conditional
             conditions:
-              - entity: sensor.grid_direction
+              - entity: sensor.solaredge_grid_direction
                 state: export
             elements:
               - type: icon
                 icon: 'mdi:transmission-tower'
-                entity: sensor.zappi_jyggy_grid
+                entity: sensor.solaredge_grid
                 style:
                   color: green
                   top: 10%
@@ -1231,16 +1231,14 @@ elements:
                   transform: 'scale(2,2)'                
               - type: icon
                 icon: 'mdi:arrow-up-bold'
-#                entity: sensor.solaredge_modbus_meter_1
-                entity: sensor.zappi_jyggy_grid
+                entity: sensor.solaredge_grid
                 style:
                   color: green
                   top: 19%
                   left: 4%
                   transform: 'scale(2,2)'
               - type: state-label
-#                entity: sensor.export_power
-                entity: sensor.zappi_jyggy_grid_export
+                entity: sensor.solaredge_grid_export
                 style:
                   color: green
                   top: 23%
@@ -1254,29 +1252,27 @@ elements:
                   
           - type: conditional
             conditions: 
-              - entity: sensor.grid_direction
+              - entity: sensor.solaredge_grid_direction
                 state: import
             elements:
               - type: icon
                 icon: 'mdi:transmission-tower'
-                entity: sensor.zappi_jyggy_grid
+                entity: sensor.solaredge_grid
                 style:
                   color: red
                   top: 10%
                   left: 4%
                   transform: 'scale(2,2)'                
               - type: icon
-                #entity: sensor.solaredge_modbus_meter_1
                 icon: 'mdi:arrow-down-bold'
-                entity: sensor.zappi_jyggy_grid
+                entity: sensor.solaredge_grid
                 style:
                   color: red
                   top: 21%
                   left: 4%
                   transform: 'scale(2,2)'
               - type: state-label
-#                entity: sensor.import_power
-                entity: sensor.zappi_jyggy_grid_import
+                entity: sensor.solaredge_grid_import
                 style:
                   color: red
                   top: 26%
@@ -1521,7 +1517,7 @@ elements:
                 state: 'OFF'     
             elements:
               - type: icon
-                icon: 'mdi:radiator-off'
+                icon: 'mdi:radiator'
                 entity: sensor.lounge_bay_rad_state
                 title: Click to Turn Off
                 style:
