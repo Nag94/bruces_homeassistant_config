@@ -5,7 +5,7 @@ sensor:
   - platform: mqtt
     name: Alarm Log
     unique_id: alarm_log
-    state_topic: "texecom2mqtt/1076889/log"
+    state_topic: "texecom2mqtt/log"
     value_template: "{{ value_json.type }}"    
-    availability_topic: "texecom2mqtt/1076889/status"
-    json_attributes_topic: "texecom2mqtt/1076889/log"
+    availability_topic: "texecom2mqtt/status"
+    json_attributes_topic: "texecom2mqtt/log"
