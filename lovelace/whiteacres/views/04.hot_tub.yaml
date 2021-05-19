@@ -212,7 +212,7 @@ cards:
               action: call-service
               service: script.wash_robe
               service_data:
-                bathrobe: 4
+                bathrobe: 5
               confirmation:
                 text: Are you washing Robe 5?            
           - entity: sensor.bathrobe_6_last_washed
