@@ -8,7 +8,7 @@ entities:
   - entity: sensor.floorplan_powerwall_home_load
     icon: mdi:home
     name: Home
-  - entity: sensor.zappi_jyggy_grid
+  - entity: sensor.solaredge_grid
     name: Grid
   - entity: sensor.zappi_jyggy_power
     name: Jyggy
