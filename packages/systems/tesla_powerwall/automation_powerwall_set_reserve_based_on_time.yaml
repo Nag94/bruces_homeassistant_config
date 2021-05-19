@@ -139,41 +139,40 @@ automation:
         - conditions:
             - condition: time
               after: '14:00:00'
-              before: '15:00:00'  
+              before: '14:59:59'  
             - condition: numeric_state
               entity_id: sensor.powerwall_charge
               below: 25
           sequence:
-            - service: input_number.set_value
-              target:
-                entity_id: input_number.powerwall_charge_below_x_pence
-              data:
-                value: 0.5
+#            - service: input_number.set_value
+#              target:
+#                entity_id: input_number.powerwall_charge_below_x_pence
+#              data:
+#                value: 0.5
             - service: tesla_gateway.set_operation
               data:
                 real_mode: backup
-
+                
         # Ensure we have 25% by 15:00
         - conditions:
-            condition: time
-            after: '14:00:00'
-            before: '15:00:00'  
+            - condition: time
+              after: '14:00:00'
+              before: '14:59:59'  
           sequence:
+#            - service: input_number.set_value
+#              target:
+#                entity_id: input_number.powerwall_charge_below_x_pence
+#              data:
+#                value: 0.5
             - service: tesla_gateway.set_operation
               data:
                 real_mode: self_consumption
                 backup_reserve_percent: 25
-#            - delay: 5
             - service: input_number.set_value
               target:
                 entity_id: input_number.powerwall_reserve_requested              
               data:
-                value: 25
- #           - service: tesla_gateway.set_reserve
-#              data:
-#                backup_reserve_percent: 25
-                
-
+                value: 25                
                 
         # Ensure we have 50% by 16:00
         - conditions:
@@ -184,11 +183,11 @@ automation:
               entity_id: sensor.powerwall_charge
               below: 50            
           sequence:
-            - service: input_number.set_value
-              target:
-                entity_id: input_number.powerwall_charge_below_x_pence
-              data:
-                value: 0.5
+#            - service: input_number.set_value
+#              target:
+#                entity_id: input_number.powerwall_charge_below_x_pence
+#              data:
+#                value: 0.5          
             - service: tesla_gateway.set_operation
               data:
                 real_mode: backup
@@ -209,9 +208,7 @@ automation:
                 entity_id: input_number.powerwall_reserve_requested              
               data:
                 value: 50
-#            - service: tesla_gateway.set_reserve
-#              data:
-#                backup_reserve_percent: 50
+
                 
               
    # Set low reserve to make charge available for peak                
