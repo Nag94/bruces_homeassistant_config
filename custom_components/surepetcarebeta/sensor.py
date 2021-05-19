@@ -3,21 +3,24 @@ from __future__ import annotations
 
 import logging
 
-from pprint import pformat
 from typing import Any
 
 from homeassistant.components.sensor import SensorEntity
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     ATTR_VOLTAGE,
     DEVICE_CLASS_BATTERY,
+    MASS_GRAMS,
     PERCENTAGE,
     VOLUME_MILLILITERS,
 )
-from homeassistant.core import callback
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from surepy.entities import SurepyEntity
+from surepy.entities.devices import Feeder as SureFeeder, FeederBowl as SureFeederBowl
 from surepy.enums import EntityType, LockState
 
+# pylint: disable=relative-beyond-top-level
 from . import SurePetcareAPI
 from .const import (
     DOMAIN,
@@ -28,15 +31,22 @@ from .const import (
 )
 
 
+PARALLEL_UPDATES = 2
+
+
 _LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_platform(
-    hass: Any, config: dict[str, Any], async_add_entities: Any, discovery_info: Any = None
+    hass: HomeAssistant, config: ConfigEntry, async_add_entities: Any, discovery_info: Any = None
 ) -> None:
-    """Set up Sure PetCare Flaps sensors."""
-    if discovery_info is None:
-        return
+    await async_setup_entry(hass, config, async_add_entities)
+
+
+async def async_setup_entry(
+    hass: HomeAssistant, config_entry: ConfigEntry, async_add_entities: Any
+) -> None:
+    """Set up config entry Sure PetCare Flaps sensors."""
 
     entities: list[SurepyEntity] = []
 
@@ -44,7 +54,27 @@ async def async_setup_platform(
 
     for surepy_entity in spc.states.values():
 
-        _LOGGER.info("🐾 %s -- %s", surepy_entity.name, surepy_entity.type)
+        entity = None
+
+        if surepy_entity.type in [
+            EntityType.CAT_FLAP,
+            EntityType.PET_FLAP,
+        ]:
+            entity = Flap(surepy_entity.id, spc)
+            entities.append(entity)
+
+        elif surepy_entity.type == EntityType.FELAQUA:
+            entity = Felaqua(surepy_entity.id, spc)
+            entities.append(entity)
+
+        elif surepy_entity.type == EntityType.FEEDER:
+
+            for bowl in surepy_entity.bowls.values():
+                bowl_entity = FeederBowl(surepy_entity.id, spc, bowl.raw_data())
+                entities.append(bowl_entity)
+
+            entity = Feeder(surepy_entity.id, spc)
+            entities.append(entity)
 
         if surepy_entity.type in [
             EntityType.CAT_FLAP,
@@ -52,16 +82,11 @@ async def async_setup_platform(
             EntityType.FEEDER,
             EntityType.FELAQUA,
         ]:
-            entities.append(SureBattery(surepy_entity.id, spc))
+            entity = SureBattery(surepy_entity.id, spc)
+            entities.append(entity)
 
-        if surepy_entity.type in [
-            EntityType.CAT_FLAP,
-            EntityType.PET_FLAP,
-        ]:
-            entities.append(Flap(surepy_entity.id, spc))
-
-        if surepy_entity.type == EntityType.FELAQUA:
-            entities.append(Felaqua(surepy_entity.id, spc))
+        if entity:
+            _LOGGER.debug("🐾 %s added...", entity.name)
 
     async_add_entities(entities)
 
@@ -85,7 +110,7 @@ class SurePetcareSensor(SensorEntity):  # type: ignore
     @property
     def name(self) -> str:
         """Return the name of the device if any."""
-        return f"{self._name} "
+        return f"{self._name}"
 
     @property
     def unique_id(self) -> str:
@@ -102,14 +127,21 @@ class SurePetcareSensor(SensorEntity):  # type: ignore
         """Return true."""
         return False
 
+    @property
+    def extra_state_attributes(self) -> dict[str, Any] | None:
+        """Return the state attributes of the device."""
+        attributes = None
+        if self._state:
+            attributes = {**self._surepy_entity.raw_data()}
+
+        return attributes
+
     @callback  # type: ignore
     def _async_update(self) -> None:
         """Get the latest data and update the state."""
         self._surepy_entity = self._spc.states[self._id]
         self._state = self._surepy_entity.raw_data()["status"]
-        _LOGGER.debug(
-            "🐾 %s updated to: %s", self._surepy_entity.name, pformat(self._state, indent=4)
-        )
+        # _LOGGER.debug("🐾 %s updated", self._surepy_entity.name)
 
     async def async_added_to_hass(self) -> None:
         """Register callbacks."""
@@ -134,7 +166,7 @@ class Flap(SurePetcareSensor):
     @property
     def state(self) -> str:
         """Return battery level in percent."""
-        return LockState(self._state["locking"]["mode"]).name.replace("_", " ").title()
+        return LockState(self._state["locking"]["mode"]).name.casefold()
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
@@ -147,6 +179,10 @@ class Flap(SurePetcareSensor):
             }
 
         return attributes
+
+    @property
+    def entity_picture(self) -> str | None:
+        return self._surepy_entity.icon
 
 
 class Felaqua(SurePetcareSensor):
@@ -164,13 +200,113 @@ class Felaqua(SurePetcareSensor):
         return str(VOLUME_MILLILITERS)
 
     @property
+    def entity_picture(self) -> str | None:
+        return self._surepy_entity.icon
+
+    @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
         """Return the state attributes of the device."""
         attributes = None
-        if self._state:
-            attributes = {**self._surepy_entity.raw_data()}
+
+        attrs: dict[str, Any] = self._surepy_entity.raw_data()
+        weights: list[dict[str, int | float | str]] = attrs.get("drink", {}).get("weights")
+
+        for weight in weights:
+            attr_key = f"weight_{weight['index']}"
+            attrs[attr_key] = weight
+
+        attributes = attrs
 
         return attributes
+
+
+class FeederBowl(SurePetcareSensor):
+    """Sure Petcare Feeder Bowl."""
+
+    def __init__(self, _id: int, spc: SurePetcareAPI, bowl_data: dict[str, int | str]):
+        """Initialize a Sure Petcare sensor."""
+
+        self.feeder_id = _id
+        self.bowl_id = int(bowl_data["index"])
+
+        self._id = int(f"{_id}{str(self.bowl_id)}")
+        self._spc: SurePetcareAPI = spc
+
+        self._surepy_feeder_entity: SurepyEntity = self._spc.states[_id]
+        self._surepy_entity: SureFeederBowl = self._spc.states[_id].bowls[
+            self.bowl_id
+        ]  # type:ignore
+        self._state: dict[str, Any] = bowl_data
+
+        # https://github.com/PyCQA/pylint/issues/2062
+        # pylint: disable=no-member
+        self._name = (
+            f"{EntityType.FEEDER.name.replace('_', ' ').title()} "
+            f"{self._surepy_entity.name.capitalize()}"
+        )
+
+    # @property
+    # def name(self) -> str:
+    #     """Return the name of the device if any."""
+    #     return f"{self._name} "
+
+    @property
+    def unique_id(self) -> str:
+        """Return an unique ID."""
+        return f"{self._surepy_feeder_entity.household_id}-{self.feeder_id}-{self.bowl_id}"
+
+    @property
+    def state(self) -> int | None:
+        """Return the remaining water."""
+        return int(self._surepy_entity.weight)
+
+    @property
+    def icon(self) -> str:
+        return "mdi:bowl"
+
+    @property
+    def unit_of_measurement(self) -> str:
+        """Return the unit of measurement."""
+        return str(MASS_GRAMS)
+
+    @callback  # type: ignore
+    def _async_update(self) -> None:
+        """Get the latest data and update the state."""
+        self._surepy_feeder_entity = self._spc.states[self.feeder_id]
+        self._surepy_entity = self._spc.states[self.feeder_id].bowls[self.bowl_id]
+        self._state = self._surepy_entity.raw_data()
+        # _LOGGER.debug("🐾 %s updated", self._surepy_entity.name)
+
+
+class Feeder(SurePetcareSensor):
+    """Sure Petcare Felaqua."""
+
+    @property
+    def state(self) -> int | None:
+        """Return the total remaining food."""
+        self._surepy_entity: SureFeeder
+        return int(self._surepy_entity.total_weight)
+
+    @property
+    def unit_of_measurement(self) -> str:
+        """Return the unit of measurement."""
+        return str(MASS_GRAMS)
+
+    @property
+    def entity_picture(self) -> str | None:
+        return self._surepy_entity.icon
+
+    @callback  # type: ignore
+    def _async_update(self) -> None:
+        """Get the latest data and update the state."""
+        self._surepy_entity = self._spc.states[self._id]
+        self._state = self._surepy_entity.raw_data()["status"]
+
+        if lunch_data := self._surepy_entity.raw_data().get("lunch"):
+            for bowl_data in lunch_data["weights"]:
+                self._surepy_entity.bowls[bowl_data["index"]]._data = bowl_data
+
+        # _LOGGER.debug("🐾 %s updated", self._surepy_entity.name)
 
 
 class SureBattery(SurePetcareSensor):

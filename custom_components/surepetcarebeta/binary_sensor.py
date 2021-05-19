@@ -2,41 +2,58 @@
 from __future__ import annotations
 
 import logging
-from typing import Any
-from pprint import pformat
 
-from surepy.entities import PetLocation, SurepyEntity
-from surepy.entities.pet import Pet as SurePet
-from surepy.enums import EntityType, Location
+from typing import Any
 
 from homeassistant.components.binary_sensor import (
     DEVICE_CLASS_CONNECTIVITY,
     DEVICE_CLASS_PRESENCE,
     BinarySensorEntity,
 )
-from homeassistant.core import callback
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
+from surepy.entities import PetLocation, SurepyEntity
+from surepy.entities.pet import Pet as SurePet
+from surepy.enums import EntityType, Location
 
+# pylint: disable=relative-beyond-top-level
 from . import SurePetcareAPI
 from .const import DOMAIN, SPC, TOPIC_UPDATE
+
+
+PARALLEL_UPDATES = 2
+
 
 _LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_platform(
-    hass: Any, config: dict[str, Any], async_add_entities: Any, discovery_info: Any = None
+    hass: HomeAssistant, config: ConfigEntry, async_add_entities: Any, discovery_info: Any = None
 ) -> None:
-    """Set up Sure PetCare Flaps sensors based on a config entry."""
-    if discovery_info is None:
-        return
+    await async_setup_entry(hass, config, async_add_entities)
 
-    entities: list[SurepyEntity] = []
+
+async def async_setup_entry(
+    hass: HomeAssistant, config_entry: ConfigEntry, async_add_entities: Any
+) -> None:
+    """Set up config entry Sure PetCare Flaps sensors."""
+
+    entities: list[SurePetcareBinarySensor] = []
 
     spc: SurePetcareAPI = hass.data[DOMAIN][SPC]
 
     for surepy_entity in spc.states.values():
 
-        _LOGGER.info("🐾 %s -- %s", surepy_entity.name, surepy_entity.type)
+        entity = None
+
+        if surepy_entity.type == EntityType.PET:
+            entity = Pet(surepy_entity.id, spc)
+            entities.append(entity)
+
+        elif surepy_entity.type == EntityType.HUB:
+            entity = Hub(surepy_entity.id, spc)
+            entities.append(entity)
 
         # connectivity
         if surepy_entity.type in [
@@ -45,12 +62,11 @@ async def async_setup_platform(
             EntityType.FEEDER,
             EntityType.FELAQUA,
         ]:
-            entities.append(DeviceConnectivity(surepy_entity.id, surepy_entity.type, spc))
+            entity = DeviceConnectivity(surepy_entity.id, spc)
+            entities.append(entity)
 
-        if surepy_entity.type == EntityType.PET:
-            entities.append(Pet(surepy_entity.id, spc))
-        elif surepy_entity.type == EntityType.HUB:
-            entities.append(Hub(surepy_entity.id, spc))
+        if entity:
+            _LOGGER.debug("🐾 %s added...", entity.name)
 
     async_add_entities(entities, True)
 
@@ -63,7 +79,7 @@ class SurePetcareBinarySensor(BinarySensorEntity):  # type: ignore
         _id: int,
         spc: SurePetcareAPI,
         device_class: str,
-        sure_type: EntityType,
+        # sure_type: EntityType,
     ):
         """Initialize a Sure Petcare binary sensor."""
 
@@ -76,14 +92,9 @@ class SurePetcareBinarySensor(BinarySensorEntity):  # type: ignore
         self._state: Any = None
 
         # cover special case where a device has no name set
-        if self._surepy_entity.name:
-            name = self._surepy_entity.name
-        else:
-            name = f"Unnamed {self._surepy_entity.type.name.replace('_', ' ').title()}"
-
-        self._name = (
-            f"{self._surepy_entity.type.name.replace('_', ' ').title()} {name.capitalize()}"
-        )
+        type_name = self._surepy_entity.type.name.replace("_", " ").title()
+        name = self._surepy_entity.name if self._surepy_entity.name else f"Unnamed {type_name}"
+        self._name = f"{type_name} {name}"
 
     @property
     def should_poll(self) -> bool:
@@ -110,9 +121,7 @@ class SurePetcareBinarySensor(BinarySensorEntity):  # type: ignore
         """Get the latest data and update the state."""
         self._surepy_entity = self._spc.states[self._id]
         self._state = self._surepy_entity.raw_data()["status"]
-        _LOGGER.debug(
-            "🐾 %s updated to: %s", self._surepy_entity.name, pformat(self._state, indent=4)
-        )
+        # _LOGGER.debug("🐾 %s updated", self._surepy_entity.name)
 
     async def async_added_to_hass(self) -> None:
         """Register callbacks."""
@@ -136,7 +145,7 @@ class Hub(SurePetcareBinarySensor):
 
     def __init__(self, _id: int, spc: SurePetcareAPI) -> None:
         """Initialize a Sure Petcare Hub."""
-        super().__init__(_id, spc, DEVICE_CLASS_CONNECTIVITY, EntityType.HUB)
+        super().__init__(_id, spc, DEVICE_CLASS_CONNECTIVITY)  # , EntityType.HUB)
 
     @property
     def available(self) -> bool:
@@ -166,7 +175,7 @@ class Pet(SurePetcareBinarySensor):
 
     def __init__(self, _id: int, spc: SurePetcareAPI) -> None:
         """Initialize a Sure Petcare Pet."""
-        super().__init__(_id, spc, DEVICE_CLASS_PRESENCE, EntityType.PET)
+        super().__init__(_id, spc, DEVICE_CLASS_PRESENCE)  # , EntityType.PET)
 
         self._surepy_entity: SurePet
         self._state: PetLocation
@@ -201,9 +210,7 @@ class Pet(SurePetcareBinarySensor):
         """Get the latest data and update the state."""
         self._surepy_entity = self._spc.states[self._id]
         self._state = self._surepy_entity.location
-        _LOGGER.debug(
-            "🐾 %s updated to: %s", self._surepy_entity.name, pformat(self._state, indent=4)
-        )
+        # _LOGGER.debug("🐾 %s updated", self._surepy_entity.name)
 
 
 class DeviceConnectivity(SurePetcareBinarySensor):
@@ -212,11 +219,11 @@ class DeviceConnectivity(SurePetcareBinarySensor):
     def __init__(
         self,
         _id: int,
-        sure_type: EntityType,
+        # sure_type: EntityType,
         spc: SurePetcareAPI,
     ) -> None:
         """Initialize a Sure Petcare Device."""
-        super().__init__(_id, spc, DEVICE_CLASS_CONNECTIVITY, sure_type)
+        super().__init__(_id, spc, DEVICE_CLASS_CONNECTIVITY)  # , sure_type)
 
     @property
     def name(self) -> str:

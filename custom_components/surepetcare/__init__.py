@@ -1,9 +1,12 @@
+"""The surepetcare integration."""
+from __future__ import annotations
+
 from datetime import timedelta
 import logging
-from typing import Any, Dict, List
+from typing import Any
 
 from surepy import Surepy
-from surepy.enums import EntityType, LockState
+from surepy.enums import LockState
 from surepy.exceptions import SurePetcareAuthenticationError, SurePetcareError
 import voluptuous as vol
 
@@ -18,20 +21,15 @@ from .const import (
     ATTR_FLAP_ID,
     ATTR_LOCK_STATE,
     CONF_FEEDERS,
-    CONF_FELAQUAS,
     CONF_FLAPS,
     CONF_PETS,
-    DEFAULT_SCAN_INTERVAL,
     DOMAIN,
     SERVICE_SET_LOCK_STATE,
     SPC,
     SURE_API_TIMEOUT,
-    SURE_IDS,
     TOPIC_UPDATE,
 )
 
-# List of platforms to support. There should be a matching .py file for each,
-# eg <cover.py> and <sensor.py>
 _LOGGER = logging.getLogger(__name__)
 
 PLATFORMS = ["binary_sensor", "sensor"]
@@ -40,43 +38,35 @@ SCAN_INTERVAL = timedelta(minutes=3)
 CONFIG_SCHEMA = vol.Schema(
     {
         DOMAIN: vol.Schema(
-            {
-                vol.Required(CONF_USERNAME): cv.string,
-                vol.Required(CONF_PASSWORD): cv.string,
-                vol.Optional(CONF_FEEDERS, default=[]): vol.All(
-                    cv.ensure_list, [cv.positive_int]
-                ),
-                vol.Optional(CONF_FLAPS, default=[]): vol.All(
-                    cv.ensure_list, [cv.positive_int]
-                ),
-                vol.Optional(CONF_FELAQUAS, default=[]): vol.All(
-                    cv.ensure_list, [cv.positive_int]
-                ),
-                vol.Optional(CONF_PETS): vol.All(cv.ensure_list, [cv.positive_int]),
-                vol.Optional(
-                    CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL
-                ): cv.time_period,
-            }
+            vol.All(
+                {
+                    vol.Required(CONF_USERNAME): cv.string,
+                    vol.Required(CONF_PASSWORD): cv.string,
+                    vol.Optional(CONF_FEEDERS): vol.All(cv.ensure_list, [cv.positive_int]),
+                    vol.Optional(CONF_FLAPS): vol.All(cv.ensure_list, [cv.positive_int]),
+                    vol.Optional(CONF_PETS): vol.All(cv.ensure_list, [cv.positive_int]),
+                    vol.Optional(CONF_SCAN_INTERVAL): cv.time_period,
+                },
+                cv.deprecated(CONF_FEEDERS),
+                cv.deprecated(CONF_FLAPS),
+                cv.deprecated(CONF_PETS),
+                cv.deprecated(CONF_SCAN_INTERVAL),
+            )
         )
     },
     extra=vol.ALLOW_EXTRA,
 )
 
 
-async def async_setup(hass: HomeAssistant, config: dict):
-    """Set up the openSenseMap air quality platform."""
-
+async def async_setup(hass: HomeAssistant, config: dict[str, Any]) -> bool:
+    """Set up the Sure Petcare integration."""
     conf = config[DOMAIN]
-
-    ids: Dict[str, List[int]] = {
-        EntityType.PET.name: conf[CONF_PETS],
-        EntityType.PET_FLAP.name: conf[CONF_FLAPS],
-        EntityType.FEEDER.name: conf[CONF_FEEDERS],
-        EntityType.FELAQUA.name: conf[CONF_FELAQUAS],
-    }
-
     hass.data.setdefault(DOMAIN, {})
-    hass.data[DOMAIN][SURE_IDS] = ids
+
+    logging.info("-------------------------------------------------------------------")
+    logging.info("  🐾 meeowww... to the beta of the surepetcare integration!")
+    logging.info("     code: https://github.com/benleb/surepetcare")
+    logging.info("-------------------------------------------------------------------")
 
     try:
         surepy = Surepy(
@@ -86,15 +76,14 @@ async def async_setup(hass: HomeAssistant, config: dict):
             api_timeout=SURE_API_TIMEOUT,
             session=async_get_clientsession(hass),
         )
-
     except SurePetcareAuthenticationError:
         _LOGGER.error("Unable to connect to surepetcare.io: Wrong credentials!")
         return False
     except SurePetcareError as error:
-        _LOGGER.error("Unable to connect to surepetcare.io: Wrong %s!", error)
+        _LOGGER.error("Unable to connect to surepetcare.io: %s", error)
         return False
 
-    spc = SurePetcareAPI(hass, surepy, ids)
+    spc = SurePetcareAPI(hass, surepy)
     hass.data[DOMAIN][SPC] = spc
 
     await spc.async_update()
@@ -105,25 +94,23 @@ async def async_setup(hass: HomeAssistant, config: dict):
     hass.async_create_task(
         hass.helpers.discovery.async_load_platform("binary_sensor", DOMAIN, {}, config)
     )
-    hass.async_create_task(
-        hass.helpers.discovery.async_load_platform("sensor", DOMAIN, {}, config)
-    )
+    hass.async_create_task(hass.helpers.discovery.async_load_platform("sensor", DOMAIN, {}, config))
 
-    async def handle_set_lock_state(call):
+    async def handle_set_lock_state(call: Any) -> None:
         """Call when setting the lock state."""
         await spc.set_lock_state(call.data[ATTR_FLAP_ID], call.data[ATTR_LOCK_STATE])
         await spc.async_update()
 
     lock_state_service_schema = vol.Schema(
         {
-            vol.Required(ATTR_FLAP_ID): vol.All(
-                cv.positive_int, vol.In(conf[CONF_FLAPS])
-            ),
+            vol.Required(ATTR_FLAP_ID): vol.All(cv.positive_int, vol.In(spc.states.keys())),
             vol.Required(ATTR_LOCK_STATE): vol.All(
                 cv.string,
                 vol.Lower,
                 vol.In(
                     [
+                        # https://github.com/PyCQA/pylint/issues/2062
+                        # pylint: disable=no-member
                         LockState.UNLOCKED.name.lower(),
                         LockState.LOCKED_IN.name.lower(),
                         LockState.LOCKED_OUT.name.lower(),
@@ -147,18 +134,18 @@ async def async_setup(hass: HomeAssistant, config: dict):
 class SurePetcareAPI:
     """Define a generic Sure Petcare object."""
 
-    def __init__(self, hass, surepy: Surepy, ids: list[dict[str, Any]]) -> None:
+    def __init__(self, hass: HomeAssistant, surepy: Surepy) -> None:
         """Initialize the Sure Petcare object."""
-        self.hass: HomeAssistant = hass
+        self.hass = hass
         self.surepy = surepy
-        self.ids = ids
-        self._states = {}
+        self.states: dict[int, Any] = {}
 
-    async def async_update(self, arg: Any = None):
-        """Get the latest data from the Pi-hole."""
+    async def async_update(self, _: Any = None) -> None:
+        """Get the latest data from Sure Petcare."""
 
         try:
-            self._states = await self.surepy.get_entities()
+            self.states = await self.surepy.get_entities(refresh=True)
+            _LOGGER.debug("🐾 | successfully updated states for %d entities", len(self.states))
         except SurePetcareError as error:
             _LOGGER.error("Unable to fetch data: %s", error)
 
@@ -166,11 +153,14 @@ class SurePetcareAPI:
 
     async def set_lock_state(self, flap_id: int, state: str) -> None:
         """Update the lock state of a flap."""
+
+        # https://github.com/PyCQA/pylint/issues/2062
+        # pylint: disable=no-member
         if state == LockState.UNLOCKED.name.lower():
-            await self.surepy.unlock(flap_id)
+            await self.surepy.sac.unlock(flap_id)
         elif state == LockState.LOCKED_IN.name.lower():
-            await self.surepy.lock_in(flap_id)
+            await self.surepy.sac.lock_in(flap_id)
         elif state == LockState.LOCKED_OUT.name.lower():
-            await self.surepy.lock_out(flap_id)
+            await self.surepy.sac.lock_out(flap_id)
         elif state == LockState.LOCKED_ALL.name.lower():
-            await self.surepy.lock(flap_id)
+            await self.surepy.sac.lock(flap_id)
