@@ -1,0 +1,10 @@
+sensor:
+  - platform: template
+    sensors:
+      solaredge_grid_direction:
+        unique_id: solaredge_grid_direction
+        friendly_name: Grid Direction
+        unit_of_measurement: "kW"
+        icon_template: "mdi:transmission-tower"
+        value_template: "{% if states('sensor.solaredge_modbus_meter_1') | int< -150 %}import{% elif states('sensor.solaredge_modbus_meter_1') | int > 150 %}export{% else %}off{%endif%}"
+
