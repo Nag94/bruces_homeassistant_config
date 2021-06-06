@@ -15,6 +15,7 @@ automation:
         entity_id: 
           - sensor.hottub_schedule_target_temp
           - input_boolean.hottub_scheduled   
+          - input_boolean.hottub_boost
           - input_datetime.hottub_ready_by
 #          - input_number.hottub_heat_below_x_pence
           - binary_sensor.hottub_at_or_below_max_heat_cost
@@ -43,11 +44,8 @@ automation:
 #                data:
 #                  value: 39
      
-          # If plunge pricing - Set to 40
-          - conditions:
-              - condition: state
-                entity_id: binary_sensor.agile_plunge
-                state: 'on'
+          # If plunge pricing or boosting - Set to 40
+          - conditions:  "{{ is_state('input_boolean.hottub_boost','on') or is_state('binary_sensor.agile_plunge','on') }}"
             sequence:
               - service: logbook.log
                 data:
