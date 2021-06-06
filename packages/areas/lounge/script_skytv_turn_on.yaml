@@ -4,27 +4,15 @@ script:
       sequence:
       - service: media_player.turn_on
         target:
-          entity_id: media_player.lounge_amp
+          entity_id: 
+            - media_player.lounge_android
+            - media_player.lounge_amp
+            - media_player.lounge_skyq
       - service: media_player.select_source
         target:
           entity_id: media_player.lounge_amp
         data:
           source: 'SkyQ'
-      - service: media_player.turn_on
-        target:
-          entity_id: media_player.lounge_skyq
-      - service: media_player.turn_on 
-        target:
-          entity_id: media_player.lounge_tv
-      - delay: 2
-      - service: androidtv.adb_command
-        target:
-          entity_id: media_player.lounge_android
-        data:
-          command: "input keyevent KEYCODE_F4"
-      - service: media_player.turn_on 
-        target:
-          entity_id: media_player.lounge_tv
       - service: input_boolean.turn_on
         target:
           entity_id: input_boolean.watching_skytv

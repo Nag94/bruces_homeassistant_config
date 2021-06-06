@@ -4,18 +4,10 @@ script:
       sequence:
       - service: media_player.turn_off
         target:
-          entity_id: media_player.lounge_tv
-#      - service: media_player.turn_off
-#        entity_id: media_player.lounge_android
-      - service: media_player.turn_off
-        target:
-          entity_id: media_player.lounge_amp
-      - service: media_player.turn_off
-        target:
-          entity_id: media_player.lounge_skyq
-      - service: media_player.turn_off
-        target:
-          entity_id: media_player.lounge_tv
+          entity_id: 
+            - media_player.lounge_android
+            - media_player.lounge_amp
+            - media_player.lounge_skyq
       - service: input_boolean.turn_off
         target:
           entity_id: input_boolean.watching_skytv
