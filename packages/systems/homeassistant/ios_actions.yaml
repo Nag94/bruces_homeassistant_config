@@ -16,4 +16,19 @@ ios:
       icon:
         icon: mdi:television
         color: "#ffffff"
- 
+    - name: "HotTub Jet 1"
+      background_color: "#000000"
+      label:
+        text: "HotTub Jet 1"
+        color: "#ff0000"
+      icon:
+        icon: mdi:hot-tub
+        color: "#ffffff"
+    - name: "HotTub Jet 2"
+      background_color: "#000000"
+      label:
+        text: "HotTub Jet 2"
+        color: "#ff0000"
+      icon:
+        icon: mdi:hot-tub
+        color: "#ffffff"
