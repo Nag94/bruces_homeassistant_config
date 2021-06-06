@@ -20,14 +20,53 @@ automation:
         after: '21:40:00'
         before: '21:50:00'
 
-#  Add a temperature check ?
     action:
-      - service: switch.turn_on
-        target:
-          entity_id: 
-            - switch.electric_blanket_sarah
-            - switch.electric_blanket_bruce
-      - service: telegram_bot.send_message
-        data:
-          target: !secret telegram_chat_id_bruce_and_sarah
-          message: The electric blankets have switched on   
+      - choose:
+          - conditions:
+              - condition: numeric_state
+                entity_id: sensor.master_bedroom_rad_current_temperature
+                above: 25
+            sequence:
+              - service: fan.turn_on
+                target:
+                  entity_id: fan.master_bedroom_fan    
+              - service: telegram_bot.send_message
+                data:
+                  target: !secret telegram_chat_id_bruce_and_sarah
+                  message: >
+                    Bedroom Fan on
+                    
+                    Outside Temp: {{ states('sensor.outside_temp') }}°C
+                    
+                    Bedroom Temp: {{ states('sensor.master_bedroom_rad_current_temperature') }}°C    
+                    
+          - conditions:
+              - condition: numeric_state
+                entity_id: sensor.outside_temp
+                above: 16
+            sequence:
+              - service: telegram_bot.send_message
+                data:
+                  target: !secret telegram_chat_id_bruce_and_sarah
+                  message: >
+                    Electric Blankets not on
+                    
+                    Outside Temp: {{ states('sensor.outside_temp') }}°C
+                    
+                    Bedroom Temp: {{ states('sensor.master_bedroom_rad_current_temperature') }}°C
+
+        default:              
+          - service: switch.turn_on
+            target:
+              entity_id: 
+                - switch.electric_blanket_sarah
+                - switch.electric_blanket_bruce
+          - service: telegram_bot.send_message
+            data:
+              target: !secret telegram_chat_id_bruce_and_sarah
+              message: >
+                The electric blankets have switched on   
+                
+                Outside Temp: {{ sensor.outside_temp }}°C
+                
+                Bedroom Temp: {{ sensor.master_bedroom_rad_current_temperature }}°C                 
