@@ -1,5 +1,6 @@
 icon: 'mdi:bed-double-outline'
 title: Kate
+path: kate
 visible:
   - user: 990bb6b8fa704d2ab36d42d63b8ad19e
 badges:
@@ -75,3 +76,7 @@ cards:
       show_group_count: true
     type: 'custom:mini-media-player'
 
+  - entities:
+      - entity: switch.sonos_alarm_1
+    title: Sonos
+    type: entities
