@@ -40,7 +40,6 @@ homekit:
       include_entities:
         - media_player.lounge_skyq
 
-        - lock.jyggy_doors 
   - name: Hue Lights
     port: 56333
     filter:
