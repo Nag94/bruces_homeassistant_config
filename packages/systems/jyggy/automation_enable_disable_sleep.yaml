@@ -1,0 +1,52 @@
+automation:
+  - id: enable_disable_jyggy_sleep
+    alias: Sleep or Wake jyggy
+    mode: restart
+    
+    description: >
+      enable disable jyggy sleep
+
+    trigger: 
+      - platform: state
+        entity_id: 
+          - binary_sensor.jyggy_plugged_in
+          - sensor.zappi_jyggy_status
+    action:
+      - choose:
+          - conditions: "{{ trigger.entity_id == 'sensor.zappi_jyggy_status' and trigger.to_state.state == 'Charging' }}"
+            sequence:
+              - service: rest_command.jyggy_api
+                data:
+                  teslafi_token: !secret teslafi_token                 
+                  jyggy_command: "wake"
+              - service: logbook.log
+                data:
+                  domain: sensor
+                  entity_id: sensor.jyggy_carstate
+                  name: "Jyggy"
+                  message: "Waking up for Charging"
+                  
+          - conditions: "{{ trigger.entity_id == 'sensor.zappi_jyggy_status' and trigger.to_state.state == 'EV Disconnected' }}"
+            sequence:
+              - service: rest_command.jyggy_api
+                data:
+                  teslafi_token: !secret teslafi_token                 
+                  jyggy_command: "wake"      
+              - service: logbook.log
+                data:
+                  domain: sensor
+                  entity_id: sensor.jyggy_carstate
+                  name: "Jyggy"
+                  message: "Waking up as Unplugged"
+                  
+        default:
+          - service: rest_command.jyggy_api
+            data:
+              teslafi_token: !secret teslafi_token                 
+              jyggy_command: "sleep"    
+          - service: logbook.log
+            data:
+              domain: sensor
+              entity_id: sensor.jyggy_carstate
+              name: "Jyggy"
+              message: "Trying to Sleep"              

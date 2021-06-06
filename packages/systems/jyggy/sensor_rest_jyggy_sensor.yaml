@@ -9,6 +9,9 @@ rest:
 
       - name: Jyggy Locked
         value_template: "{{ value_json.locked == '1'}}"
+
+      - name: Jyggy Needs Charge
+        value_template: "{{ value_json.battery_level | int < value_json.charge_limit_soc | int }}"
         
     sensor:
       - name: Jyggy Charge Limit SOC
@@ -43,9 +46,6 @@ rest:
       - name: Jyggy Longitude
         value_template: "{{ value_json.longitude | float }}"
         unit_of_measurement: '°'        
-        
-      - name: Jyggy Needs Charge
-        value_template: "{{ value_json.battery_level | int < value_json.charge_limit_soc | int }}"
         
       - name: Jyggy Odometer
         value_template: "{{ value_json.odometer | int }}"
