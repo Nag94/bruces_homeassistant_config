@@ -22,6 +22,11 @@ entities:
     state_filter:
       - operator: <
         value: 25  
+  - entity: sensor.sonos_move_battery        
+    name: Sonos Move
+    state_filter:
+      - operator: <
+        value: 25          
   - entity: input_number.tray_drum_battery
     name: Flic - Tray Drum
     state_filter:
