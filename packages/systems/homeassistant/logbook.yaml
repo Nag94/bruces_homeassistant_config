@@ -103,23 +103,23 @@ logbook:
       
     entities:
 #      - alarm_control_panel.texecom
-      - automation.turn_off_kate_asleep_switch_from_lights_on
 #      - automation.landing_lights_on_from_landing_doors
-      - automation.dimmer_control_of_utility_lights
-      - sensor.solcast_remaining_api_count
-      - sensor.solaredge_status
-      - automation.lounge_lights_on_from_door
-      - automation.bar_lights_on_from_door
       - automation.alarm_recently_active
       - automation.ambilight_off_when_skyq_paused
+      - automation.bar_lights_on_from_door
       - automation.bruce_arrived_home
+      - automation.dimmer_control_of_utility_lights
       - automation.doorbell_has_rung
       - automation.downstairs_loo_light_from_door_and_occupancy
       - automation.downstairs_loo_timer_end
       - automation.downstairs_toilet_door_left_closed
       - automation.enable_or_disable_jyggy_tracker
+      - automation.hottub_set_temp
+      - automation.hottub_store_temp
       - automation.house_or_garage_movement_notification
       - automation.litter_tray_notification
+      - automation.lounge_lights_on_from_door
+      - automation.powerwall_set_reserve_level_and_mode
       - automation.process_telegram_callbacks
       - automation.reset_asleep_switches
       - automation.sarah_arrived_home
@@ -129,27 +129,28 @@ logbook:
       - automation.send_message_when_person_detected_patio_or_gate_opened
       - automation.set_alarm_user_from_log
       - automation.set_girls_rads_at_noon
+      - automation.set_temperature_to_target_minus_time
       - automation.solcast_push_measurement
       - automation.solcast_update_forecast
+      - automation.solcast_update_today_forecast
       - automation.switch_hue_with_ceiling_4_switch
       - automation.system_recorder_purge
       - automation.telegram_capture_message_id
       - automation.turn_off_cupboard_when_kitchen_lights_off
+      - automation.turn_off_kate_asleep_switch_from_lights_on
       - automation.turn_on_or_off_wardrobe_bars_with_two_wardrobe_doors
       - automation.turn_on_utility_light_with_motion_sensor
       - automation.under_stairs_lights_on_and_off_from_door
       - automation.update_jyggy_tracker_using_lat_and_long
       - automation.washing_machine_progress
-      - automation.solcast_update_today_forecast
-      - automation.powerwall_set_reserve_level_and_mode
-      - sensor.hotwater_state
-      - automation.hottub_set_temp
-      - automation.hottub_store_temp
-      - input_number.solcast_latest_today_forecast
       - binary_sensor.bar
       - binary_sensor.eddi_active_heate      
+      - binary_sensor.eddi_active_heater
       - binary_sensor.elec_high_cost
       - binary_sensor.front_door_motion
+      - binary_sensor.jyggy_battery_heater_on
+      - binary_sensor.jyggy_locked
+      - binary_sensor.jyggy_plugged_in
       - binary_sensor.kates_bedroom_door
       - binary_sensor.kitchen
       - binary_sensor.landing
@@ -158,6 +159,7 @@ logbook:
       - binary_sensor.master_bedroom_door
       - binary_sensor.master_bedroom_ensuite_door
       - binary_sensor.master_bedroom_ensuite_motion
+      - binary_sensor.paddy_plugged_in
       - binary_sensor.patio_garage_motion
       - binary_sensor.patio_motion
       - binary_sensor.powerwall_charging
@@ -175,6 +177,7 @@ logbook:
       - input_boolean.was_alarm_armed
       - input_boolean.watching_skytv
       - input_number.hottub_water_temp
+      - input_number.solcast_latest_today_forecast
       - input_text.alarm_user
       - input_text.litter_tray_message_id
       - input_text.recently_active_alarm_sensor
@@ -209,25 +212,24 @@ logbook:
       - sensor.grid_direction
       - sensor.harvi
       - sensor.home_pressure_tendency
+      - sensor.hottub_heating_on
+      - sensor.hottub_hvac_action
       - sensor.hottub_status
+      - sensor.hotwater_state
       - sensor.icloud3_event_log
       - sensor.ipod_touch_activity_2
-      - binary_sensor.jyggy_battery_heater_on
       - sensor.jyggy_carstate
       - sensor.jyggy_charge_cable
       - sensor.jyggy_distfromhome
       - sensor.jyggy_gps_as_of
       - sensor.jyggy_latitude
-      - binary_sensor.jyggy_locked
       - sensor.jyggy_longitude
-      - binary_sensor.jyggy_plugged_in
       - sensor.jyggy_scheduled_charging_start_time
       - sensor.jyggy_scheduled_software_update
       - sensor.jyggy_shift_state
       - sensor.jyggy_speed
       - sensor.lounge_source
       - sensor.lounge_source_state
-      - binary_sensor.paddy_plugged_in
       - sensor.powerwall_direction
       - sensor.solaredge_ac_total_current
       - sensor.solaredge_ac_voltage_phase_ab
@@ -244,7 +246,9 @@ logbook:
       - sensor.solaredge_meters
       - sensor.solaredge_sensors
       - sensor.solaredge_site_details
+      - sensor.solaredge_status
       - sensor.solcast_history
+      - sensor.solcast_remaining_api_count
       - sensor.swatches_this_week
       - sensor.time
       - sensor.time_date
@@ -259,6 +263,3 @@ logbook:
       - switch.jyggy_charging
       - switch.switch_skytv
       - timer.downstairs_loo
-      - water_heater.my_lay_z_spa
-
-
