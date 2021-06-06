@@ -31,35 +31,18 @@ automation:
               - service: light.turn_on
                 target:
                   entity_id: light.front_door_and_drive
-#                    - light.hall
-#                    - light.front_door_1
-#                    - light.front_door_2
-#                    - light.drive_1
-#                    - light.drive_2
               - wait_template: "{{ is_state('binary_sensor.front_door', 'off') }}"
                 timeout: '00:08:00'
               - delay: '00:02:00'
               - service: light.turn_off
                 target:
                   entity_id: light.front_door_and_drive 
-#                    - light.hall
-#                    - light.front_door_1
-#                    - light.front_door_2
-#                    - light.drive_1
-#                    - light.drive_2
+
         default:
           - service: light.turn_on
             target:
               entity_id: light.front_door_and_drive
-#                - light.front_door_1
-#                - light.front_door_2
-#                - light.drive_1
-#                - light.drive_2
           - delay: 00:02:00
           - service: light.turn_off
             target:
               entity_id: light.front_door_and_drive
-#                - light.front_door_1
-#                - light.front_door_2
-#                - light.drive_1
-#                - light.drive_2
