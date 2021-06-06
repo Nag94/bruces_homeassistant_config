@@ -84,9 +84,12 @@ automation:
             - condition: state
               entity_id: binary_sensor.powerwall_at_or_below_max_charge_cost_and_charge_limit
               state: 'off'        
-#            - condition: time
-#              after: '00:00:00'
-#              before: '06:30:00'  
+            - condition: state
+              entity_id: sensor.solaredge_status
+              state: 'Sleep'   
+            - condition: state
+              entity_id: input_boolean.freeze_power_when_cars_charging
+              state: 'on'
             - condition: or
               conditions:
                 - condition: state
