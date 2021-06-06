@@ -30,6 +30,8 @@ cards:
       - entity: sensor.powerwall_stored_energy
       - entity: sensor.powerwall_charge
         name: Powerwall Charge (API %)
+      - entity: input_boolean.freeze_power_when_cars_charging
+        name: Freeze Powerwall overnight when Cars Charging
     title: Powerwall
     show_header_toggle: false
     state_color: true
