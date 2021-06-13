@@ -1,7 +1,7 @@
 // main.js
 var buttonManager = require("buttons");
 var http = require("http");
-var url = "http://192.168.xx.xxx:8123/api/events/flic";
+var url = "http://192.168.11.124:8123/api/webhook/flic-abcd1234";
 
 buttonManager.on("buttonSingleOrDoubleClickOrHold", function(obj) {
 	var button = buttonManager.getButton(obj.bdaddr);
@@ -10,9 +10,8 @@ buttonManager.on("buttonSingleOrDoubleClickOrHold", function(obj) {
 	http.makeRequest({
 		url: url,
 		method: "POST",
-		headers: {"Content-Type": "application/json", "Authorization": "Bearer xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
-//		content: JSON.stringify({"serial-number": button.serialNumber, "click-type": clickType}),		
-		content: JSON.stringify({"button_name": button.name, "click_type": clickType}),				
+		headers: {"Content-Type": "application/json"},		
+		content: JSON.stringify({"button_name": button.name, "click_type": clickType, "battery_status": button.batteryStatus }),				
 	}, function(err, res) {
 //		console.log("request status: " + res.statusCode);
 //		console.log("button_name: " + button.name)
@@ -20,4 +19,4 @@ buttonManager.on("buttonSingleOrDoubleClickOrHold", function(obj) {
 	});
 });
 
-console.log("Started");
+//console.log("Started");
