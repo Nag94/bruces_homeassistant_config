@@ -14,8 +14,8 @@ badges:
 cards:
   - cols: 3
     entity: octopusagile.rates
-    highlimit: 15
-    mediumlimit: 9
+    highlimit: 18
+    mediumlimit: 11
     type: 'custom:agile-rates-card'
   - type: entities
     entities:
