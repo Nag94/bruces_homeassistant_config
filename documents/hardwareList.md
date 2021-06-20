@@ -239,6 +239,7 @@ Details of [add-ons and integrations](HA_integrations_and_addons.md)
 * [SONOS Port](https://www.sonos.com/en-gb/shop/port.html)
 * [SONOS Amp](https://www.sonos.com/en-gb/shop/amp.html)
 * [SONOS In-Ceiling Speakers](https://www.sonos.com/en-gb/shop/ceiling-speaker-pair.html)
+* [Ikea Symfonisk Sound Remote](https://www.ikea.com/gb/en/p/symfonisk-sound-remote-white-60370480/) x 2
 </details>
 
 <details>
