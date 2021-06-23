@@ -9,7 +9,7 @@ Details of [add-ons and integrations](HA_integrations_and_addons.md)
   <summary>Hubs</summary>
  
 # Hubs
-* [Philips Hue Bridge](https://www.philips-hue.com/) v2 (Square)
+* [Philips Hue Bridge](https://www.philips-hue.com/) v2 (Square) x2
 * [Flic Hub LR](https://flic.io/)
 * [Lightwave  Hub](https://lightwaverf.com/)
 * [Hive Hub](https://www.hivehome.com/) (Square wired ethernet)
@@ -24,7 +24,7 @@ Details of [add-ons and integrations](HA_integrations_and_addons.md)
  <summary>Philips Hue</summary>
  
 ## [Philips Hue](https://www.philips-hue.com/)
-* [Philips Hue Bridge](https://www.philips-hue.com/en-gb/p/hue-hue-bridge/8718696516850) v2 (Square)
+* [Philips Hue Bridge](https://www.philips-hue.com/en-gb/p/hue-hue-bridge/8718696516850) v2 (Square) x2
 * [Smart Button](https://www.philips-hue.com/en-gb/p/hue-smart-button/8718699693985) x 8
 * [Dimmer Switch](https://www.philips-hue.com/en-gb/p/hue-dimmer-switch/8718696743157) x 6
 * Lily Outdoor Spots x 3
