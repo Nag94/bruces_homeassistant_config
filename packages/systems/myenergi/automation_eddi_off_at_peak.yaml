@@ -17,5 +17,5 @@ automation:
     action:
       - service: script.eddi_on_or_off
         data:
-          mode: "{{ 'on' if is_state('binary_sensor.agile_peak','off') else 'off' }}"
+          mode: "{{ is_state('binary_sensor.agile_peak','off') }}"
 
