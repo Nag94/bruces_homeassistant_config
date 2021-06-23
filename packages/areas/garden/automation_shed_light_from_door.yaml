@@ -13,10 +13,14 @@ automation:
         event_type: automation_reloaded    
       - platform: state
         entity_id: binary_sensor.shed_door
-        to: 
-          - 'on'
-          - 'off'
-          
+
+    condition:
+      condition: state
+      entity_id: binary_sensor.shed_door
+      state: 
+        - 'on'
+        - 'off'      
+        
     action:
       - service: light.turn_{{ states('binary_sensor.shed_door') }}
         target:
