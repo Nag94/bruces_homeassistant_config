@@ -35,7 +35,7 @@ script:
         wait_template: "{{ state_attr('sensor.eddi','cmt') > 250 }}"         
       - delay: 2        
       - condition: template      
-        value_template: "{{ (states('sensor.eddi_status') not in ('stopped','reached') and not mode) or (states('sensor.eddi_status') == 'stopped' and mode )  }}"
+        value_template: "{{ (states('sensor.eddi_status') not in ('stopped','reached','off') and not mode) or (states('sensor.eddi_status') in ('stopped','off') and mode )  }}"
       - service: telegram_bot.send_message
         data:
           target: !secret telegram_chat_id_bruce         
