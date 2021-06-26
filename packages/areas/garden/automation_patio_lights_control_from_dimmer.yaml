@@ -8,9 +8,9 @@ automation:
 
     trigger:
       - platform: event
-        event_type: zha_event
+        event_type: hue_event
         event_data:
-          device_ieee: "00:17:88:01:04:f6:fe:76"
+          id: "patio_switch"
       - platform: state
         entity_id: light.patio_lights
         to: 'off'    
@@ -22,12 +22,15 @@ automation:
               - service: input_boolean.turn_off
                 target:
                   entity_id: input_boolean.patio_lights_manually_on       
-                     
-        default:
-          - service: input_boolean.turn_{{ trigger.event.data.args.button }}
-            target:
-              entity_id: input_boolean.patio_lights_manually_on
-          - service: light.turn_{{ trigger.event.data.args.button }}
-            target:
-              entity_id: light.patio_lights
 
+          - conditions: "{{ trigger.event.data.event == 1002 }}"   
+            sequence:          
+              - service: input_boolean.turn_on
+                target:
+                  entity_id: input_boolean.patio_lights_manually_on
+                  
+          - conditions: "{{ trigger.event.data.event == 4000 }}"   
+            sequence:          
+              - service: input_boolean.turn_off
+                target:
+                  entity_id: input_boolean.patio_light_manually_on

@@ -1,4 +1,3 @@
-# Now done with Zigbee Group
 light:          
   - platform: group
     name: Front Door and Drive

@@ -26,6 +26,16 @@ entities:
     name: Sonos Move
     state_filter:
       - operator: <
+        value: 25       
+  - entity: sensor.sonos_black_battery        
+    name: Sonos Black Controller
+    state_filter:
+      - operator: <
+        value: 25  
+  - entity: sensor.sonos_white_battery        
+    name: Sonos White Controller
+    state_filter:
+      - operator: <
         value: 25          
   - entity: input_number.tray_drum_battery
     name: Flic - Tray Drum
@@ -357,7 +367,7 @@ entities:
     state_filter:
       - operator: <
         value: 25
-  - entity: sensor.patio_dimmer_battery
+  - entity: sensor.patio_switch_battery_level
     name: Patio Switch
     state_filter:
       - operator: <        
@@ -382,6 +392,11 @@ entities:
     state_filter:
       - operator: <
         value: 25
+  - entity: binary_sensor.utility_switch_battery_level
+    name: Utility Dimmer
+    state_filter:
+      - operator: <
+        value: 25        
   - entity: binary_sensor.utility_sensor_battery
     name: Utility Sensor
     state_filter:

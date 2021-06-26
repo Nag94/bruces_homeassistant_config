@@ -98,3 +98,25 @@ sensor.jyggy_odometer:
   icon: mdi:sign-direction
 sensor.jyggy_charging_state:
   icon: mdi:flash
+light.hall_stairs_lightstrip:
+  icon: mdi:led-strip-variant
+light.patio_light:
+  icon: mdi:outdoor-lamp
+light.patio_garage:
+  icon: mdi:outdoor-lamp
+light.front_door_lights:
+  icon: mdi:outdoor-lamp
+light.drive_lights:  
+  icon: mdi:outdoor-lamp
+light.back_door:  
+  icon: mdi:outdoor-lamp
+light.bar_palm:
+  icon: mdi:palm-tree  
+light.bar_bar:
+  icon: mdi:led-strip-variant  
+light.downstairs_toilet_light:
+  icon: mdi:track-light  
+light.landing_light_3:
+  icon: mdi:track-light    
+light.garden_colour:
+  icon: mdi:floor-lamp-dual

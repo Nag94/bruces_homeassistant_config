@@ -3080,7 +3080,7 @@ elements:
         entity: light.drive_lights
         style:
           top: 74%
-          left: 75%
+          left: 77%
         tap_action:
           action: toggle
       - type: state-icon
@@ -3191,8 +3191,8 @@ elements:
       - type: state-icon
         entity: light.bar_palm
         style:
-          top: 35%
-          left: 73%
+          top: 36%
+          left: 74%
         hold_action:
           action: call-service
           service: input_boolean.toggle

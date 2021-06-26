@@ -12,7 +12,7 @@ automation:
       - platform: event
         event_type: automation_reloaded
       - platform: state
-        entity_id: binary_sensor.utility_motion
+        entity_id: binary_sensor.utility_sensor_motion
         to: 'on'
       - platform: state
         entity_id: input_boolean.utility_light_manually_on
@@ -21,7 +21,7 @@ automation:
       - choose:
         # Motion
         - conditions: >
-            {{ trigger.entity_id == 'binary_sensor.utility_motion' and is_state('input_boolean.utility_light_manually_on','off') and ( is_state('alarm_control_panel.texecom','disarmed') or  is_state('alarm_control_panel.texecom','armed_home'))  }}
+            {{ trigger.entity_id == 'binary_sensor.utility_sensor_motion' and is_state('input_boolean.utility_light_manually_on','off') and ( is_state('alarm_control_panel.texecom','disarmed') or  is_state('alarm_control_panel.texecom','armed_home'))  }}
           sequence:
             - service: light.turn_on
               target:
