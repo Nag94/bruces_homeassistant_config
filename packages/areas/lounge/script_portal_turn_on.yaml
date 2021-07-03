@@ -18,11 +18,11 @@ script:
         data:
           source: 'Portal'
       - delay: 2
-      - service: androidtv.adb_command
-        target:      
-          entity_id: media_player.lounge_android
-        data:
-          command: "input keyevent KEYCODE_F4"
+#      - service: androidtv.adb_command
+#        target:      
+#          entity_id: media_player.lounge_android
+#        data:
+#          command: "input keyevent KEYCODE_F4"
       - condition: time
         after: '18:00:00'
       - service: input_boolean.turn_on

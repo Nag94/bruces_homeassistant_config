@@ -22,11 +22,11 @@ script:
         target:
           entity_id: media_player.lounge_apple_tv
       - delay: 2
-      - service: androidtv.adb_command
-        target:
-          entity_id: media_player.lounge_android
-        data:
-          command: "input keyevent KEYCODE_F4"
+#      - service: androidtv.adb_command
+#        target:
+#          entity_id: media_player.lounge_android
+#        data:
+#          command: "input keyevent 246" # KEYCODE_F4
       - service: remote.send_command
         target:
           entity_id: remote.lounge_apple_tv   
