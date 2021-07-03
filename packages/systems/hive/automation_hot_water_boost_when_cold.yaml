@@ -12,7 +12,7 @@ automation:
         at: '06:00:00'
       - platform: numeric_state
         entity_id: sensor.eddi_water_temp
-        below: 40.0
+        below: 45.0
         for:
           minutes: 1
       - platform: homeassistant
@@ -23,7 +23,7 @@ automation:
     condition: 
       - condition: numeric_state
         entity_id: sensor.eddi_water_temp
-        below: 40.0
+        below: 47.0
         above: 10.0        
         
     action:
