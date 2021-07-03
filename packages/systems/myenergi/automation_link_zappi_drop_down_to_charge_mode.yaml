@@ -26,7 +26,7 @@ automation:
           - conditions: "{{ trigger.platform in ('homeassistant','event') }}"
             sequence:
               - alias: "Wait until previous Zappi Jyggy command is complete"
-                wait_template: "{{ state_attr('sensor.zappi_jyggy','cmt') > 250 }}"               
+                wait_template: "{{ states('sensor.zappi_jyggy_cmt') | int > 250 }}"               
               - alias: "Set input select to Zappi Jyggy Charge Mode"
                 service: input_select.select_option
                 target: 
@@ -34,7 +34,7 @@ automation:
                 data:
                   option: "{{ states('sensor.zappi_jyggy_mode') }}"
               - alias: "Wait until previous Zappi Paddy command is complete"
-                wait_template: "{{ state_attr('sensor.zappi_paddy','cmt') > 250 }}"               
+                wait_template: "{{ states('sensor.zappi_paddy_cmt') | int > 250 }}"               
               - alias: "Set input select to Zappi Paddy Charge Mode"
                 service: input_select.select_option
                 target: 
@@ -46,7 +46,7 @@ automation:
           - conditions: "{{ trigger.entity_id == 'input_select.zappi_jyggy_charge_mode' }}"
             sequence:
               - alias: "Wait until previous Zappi Jyggy command is complete"
-                wait_template: "{{ state_attr('sensor.zappi_jyggy','cmt') > 250 }}"    
+                wait_template: "{{ states('sensor.zappi_jyggy_cmt') | int > 250 }}"    
               - condition: template
                 value_template: "{{ states('input_select.zappi_jyggy_charge_mode') != states('sensor.zappi_jyggy_mode') }}"                
               - alias: "Send charge mode command to Zappi Jyggy"
@@ -64,7 +64,7 @@ automation:
           - conditions: "{{ trigger.entity_id == 'input_select.zappi_paddy_charge_mode' }}"
             sequence:
               - alias: "Wait until previous command is complete"
-                wait_template: "{{ state_attr('sensor.zappi_paddy','cmt') > 250 }}"    
+                wait_template: "{{ states('sensor.zappi_paddy_cmt') | int > 250 }}"    
               - condition: template
                 value_template: "{{ states('input_select.zappi_paddy_charge_mode') != states('sensor.zappi_paddy_mode') }}"         
               - alias: "Send charge mode command to Zappi Paddy"                
@@ -82,7 +82,7 @@ automation:
           - conditions: "{{ trigger.entity_id == 'sensor.zappi_jyggy_mode' }}"
             sequence:
               - alias: "Wait until Zappi Jyggy command is complete"
-                wait_template: "{{ state_attr('sensor.zappi_jyggy','cmt') > 250 }}"      
+                wait_template: "{{ states('sensor.zappi_jyggy_cmt') | int > 250 }}"      
               - alias: "Set Drop Down to charge mode for Zappi Jyggy"  
                 service: input_select.select_option
                 target: 
@@ -94,7 +94,7 @@ automation:
           - conditions: "{{ trigger.entity_id == 'sensor.zappi_paddy_mode' }}"
             sequence:
               - alias: "Wait until Zappi Paddy command is complete"
-                wait_template: "{{ state_attr('sensor.zappi_paddy','cmt') > 250 }}"    
+                wait_template: "{{ states('sensor.zappi_paddy_cmt') | int > 250 }}"    
               - alias: "Set Drop Down to charge mode for Zappi Paddy"             
                 service: input_select.select_option
                 target: 

@@ -18,7 +18,7 @@ script:
 
     sequence:
       - alias: "Wait until previous command is complete"
-        wait_template: "{{ state_attr('sensor.eddi','cmt') > 250 }}"         
+        wait_template: "{{ states('sensor.eddi_cmt') | int > 250 }}"         
       - service: shell_command.eddi_on_or_off
         data:
           myenergi_serial: !secret myenergi_serial
@@ -32,7 +32,7 @@ script:
             entity_id: sensor.eddi
       - delay: 1            
       - alias: "Wait until command is complete"
-        wait_template: "{{ state_attr('sensor.eddi','cmt') > 250 }}"         
+        wait_template: "{{ states('sensor.eddi_cmt') | int > 250 }}"         
       - delay: 2        
       - condition: template      
         value_template: "{{ (states('sensor.eddi_status') not in ('stopped','reached','off') and not mode) or (states('sensor.eddi_status') in ('stopped','off') and mode )  }}"

@@ -26,13 +26,27 @@ automation:
           mode: "on"
           duration: 30
           heater: 1
-      - delay: 2          
-      - alias: repeat this
-        repeat:
-          sequence:
-            - service: homeassistant.update_entity
-              entity_id: sensor.eddi_cmt
-            - delay: 2               
-          until: "{{ states('sensor.eddi_cmt') | int > 250 }}"
-      - service: homeassistant.update_entity
-        entity_id: sensor.eddi 
+      - alias: "Wait for myEnergi Update"
+        wait_for_trigger:
+          - platform: state
+            entity_id: sensor.eddi_cmt
+      - alias: "Wait until command is complete"
+        wait_template: "{{ states('sensor.eddi_cmt') | int > 250 }}" 
+#      - delay: 3
+#      - condition: template      
+#        value_template: "{{ (states('input_select.zappi_jyggy_charge_mode') != states('sensor.zappi_jyggy_mode')) }}"
+#      - service: telegram_bot.send_message
+#        data:
+#          target: !secret telegram_chat_id_bruce         
+#          message: >
+#            Zappi {{name}} failed to change to {{mode}}
+#                
+#            {% if name == 'jyggy' %}Currently set to {{ states('sensor.zappi_jyggy_mode') }}
+#            
+#            Last Online at: {{ state_attr('sensor.zappi_jyggy','dat') + ' ' + state_attr('sensor.zappi_jyggy','tim') }}     
+#
+#            {% else %}Currently set to {{ states('sensor.zappi_paddy_mode') }}
+#            
+#            Last Online at: {{ state_attr('sensor.zappi_paddy','dat') + ' ' + state_attr('sensor.zappi_paddy','tim') }}    
+#            {% endif %} 
+ 
