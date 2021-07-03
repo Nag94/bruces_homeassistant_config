@@ -12,8 +12,8 @@ automation:
           - binary_sensor.back_door         
           - binary_sensor.back_gate_door 
           - binary_sensor.conservatory_door    
-          - binary_sensor.patio_motion     
-          - binary_sensor.patio_garage_motion
+          - binary_sensor.patio_sensor_motion     
+          - binary_sensor.patio_garage_sensor_motion
         to: 'on'
       - platform: state
         entity_id: 
@@ -48,7 +48,7 @@ automation:
                    - light.back_door
                    - light.shed_outside_lights
                  
-          - conditions: "{{ trigger.entity_id in ['binary_sensor.conservatory_door','binary_sensor.motion_patio','binary_sensor.patio_motion'] }}"
+          - conditions: "{{ trigger.entity_id in ['binary_sensor.conservatory_door','binary_sensor.motion_patio','binary_sensor.patio_sensor_motion'] }}"
             sequence:
               - service: light.turn_on
                 target:
@@ -80,7 +80,7 @@ automation:
                    - light.back_door
                    - light.shed_outside_lights
      
-          - conditions: "{{ trigger.entity_id == 'binary_sensor.patio_garage_motion' }}"
+          - conditions: "{{ trigger.entity_id == 'binary_sensor.patio_garage_sensor_motion' }}"
             sequence:
               - service: light.turn_on
                 target:

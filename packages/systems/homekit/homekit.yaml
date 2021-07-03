@@ -96,6 +96,18 @@ homekit:
         - light.sophies_bedroom_bedhead 
         - light.sophies_bedroom_lamp
         - light.sophies_bedroom_light
+        - light.patio_garage
+        - light.patio_gazebo
+        - light.patio_gazebo_wall
+        - light.patio_light
+        - light.under_stairs
+        - light.downstairs_toilet_light
+        - light.garden_colour_1
+        - light.garden_colour_2
+        - light.garden_colour_3
+        - light.utility_light
+        - light.kitchen_cupboard
+        - light.kitchen_worktop
         
   - name: Zigbee Lights
     port: 56334
@@ -104,7 +116,6 @@ homekit:
         - light.back_door
         - light.conservatory_icicles 
         - light.conservatory_tree
-        - light.downstairs_toilet_light
         - light.drive_lights
         - light.drive_curtain
         - light.drive_icicles
@@ -114,21 +125,10 @@ homekit:
         - light.kitchen_ceiling_1
         - light.kitchen_ceiling_2
         - light.kitchen_ceiling_3
-        - light.kitchen_cupboard
         - light.kitchen_kickboard
-        - light.kitchen_worktop
         - light.log_burner 
-        - light.patio_garage
-        - light.patio_gazebo
-        - light.patio_gazebo_wall
-        - light.patio_light
-        - light.under_stairs
         - light.shed_light
         - light.shed_outside_lights
-        - light.utility        
-        - light.garden_colour_1
-        - light.garden_colour_2
-        - light.garden_colour_3
         
   - name: Doors
     port: 56335
@@ -251,7 +251,142 @@ homekit:
         - fan.spa_pump2
         - switch.spa_temp_range
         - switch.spa_light1        
-        
+
+       
+  - name: Bar Camera
+    port: 56341
+    mode: accessory    
+    filter:
+      include_entities:        
+        - camera.bar
+    entity_config:
+      camera.bar:
+        linked_motion_sensor: binary_sensor.motion_bar
+        support_audio: true
+
+  - name: Lounge Camera
+    port: 56342
+    mode: accessory    
+    filter:
+      include_entities:        
+        - camera.lounge
+    entity_config:
+      camera.lounge:
+        linked_motion_sensor: binary_sensor.motion_lounge
+        support_audio: true        
+
+  - name: Front Door Camera
+    port: 56343
+    mode: accessory    
+    filter:
+      include_entities:        
+        - camera.front_door
+    entity_config:
+      camera.front_door:
+        linked_battery_sensor: sensor.front_door_battery
+        linked_doorbell_sensor: binary_sensor.front_door_ding
+        linked_motion_sensor: binary_sensor.front_door_motion
+        support_audio: true      
+
+  - name: Landing Camera
+    port: 56344
+    mode: accessory    
+    filter:
+      include_entities:        
+        - camera.landing
+    entity_config:
+      camera.landing:
+        linked_motion_sensor: binary_sensor.motion_landing
+        support_audio: true       
+
+  - name: Hall Camera
+    port: 56345
+    mode: accessory    
+    filter:
+      include_entities:        
+        - camera.hall
+    entity_config:
+      camera.hall:
+        linked_motion_sensor: binary_sensor.motion_hall
+        support_audio: true       
+
+  - name: Kitchen Camera
+    port: 56346
+    mode: accessory    
+    filter:
+      include_entities:        
+        - camera.kitchen
+    entity_config:
+      camera.kitchen:
+        linked_motion_sensor: binary_sensor.motion_kitchen
+        support_audio: true    
+
+  - name: Kitchen 2 Camera
+    port: 56347
+    mode: accessory    
+    filter:
+      include_entities:        
+        - camera.kitchen_2
+    entity_config:
+      camera.kitchen_2:
+        linked_motion_sensor: binary_sensor.motion_kitchen_2
+        support_audio: true    
+
+  - name: Bins Camera
+    port: 56348
+    mode: accessory    
+    filter:
+      include_entities:        
+        - camera.bins
+    entity_config:
+      camera.bins:
+        linked_motion_sensor: binary_sensor.motion_bins
+        support_audio: true    
+
+  - name: Drive Camera
+    port: 56349
+    mode: accessory    
+    filter:
+      include_entities:        
+        - camera.drive
+    entity_config:
+      camera.drive:
+        linked_motion_sensor: binary_sensor.motion_drive
+        support_audio: true    
+
+  - name: Gazebo Camera
+    port: 56350
+    mode: accessory    
+    filter:
+      include_entities:        
+        - camera.gazebo
+    entity_config:
+      camera.gazebo:
+        linked_motion_sensor: binary_sensor.motion_gazebo
+        support_audio: true    
+
+  - name: Patio Camera
+    port: 56351
+    mode: accessory    
+    filter:
+      include_entities:        
+        - camera.patio
+    entity_config:
+      camera.patio:
+        linked_motion_sensor: binary_sensor.motion_patio
+        support_audio: true    
+
+  - name: Stairs Camera
+    port: 56352
+    mode: accessory    
+    filter:
+      include_entities:        
+        - camera.stairs
+    entity_config:
+      camera.stairs:
+        linked_motion_sensor: binary_sensor.motion_stairs
+        support_audio: true    
+                                                
 #  - name: Nest Protect
 #    port: 56341
 #    filter:
