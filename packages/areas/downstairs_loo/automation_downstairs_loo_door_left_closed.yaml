@@ -17,39 +17,51 @@ automation:
     action:
       - choose:
             # Closed - previous message sent
-          - conditions: "{{ is_state('binary_sensor.downstairs_toilet_door','off') and (states('input_text.downstairs_toilet_door_message_id') | int) > 0 }}"    
+          - alias: "Door Closed - Message sent before"
+            conditions: "{{ is_state('binary_sensor.downstairs_toilet_door','off') and (states('input_text.downstairs_toilet_door_message_id') | int) > 0 }}"    
             sequence:
-              - service: telegram_bot.delete_message
+              - alias: "Delete Previous Message"
+                service: telegram_bot.delete_message
                 data:
                   message_id: "{{ states('input_text.downstairs_toilet_door_message_id') }}"
                   chat_id: !secret telegram_chat_id_bruce_and_sarah
-              - service: telegram_bot.send_message
+
+              - alias: "Send Message"                  
+                service: telegram_bot.send_message
                 data:
                   target: !secret telegram_chat_id_bruce_and_sarah
                   message_tag: downstairs_toilet_door
                   message: "Downstairs Toilet door has been closed for 10 minutes"
                   
             # Open - previous message sent
-          - conditions: "{{ is_state('binary_sensor.downstairs_toilet_door','on') and (states('input_text.downstairs_toilet_door_message_id') | int) > 0 }}"    
+          - alias: "Door Open - Message sent before"            
+            conditions: "{{ is_state('binary_sensor.downstairs_toilet_door','on') and (states('input_text.downstairs_toilet_door_message_id') | int) > 0 }}"    
             sequence:
-              - service: telegram_bot.delete_message
+              - alias: "Delete Previous Message"            
+                service: telegram_bot.delete_message
                 data:
                   message_id: "{{ states('input_text.downstairs_toilet_door_message_id') }}"
                   chat_id: !secret telegram_chat_id_bruce_and_sarah
-              - service: input_text.set_value
+
+              - alias: "Clear Message ID"                    
+                service: input_text.set_value
                 target:
                   entity_id: input_text.downstairs_toilet_door_message_id
                 data:
                   value: 0
-              - service: telegram_bot.send_message
+
+              - alias: "Send Message"                     
+                service: telegram_bot.send_message
                 data:
                   target: !secret telegram_chat_id_bruce_and_sarah
                   message: "Downstairs toilet door is open"        
                   
             # Closed - no previous message sent
-          - conditions: "{{ is_state('binary_sensor.downstairs_toilet_door','off')  }}"    
+          - alias: "Door Closed - No Message sent before"                
+            conditions: "{{ is_state('binary_sensor.downstairs_toilet_door','off')  }}"    
             sequence:
-              - service: telegram_bot.send_message
+              - alias: "Send Message"               
+                service: telegram_bot.send_message
                 data:
                   target: !secret telegram_chat_id_bruce_and_sarah
                   message_tag: downstairs_toilet_door

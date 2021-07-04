@@ -18,6 +18,7 @@ automation:
         subtype: turn_off        
 
     action:
-      - service: fan.{{ trigger.data.subtype }}
+      - alias: "turn fan on or off based on hue dimmer"
+        service: fan.{{ trigger.data.subtype }}
         target:
           entity_id: fan.conservatory_fan

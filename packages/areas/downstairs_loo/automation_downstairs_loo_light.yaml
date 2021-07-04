@@ -8,8 +8,10 @@ automation:
     mode: restart
     trigger: 
       - platform: homeassistant
+ #       id: "homeassistant start"
         event: start
       - platform: event
+#        id: "automation reloaded"
         event_type: automation_reloaded    
       - platform: state
         entity_id: binary_sensor.downstairs_toilet_door
@@ -24,72 +26,99 @@ automation:
     action:
       - choose:
             # Restart or automation Reload
-          - conditions: "{{ trigger.platform == 'homeassistant' or (trigger.platform == 'event' and trigger.event_type == 'automation_reloaded') }}"
+          - alias: "Restart or Automation Reload"
+            conditions: "{{ trigger.platform == 'homeassistant' or (trigger.platform == 'event' and trigger.event_type == 'automation_reloaded') }}"
             sequence:
-              - service: input_boolean.turn_off
+              - alias: "Set occupied off"            
+                service: input_boolean.turn_off
                 target:
-                  entity_id: input_boolean.room_occupied_downstairs_loo        
-              - service: timer.start
+                  entity_id: input_boolean.room_occupied_downstairs_loo  
+
+              - alias: "start timer"                    
+                service: timer.start
                 target:
                   entity_id: timer.downstairs_loo                   
                 
             # Closed
-          - conditions: "{{ trigger.entity_id == 'binary_sensor.downstairs_toilet_door' and trigger.to_state.state == 'off' }}"
+          - alias: "Closed"            
+            conditions: "{{ trigger.entity_id == 'binary_sensor.downstairs_toilet_door' and trigger.to_state.state == 'off' }}"
             sequence:
-              - service: light.turn_on
+              - alias: "Light on"              
+                service: light.turn_on
                 target:
                  entity_id: light.downstairs_toilet_light
                 data:
                   brightness: 255
-              - service: timer.start
+
+              - alias: "start timer"                   
+                service: timer.start
                 target:
                   entity_id: timer.downstairs_loo
-              - wait_template: "{{ is_state('binary_sensor.downstairs_toilet_sensor_motion', 'on') }}"
+
+              - alias: "Wait for motion for 10 seconds"                                     
+                wait_template: "{{ is_state('binary_sensor.downstairs_toilet_sensor_motion', 'on') }}"
                 timeout: '00:00:10'
                 continue_on_timeout: false
-              - service: input_boolean.turn_on
+
+              - alias: "Set Occuped on"                  
+                service: input_boolean.turn_on
                 target:
                   entity_id: input_boolean.room_occupied_downstairs_loo    
               
             # Else opened and dark
-          - conditions: "{{ trigger.entity_id=='binary_sensor.downstairs_toilet_door' and trigger.to_state.state == 'on' and states('sensor.downstairs_toilet_illuminance') | float < 50.0 }}"
+          - alias: "Opened and Dark"            
+            conditions: "{{ trigger.entity_id=='binary_sensor.downstairs_toilet_door' and trigger.to_state.state == 'on' and states('sensor.downstairs_toilet_illuminance') | float < 50.0 }}"
             sequence:
-              - service: timer.start
+              - alias: "start timer"             
+                service: timer.start
                 target:
                   entity_id: timer.downstairs_loo
-              - service: input_boolean.turn_off
+
+              - alias: "Set Occupied off"                                     
+                service: input_boolean.turn_off
                 target:
                   entity_id: input_boolean.room_occupied_downstairs_loo
-              - service: light.turn_on
+                  
+              - alias: "Light on"                                     
+                service: light.turn_on
                 target:
                   entity_id: light.downstairs_toilet_light
               
             # Timer finished and door opened
-          - conditions: "{{ trigger.event.data.entity_id=='timer.downstairs_loo' and states('binary_sensor.downstairs_toilet_door') == 'on' }}"
+          - alias: "Timer finished and door opened"            
+            conditions: "{{ trigger.event.data.entity_id=='timer.downstairs_loo' and states('binary_sensor.downstairs_toilet_door') == 'on' }}"
             sequence:
-              - service: light.turn_off
+              - alias: "Light Off"                
+                service: light.turn_off
                 target:
                   entity_id: light.downstairs_toilet_light   
                 data:
                   transition: 10
                 
             # Movement - alarm not set - door closed
-          - conditions: "{{ trigger.entity_id=='binary_sensor.downstairs_toilet_sensor_motion' and states('binary_sensor.downstairs_toilet_door') == 'off' and states('sensor.downstairs_toilet_illuminance') | float < 50.0 and states('alarm_control_panel.texecom') != 'armed_away' }}"
+          - alias: "Alarm not set - door closed"              
+            conditions: "{{ trigger.entity_id=='binary_sensor.downstairs_toilet_sensor_motion' and states('binary_sensor.downstairs_toilet_door') == 'off' and states('sensor.downstairs_toilet_illuminance') | float < 50.0 and states('alarm_control_panel.texecom') != 'armed_away' }}"
             sequence:     
-              - service: light.turn_on
+              - alias: "Light On"             
+                service: light.turn_on
                 target:
                   entity_id: light.downstairs_toilet_light
                 data:
                   brightness: 255
-              - service: input_boolean.turn_on
+
+              - alias: "Set Occupied on"                   
+                service: input_boolean.turn_on
                 target:
-                  entity_id: input_boolean.room_occupied_downstairs_loo              
-              - service: timer.start
+                  entity_id: input_boolean.room_occupied_downstairs_loo   
+
+              - alias: "Timer Start"                   
+                service: timer.start
                 target:
                   entity_id: timer.downstairs_loo       
               
             # Movement - alarm not set - and dark
-          - conditions: "{{ trigger.entity_id == 'binary_sensor.downstairs_toilet_sensor_motion' and states('sensor.downstairs_toilet_illuminance') | float  < 50.0 and states('alarm_control_panel.texecom') != 'armed_away' }}"
+          - alias: "Movement - alarm not set- and dark"              
+            conditions: "{{ trigger.entity_id == 'binary_sensor.downstairs_toilet_sensor_motion' and states('sensor.downstairs_toilet_illuminance') | float  < 50.0 and states('alarm_control_panel.texecom') != 'armed_away' }}"
             sequence:  
               - alias: "Downstairs Toilet Light On"          
                 service: light.turn_on
@@ -97,6 +126,7 @@ automation:
                   entity_id: light.downstairs_toilet_light
                 data:
                   brightness: 255
+
               - alias: "Timer Start"                  
                 service: timer.start
                 target:
@@ -104,9 +134,12 @@ automation:
         
         # unknown
         default:
-          - service: input_boolean.turn_off
+          - alias: "unknown situation occurred - turn off occupied"
+            service: input_boolean.turn_off
             target:
-              entity_id: input_boolean.room_occupied_downstairs_loo        
-          - service: timer.start
+              entity_id: input_boolean.room_occupied_downstairs_loo
+              
+          - alias: "unknown situation occurred - Start Timer"              
+            service: timer.start
             target:
               entity_id: timer.downstairs_loo        
