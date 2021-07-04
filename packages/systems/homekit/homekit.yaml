@@ -186,22 +186,22 @@ homekit:
       binary_sensor.under_stairs_door:
         linked_battery_sensor: sensor.under_stairs_door_battery
 
-  - name: Motion
-    port: 56336
-    filter:
-      include_entities:   
-        - binary_sensor.motion_bar      
-        - binary_sensor.motion_bins        
-        - binary_sensor.motion_drive         
-        - binary_sensor.motion_gazebo        
-        - binary_sensor.motion_hall        
-        - binary_sensor.motion_kitchen        
-        - binary_sensor.motion_kitchen_2        
-        - binary_sensor.motion_landing        
-        - binary_sensor.motion_lounge        
-        - binary_sensor.motion_patio        
-        - binary_sensor.motion_stairs           
-        - binary_sensor.front_door_motion 
+ # - name: Motion
+ #   port: 56336
+  #  filter:
+    #  include_entities:   
+    #    - binary_sensor.motion_bar      
+     #   - binary_sensor.motion_bins        
+     #   - binary_sensor.motion_drive         
+      #  - binary_sensor.motion_gazebo        
+     #   - binary_sensor.motion_hall        
+       # - binary_sensor.motion_kitchen        
+      #  - binary_sensor.motion_kitchen_2        
+      #  - binary_sensor.motion_landing        
+     #   - binary_sensor.motion_lounge        
+    #    - binary_sensor.motion_patio        
+    #    - binary_sensor.motion_stairs           
+     #   - binary_sensor.front_door_motion 
 
   - name: Texecom Alarm
     port: 56337
