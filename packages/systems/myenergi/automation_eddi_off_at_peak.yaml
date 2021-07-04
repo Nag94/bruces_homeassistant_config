@@ -15,6 +15,7 @@ automation:
   
         
     action:
+      - delay: 00:00:05
       - service: script.eddi_on_or_off
         data:
           mode: "{{ is_state('binary_sensor.agile_peak','off') }}"

@@ -1,0 +1,125 @@
+automation:
+  - id: link_zappi_paddy_charge_mode
+    alias: 'Link Paddy Charge Mode Drop Down'
+    mode: queued
+    
+    description: >
+      Zappi Paddy Charge Mode Drop Down Sync with Zappi Mode
+      
+    trigger:
+      - platform: homeassistant
+        event: start
+      - platform: event
+        event_type: automation_reloaded      
+      - platform: state
+        entity_id: 
+          - input_select.zappi_paddy_charge_mode
+          - sensor.zappi_paddy_mode
+
+    action:
+      - choose:
+            # Home Assistant Re-start of Automation Re-load
+          - alias: "Home Assistant Restart or Automation reload"            
+            conditions: "{{ trigger.platform in ('homeassistant','event') }}"
+            sequence:
+              - alias: "Repeat until previous command is complete"
+                repeat:
+                  sequence:   
+                    - alias: "update CMT every 3 seconds"                      
+                      service: homeassistant.update_entity
+                      target:
+                        entity_id: sensor.zappi_paddy_cmt
+                    - delay: 3    
+                  until: "{{ states('sensor.zappi_paddy_cmt') | int > 250 }}"  
+            
+              - alias: "Set input select to Zappi Paddy Charge Mode"
+                service: input_select.select_option
+                target: 
+                  entity_id: input_select.zappi_paddy_charge_mode
+                data:
+                  option: "{{ states('sensor.zappi_paddy_mode') }}"
+                                    
+            # Requested Zappi Paddy Mode has changed 
+          - alias: "Drop Down has changed"             
+            conditions: "{{ trigger.entity_id == 'input_select.zappi_paddy_charge_mode' }}"
+            sequence:
+              - alias: "Repeat until previous command is complete"
+                repeat:
+                  sequence:   
+                    - alias: "update CMT every 3 seconds"                      
+                      service: homeassistant.update_entity
+                      target:
+                        entity_id: sensor.zappi_paddy_cmt
+                    - delay: 3    
+                  until: "{{ states('sensor.zappi_paddy_cmt') | int > 250 }}"  
+
+              - alias: "check that not already in correct mode"
+                condition: template
+                value_template: "{{ states('input_select.zappi_paddy_charge_mode') != states('sensor.zappi_paddy_mode') }}"    
+                
+              - alias: "Send charge mode command to Zappi Paddy"                
+                service: shell_command.zappi_set_mode
+                data:
+                  myenergi_serial: !secret myenergi_serial
+                  myenergi_password: !secret myenergi_password
+                  zappi_serial: !secret zappi_serial_paddy
+                  zappi_mode: "{% set mapper = {'Fast':'1','Eco': '2','Eco+':'3','Stopped':'4'} %}{{mapper[states('input_select.zappi_paddy_charge_mode')]}}"
+                  
+              - alias: "Repeat until this command is complete"
+                repeat:
+                  sequence:   
+                    - alias: "update CMT every 3 seconds"                      
+                      service: homeassistant.update_entity
+                      target:
+                        entity_id: sensor.zappi_paddy_cmt
+                    - delay: 3    
+                  until: "{{ states('sensor.zappi_paddy_cmt') | int > 250 }}"  
+
+              - alias: "Check if command failed"            
+                condition: template      
+                value_template: "{{ states('sensor.zappi_paddy_cmt') | int == 253 }}"
+                
+              - alias: "Send Telegram as command failed"     
+                service: telegram_bot.send_message
+                data:
+                  target: !secret telegram_chat_id_bruce         
+                  message: >
+                    Zappi paddy failed to change to required mode.
+                        
+                    Currently set to {{ states('sensor.zappi_paddy_mode') }}
+                    
+                    Last Online at: {{ states('sensor.zappi_paddy_last_online') }}    
+                    
+                  inline_keyboard:
+                    - 'Fast:/paddy_fast, Eco+:/paddy__ecoplus'
+                    - 'Eco:/paddy__eco, Stop:/paddy__stop' 
+                    - 'Refresh:/paddy__refresh, OK:/remove_keyboard'       
+
+            # Zappi Mode has changed and current command has completed
+          - alias: "Zappi mode Changed"
+            conditions: "{{ trigger.entity_id == 'sensor.zappi_paddy_mode' }}"
+            sequence:
+              - alias: "Repeat until previous command is complete"
+                repeat:
+                  sequence:   
+                    - alias: "update CMT every 3 seconds"                      
+                      service: homeassistant.update_entity
+                      target:
+                        entity_id: sensor.zappi_paddy_cmt
+                    - delay: 3    
+                  until: "{{ states('sensor.zappi_paddy_cmt') | int > 250 }}"  
+
+              - alias: "Check if command suceeded"
+                condition: template      
+                value_template: "{{ states('sensor.zappi_paddy_cmt') | int == 254 }}"     
+
+              - alias: "Check not set to Unavailable"
+                condition: template      
+                value_template: "{{ states('sensor.zappi_paddy_mode') != Unavailable }}"              
+                
+              - alias: "Set Drop Down to charge mode for Zappi Paddy"             
+                service: input_select.select_option
+                target: 
+                  entity_id: input_select.zappi_paddy_charge_mode
+                data:
+                  option: "{{ states('sensor.zappi_paddy_mode') }}"

@@ -1,0 +1,61 @@
+automation:
+  - id: eddi_boost_when_below_Xp
+    alias: 'Hot Water: Turn on when below Xp'
+    
+    description: >
+      When Price is below Xp boost eddi
+      
+    trigger:
+      - platform: homeassistant
+        event: start
+      - platform: event
+        event_type: automation_reloaded       
+      - platform: state
+        entity_id: 
+          - octopusagile.rates
+          - input_number.eddi_heat_below_x_pence
+        
+    condition:
+      - condition: numeric_state
+        entity_id: sensor.octopus_agile_current_rate
+        below: input_number.eddi_heat_below_x_pence
+        
+    action:
+      - alias: "Repeat until previous command is complete"
+        repeat:
+          sequence:   
+            - service: homeassistant.update_entity
+              target:
+                entity_id: sensor.eddi_cmt
+            - delay: 3    
+          until: "{{ states('sensor.eddi_cmt') | int > 250 }}"  
+          
+      - service: script.eddi_boost
+        data:
+          mode: "on"
+          duration: 30
+          heater: 1
+
+      - alias: "Repeat until this command is complete"
+        repeat:
+          sequence:   
+            - service: homeassistant.update_entity
+              target:
+                entity_id: sensor.eddi_cmt
+            - delay: 3    
+          until: "{{ states('sensor.eddi_cmt') | int > 250 }}"  
+
+      - alias: "Check if command failed"            
+        condition: template      
+        value_template: "{{ states('sensor.eddi_cmt') | int == 253 }}"
+		
+      - condition: template      
+        value_template: "{{ (states('sensor.eddi_status') = 'stopped' }}"
+		
+      - service: telegram_bot.send_message
+        data:
+          target: !secret telegram_chat_id_bruce         
+          message: >
+            Eddi boost for below x pence failed.
+            
+            Last Online at: {{ states('sensor.eddi_last_online') }}    

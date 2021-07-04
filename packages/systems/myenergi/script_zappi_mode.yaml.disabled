@@ -54,15 +54,22 @@ script:
           myenergi_password: !secret myenergi_password
           zappi_serial: "{{ serial }}"
           zappi_mode: "{% set mapper = {'Fast':'1','Eco': '2','Eco+':'3','Stopped':'4'} %}{{mapper[mode]}}"
-      - alias: "Wait for myEnergi Update"
-        wait_for_trigger:
-          - platform: state
-            entity_id: 
-              - sensor.zappi_jyggy_cmt
-              - sensor.zappi_paddy_cmt              
+     # - alias: "Wait for myEnergi Update"
+      #  wait_for_trigger:
+     #     - platform: state
+      #      entity_id: 
+        #      - sensor.zappi_jyggy_cmt
+          #    - sensor.zappi_paddy_cmt 
+      - delay: 1
+      - service: homeassistant.update_entity
+        target:
+          entity_id: 
+            - sensor.zappi_jyggy_cmt
+            - sensor.zappi_paddy_cmt
+      - delay: 1
       - alias: "Wait until command is complete"
         wait_template: "{{ states('sensor.zappi_jyggy_cmt') | int > 250 and states('sensor.zappi_paddy_cmt') | int > 250 }}"     
-      - delay: 3
+      - delay: 1
       - condition: template      
         value_template: "{{ (states('input_select.zappi_jyggy_charge_mode') != states('sensor.zappi_jyggy_mode')) or (states('input_select.zappi_paddy_charge_mode') != states('sensor.zappi_paddy_mode')) }}"
       - service: telegram_bot.send_message

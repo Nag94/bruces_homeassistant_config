@@ -35,8 +35,8 @@ rest:
       - name: Zappi Jyggy Serial
         value_template: "{{ value_json[1].zappi[0].sno if value_json[1].zappi[0].sno | int < value_json[1].zappi[1].sno | int else value_json[1].zappi[1].sno }}"
 
-      - name: Zappi Jyggy CMT
-        value_template: "{{ value_json[1].zappi[0].cmt if value_json[1].zappi[0].sno | int < value_json[1].zappi[1].sno | int else value_json[1].zappi[1].cmt }}"
+      - name: Zappi Jyggy Last Online
+        value_template: "{{ value_json[1].zappi[0].dat + ' ' + value_json[1].zappi[0].tim if value_json[1].zappi[0].sno | int < value_json[1].zappi[1].sno | int else value_json[1].zappi[1].dat + ' ' + value_json[1].zappi[1].tim  }}"
 
       - name: Zappi Jyggy Fwv
         value_template: "{{ value_json[1].zappi[0].fwv if value_json[1].zappi[0].sno | int < value_json[1].zappi[1].sno | int else value_json[1].zappi[1].fwv }}"
@@ -55,8 +55,8 @@ rest:
       - name: Zappi Paddy Serial
         value_template: "{{ value_json[1].zappi[0].sno if value_json[1].zappi[0].sno | int > value_json[1].zappi[1].sno | int  else value_json[1].zappi[1].sno }}"
 
-      - name: Zappi Paddy CMT
-        value_template: "{{ value_json[1].zappi[0].cmt if value_json[1].zappi[0].sno | int > value_json[1].zappi[1].sno | int else value_json[1].zappi[1].cmt }}"
+      - name: Zappi Paddy Last Online
+        value_template: "{{ value_json[1].zappi[0].dat + ' ' + value_json[1].zappi[0].tim if value_json[1].zappi[0].sno | int > value_json[1].zappi[1].sno | int else value_json[1].zappi[1].dat + ' ' + value_json[1].zappi[1].tim  }}"
 
       - name: Zappi Paddy Fwv
         value_template: "{{ value_json[1].zappi[0].fwv if value_json[1].zappi[0].sno | int > value_json[1].zappi[1].sno | int else value_json[1].zappi[1].fwv }}"
@@ -91,13 +91,13 @@ rest:
         value_template: "{{ (value_json[1].zappi[1].grd / 1000) | round(1) if (value_json[1].zappi[1].grd > 75.0) else 0 }}"
         unit_of_measurement: 'kW'
         device_class: power       
-
-      - name: Eddi CMT
-        value_template: "{{ value_json[0].eddi[0].cmt }}"
         
       - name: Eddi FwV
         value_template: "{{ value_json[0].eddi[0].fwv }}"
-        
+
+      - name: Eddi Last Online
+        value_template: "{{ value_json[0].eddi[0].dat + ' ' + value_json[0].eddi[0].tim }}"
+
       - name: Eddi Water Temp
         value_template: "{{ (value_json[0].eddi[0].tp1 ) if (value_json[0].eddi[0].tp1 > 10 and value_json[0].eddi[0].tp1 < 105) else unavailable }}"
         unit_of_measurement: '°'
