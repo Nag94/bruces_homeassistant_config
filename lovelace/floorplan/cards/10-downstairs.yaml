@@ -3346,6 +3346,46 @@ elements:
               left: 55%              
 
 ################################################
+##            Sensors - motion Outside        ##
+################################################   
+      - type: conditional
+        conditions:
+          - entity: binary_sensor.patio_sensor_motion
+            state: 'on'        
+        elements:    
+          - type: icon
+            icon: 'mdi:cctv'
+            entity: camera.patio
+            style:
+              color: orange
+              top: 29%
+              left: 7%
+      - type: conditional
+        conditions:
+          - entity: binary_sensor.patio_garage_sensor_motion
+            state: 'on'     
+        elements:            
+          - type: icon
+            icon: 'mdi:cctv'
+            entity: camera.gazebo
+            style:
+              color: orange
+              top: 29%
+              left: 87%
+      - type: conditional
+        conditions:
+          - entity: binary_sensor.drive_sensor_motion
+            state: 'on'     
+        elements:            
+          - type: icon
+            icon: 'mdi:cctv'
+            entity: camera.drive
+            style:
+              color: orange
+              top: 80%
+              left: 47%
+
+################################################
 ##            Cameras - motion Outside        ##
 ################################################   
       - type: conditional
