@@ -120,3 +120,5 @@ light.landing_light_3:
   icon: mdi:track-light    
 light.garden_colour:
   icon: mdi:floor-lamp-dual
+binary_sensor.jyggy_locked:
+  icon: mdi:car-door-lock
