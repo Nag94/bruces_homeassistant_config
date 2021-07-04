@@ -1,4 +1,0 @@
-light:
-  - platform: switch
-    name: Patio Lights
-    entity_id: switch.patio_lights
