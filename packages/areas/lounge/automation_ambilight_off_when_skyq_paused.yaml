@@ -27,7 +27,7 @@ automation:
           - conditions: "{{ is_state('light.lounge_ambilight','on') and (is_state('input_boolean.lounge_ambilight_required','off') or is_state('sensor.lounge_source_state','paused'))  }}"
             sequence:
               - service: light.turn_off
-                entity_id: light.lounge_ambilight
+                entity_id: light.lounge_tv
               - delay: 2
               - service: scene.turn_on
                 data:
@@ -50,11 +50,11 @@ automation:
                 entity_id: media_player.lounge_tv
               - service: light.turn_on
                 data:
-                  entity_id: light.lounge_ambilight
-                  effect: Natural
+                  entity_id: light.lounge_tv
+                  #effect: Natural
         default:
           - service: light.turn_off
-            entity_id: light.lounge_ambilight
+            entity_id: light.lounge_tv
           - delay: 2
           - service: scene.turn_on
             target:

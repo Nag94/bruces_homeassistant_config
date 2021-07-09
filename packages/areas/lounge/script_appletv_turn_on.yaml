@@ -4,24 +4,26 @@ script:
       alias: Apple TV Turn On
       sequence:
  #     - service: hdmi_cec.power_on
-      - service: media_player.turn_on 
-        target:
-          entity_id: media_player.lounge_android
-      - service: media_player.turn_on 
-        target:
-          entity_id: media_player.lounge_tv
       - service: media_player.turn_on
         target:
-          entity_id: media_player.lounge_amp
+          entity_id: 
+#            - media_player.lounge_android
+            - media_player.lounge_amp
+            - media_player.lounge_skyq
       - service: media_player.select_source
         target:
           entity_id: media_player.lounge_amp
         data:
           source: 'Apple TV'
+      - service: media_player.select_source
+        target:
+          entity_id: media_player.lounge_tv
+        data:
+          source: 'HDMI 4'            
       - service: media_player.turn_on
         target:
           entity_id: media_player.lounge_apple_tv
-      - delay: 2
+#      - delay: 2
 #      - service: androidtv.adb_command
 #        target:
 #          entity_id: media_player.lounge_android
