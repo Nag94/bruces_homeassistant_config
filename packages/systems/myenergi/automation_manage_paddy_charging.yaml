@@ -36,7 +36,10 @@ automation:
               target:
                 entity_id: sensor.zappi_paddy_cmt
             - delay: 3    
-          until: "{{ states('sensor.zappi_paddy_cmt') | int > 250 }}"  
+          until: 
+            - condition: numeric_state
+              entity_id: sensor.zappi_paddy_cmt
+              above: 250
 
       - alias: Set Zappi to required Mode
         service: shell_command.zappi_set_mode
@@ -53,11 +56,15 @@ automation:
               target:
                 entity_id: sensor.zappi_paddy_cmt
             - delay: 3    
-          until: "{{ states('sensor.zappi_paddy_cmt') | int > 250 }}"  
+          until:             
+            - condition: numeric_state
+              entity_id: sensor.zappi_paddy_cmt
+              above: 250
 
       - alias: "Check if command failed"            
-        condition: template      
-        value_template: "{{ states('sensor.zappi_paddy_cmt') | int == 253 }}"
+        condition: state      
+        entity_id: sensor.zappi_paddy_cmt
+        state: '253'
         
       - alias: "Send Telegram as command failed"              
         service: telegram_bot.send_message

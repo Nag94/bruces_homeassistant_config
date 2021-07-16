@@ -8,6 +8,7 @@ automation:
 
     trigger:
       - platform: event
+	    id: "flic"
         event_type: flic
   
     variables: 

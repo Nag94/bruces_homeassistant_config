@@ -8,14 +8,19 @@ automation:
       
     trigger:
       - platform: homeassistant
+        id: 'start'
         event: start
       - platform: event
+        id: 'event'
         event_type: automation_reloaded
       - platform: state
+        id: 'motion'
         entity_id: binary_sensor.utility_sensor_motion
         to: 'on'
       - platform: state
+        id: 'manual'
         entity_id: input_boolean.utility_light_manually_on
+        to: 'on'
         
     action:
       - choose:
@@ -30,8 +35,9 @@ automation:
             - service: light.turn_off
               target:
                 entity_id: light.utility_light
-        - conditions: >
-            {{ is_state('input_boolean.utility_light_manually_on','on')  }}
+        - conditions: 
+            - condition: trigger
+              id: "manual"
           sequence:
             - service: light.turn_on
               target:

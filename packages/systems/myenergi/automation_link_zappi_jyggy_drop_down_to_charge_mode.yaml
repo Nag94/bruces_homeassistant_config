@@ -29,7 +29,10 @@ automation:
                       target:
                         entity_id: sensor.zappi_jyggy_cmt
                     - delay: 3  
-                  until: "{{ states('sensor.zappi_jyggy_cmt') | int > 250 }}"  
+                  until:  
+                    - condition: numeric_state
+                      entity_id: sensor.zappi_jyggy_cmt
+                      above: 250
             
               - alias: "Set input select to Zappi Jyggy Charge Mode"
                 service: input_select.select_option
@@ -50,7 +53,10 @@ automation:
                       target:
                         entity_id: sensor.zappi_jyggy_cmt
                     - delay: 3    
-                  until: "{{ states('sensor.zappi_jyggy_cmt') | int > 250 }}"  
+                  until: 
+                    - condition: numeric_state
+                      entity_id: sensor.zappi_jyggy_cmt
+                      above: 250
                   
               - alias: "check that not already showing the right mode"
                 condition: template
@@ -72,11 +78,15 @@ automation:
                       target:
                         entity_id: sensor.zappi_jyggy_cmt
                     - delay: 3    
-                  until: "{{ states('sensor.zappi_jyggy_cmt') | int > 250 }}"  
+                  until: 
+                    - condition: numeric_state
+                      entity_id: sensor.zappi_jyggy_cmt
+                      above: 250
 
               - alias: "Check if command failed"            
-                condition: template      
-                value_template: "{{ states('sensor.zappi_jyggy_cmt') | int == 253 }}"
+                condition: state      
+                entity_id: sensor.zappi_jyggy_cmt
+                state: '253'
                 
               - alias: "Send Telegram as command failed"     
                 service: telegram_bot.send_message
@@ -106,11 +116,15 @@ automation:
                       target:
                         entity_id: sensor.zappi_jyggy_cmt
                     - delay: 3    
-                  until: "{{ states('sensor.zappi_jyggy_cmt') | int > 250 }}"   
+                  until:  
+                    - condition: numeric_state
+                      entity_id: sensor.zappi_jyggy_cmt
+                      above: 250
           
               - alias: "Check if command suceeded"
-                condition: template      
-                value_template: "{{ states('sensor.zappi_jyggy_cmt') | int == 254 }}"     
+                condition: state      
+                entity_id: sensor.zappi_jyggy_cmt
+                state: '254'
 
               - alias: "Check not set to Unavailable"
                 condition: template      

@@ -21,21 +21,21 @@ automation:
         above: input_number.loft_fan_thermostat
       - platform: numeric_state
         entity_id: sensor.loft_cabinet_temperature
-        value_template: "{{ (states('input_number.loft_fan_thermostat') | float - states('sensor.loft_cabinet_temperature') | float) }}"
-        above: 0.0
+        above: input_number.loft_fan_thermostat
         for: 
           minutes: 2
       - platform: numeric_state
         entity_id: sensor.loft_cabinet_temperature
-        value_template: "{{ (states('input_number.loft_fan_thermostat') | float - states('sensor.loft_cabinet_temperature') | float) }}"
-        below: -1.0
+        below: input_number.loft_fan_thermostat
         for: 
           minutes: 2          
       - platform: state
         entity_id: input_number.loft_fan_thermostat
       - platform: homeassistant
+        id: "start"
         event: start
       - platform: event
+        id: "reload"
         event_type: automation_reloaded   
 
     action:

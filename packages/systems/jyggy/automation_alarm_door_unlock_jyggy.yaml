@@ -8,8 +8,10 @@ automation:
     trigger:
       - platform: state
         entity_id: binary_sensor.front_door
+        id: "door"
         to: 'on'
       - platform: state
+        id: "alarm"
         entity_id: alarm_control_panel.texecom
         from: disarmed
         to: pending
@@ -27,8 +29,9 @@ automation:
       - condition: state
         entity_id: sensor.jyggy_location
         state: Home
-      - condition: template
-        value_template: '{{ is_state(''group.bruce_or_sarah_home'', ''home'') }}'
+      - condition: state
+        entity_id: group.bruce_or_sarah_home
+        state: 'home'
         
     action:
       - service: lock.unlock

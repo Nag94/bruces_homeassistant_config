@@ -9,6 +9,7 @@ automation:
 
     trigger:
       - platform: webhook
+        id: "flic"
         webhook_id: !secret flic_webhook
   
     variables: 

@@ -7,6 +7,7 @@ automation:
       
     trigger:
       - platform: event
+        id: "ios"
         event_type: ios.action_fired
         event_data:
           actionName: 'Pause Sky Q'

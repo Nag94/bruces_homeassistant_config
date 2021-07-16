@@ -15,7 +15,7 @@ automation:
         entity_id: 
           - input_select.zappi_paddy_charge_mode
           - sensor.zappi_paddy_mode
-
+    
     action:
       - choose:
             # Home Assistant Re-start of Automation Re-load
@@ -30,15 +30,25 @@ automation:
                       target:
                         entity_id: sensor.zappi_paddy_cmt
                     - delay: 3    
-                  until: "{{ states('sensor.zappi_paddy_cmt') | int > 250 }}"  
-            
+                  until: 
+                    - condition: numeric_state
+                      entity_id: sensor.zappi_paddy_cmt
+                      above: 250
+
+              - alias: "Check if command failed"            
+                condition: not
+                conditions:
+                  - condition: state
+                    entity_id: sensor.zappi_paddy_mode
+                    state: 'unavailable'
+        
               - alias: "Set input select to Zappi Paddy Charge Mode"
                 service: input_select.select_option
                 target: 
                   entity_id: input_select.zappi_paddy_charge_mode
                 data:
                   option: "{{ states('sensor.zappi_paddy_mode') }}"
-                                    
+        
             # Requested Zappi Paddy Mode has changed 
           - alias: "Drop Down has changed"             
             conditions: "{{ trigger.entity_id == 'input_select.zappi_paddy_charge_mode' }}"
@@ -51,8 +61,11 @@ automation:
                       target:
                         entity_id: sensor.zappi_paddy_cmt
                     - delay: 3    
-                  until: "{{ states('sensor.zappi_paddy_cmt') | int > 250 }}"  
-
+                  until:   
+                    - condition: numeric_state
+                      entity_id: sensor.zappi_paddy_cmt
+                      above: 250
+                      
               - alias: "check that not already in correct mode"
                 condition: template
                 value_template: "{{ states('input_select.zappi_paddy_charge_mode') != states('sensor.zappi_paddy_mode') }}"    
@@ -73,11 +86,15 @@ automation:
                       target:
                         entity_id: sensor.zappi_paddy_cmt
                     - delay: 3    
-                  until: "{{ states('sensor.zappi_paddy_cmt') | int > 250 }}"  
+                  until: 
+                    - condition: numeric_state
+                      entity_id: sensor.zappi_paddy_cmt
+                      above: 250                  
 
               - alias: "Check if command failed"            
-                condition: template      
-                value_template: "{{ states('sensor.zappi_paddy_cmt') | int == 253 }}"
+                condition: state
+                entity_id: sensor.zappi_paddy_cmt
+                state: '253'                
                 
               - alias: "Send Telegram as command failed"     
                 service: telegram_bot.send_message
@@ -107,11 +124,15 @@ automation:
                       target:
                         entity_id: sensor.zappi_paddy_cmt
                     - delay: 3    
-                  until: "{{ states('sensor.zappi_paddy_cmt') | int > 250 }}"  
-
+                  until:   
+                    - condition: numeric_state
+                      entity_id: sensor.zappi_paddy_cmt
+                      above: 250
+                      
               - alias: "Check if command suceeded"
-                condition: template      
-                value_template: "{{ states('sensor.zappi_paddy_cmt') | int == 254 }}"     
+                condition: state      
+                entity_id: sensor.zappi_paddy_cmt
+                state: '254'
 
               - alias: "Check not set to Unavailable"
                 condition: template      

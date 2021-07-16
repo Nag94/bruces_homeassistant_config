@@ -8,9 +8,16 @@ automation:
       
     trigger:
       - platform: state
+        id: "left"
+        entity_id: light.master_bedroom_bedside_left
+        to: 'on'     
+      - platform: state
+        id: "right"
+        entity_id: light.master_bedroom_bedside_right
+        to: 'on'          
+      - platform: state
+        id: "wall"
         entity_id:
-          - light.master_bedroom_bedside_right
-          - light.master_bedroom_bedside_left
           - light.master_bedroom_wall_left           
           - light.master_bedroom_wall_right          
         to: 'on'   
@@ -29,16 +36,22 @@ automation:
             
     action:
       - choose:
-          - conditions: "{{ trigger.entity_id == 'light.master_bedroom_bedside_left' }}"
+          - conditions: 
+              - condition: trigger
+                id: "left"
             sequence:
               - service: input_boolean.turn_off
                 target:
                   entity_id: input_boolean.bruce_is_asleep  
-          - conditions: "{{ trigger.entity_id == 'light.master_bedroom_bedside_right' }}"
+
+          - conditions:
+              - condition: trigger
+                id: "right"          
             sequence:
               - service: input_boolean.turn_off
                 target:
-                  entity_id: input_boolean.sarah_is_asleep                  
+                  entity_id: input_boolean.sarah_is_asleep  
+                  
         default:
           - service: input_boolean.turn_off
             target:

@@ -8,10 +8,13 @@ automation:
       
     trigger:
       - platform: homeassistant
+        id: "start"
         event: start
       - platform: event
+        id: "reload"
         event_type: automation_reloaded       
       - platform: state
+        id: "state"
         entity_id: 
           - binary_sensor.litter_trays_dirty
           - binary_sensor.littertray_utility_dirty
@@ -19,6 +22,7 @@ automation:
           - binary_sensor.littertray_downstairs_dirty
           - binary_sensor.littertray_drum_dirty          
       - platform: time
+        id: "time"
         at: 
           - '07:00:00'
           - '12:00:00'
@@ -27,8 +31,12 @@ automation:
 
     action:  
       - choose:
-            # Litter Trays Dirty and Message already sent
-          - conditions: "{{ is_state('binary_sensor.litter_trays_dirty','on') and (states('input_text.litter_tray_message_id') | int) > 0 }}"
+            # Message already sent
+          - conditions: 
+              - condition: numeric_state
+                entity_id: input_text.litter_tray_message_id
+                above: 0
+                
             sequence:
               - service: telegram_bot.delete_message
                 data:
@@ -38,7 +46,13 @@ automation:
                 target:
                   entity_id: input_text.litter_tray_message_id
                 data:
-                  value: '0'                  
+                  value: '0'      
+      - choose:
+            # Litter Trays Dirty and Message already sent
+          - conditions: 
+              - condition: trigger
+                id: "state"
+            sequence:
               - service: telegram_bot.send_message
                 data:
                   message_tag: litter_tray                
@@ -58,7 +72,8 @@ automation:
                     {%- endfor -%}
                   inline_keyboard:
                     - 'Detail:/littertray_detail'
-                    - 'OK:/remove_keyboard'                      
+                    - 'OK:/remove_keyboard'     
+                    
           # Litter Trays Dirty - First Message
           - conditions: "{{ is_state('binary_sensor.litter_trays_dirty','on') and (states('input_text.litter_tray_message_id') | int) == 0 }}"
             sequence:
@@ -81,19 +96,11 @@ automation:
                     {%- endfor -%}       
                   inline_keyboard:
                     - 'Detail:/littertray_detail'
-                    - 'OK:/remove_keyboard'                      
+                    - 'OK:/remove_keyboard'       
+                    
           # Litter trays Clean - Message previously Sent                    
           - conditions: "{{ is_state('binary_sensor.litter_trays_dirty','off') and (states('input_text.litter_tray_message_id') | int) > 0 }}"
-            sequence:
-              - service: telegram_bot.delete_message
-                data:
-                  message_id: "{{ states('input_text.litter_tray_message_id') }}"
-                  chat_id: !secret telegram_chat_id_bruce_and_sarah
-              - service: input_text.set_value
-                target:
-                  entity_id: input_text.litter_tray_message_id
-                data:
-                  value: '0'                  
+            sequence:               
               - service: telegram_bot.send_message
                 data:
                   target: !secret telegram_chat_id_bruce_and_sarah

@@ -8,10 +8,13 @@ automation:
     
     trigger:
       - platform: homeassistant
+        id: "start"
         event: start
       - platform: event
+        id: "reload"
         event_type: automation_reloaded    
       - platform: state
+        id: "blanket"
         entity_id: 
           - switch.electric_blanket_sarah
           - switch.electric_blanket_bruce
@@ -32,7 +35,9 @@ automation:
           
     action:
       - choose:
-          - conditions: "{{ trigger.entity_id == 'switch.electric_blanket_sarah' or trigger.entity_id == 'switch.electric_blanket_bruce' }}"
+          - conditions: 
+              - condition: trigger
+                id: "blanket"
             sequence:
               - service: switch.turn_off
                 target:

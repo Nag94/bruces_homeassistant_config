@@ -8,12 +8,16 @@ automation:
 	  
     trigger: 
       - platform: homeassistant
+	    id: "start"
         event: start
       - platform: event
+	    id: "reload"
         event_type: automation_reloaded  
       - platform: time
+	    id: "2300"
         at: '23:00:01'
       - platform: state
+	    id: "dark"
         entity_id: sensor.dark_outside
         to: 'True'
 		

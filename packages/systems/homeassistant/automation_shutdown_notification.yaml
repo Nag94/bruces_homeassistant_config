@@ -8,6 +8,7 @@ automation:
     
     trigger:
       - platform: homeassistant
+        id: "shutdown"
         event: shutdown
         
     action:

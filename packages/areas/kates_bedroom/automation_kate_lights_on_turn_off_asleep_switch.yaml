@@ -8,6 +8,7 @@ automation:
 
     trigger:
       - platform: state
+        id: "lights"
         entity_id: light.kates_bedroom_lights     
         to: 'on'    
 

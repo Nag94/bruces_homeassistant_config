@@ -7,6 +7,7 @@ automation:
       
     trigger:
       - platform: numeric_state
+        id: "far"
         entity_id: 
           - sensor.bruce_iphone_waze_distance
           - sensor.sarah_iphone_waze_distance

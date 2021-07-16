@@ -22,7 +22,7 @@ automation:
                     
                     Today's Production: {{ states('sensor.solar_production_daily') | round(1)}} kWh
                     
-                    Today's Forecast: {{ states('input_number.solcast_latest_today_forecast') }} kWh
+                    Today's Forecast: {{ states('sensor.forecastsolar_today') }} kWh
                   inline_keyboard:
                     - 'Refresh:/solar_refresh, OK:/remove_keyboard'
 
@@ -111,9 +111,9 @@ automation:
                     
                     Solar Production Today: {{ states('sensor.solar_production_daily')| round(1) }} kWh
                     
-                    Solar Forecast (Today): {{ states('input_number.solcast_latest_today_forecast') }} kWh
+                    Solar Forecast (Today): {{ states('sensor.forecastsolar_today') }} kWh
                   
-                    Solar Forecast (Tomorrow): {{ states('input_number.solcast_forecast_tomorrow') }} kWh
+                    Solar Forecast (Tomorrow): {{ states('sensor.forecastsolar_tomorrow') }} kWh
                     
                     Paddy ({{ states('sensor.vf1ag000366115079_battery_level') }}%) is {% if states('sensor.zappi_paddy_mode') != 'Stopped' %}Charging ({{ states('sensor.zappi_paddy_mode') }}) @ {{ states('sensor.zappi_paddy_power') }}kW{% elif is_state('sensor.zappi_paddy_status','EV Connected') %}Plugged in{% elif is_state('device_tracker.vf1ag000366115079_location','home') or is_state('device_tracker.vf1ag000366115079_location','Home') %}unplugged{% else %}not at home{% endif %}
                     

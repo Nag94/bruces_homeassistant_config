@@ -8,6 +8,7 @@ automation:
 
     trigger:
       - platform: state
+        id: "door"
         entity_id: 
           - binary_sensor.guest_bedroom_door
           - binary_sensor.kates_bedroom_door
@@ -36,9 +37,6 @@ automation:
             state: 10     
             
     action:
-#      - choose:
-#          - conditions: "{{ (is_state('binary_sensor.dark_outside','on')) and (is_state('light.landing_light_3','off')) and (is_state_attr('light.landing_light_1', 'brightness',10) or is_state('light.landing_light_1','off')) }}"
-#            sequence:
       - service: light.turn_on
         target:
           entity_id: 

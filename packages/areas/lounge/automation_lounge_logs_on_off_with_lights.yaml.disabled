@@ -7,10 +7,12 @@ automation:
 	  
     trigger: 
       - platform: state
+	    id: "off"
         entity_id: light.lounge
         to: 'on'
         from: 'off'
       - platform: state
+	    id: "on"
         entity_id: light.lounge
         to: 'off'
         from: 'on'

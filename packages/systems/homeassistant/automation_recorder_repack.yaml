@@ -9,6 +9,7 @@ automation:
   
   trigger:
     - platform: time
+      id: "0555"
       at: '05:55:00'
       
   condition:

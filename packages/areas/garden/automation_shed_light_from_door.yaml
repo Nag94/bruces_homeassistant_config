@@ -8,10 +8,13 @@ automation:
 
     trigger: 
       - platform: homeassistant
+        id: "start"
         event: start
       - platform: event
+        id: "reload"
         event_type: automation_reloaded    
       - platform: state
+        id: "door"
         entity_id: binary_sensor.shed_door
 
     condition:

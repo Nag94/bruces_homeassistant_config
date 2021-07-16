@@ -8,6 +8,7 @@ automation:
 
     trigger:
       - platform: state
+        id: "movement"
         entity_id: binary_sensor.shed_garage
         to: 'on'
 

@@ -8,12 +8,23 @@ automation:
 
     trigger: 
       - platform: state
-        entity_id: 
-          - binary_sensor.jyggy_plugged_in
-          - sensor.zappi_jyggy_status
+        id: "plug"
+        entity_id: binary_sensor.jyggy_plugged_in
+      - platform: state
+        id: 'charging'
+        entity_id: sensor.zappi_jyggy_status
+        to: 'Charging'
+      - platform: state
+        id: 'disconnected'
+        entity_id: sensor.zappi_jyggy_status
+        to: 'EV Disconnected'
+
+
     action:
       - choose:
-          - conditions: "{{ trigger.entity_id == 'sensor.zappi_jyggy_status' and trigger.to_state.state == 'Charging' }}"
+          - conditions: 
+              - condition: trigger
+                id: 'charging'
             sequence:
               - service: rest_command.jyggy_api
                 data:
@@ -26,7 +37,9 @@ automation:
                   name: "Jyggy"
                   message: "Waking up for Charging"
                   
-          - conditions: "{{ trigger.entity_id == 'sensor.zappi_jyggy_status' and trigger.to_state.state == 'EV Disconnected' }}"
+          - conditions: 
+              - condition: trigger
+                id: 'disconnected'
             sequence:
               - service: rest_command.jyggy_api
                 data:

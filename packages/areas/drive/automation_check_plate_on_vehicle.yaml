@@ -9,19 +9,18 @@ automation:
       
     trigger: 
       - platform: state
-        entity_id:  binary_sensor.motion_drive
-        to: 'on'
-      - platform: state
+        id: "vehicle"
         entity_id:  binary_sensor.motion_drive
         to: vehicle
         attribute: event_object    
 
     action:
-      - alias: 'Call plate Recogniser 10 times'
+      - alias: 'Call plate Recogniser twice'
         repeat:
-          count: 3
+          count: 2
           sequence:
             - service: image_processing.scan
               target:
                 entity_id: image_processing.platerecognizer_drive
+            - delay: 2
 

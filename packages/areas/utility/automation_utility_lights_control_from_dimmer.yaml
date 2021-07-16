@@ -8,26 +8,43 @@ automation:
       
     trigger:
     - platform: event
+      id: 'dimmer on'
       event_type: hue_event
       event_data:
         id: "utility_switch"
+        event: 1002
+    - platform: event
+      id: 'dimmer off'
+      event_type: hue_event
+      event_data:
+        id: "utility_switch"
+        event: 4000      
     - platform: state
+      id: 'light'
       entity_id: light.utility_light
       to: 'off'      
       
     action:
       - choose:
-          - conditions: "{{ trigger.entity_id == 'light.utility_light' }}"
+          - conditions: 
+              - condition: trigger
+                id: 'light'
             sequence:
               - service: input_boolean.turn_off
                 target:
                   entity_id: input_boolean.utility_light_manually_on      
-          - conditions: "{{ trigger.event.data.event == 1002 }}"   
+
+          - conditions: 
+              - condition: trigger
+                id: 'dimmer on'  
             sequence:          
               - service: input_boolean.turn_on
                 target:
                   entity_id: input_boolean.utility_light_manually_on
-          - conditions: "{{ trigger.event.data.event == 4000 }}"   
+
+          - conditions: 
+              - condition: trigger
+                id: 'dimmer off'   
             sequence:          
               - service: input_boolean.turn_off
                 target:

@@ -8,14 +8,18 @@ automation:
 
     trigger: 
       - platform: state
+        id: "dark"
         entity_id: binary_sensor.dark_outside
         to: 'on'
       - platform: state
+        id: "disarmed"
         entity_id: alarm_control_panel.texecom
         to: 'disarmed'        
       - platform: homeassistant
+        id: "start"
         event: start
       - platform: event
+        id: "reload"
         event_type: automation_reloaded    
 
     action:

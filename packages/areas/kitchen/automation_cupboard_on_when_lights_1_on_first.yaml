@@ -7,6 +7,7 @@ automation:
       
     trigger: 
       - platform: state
+        id: "ceiling1"
         entity_id: light.kitchen_ceiling_1
         from: 'off'
         to: 'on'

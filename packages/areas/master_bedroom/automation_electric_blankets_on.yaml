@@ -7,10 +7,13 @@ automation:
 
     trigger:
       - platform: time
+        id: "time"
         at: '21:45:00'
       - platform: homeassistant
+        id: "start"
         event: start
       - platform: event
+        id: "event"
         event_type: automation_reloaded        
 
     condition:

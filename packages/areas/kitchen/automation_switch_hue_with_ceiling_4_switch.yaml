@@ -8,6 +8,7 @@ automation:
       
     trigger: 
       - platform: state
+        id: "ceiling4"
         entity_id: light.kitchen_ceiling_4
         
     action:

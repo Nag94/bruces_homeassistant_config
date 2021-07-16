@@ -8,10 +8,13 @@ automation:
       
     trigger:
       - platform: homeassistant
+        id: "start"
         event: start
       - platform: event
+        id: "reload"
         event_type: automation_reloaded
       - platform: state
+        id: "doors"
         entity_id:
           - binary_sensor.master_bedroom_wardrobe_door_1
           - binary_sensor.master_bedroom_wardrobe_door_2
@@ -27,7 +30,12 @@ automation:
         
     action:
       - choose:
-          - conditions: "{{ is_state('light.master_bedroom_wardrobe_bars','off') and (trigger.entity_id == 'binary_sensor.master_bedroom_wardrobe_door_1' or trigger.entity_id == 'binary_sensor.master_bedroom_wardrobe_door_2') }}"
+          - conditions: 
+              - condition: trigger
+                id: "doors"
+              - condition: state
+                entity_id: light.master_bedroom_wardrobe_bars
+                state: 'off'
             sequence:
               - service: light.turn_on
                 target:

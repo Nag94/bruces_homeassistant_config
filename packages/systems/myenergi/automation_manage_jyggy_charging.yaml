@@ -61,8 +61,9 @@ automation:
           until: "{{ states('sensor.zappi_jyggy_cmt') | int > 250 }}"  
 
       - alias: "Check if command failed"            
-        condition: template      
-        value_template: "{{ states('sensor.zappi_jyggy_cmt') | int == 253 }}"
+        condition: state
+        entity_id: sensor.zappi_jyggy_cmt
+        state: '253'
         
       - alias: "Send Telegram as command failed"     
         service: telegram_bot.send_message

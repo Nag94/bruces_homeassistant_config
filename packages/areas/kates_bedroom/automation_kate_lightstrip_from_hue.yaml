@@ -8,21 +8,27 @@ automation:
       
     trigger:
       - platform: state
+        id: "off"
         entity_id: light.kates_bedroom
         to: 'off'
       - platform: state
+        id: "brightness"
         entity_id: light.kates_bedroom_light
         attribute: brightness
         to: 244
         
     action:
       - choose:
-          - conditions: "{{ state_attr('light.kates_bedroom_light','brightness',244) }}"
+          - conditions: 
+              - condition: trigger
+                id: "brightness"
             sequence:
               - service: light.turn_on
                 target:
                   entity_id: light.kate_lightstrip          
-          - conditions: "{{ is_state('light.kates_bedroom','off') }}"
+          - conditions: 
+              - condition: trigger
+                id: "off"          
             sequence:
               - service: light.turn_off
                 target:

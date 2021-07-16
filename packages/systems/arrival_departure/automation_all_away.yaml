@@ -7,6 +7,7 @@ automation:
 
     trigger:
       - platform: state
+        id: "not home"
         entity_id: group.someone_home
         from: home
         to: not_home

@@ -7,6 +7,7 @@ automation:
         
       trigger:
         - platform: state
+          id: "arrival"
           entity_id: 
             - person.jyggy
             - person.paddy            
@@ -16,6 +17,7 @@ automation:
             - person.kate_hartley
           to: home
         - platform: state
+          id: "door"
           entity_id: binary_sensor.front_door
           to: 'on'
           

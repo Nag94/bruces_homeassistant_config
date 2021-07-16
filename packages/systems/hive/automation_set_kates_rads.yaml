@@ -10,10 +10,19 @@ automation:
         at: 
           - '06:00:00'
           - '13:00:00'
+      - platform: homeassistant
+        id: "start"
+        event: start
+      - platform: event
+        id: "reload"
+        event_type: automation_reloaded  
           
     action:
       - choose:
-          - conditions: "{{ is_state('calendar.kate_yarbury','on') }}"
+          - conditions: 
+              - condition: state
+                entity_id: calendar.kate_yarbury
+                state: 'on'          
             sequence:
               - service: climate.set_hvac_mode
                 target: 

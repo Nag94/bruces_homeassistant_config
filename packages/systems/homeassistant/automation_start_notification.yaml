@@ -8,6 +8,7 @@ automation:
       
     trigger:
       - platform: homeassistant
+        id: "start"
         event: start
         
     action:

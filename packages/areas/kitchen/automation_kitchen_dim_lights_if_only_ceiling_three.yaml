@@ -8,9 +8,11 @@ automation:
     
     trigger:
       - platform: state
+        id: "ceiling3"
         entity_id: light.kitchen_ceiling_3
         to: 'on'
         for: 00:00:03
+        
     condition:
       - condition: state
         entity_id: 
@@ -18,6 +20,7 @@ automation:
           - light.kitchen_ceiling_2
           - light.kitchen_ceiling_4
         state: 'off'
+        
     action:
       - service: light.turn_on
         target:

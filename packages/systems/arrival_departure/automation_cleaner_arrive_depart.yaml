@@ -7,13 +7,17 @@ automation:
         
       trigger:
         - platform: homeassistant
+          id: "start"
           event: start
         - platform: event
+          id: "reload"
           event_type: automation_reloaded         
         - platform: state
+          id: "phone arrive"
           entity_id: device_tracker.terri_phone
           to: 'home'
         - platform: state
+          id: "phone leave"        
           entity_id: device_tracker.terri_phone
           to: 'not_home'
           for: '00:05:00'

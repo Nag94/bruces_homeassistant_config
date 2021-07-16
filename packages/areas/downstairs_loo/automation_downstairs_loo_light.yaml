@@ -8,18 +8,26 @@ automation:
     mode: restart
     trigger: 
       - platform: homeassistant
- #       id: "homeassistant start"
+        id: "start"
         event: start
       - platform: event
-#        id: "automation reloaded"
+        id: "reload"
         event_type: automation_reloaded    
       - platform: state
+        id: "open"      
         entity_id: binary_sensor.downstairs_toilet_door
+        to: 'on'
+      - platform: state
+        id: "closed"      
+        entity_id: binary_sensor.downstairs_toilet_door
+        to: 'off'        
       - platform: event
+        id: "timer"       
         event_type: timer.finished
         event_data:
           entity_id: timer.downstairs_loo
       - platform: state
+        id: "motion" 
         entity_id: binary_sensor.downstairs_toilet_sensor_motion
         to: 'on'
 
@@ -27,7 +35,13 @@ automation:
       - choose:
             # Restart or automation Reload
           - alias: "Restart or Automation Reload"
-            conditions: "{{ trigger.platform == 'homeassistant' or (trigger.platform == 'event' and trigger.event_type == 'automation_reloaded') }}"
+            conditions: 
+                condition: or
+                conditions:
+                  - condition: trigger
+                    id: "start"
+                  - condition: trigger
+                    id: "reload"
             sequence:
               - alias: "Set occupied off"            
                 service: input_boolean.turn_off
@@ -41,7 +55,9 @@ automation:
                 
             # Closed
           - alias: "Closed"            
-            conditions: "{{ trigger.entity_id == 'binary_sensor.downstairs_toilet_door' and trigger.to_state.state == 'off' }}"
+            conditions: 
+              - condition: trigger
+                id: "closed"
             sequence:
               - alias: "Light on"              
                 service: light.turn_on
@@ -67,7 +83,13 @@ automation:
               
             # Else opened and dark
           - alias: "Opened and Dark"            
-            conditions: "{{ trigger.entity_id=='binary_sensor.downstairs_toilet_door' and trigger.to_state.state == 'on' and states('sensor.downstairs_toilet_illuminance') | float < 50.0 }}"
+            conditions: 
+              - condition: trigger
+                id: "open"
+              - condition: numeric_state
+                entity_id: sensor.downstairs_toilet_sensor_light_level
+                below: 50.0
+                
             sequence:
               - alias: "start timer"             
                 service: timer.start
@@ -86,7 +108,12 @@ automation:
               
             # Timer finished and door opened
           - alias: "Timer finished and door opened"            
-            conditions: "{{ trigger.event.data.entity_id=='timer.downstairs_loo' and states('binary_sensor.downstairs_toilet_door') == 'on' }}"
+            conditions: 
+              - condition: trigger
+                id: "timer"
+              - condition: state
+                entity_id: binary_sensor.downstairs_toilet_door
+                state: 'on'
             sequence:
               - alias: "Light Off"                
                 service: light.turn_off
@@ -96,8 +123,21 @@ automation:
                   transition: 10
                 
             # Movement - alarm not set - door closed
-          - alias: "Alarm not set - door closed"              
-            conditions: "{{ trigger.entity_id=='binary_sensor.downstairs_toilet_sensor_motion' and states('binary_sensor.downstairs_toilet_door') == 'off' and states('sensor.downstairs_toilet_illuminance') | float < 50.0 and states('alarm_control_panel.texecom') != 'armed_away' }}"
+          - alias: "Alarm not set - door closed - dark"              
+            conditions: 
+              - condition: trigger
+                id: "motion"
+              - condition: state
+                entity_id: binary_sensor.downstairs_toilet_door
+                state: 'off'
+              - condition: numeric_state
+                entity_id: sensor.downstairs_toilet_sensor_light_level
+                below: 50.0
+              - condition: not
+                conditions:
+                  - condition: state
+                    entity_id: alarm_control_panel.texecom
+                    state: 'armed_away'
             sequence:     
               - alias: "Light On"             
                 service: light.turn_on
@@ -118,7 +158,18 @@ automation:
               
             # Movement - alarm not set - and dark
           - alias: "Movement - alarm not set- and dark"              
-            conditions: "{{ trigger.entity_id == 'binary_sensor.downstairs_toilet_sensor_motion' and states('sensor.downstairs_toilet_illuminance') | float  < 50.0 and states('alarm_control_panel.texecom') != 'armed_away' }}"
+            conditions: 
+              - condition: trigger
+                id: "motion"
+              - condition: numeric_state
+                entity_id: sensor.downstairs_toilet_sensor_light_level
+                below: 50.0
+              - condition: not
+                conditions:
+                  - condition: state
+                    entity_id: alarm_control_panel.texecom
+                    state: 'armed_away'
+            
             sequence:  
               - alias: "Downstairs Toilet Light On"          
                 service: light.turn_on

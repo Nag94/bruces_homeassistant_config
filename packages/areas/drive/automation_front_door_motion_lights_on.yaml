@@ -10,13 +10,18 @@ automation:
       
     trigger: 
       - platform: state
+        id: "front door"
+        entity_id: 
+          - binary_sensor.front_door
+          - binary_sensor.front_door_ding
+        to: 'on'          
+      - platform: state
+        id: "motion"
         entity_id: 
           - binary_sensor.motion_drive
           - binary_sensor.front_door_motion
-          - binary_sensor.front_door
-          - binary_sensor.front_door_ding
-          - binary_sensor.drive_motion
-        to: 'on'
+          - binary_sensor.drive_sensor_motion
+
 
     condition:
       - condition: state
@@ -26,7 +31,9 @@ automation:
     action:
       - choose:
       # Door bell rang / Door Opened
-          - conditions: "{{ trigger.entity_id == 'binary_sensor.front_door_ding' or trigger.entity_id == 'binary_sensor.front_door' }}"
+          - conditions:
+              - condition: trigger
+                id: "front door"
             sequence:
               - service: light.turn_on
                 target:

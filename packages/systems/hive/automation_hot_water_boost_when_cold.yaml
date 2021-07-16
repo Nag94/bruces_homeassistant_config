@@ -9,15 +9,19 @@ automation:
     trigger:
         # don't know why I have it run at 6am ?
       - platform: time
+        id: "0600"
         at: '06:00:00'
       - platform: numeric_state
+        id: "cold"
         entity_id: sensor.eddi_water_temp
         below: 45.0
         for:
           minutes: 1
       - platform: homeassistant
+        id: "start"
         event: start
       - platform: event
+        id: "reload"
         event_type: automation_reloaded       
         
     condition: 

@@ -7,11 +7,13 @@ automation:
       
     trigger:
       - platform: device
+        id: "on"
         domain: hue
         device_id: !secret hue_dimmer_device_id_conservatory
         type: remote_button_long_release
         subtype: turn_on
       - platform: device
+        id: "off"
         domain: hue
         device_id: !secret hue_dimmer_device_id_conservatory
         type: remote_button_long_release
