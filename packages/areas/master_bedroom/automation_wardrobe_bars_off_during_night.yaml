@@ -9,6 +9,7 @@ automation:
       
     trigger:
       - platform: state
+        id: "bars"
         entity_id: light.master_bedroom_wardrobe_bars
         to: 'on'
         
