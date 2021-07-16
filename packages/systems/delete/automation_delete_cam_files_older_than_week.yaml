@@ -7,6 +7,7 @@ automation:
       
     trigger:
       - platform: time
+        id: "410"
         at: '04:10:00'            
         
     action:
@@ -17,3 +18,10 @@ automation:
           only_extensions: .mp4
           scan_subfolders: false
           remove_subfolders: false
+      - service: delete.files_in_folder
+        data:
+          folder: /config/platerecogniser
+          time: 604800
+          only_extensions: .png
+          scan_subfolders: false
+          remove_subfolders: false          
