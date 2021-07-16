@@ -122,13 +122,15 @@ cards:
             entity_id: media_player.lounge_skyq
         type: 'custom:button-card'
       - entity: input_boolean.lounge_ambilight_required
-        icon: 'mdi:lightbulb-outline'
+        icon: 'mdi:television-ambient-light'
         show_icon: true
         show_name: false
         state:
-          - icon: 'mdi:lightbulb-off-outline'
+          - color_type: icon
+            color: blue
             value: 'off'
-          - icon: 'mdi:lightbulb-on-outline'
+          - color_type: icon
+            color: yellow
             value: 'on'
         styles:
           card:
