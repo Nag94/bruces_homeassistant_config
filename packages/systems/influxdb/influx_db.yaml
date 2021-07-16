@@ -13,7 +13,10 @@ influxdb:
       - binary_sensor.*_door
       - sensor.*_illuminance
       - sensor.zappi_*_power     
-      - sensor.voltaware_*      
+      - sensor.voltaware_*  
+      - sensor.energy_production_*
+      - sensor.power_production_*      
+      - sensor.forecastsolar_*
     entities:
       - input_number.hottub_standard_temp
       - input_number.hottub_water_target
