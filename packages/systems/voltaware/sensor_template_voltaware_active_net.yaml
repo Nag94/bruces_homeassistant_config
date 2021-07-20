@@ -1,9 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      voltaware_active_net:
-        unique_id: voltaware_active_net
-        friendly_name_template: 'net Active Energy (P)'
-        value_template: "{{ state_attr('sensor.voltaware','active_net') / 1000 }}"
-        unit_of_measurement: 'Wh'
-        device_class: energy

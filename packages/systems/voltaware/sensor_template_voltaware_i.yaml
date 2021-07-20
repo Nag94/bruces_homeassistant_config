@@ -1,9 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      voltaware_i:
-        unique_id: voltaware_i
-        friendly_name_template: 'Current'
-        value_template: "{{ state_attr('sensor.voltaware','I') / 1000 }}"
-        unit_of_measurement: 'A'
-        device_class: current                    

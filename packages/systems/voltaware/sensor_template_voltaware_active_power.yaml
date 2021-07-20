@@ -1,9 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      voltaware_active_power:
-        unique_id: voltaware_active_power
-        friendly_name_template: 'P'
-        value_template: "{{ state_attr('sensor.voltaware','active_power') }}"
-        unit_of_measurement: 'W'
-        device_class: power                 
