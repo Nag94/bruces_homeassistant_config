@@ -48,10 +48,42 @@ automation:
                 data:
                   value: '0'      
       - choose:
+        
+          # Litter Trays Dirty - First Message
+          - conditions: 
+              - condition: state
+                entity_id: binary_sensor.litter_trays_dirty
+                state: 'on'
+              - condition: state
+                entity_id: input_text.litter_tray_message_id
+                state: '0'
+            sequence:
+              - service: telegram_bot.send_message
+                data:
+                  message_tag: litter_tray
+                  target: !secret telegram_chat_id_bruce_and_sarah
+                  message: >
+                    Litter Tray(s) needs cleaning                  
+                    
+                    {% set litter_trays = [states.binary_sensor.littertray_utility_dirty,
+                                          states.binary_sensor.littertray_shower_dirty,
+                                          states.binary_sensor.littertray_downstairs_dirty,
+                                          states.binary_sensor.littertray_drum_dirty] %}
+                    {%- for tray in litter_trays -%}
+                    {%- if tray.state == 'on' -%}
+                    {{ tray.name }}
+                    {%- if not loop.last %}, {% endif -%}
+                    {%- endif -%}
+                    {%- endfor -%}       
+                  inline_keyboard:
+                    - 'Detail:/littertray_detail'
+                    - 'OK:/remove_keyboard'       
+
             # Litter Trays Dirty and Message already sent
           - conditions: 
-              - condition: trigger
-                id: "state"
+              - condition: state
+                entity_id: binary_sensor.litter_trays_dirty
+                state: 'on'
             sequence:
               - service: telegram_bot.send_message
                 data:
@@ -74,32 +106,14 @@ automation:
                     - 'Detail:/littertray_detail'
                     - 'OK:/remove_keyboard'     
                     
-          # Litter Trays Dirty - First Message
-          - conditions: "{{ is_state('binary_sensor.litter_trays_dirty','on') and (states('input_text.litter_tray_message_id') | int) == 0 }}"
-            sequence:
-              - service: telegram_bot.send_message
-                data:
-                  message_tag: litter_tray
-                  target: !secret telegram_chat_id_bruce_and_sarah
-                  message: >
-                    Litter Tray(s) needs cleaning                  
-                    
-                    {% set litter_trays = [states.binary_sensor.littertray_utility_dirty,
-                                          states.binary_sensor.littertray_shower_dirty,
-                                          states.binary_sensor.littertray_downstairs_dirty,
-                                          states.binary_sensor.littertray_drum_dirty] %}
-                    {%- for tray in litter_trays -%}
-                    {%- if tray.state == 'on' -%}
-                    {{ tray.name }}
-                    {%- if not loop.last %}, {% endif -%}
-                    {%- endif -%}
-                    {%- endfor -%}       
-                  inline_keyboard:
-                    - 'Detail:/littertray_detail'
-                    - 'OK:/remove_keyboard'       
-                    
           # Litter trays Clean - Message previously Sent                    
-          - conditions: "{{ is_state('binary_sensor.litter_trays_dirty','off') and (states('input_text.litter_tray_message_id') | int) > 0 }}"
+          - conditions: 
+              - condition: state
+                entity_id: binary_sensor.litter_trays_dirty
+                state: 'off'
+              - condition: numeric_state
+                entity_id: input_text.litter_tray_message_id
+                above: 0
             sequence:               
               - service: telegram_bot.send_message
                 data:
