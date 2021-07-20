@@ -8,9 +8,11 @@ automation:
     
     trigger:
       - platform: state
+        id: 'grid_off'
         entity_id: binary_sensor.grid_status
         to: 'off'
       - platform: state
+        id: 'supply_off'
         entity_id: binary_sensor.electricity_supply
         to: 'off'
         
@@ -27,10 +29,10 @@ automation:
           message: "HotTub and Car Chargers switched off. Powerwall capacity is {{ states('sensor.powerwall_charge_corrected') }}%"
       - service: script.zappi_mode_paddy
         data:
-          mode: 'stop'
+          mode: 'Stopped'
       - service: script.zappi_mode_jyggy
         data:
-          mode: 'stop'
+          mode: 'Stopped'
       - service: logbook.log
         data:
           domain: switch

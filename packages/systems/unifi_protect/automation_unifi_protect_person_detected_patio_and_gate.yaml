@@ -8,13 +8,17 @@ automation:
       
     trigger:
       - platform: homeassistant
+        id: 'start'
         event: start
       - platform: event
+        id: 'reload'
         event_type: automation_reloaded        
       - platform: state
+        id: 'gate'
         entity_id: binary_sensor.back_gate_door
         to: 'on'    
       - platform: state
+        id: 'person'
         entity_id: binary_sensor.motion_patio
         to: person
         attribute: event_object
@@ -25,7 +29,9 @@ automation:
       
     action:
       - choose:
-          - conditions: "{{ trigger.entity_id == 'binary_sensor.back_gate_door' }}"
+          - conditions: 
+              - condition: trigger
+                id: 'gate'
             sequence:
               - service: camera.record
                 target:
@@ -51,7 +57,10 @@ automation:
                   inline_keyboard:
                     - 'Show Video:/vdd_{{pic_file}}, OK:/remove_keyboard'    
               - delay: 00:05:00     
-          - conditions: "{{ trigger.entity_id == 'binary_sensor.motion_patio' }}"
+              
+          - conditions: 
+              - condition: trigger
+                id: 'person'          
             sequence:
               - service: input_text.set_value
                 target:
@@ -82,6 +91,7 @@ automation:
                   inline_keyboard:
                     - 'Show Video:/vdd_{{pic_file}}, OK:/remove_keyboard'    
               - delay: 00:05:00    
+              
       - service: input_text.set_value
         target:
           entity_id: input_text.camera_patio_object_detected

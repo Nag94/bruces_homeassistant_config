@@ -1,0 +1,89 @@
+automation:
+  - id: unifi_protect_vehicle_detected_drive
+    alias: Send message when Vehicle detected Drive
+    mode: single
+    
+    description: >
+      record and send a video when person seen
+      
+    trigger:
+      - platform: homeassistant
+        id: 'start'
+        event: start
+      - platform: event
+        id: 'reload'
+        event_type: automation_reloaded        
+      - platform: state
+        id: 'vehicle'
+        entity_id:  binary_sensor.motion_drive
+        to: vehicle
+        attribute: event_object        
+        
+    variables:
+      pic_file: "{{ 'drive_' + now().strftime('%d%m%H%M') }}"      
+      pic_folder: "/config/www/cam_snaps/"          
+      
+    action:
+      - choose:
+          - conditions: 
+              - condition: trigger
+                id: 'vehicle'
+            sequence:       
+              - service: input_text.set_value
+                target:
+                  entity_id: input_text.camera_drive_object_detected
+                data:
+                  value: "{{ trigger.to_state.attributes.event_object }}"    
+              - service: camera.record
+                target:
+                  entity_id: camera.drive       
+                data:
+                  duration: 10
+                  filename: "{{ pic_folder + pic_file }}.mp4"     
+              - service: telegram_bot.send_message
+                data:
+                  target: !secret telegram_chat_id_bruce_and_sarah
+                  message_tag: object_detected_drive
+                  message: >
+                    I have seen a {{ trigger.to_state.attributes.event_object }} on the Drive camera.
+                    
+                    Recording 10 seconds...........
+                    
+              - alias: 'Call plate Recogniser'
+                service: image_processing.scan
+                target:
+                  entity_id: image_processing.platerecognizer_drive
+
+              - alias: "Wait for plate recognition"
+                wait_for_trigger:                    
+                  - platform: event
+                    event_type:  platerecognizer.vehicle_detected
+                timeout: '00:00:05'
+              
+#              - choose:
+#                  - conditions: "{{ wait.trigger='none' }}"
+#                    sequence:
+#                      - alias: 'Call plate Recogniser'
+#                        service: image_processing.scan
+#                        target:
+#                          entity_id: image_processing.platerecognizer_drive
+                                       
+              - wait_template: "{{ pic_file in states.sensor.cam_snaps.attributes.file_list }}"
+                timeout: '00:00:20'
+                
+              - service: telegram_bot.edit_message
+                data:
+                  message_id: "{{ states('input_text.object_detected_drive_message_id') }}"
+                  chat_id: !secret telegram_chat_id_bruce_and_sarah   
+                  message: "I have seen a vehicle on the Drive camera. {{ wait.trigger.data.plate }}"
+                  inline_keyboard:
+                    - 'Show Video:/vdd_{{pic_file}}, OK:/remove_keyboard'      
+              - delay: 00:05:00
+              
+              
+      - service: input_text.set_value
+        target:
+          entity_id: input_text.camera_drive_object_detected
+        data:
+          value: ""          
+

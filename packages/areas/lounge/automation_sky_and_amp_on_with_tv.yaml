@@ -15,12 +15,24 @@ automation:
         id: 'off'
         entity_id: media_player.lounge_tv
         to: 'off'  
+      - platform: state
+        id: 'playing'
+        entity_id: media_player.lounge_android
+        to: 'and_playing'
+      - platform: state
+        id: 'and_off'
+        entity_id: media_player.lounge_android
+        to: 
+          - 'off'          
+          - 'standby'
       
     action:
       - choose:
           - conditions: 
               - condition: trigger
                 id: 'on'
+              - condition: trigger
+                id: 'playing'                
             sequence:
               - condition: state
                 entity_id: media_player.lounge_amp
@@ -29,6 +41,8 @@ automation:
           - conditions: 
               - condition: trigger
                 id: 'off' 
+              - condition: trigger
+                id: 'and_off'                      
             sequence:
               - condition: state
                 entity_id: media_player.lounge_amp

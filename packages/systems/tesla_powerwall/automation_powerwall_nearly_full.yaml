@@ -8,6 +8,7 @@ automation:
 
     trigger:
       - platform: numeric_state
+        id: 'nearly_full'
         entity_id: sensor.powerwall_charge
         above: 97
         

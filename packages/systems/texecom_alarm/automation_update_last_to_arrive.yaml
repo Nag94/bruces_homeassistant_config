@@ -7,6 +7,7 @@ automation:
     
     trigger:
       - platform: state
+        id: 'person'
         entity_id:            
           - person.cleaner
           - person.cat_sit

@@ -7,6 +7,7 @@ automation:
       
     trigger:
       - platform: event
+        id: 'text'
         event_type: telegram_text
         
     action:

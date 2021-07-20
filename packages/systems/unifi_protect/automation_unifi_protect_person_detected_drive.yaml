@@ -1,5 +1,5 @@
 automation:
-  - id: unifi_protect_person_or_vehicle_detected_drive
+  - id: unifi_protect_person_detected_drive
     alias: Send message when person detected Drive
     mode: single
     
@@ -8,15 +8,16 @@ automation:
       
     trigger:
       - platform: homeassistant
+        id: 'start'
         event: start
       - platform: event
+        id: 'reload'
         event_type: automation_reloaded        
       - platform: state
+        id: 'person'
         entity_id:  binary_sensor.motion_drive
-        to: 
-          - person
-          - vehicle
-        attribute: event_object
+        to: person
+        attribute: event_object    
         
     variables:
       pic_file: "{{ 'drive_' + now().strftime('%d%m%H%M') }}"      
@@ -24,7 +25,9 @@ automation:
       
     action:
       - choose:
-          - conditions: "{{ trigger.platform == 'state' }}"
+          - conditions: 
+              - condition: trigger
+                id: 'person'
             sequence:       
               - service: input_text.set_value
                 target:
@@ -42,7 +45,7 @@ automation:
                   target: !secret telegram_chat_id_bruce_and_sarah
                   message_tag: object_detected_drive
                   message: >
-                    I have seen a {{ trigger.to_state.attributes.event_object }} on the Drive camera.
+                    I have seen a person on the Drive camera.
                     
                     Recording 10 seconds...........
               - wait_template: "{{ pic_file in states.sensor.cam_snaps.attributes.file_list }}"
@@ -55,6 +58,7 @@ automation:
                   inline_keyboard:
                     - 'Show Video:/vdd_{{pic_file}}, OK:/remove_keyboard'      
               - delay: 00:05:00
+              
       - service: input_text.set_value
         target:
           entity_id: input_text.camera_drive_object_detected

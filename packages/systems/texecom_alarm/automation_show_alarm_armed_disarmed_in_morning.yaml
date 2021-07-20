@@ -8,17 +8,30 @@ automation:
 
     trigger:
       - platform: state
+        id: 'kitchen'
+        entity_id:            
+          - binary_sensor.kitchen_door   
+          - binary_sensor.kitchen
+        to: 'on'    
+      - platform: state
+        id: 'lounge'
+        entity_id:            
+          - binary_sensor.lounge_door
+          - binary_sensor.lounge         
+      - platform: state
+        id: 'landing'
         entity_id:            
           - binary_sensor.landing
           - binary_sensor.motion_landing
-          - binary_sensor.lounge_door
-          - binary_sensor.kitchen_door   
-          - binary_sensor.kitchen
-          - binary_sensor.lounge          
         to: 'on'
       - platform: state
+        id: 'disarmed'
         entity_id: alarm_control_panel.texecom
         to: 'disarmed'
+#      - platform: state
+#        id: 'armed_night'
+#        entity_id: alarm_control_panel.texecom
+#        to: 'armed_night'        
         
     condition:
       - condition: state
@@ -30,7 +43,12 @@ automation:
     action:
       - choose:
             # Kitchen Door or motion and alarm armed Night
-          - conditions: "{{ trigger.entity_id[14:21] == 'kitchen' and is_state('alarm_control_panel.texecom','armed_night') }}"
+          - conditions: 
+              - condition: trigger
+                id: 'kitchen'
+              - condition: state
+                entity_id: alarm_control_panel.texecom
+                state: 'armed_night'
             sequence:
               - service: light.turn_on
                 target:
@@ -45,7 +63,12 @@ automation:
                   brightness: 255
                   rgb_color: [255,0,0]       
             # Lounge Door or motion and alarm armed Night                
-          - conditions: "{{ trigger.entity_id[14:20] == 'lounge' and is_state('alarm_control_panel.texecom','armed_night') }}"
+          - conditions: 
+              - condition: trigger
+                id: 'lounge'
+              - condition: state
+                entity_id: alarm_control_panel.texecom
+                state: 'armed_night'
             sequence:
               - service: light.turn_on
                 target:
@@ -60,7 +83,13 @@ automation:
                   brightness: 255
                   rgb_color: [255,0,0]       
             # Lounge/Kitchen Door or motion                      
-          - conditions: "{{ trigger.entity_id[14:20] == 'lounge' or trigger.entity_id[14:21] == 'kitchen' }}"
+          - conditions: 
+              - condition: or
+                conditions:
+                  - condition: trigger
+                    id: 'kitchen'
+                  - condition: trigger
+                    id: 'lounge'                    
             sequence:
               - service: light.turn_on
                 target:
@@ -76,8 +105,12 @@ automation:
                     - light.kitchen_1
               - service: input_boolean.turn_on
                 target:
-                  entity_id: input_boolean.someone_has_been_downstairs                   
-          - conditions: "{{ is_state('alarm_control_panel.texecom','armed_night') }}"
+                  entity_id: input_boolean.someone_has_been_downstairs   
+                  
+          - conditions: 
+              - condition: state
+                entity_id: alarm_control_panel.texecom
+                state: 'armed_night'
             sequence:
               - service: light.turn_on
                 target:
@@ -86,7 +119,11 @@ automation:
                   brightness: 128
                   rgb_color: [255,0,0]
                   transition: 3
-          - conditions: "{{ is_state('alarm_control_panel.texecom','disarmed') }}"
+                  
+          - conditions: 
+              - condition: state
+                entity_id: alarm_control_panel.texecom
+                state: 'disarmed'
             sequence:
               - service: light.turn_on
                 target:

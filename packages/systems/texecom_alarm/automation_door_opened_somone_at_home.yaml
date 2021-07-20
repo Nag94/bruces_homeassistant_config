@@ -8,6 +8,7 @@ automation:
 
     trigger:
       - platform: state
+        id: 'door'
         entity_id: 
           - binary_sensor.front_door
           - binary_sensor.back_door    

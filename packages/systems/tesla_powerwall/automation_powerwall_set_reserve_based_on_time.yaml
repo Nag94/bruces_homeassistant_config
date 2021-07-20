@@ -8,24 +8,30 @@ automation:
     
     trigger:
       - platform: time
+        id: 'time'
         at: 
           - '06:30:05'
           - '14:00:05'        
           - '15:00:05'        
           - '15:59:55'  
       - platform: numeric_state
+        id: 'above25'
         entity_id: sensor.powerwall_charge
         above: 25
       - platform: numeric_state
+        id: 'above50'      
         entity_id: sensor.powerwall_charge
         above: 50
       - platform: numeric_state
+        id: 'below20'      
         entity_id: sensor.powerwall_charge
         below: 20        
       - platform: numeric_state
+        id: 'below45'            
         entity_id: sensor.powerwall_charge
         below: 45     
       - platform: state
+        id: 'states'
         entity_id: 
           - binary_sensor.agile_peak
           - binary_sensor.agile_plunge
@@ -33,8 +39,10 @@ automation:
           - sensor.zappi_jyggy_mode
           - sensor.zappi_paddy_mode
       - platform: homeassistant
+        id: 'start'
         event: start
       - platform: event
+        id: 'reload'
         event_type: automation_reloaded   
         
     action:

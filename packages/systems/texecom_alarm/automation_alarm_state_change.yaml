@@ -8,19 +8,36 @@ automation:
       
     trigger:
       - platform: state
+        id: 'triggered'
         entity_id: alarm_control_panel.texecom
-        to:
-          - triggered
-          - armed_away
-          - armed_home
-          - armed_night
-          - disarmed
-          - pending
-          
-#    condition: "{{ trigger.to_state.state != trigger.from_state.state }}"
+        to: triggered
+      - platform: state
+        id: 'arming'
+        entity_id: alarm_control_panel.texecom
+        from: disarmed
+        to: pending   
+      - platform: state
+        id: 'disarmed'
+        entity_id: alarm_control_panel.texecom
+        to: disarmed
+      - platform: state
+        id: 'armed_away'
+        entity_id: alarm_control_panel.texecom
+        to: armed_away
+      - platform: state
+        id: 'armed_home'
+        entity_id: alarm_control_panel.texecom
+        to: armed_home 
+      - platform: state
+        id: 'armed_night'
+        entity_id: alarm_control_panel.texecom
+        to: armed_night   
+
     action:
       - choose:
-          - conditions: "{{ trigger.to_state.state == 'triggered' }}"
+          - conditions: 
+              - condition: trigger
+                id: 'triggered'
             sequence:
                 # Give it a couple of seconds to update which sensor has triggered
               - delay: 2
@@ -56,19 +73,26 @@ automation:
                         volume: 1.0
       
             # Alarm is setting, bruce or Sarah at home, time after 9pm
-          - conditions: "{{ (trigger.to_state.state == 'pending') and (trigger.from_state.state == 'disarmed') and (is_state('group.bruce_or_sarah_home', 'home')) and (now() > now().replace(hour=21)) }}"
+          - conditions: 
+              - condition: trigger
+                id: 'arming'
+              - condition: state
+                entity_id: group.bruce_or_sarah_home
+                state: 'home'
+              - condition: time
+                after: '21:00:00'
             sequence:
               - service: light.turn_off
                 target:
                   entity_id: 
-                    - light.lounge_all
+                    - light.lounge
                     - light.conservatory
                     - light.bar
                     - light.lounge
                     - light.patio
                     - light.christmas
                     - light.utility_light
-                    - light.kitchen_all
+                    - light.kitchen
                     - light.downstairs_toilet_light
                     - light.under_stairs_light
               - delay: 1       
@@ -76,7 +100,12 @@ automation:
                 target:
                   entity_id: "{{ 'Conservatory Fan is on' if (is_state('input_boolean.bruce_is_asleep','off') and is_state('input_boolean.sarah_is_asleep','off')) else 'scene.gotobed_lights' }}"
               
-          - conditions: "{{ trigger.to_state.state == 'disarmed' and is_state('input_text.alarm_user','Maid For')}}"
+          - conditions: 
+              - condition: trigger
+                id: 'disarmed'         
+              - condition: state
+                entity_id: input_text.alarm_user
+                state: 'Maid For'
             sequence:
               - service: input_boolean.turn_off
                 target:
@@ -94,7 +123,9 @@ automation:
                 data:
                   message: "Terri Arriving"
 
-          - conditions: "{{ trigger.to_state.state == 'disarmed' }}"
+          - conditions: 
+              - condition: trigger
+                id: 'disarmed'   
             sequence:
               - service: input_boolean.turn_off
                 target:
@@ -107,7 +138,12 @@ automation:
                   message: "Disarmed by {{ states('input_text.alarm_user') }}"
 
 
-          - conditions: "{{ trigger.to_state.state == 'armed_away' and is_state('input_text.alarm_user','Cat Sit') }}"
+          - conditions: 
+              - condition: trigger
+                id: 'armed_away' 
+              - condition: state
+                entity_id: input_text.alarm_user
+                state: 'Cat Sit'                
             sequence:
               - service: light.turn_off
                 target:
@@ -128,7 +164,12 @@ automation:
                 data:
                   message: "Cat Sitter Leaving"                  
 
-          - conditions: "{{ trigger.to_state.state == 'armed_away' and is_state('input_text.alarm_user','Maid For')}}"
+          - conditions: 
+              - condition: trigger
+                id: 'armed_away' 
+              - condition: state
+                entity_id: input_text.alarm_user
+                state: 'Maid For'           
             sequence:
               - service: light.turn_off
                 target:
@@ -150,7 +191,9 @@ automation:
                 data:
                   message: "Terri Leaving"
 
-          - conditions: "{{ trigger.to_state.state == 'armed_away'  }}"
+          - conditions: 
+              - condition: trigger
+                id: 'armed_away' 
             sequence:
               - service: light.turn_off
                 target:
@@ -165,7 +208,9 @@ automation:
                   name: "Alarm System"
                   message: "Armed by {{ states('input_text.alarm_user') }}"
 
-          - conditions: "{{ trigger.to_state.state == 'armed_home'  }}"   
+          - conditions: 
+              - condition: trigger
+                id: 'armed_home' 
             sequence:
               - delay: 2
               - service: logbook.log
@@ -174,7 +219,9 @@ automation:
                   name: "Alarm System"
                   message: "Armed (Home) by {{ states('input_text.alarm_user') }}"
 
-          - conditions: "{{ trigger.to_state.state == 'armed_night'  }}"   
+          - conditions: 
+              - condition: trigger
+                id: 'armed_night' 
             sequence:
               - service: light.turn_off
                 target:

@@ -8,6 +8,7 @@ automation:
       
     trigger:
       - platform: event
+        id: 'sent'
         event_type: telegram_sent
         
     action:

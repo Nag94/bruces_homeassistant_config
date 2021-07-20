@@ -1,7 +1,7 @@
 automation:
   - id: lights_on_turn_off_sleep_switches
     alias: 'Turn off sleep switches when lights on'
-    mode: parallel
+    mode: queued
     
     description: >
       Lights on, turn off Asleep Switches

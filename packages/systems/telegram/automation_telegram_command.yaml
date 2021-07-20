@@ -7,6 +7,7 @@ automation:
       
     trigger:
       - platform: event
+        id: 'command'
         event_type: telegram_command
         
     action:

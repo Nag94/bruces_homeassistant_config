@@ -12,10 +12,13 @@ automation:
       
     trigger:
       - platform: state
+        id: 'rates'
         entity_id: octopusagile.rates
       - platform: homeassistant
+        id: 'start'
         event: start
       - platform: event
+        id: 'reload'
         event_type: automation_reloaded     
         
     condition:

@@ -8,6 +8,7 @@ automation:
 
     trigger:
       - platform: state
+        id: 'motion'
         entity_id: 
           - binary_sensor.lounge_motion
           - binary_sensor.landing_motion

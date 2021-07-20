@@ -8,6 +8,7 @@ automation:
 
     trigger:
       - platform: state
+        id: 'movement'
         entity_id: 
           - input_boolean.house_motion_detected
           - input_boolean.garage_motion_detected
@@ -15,10 +16,13 @@ automation:
           - 'on'
           - 'off'
       - platform: time_pattern
+        id: 'every15'
         minutes: "/15"
       - platform: homeassistant
+        id: 'start'
         event: start
       - platform: event
+        id: 'reload'
         event_type: automation_reloaded   
         
     action:  
