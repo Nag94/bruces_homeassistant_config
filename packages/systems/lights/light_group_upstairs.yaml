@@ -1,5 +1,6 @@
 light:           
   - platform: group
+    unique_id: light_group_upstairs_all
     name: Upstairs All
     entities:
     - light.upstairs

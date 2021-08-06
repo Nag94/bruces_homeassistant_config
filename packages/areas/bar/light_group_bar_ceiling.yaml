@@ -1,5 +1,6 @@
-light:          
+light:
   - platform: group
+    unique_id: bar_ceiling_group
     name: Bar Ceiling
     entities:
     - light.bar_ceiling_1

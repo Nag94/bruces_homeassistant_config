@@ -1,5 +1,6 @@
-light:          
+light:
   - platform: group
+    unique_id: conservatory_lights_group
     name: Conservatory Lights
     entities:
     # Hue Group

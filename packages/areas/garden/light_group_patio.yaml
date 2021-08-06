@@ -1,5 +1,6 @@
 light:           
   - platform: group
+    unique_id: light_group_patio
     name: Patio Lights
     entities:
     - light.patio_light

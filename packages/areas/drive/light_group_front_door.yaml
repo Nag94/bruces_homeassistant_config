@@ -1,5 +1,6 @@
 light:          
   - platform: group
+    unique_id: light_group_front_door
     name: Front Door Lights
     entities:
     - light.front_door_1

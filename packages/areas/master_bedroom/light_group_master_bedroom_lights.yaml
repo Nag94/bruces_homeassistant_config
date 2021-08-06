@@ -1,5 +1,6 @@
 light:          
   - platform: group
+    unique_id: light_group_master_bedroom
     name: Master Bedroom Lights
     entities:
     - light.master_bedroom

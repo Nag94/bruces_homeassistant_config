@@ -1,5 +1,6 @@
 light:          
   - platform: group
+    unique_id: light_group_lounge
     name: Lounge Lights
     entities:
     - light.lounge

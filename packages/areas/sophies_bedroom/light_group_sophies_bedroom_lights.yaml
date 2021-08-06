@@ -1,5 +1,6 @@
 light:          
   - platform: group
+    unique_id: light_group_sophies_bedroom
     name: Sophies Bedroom Lights
     entities:
     - light.sophies_bedroom

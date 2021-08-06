@@ -1,5 +1,6 @@
 light:          
   - platform: group
+    unique_id: light_group_kitchen_ceiling
     name: Kitchen Hue Ceiling
     entities:
     - light.kitchen_1

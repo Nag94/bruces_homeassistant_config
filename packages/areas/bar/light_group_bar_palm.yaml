@@ -1,5 +1,6 @@
-light:          
+light:
   - platform: group
+    unique_id: bar_palm_group
     name: Bar Palm
     entities:
     - light.bar_palm_1
