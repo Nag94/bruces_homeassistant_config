@@ -6,7 +6,9 @@ logbook:
       - group
     entity_globs:
       - alert.*
+      - sensor.*_last_online
       - automation.*_door_left_open
+      - automation.flic_button_events_from_flic_hub_webhook      
       - binary_sensor.*_motion     
       - binary_sensor.*_on_off
       - binary_sensor.motion_*

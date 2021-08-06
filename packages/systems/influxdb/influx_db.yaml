@@ -31,7 +31,8 @@ influxdb:
       - sensor.eddi_power      
       - sensor.eddi_water_temp
       - sensor.electricity_consumption
-      - sensor.export_power            
+      - sensor.export_power    
+      - sensor.forecastsolar_power_now      
       - sensor.fridge_freezer_temperature
       - sensor.fridge_fridge_temperature
       - sensor.hottub_water_temp
