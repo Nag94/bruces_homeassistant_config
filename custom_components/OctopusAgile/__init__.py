@@ -58,10 +58,7 @@ def setup(hass, config):
         auth = config["octopusagile"]["auth"]
         mpan = config["octopusagile"]["mpan"]
         serial = config["octopusagile"]["serial"]
-        gorate = config["octopusagile"].get("gorate", None)
-        godayrate = config["octopusagile"].get("godayrate", None)
-        gotimes = config["octopusagile"].get("gotimes", [])
-        myrates = Agile(area_code=region_code, auth=auth, mpan=mpan, serial=serial, gorate=gorate, godayrate=godayrate, gotimes=gotimes)
+        myrates = Agile(area_code=region_code, auth=auth, mpan=mpan, serial=serial)
         hass.states.set(f"octopusagile.region_code", region_code)
         startdate = config["octopusagile"]["startdate"]
         hass.states.set(f"octopusagile.startdate", startdate)
@@ -217,9 +214,8 @@ def setup(hass, config):
         date_from = datetime.strftime(datetime.utcnow(), '%Y-%m-%dT23:00:00Z')
         date_to = datetime.strftime((datetime.utcnow() + timedelta(days=1)), f"%Y-%m-%dT23:00:00Z")
         rates_exc_peak = myrates.get_rates(date_from, date_to)["date_rates"]
-        if len(rates_exc_peak.values()) > 0:
-            avg_rate_inc_peak = round(sum(rates_exc_peak.values())/len(rates_exc_peak.values()), 2)
-            hass.states.set(f"octopusagile.avg_rate_inc_peak", avg_rate_inc_peak)
+        avg_rate_inc_peak = round(sum(rates_exc_peak.values())/len(rates_exc_peak.values()), 2)
+        hass.states.set(f"octopusagile.avg_rate_inc_peak", avg_rate_inc_peak)
 
         # Excluding peak
         date_from = datetime.strftime(datetime.utcnow(), '%Y-%m-%dT23:00:00Z')
@@ -230,9 +226,8 @@ def setup(hass, config):
         date_to = datetime.strftime((datetime.utcnow() + timedelta(days=1)), f"%Y-%m-%dT23:00:00Z")
         rates_exc_peak.update(myrates.get_rates(date_from, date_to)["date_rates"])
 
-        if len(rates_exc_peak.values()) > 0:
-            avg_rate_exc_peak = round(sum(rates_exc_peak.values())/len(rates_exc_peak.values()), 2)
-            hass.states.set(f"octopusagile.avg_rate_exc_peak", avg_rate_exc_peak)
+        avg_rate_exc_peak = round(sum(rates_exc_peak.values())/len(rates_exc_peak.values()), 2)
+        hass.states.set(f"octopusagile.avg_rate_exc_peak", avg_rate_exc_peak)
 
     def handle_half_hour_timer(call):
         """Handle the service call."""
