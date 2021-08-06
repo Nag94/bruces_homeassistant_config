@@ -14,11 +14,11 @@ script:
         - service: remote.turn_off
           target:
             entity_id: remote.lounge_apple_tv
-        - service: remote.send_command
-          target: 
-            entity_id: remote.lounge_tv
-          data:
-            command: PowerOff          
+#        - service: remote.send_command
+#          target: 
+#            entity_id: remote.lounge_tv
+#          data:
+#            command: PowerOff          
         - service: input_boolean.turn_off
           target:
             entity_id: input_boolean.lounge_ambilight_required
