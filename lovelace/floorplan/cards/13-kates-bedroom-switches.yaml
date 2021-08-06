@@ -1,4 +1,6 @@
 type: conditional
+#view_layout:
+#  position: sidebar
 conditions:
   - entity: input_boolean.floorplan_show_kates_bedroom_switches
     state: "on"

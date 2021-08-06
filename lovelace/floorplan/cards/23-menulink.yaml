@@ -1,4 +1,6 @@
-icon: 'mdi:menu'
+type: conditional
+#view_layout:
+#  position: sidebar
 show_icon: true
 show_name: false
 styles:

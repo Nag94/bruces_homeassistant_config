@@ -1,4 +1,6 @@
 type: conditional
+#view_layout:
+#  position: sidebar
 conditions:
   - entity: input_boolean.floorplan_show_bar_switches
     state: "on"

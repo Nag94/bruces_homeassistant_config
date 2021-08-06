@@ -3988,6 +3988,23 @@ elements:
 
       - type: conditional
         conditions:     
+          - entity: light.lounge_tv
+            state: 'on'
+        elements:
+          - type: icon
+            icon: 'mdi:television-ambient-light'
+            entity: light.lounge_tv
+            style:
+              color: yellow
+              top: 68%
+              left: 11%
+              transform: 'scale(2.6,2.6)'             
+            tap_action:          
+              action: navigate
+              navigation_path: /lovelace-remote/remote
+              
+      - type: conditional
+        conditions:     
           - entity: media_player.lounge_skyq
             state: 'off'
         elements:
