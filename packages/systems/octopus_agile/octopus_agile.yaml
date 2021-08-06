@@ -1,17 +1,10 @@
 octopusagile:
   region_code: "L"
-
-# Examples
-#  mpan: 2200999999999
-#  serial: 20J9999999
-#  auth: sk_live_ABCDEaBzDv9aBc3AbCDEFgh
-
-# Actually used
   mpan: !secret octopus_mpan
   serial: !secret octopus_serial
   auth: !secret octopus_auth
   startdate: "2020-07-22"
-  consumption: false
+ # consumption: false
   
 #  moneymakers:
 #  - switch.water_heater: null

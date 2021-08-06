@@ -1,0 +1,8 @@
+sensor:
+  - platform: template
+    sensors:
+      octopus_current_price_pounds:
+        unique_id: octopus_current_price_pounds
+        friendly_name: "£/kWh"
+        unit_of_measurement: '£'
+        value_template: "{{ states('sensor.octopus_agile_current_rate') | float / 100.0 }}"

@@ -4,4 +4,8 @@ rest:
     - name: "Export Price"
       value_template: "{{ value_json.results[0].value_inc_vat | round(2) }}"
       unit_of_measurement: "p/kWh"
+
+    - name: "Export Price Pounds"
+      value_template: "{{ (value_json.results[0].value_inc_vat / 100) }}"
+      unit_of_measurement: "£"      
     

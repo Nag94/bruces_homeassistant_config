@@ -3,5 +3,5 @@ sensor:
     sensors:
       forecastsolar_today:
         friendly_name: ForecastSolar Today
-        value_template: "{{ (states('sensor.energy_production_today_sw')|float + states('sensor.energy_production_today_se')|float + states('sensor.energy_production_today_nw')|float + states('sensor.energy_production_today_ne')|float) | round(1) }}"
+        value_template: "{{ ((states('sensor.energy_production_today_sw')|float + states('sensor.energy_production_today_se')|float + states('sensor.energy_production_today_nw')|float + states('sensor.energy_production_today_ne')|float) ) | round(1) }}"
         unit_of_measurement: "kWh"
