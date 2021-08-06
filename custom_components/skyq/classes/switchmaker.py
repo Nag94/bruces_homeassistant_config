@@ -66,6 +66,8 @@ class Switch_Maker:
             .replace("!", "")
             .replace(":", "_")
             .replace("/", "_")
+            .replace("&", "_")
+            .replace("-", "_")
             .lower()
             + self._room.replace(" ", "").lower()
         )
