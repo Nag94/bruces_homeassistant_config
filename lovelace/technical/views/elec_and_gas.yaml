@@ -93,17 +93,29 @@ cards:
     title: VoltAware
     entities:
       - entity: sensor.voltaware_v
+        name: 'Voltage'
       - entity: sensor.voltaware_i
+        name: 'Current'
       - entity: sensor.voltaware_phase
+        name: 'Phase Shift'
       - entity: sensor.voltaware_frequency
+        name: 'Frequency'
       - entity: sensor.voltaware_active_power
+        name: 'P'
       - entity: sensor.voltaware_reactive_power
+        name: 'Q'
       - entity: sensor.voltaware_active_exp
+        name: 'Produced Energy (P)'
       - entity: sensor.voltaware_active_imp
+        name: 'Consumed Energy (P)'
       - entity: sensor.voltaware_active_net
+        name: 'net Active Energy (P)'
       - entity: sensor.voltaware_reactive_exp
+        name: 'Produced Energy (Q)'      
       - entity: sensor.voltaware_reactive_imp
+        name: 'Consumed Energy (Q)'      
       - entity: sensor.voltaware_reactive_net
+        name: 'net Reactive Energy'      
   - type: entities
     entities:
       - entity: sensor.forecastsolar_power_now
