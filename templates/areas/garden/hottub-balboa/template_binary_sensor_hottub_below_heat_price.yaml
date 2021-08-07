@@ -1,6 +1,0 @@
-binary_sensor:
-  - name: "HotTub At Or Below Max Heat Cost"
-    unique_id: hottub_at_or_below_max_charge_cost
-    availability:  "{{ states('sensor.octopus_agile_current_rate') != 'unknown' and states('binary_sensor.spa_circ_pump') != 'unavailable' }}"       
-    state: "{{ (states('sensor.octopus_agile_current_rate') | float) <= (states('input_number.hottub_heat_below_x_pence') | float) }}"
-
