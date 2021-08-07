@@ -1,7 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      forecastsolar_tomorrow:
-        friendly_name: ForecastSolar Tomorrow
-        value_template: "{{ (states('sensor.energy_production_tomorrow_sw')|float + states('sensor.energy_production_tomorrow_se')|float + states('sensor.energy_production_tomorrow_nw')|float + states('sensor.energy_production_tomorrow_ne')|float) | round(1) }}"      
-        unit_of_measurement: "kWh"

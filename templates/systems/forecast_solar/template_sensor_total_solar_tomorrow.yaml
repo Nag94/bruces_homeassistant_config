@@ -1,0 +1,6 @@
+sensor:
+  - name: "ForecastSolar Tomorrow"
+    unique_id: forecastsolar_tomorrow
+    state: "{{ (states('sensor.energy_production_tomorrow_sw')|float + states('sensor.energy_production_tomorrow_se')|float + states('sensor.energy_production_tomorrow_nw')|float + states('sensor.energy_production_tomorrow_ne')|float) | round(1) }}"      
+    unit_of_measurement: "kWh"
+    device_class: energy
