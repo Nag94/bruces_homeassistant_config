@@ -5,7 +5,6 @@ The config file is split into a large number of [packages](packages) to allow it
 I'm doing my best to document each section so you can see what it is doing.
 
 Most config files are in the [packages](packages) directory.  So browse around in there !
-Template Sensor files are in the [templates](templates) directory as modern template syntax does not work in packages.
 
 Main features are:
 
