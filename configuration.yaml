@@ -1,6 +1,7 @@
 
 default_config:
 
+
 http:
   use_x_forwarded_for: true
   trusted_proxies:
@@ -17,6 +18,7 @@ frontend:
 #    homeassistant.components.rest_command: debug  
 #    homeassistant.components.rest: debug      
 #    custom_components.surepetcare: debug  
+#    custom_components.octopusagile: debug
 #    custom_components.balboa: debug
 #    homeassistant.core: debug
 #    homeassistant.components.zha: debug
@@ -56,6 +58,13 @@ lovelace:
       icon: mdi:home
       show_in_sidebar: true
       require_admin: false  
+    lovelace-energy: # Needs to contain a hyphen (-)
+      mode: yaml
+      title: Energy
+      filename: ui-energy.yaml
+      icon: mdi:flash
+      show_in_sidebar: true
+      require_admin: false        
     lovelace-switchboard: # Needs to contain a hyphen (-)
       mode: yaml
       title: Menu
@@ -134,8 +143,11 @@ lovelace:
 group: !include groups.yaml
 zone: !include zones.yaml
 scene: !include scenes.yaml
+template: !include_dir_list templates
+
 
 homeassistant:
+  currency: GBP
   external_url: !secret ha_external_url
   allowlist_external_dirs: 
     - /config/www/cam_snaps
