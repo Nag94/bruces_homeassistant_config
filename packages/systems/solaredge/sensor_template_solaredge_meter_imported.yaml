@@ -1,7 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      solaredge_meter_imported:
-        unique_id: solaredge_meter_imported
-        friendly_name: "Imported"
-        value_template: "{{ (state_attr('sensor.solaredge_modbus_meter_1', 'imported') /1000 ) | round(1) }}"    

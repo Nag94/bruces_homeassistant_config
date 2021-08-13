@@ -1,6 +1,7 @@
 sensor:
   - platform: mqtt
     name: "MQTT Power"
+    unique_id: mqtt_power
     device_class: power
     unit_of_measurement: "kW"
     icon: mdi:flash
@@ -9,6 +10,7 @@ sensor:
 
   - platform: mqtt
     name: "MQTT Import Power"
+    unique_id: mqtt_import_power
     device_class: power
     unit_of_measurement: "kW"
     icon: mdi:flash
@@ -16,10 +18,10 @@ sensor:
     #value_template: "{% if value_json['elecMtr']['0702']['04']['00']|int(base=16)  > 100000 or value_json['elecMtr']['0702']['04']['00']|int(base=16)  < 0 %}0.0{% else %}{{  (value_json.elecMtr['0702']['04']['00'] | int(base=16) / 1000) | round(1)   }}{% endif %}"
     value_template: "{{ 0.0 if (value_json['elecMtr']['0702']['04']['00']|int(base=16)  > (2**31) -1) else (value_json.elecMtr['0702']['04']['00'] | int(base=16) / 1000) | round(1)  }}"
     
-  - platform: template
-    sensors:
-      import_power_integration:
-        unique_id: import_power_integration
-        friendly_name: Import Power
-        unit_of_measurement: "kW"
-        value_template: "{% if (states('sensor.electricity_consumption') | float ) > 20.0 %}{{ ((states('sensor.electricity_consumption') | float) / 1000.0) | round(2) }}{% else %}0.0{% endif %}"
+template:
+  sensor:
+    - name: "Import Power Integration"
+      unique_id: import_power_integration
+      unit_of_measurement: "kW"
+      state: "{% if (states('sensor.electricity_consumption') | float ) > 20.0 %}{{ ((states('sensor.electricity_consumption') | float) / 1000.0) | round(2) }}{% else %}0.0{% endif %}"
+      device_class: power

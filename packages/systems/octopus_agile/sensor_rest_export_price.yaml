@@ -7,5 +7,5 @@ rest:
 
     - name: "Export Price Pounds"
       value_template: "{{ (value_json.results[0].value_inc_vat / 100) }}"
-      unit_of_measurement: "£"      
+      unit_of_measurement: "£/kWh"      
     

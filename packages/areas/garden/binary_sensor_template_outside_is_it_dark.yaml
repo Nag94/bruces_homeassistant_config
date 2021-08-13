@@ -1,7 +1,5 @@
-binary_sensor:
-  - platform: template
-    sensors:
-      dark_outside:
-        unique_id: dark_outside
-        friendly_name: "Dark Outside"
-        value_template: "{{ states('sensor.outside_light') | int < 250 }}"
+template:
+  binary_sensor:
+    - name: "Dark Outside"
+      unique_id: dark_outside
+      state: "{{ states('sensor.outside_light') | int < 250 }}"

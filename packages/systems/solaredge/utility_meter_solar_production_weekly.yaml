@@ -1,4 +1,4 @@
 utility_meter:
-    solar_production_weekly:
-      source: sensor.solaredge_lifetime_production
+    solar_production_weekly_kw:
+      source: sensor.solaredge_lifetime_production_kw
       cycle: weekly

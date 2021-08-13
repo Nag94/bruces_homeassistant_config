@@ -1,0 +1,5 @@
+template:
+  sensor:
+    - name: "Solaredge Meter Events"
+      unique_id: solaredge_meter_events
+      state: "{{ state_attr('sensor.solaredge_modbus_meter_1', 'events') }}"      

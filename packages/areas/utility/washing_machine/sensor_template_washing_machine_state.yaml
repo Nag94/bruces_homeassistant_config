@@ -1,10 +1,8 @@
-sensor:
-  - platform: template
-    sensors:
-      washing_machine_state:
-        unique_id: washing_machine_state
-        friendly_name: "Washing Machine State"
-        value_template: >
+template:
+  sensor:
+    - name: "Washing Machine State"
+      unique_id: washing_machine_state
+      state: >
           {% if (states('sensor.washing_machine_power') | float) > 700.00 %}Heating{% 
           elif (states('sensor.washing_machine_power') | float) > 190.00 %}Fast-Spin{% 
           elif (states('sensor.washing_machine_power') | float) > 90.00 %}Spin{% 

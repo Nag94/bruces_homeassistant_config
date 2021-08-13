@@ -1,5 +1,6 @@
 sensor:
   - platform: mqtt
+    unique_id: mqtt_export_power
     name: "MQTT Export Power"
     device_class: power
     unit_of_measurement: "kW"
@@ -8,11 +9,11 @@ sensor:
     value_template: "{{ (value_json['elecMtr']['0702']['04']['00']|int(base=16) - 2**32) if (value_json['elecMtr']['0702']['04']['00']|int(base=16)  > (2**31) -1) else 0.0 }}"
 
 
-  - platform: template
-    sensors:
-      export_power_integration:
-        unique_id: export_power_integration
-        friendly_name: Export Power
-        unit_of_measurement: "kW"
-        value_template: "{{((states('sensor.electricity_consumption') | float) / -1000.0) | round(2) if (states('sensor.electricity_consumption') | float ) < 20.0 else 0.0 }}"
+template:
+  sensor:
+    - name: "Export Power Integration"
+      unique_id: export_power_integration
+      unit_of_measurement: "kW"
+      device_class: power
+      state: "{{((states('sensor.electricity_consumption') | float) / -1000.0) | round(2) if (states('sensor.electricity_consumption') | float ) < 20.0 else 0.0 }}"
 

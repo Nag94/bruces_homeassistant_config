@@ -1,7 +1,6 @@
-sensor:
-  - platform: template
-    sensors:
-      floorplan_powerwall_home_load:
-        friendly_name: "Powerwall Home Load"
-        unit_of_measurement: 'kW'
-        value_template: "{{ ((states('sensor.powerwall_load_now') | float)  - (states('sensor.eddi_power') |float ) - (states('sensor.zappi_jyggy_power') |float )  - (states('sensor.zappi_paddy_power') |float )) | round(1) }}"
+template:
+  sensor:
+    - name: "Floorplan Powerwall Home Load"
+      unit_of_measurement: 'kW'
+      state: "{{ ((states('sensor.powerwall_load_now') | float)  - (states('sensor.eddi_power') |float ) - (states('sensor.zappi_jyggy_power') |float )  - (states('sensor.zappi_paddy_power') |float )) | round(1) }}"
+      device_class: power

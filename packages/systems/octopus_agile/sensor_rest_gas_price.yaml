@@ -1,0 +1,8 @@
+rest:
+  resource_template: "https://octopus.energy/api/v1/tracker/G-1R-SILVER-2017-1-J/monthly/future/12/5320/"
+  sensor:
+    - name: "Gas Price Pounds"
+      value_template: "{{ value_json.periods[0].unit_rate / 100 }}"
+      unit_of_measurement: "£/kWh"
+  
+    

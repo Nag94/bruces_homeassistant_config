@@ -1,7 +1,5 @@
-sensor:
-  - platform: template 
-    sensors:
-      lounge_source:
-        unique_id: lounge_source
-        friendly_name: 'Lounge Source'
-        value_template: "{{ state_attr('media_player.lounge_amp','source') }}"
+template:
+  sensor:
+    - name: "Lounge Source"
+      unique_id: lounge_source
+      state: "{{ state_attr('media_player.lounge_amp','source') }}"

@@ -1,8 +1,7 @@
-sensor:
-  - platform: template
-    sensors:
-      electricity_demand_rounded:
-        unique_id: electricity_demand_rounded
-        friendly_name: "Load"
-        unit_of_measurement: 'kW'
-        value_template:  "{{ ((states('sensor.import_power') | float )/ 1000.0) | round(1) }}"
+template:
+  sensor:
+    - name: "Electricity Demand Rounded"
+      unique_id: electricity_demand_rounded
+      unit_of_measurement: 'kW'
+      device_class: power
+      state:  "{{ ((states('sensor.import_power') | float )/ 1000.0) | round(1) }}"
