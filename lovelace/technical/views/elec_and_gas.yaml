@@ -5,8 +5,8 @@ badges: []
 cards:
   - entities:
       - entity: binary_sensor.electricity_supply
-      - entity: sensor.import_power
-      - entity: sensor.export_power
+      - entity: sensor.solaredge_grid_import
+      - entity: sensor.solaredge_grid_export
       - entity: sensor.apc_ups_input_voltage
         name: Voltage
       - entity: sensor.electricity_demand_cost
@@ -46,28 +46,34 @@ cards:
     show_header_toggle: false
   - type: entities
     entities:
-      - entity: sensor.solaredge_ac_total_current
-      - entity: sensor.solaredge_ac_voltage_phase_ab
+      - entity: sensor.solaredge_mb_ac_current
+        name: AC Current      
+      - entity: sensor.solaredge_mb_ac_voltage_ab
         name: AC Voltage
-      - entity: sensor.solaredge_ac_power_output
-      - entity: sensor.solaredge_heatsink_temp
-      - entity: sensor.solaredge_inverter_efficiency
-      - entity: sensor.solaredge_ac_frequency
-      - entity: sensor.solaredge_status
-    title: SolarEdge
+      - entity: sensor.solaredge_mb_ac_power_kw
+        name: AC Power      
+      - entity: sensor.solaredge_mb_temp_sink
+        name: Heatsink Temp            
+#      - entity: sensor.solaredge_inverter_efficiency
+      - entity: sensor.solaredge_mb_ac_frequency
+        name: AC Frequency            
+      - entity: sensor.solaredge_status_text
+        name: Status      
+    title: SolarEdge Production
     state_color: true
     show_header_toggle: false
   - type: entities
     entities:
-      - entity: sensor.solar_production_hourly
-        name: Production - This Hour
-      - entity: sensor.solar_production_daily
-        name: Production - Today
-      - entity: sensor.solar_production_weekly
-        name: Production - This Week
-      - entity: sensor.solar_production_monthly
-        name: Production - This Month
-      - entity: sensor.solaredge_lifetime_production
+      - entity: sensor.solar_production_hourly_kw
+        name: This Hour
+      - entity: sensor.solar_production_daily_kw
+        name: Today
+      - entity: sensor.solar_production_weekly_kw
+        name: This Week
+      - entity: sensor.solar_production_monthly_kw
+        name: This Month
+      - entity: sensor.solaredge_lifetime_production_kw
+        name: Lifetime
     title: Solar Production
     state_color: true
     show_header_toggle: false

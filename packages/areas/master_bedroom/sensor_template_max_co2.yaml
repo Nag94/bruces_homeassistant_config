@@ -1,9 +1,7 @@
-sensor:
-  - platform: template
-    sensors:
-      master_bedroom_environment_max_co2:
-        unique_id: master_bedroom_environment_max_co2
-        friendly_name: "Max CO2"
-        value_template: "{{ state_attr('sensor.master_bedroom_co2_statistics','max_value') | int }}"
-        icon_template: mdi:molecule-co2
-        unit_of_measurement: 'ppm'
+template:
+  sensor:
+    - name: "Master Bedroom Environment Max CO2"
+      unique_id: master_bedroom_environment_max_co2
+      state: "{{ state_attr('sensor.master_bedroom_co2_statistics','max_value') | int }}"
+      icon: mdi:molecule-co2
+      unit_of_measurement: 'ppm'

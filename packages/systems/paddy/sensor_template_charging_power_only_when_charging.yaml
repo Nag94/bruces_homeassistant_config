@@ -1,7 +1,7 @@
-sensor:
-- platform: template
-  sensors:
-    paddy_charging_power:
-      friendly_name: "Charging Power"
+template:
+  sensor:
+    - name: "Paddy Charging Power"
+      unique_id: paddy_charging_power
+      device_class: power
       unit_of_measurement: "kW"
-      value_template: "{% if is_state('binary_sensor.vf1ag000366115079_charging','on') %}{{ states('sensor.vf1ag000366115079_charging_power') }}{% else %}0.0{% endif %}"
+      state: "{% if is_state('binary_sensor.vf1ag000366115079_charging','on') %}{{ states('sensor.vf1ag000366115079_charging_power') }}{% else %}0.0{% endif %}"

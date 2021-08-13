@@ -1,9 +1,7 @@
-sensor:
-  - platform: template
-    sensors:
-      outside_light_rounded:
-        unique_id: outside_light_rounded
-        friendly_name: "Outside Light"
-        value_template: "{{ states('sensor.outside_light') | int }}"
-        device_class: "illuminance"
-        unit_of_measurement: "lx"
+template:
+  sensor:
+    - name: "Outside Light Rounded"
+      unique_id: outside_light_rounded
+      state: "{{ states('sensor.outside_light') | int }}"
+      device_class: "illuminance"
+      unit_of_measurement: "lx"

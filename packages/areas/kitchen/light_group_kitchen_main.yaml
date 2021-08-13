@@ -6,3 +6,6 @@ light:
     - light.kitchen_ceiling_1
     - light.kitchen_ceiling_2
     - light.kitchen_ceiling_3
+    - light.kitchen_cupboard 
+    - light.kitchen_kickboard 
+    - light.kitchen_worktop    

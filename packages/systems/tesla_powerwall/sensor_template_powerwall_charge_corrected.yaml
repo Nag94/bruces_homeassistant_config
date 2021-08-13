@@ -1,9 +1,7 @@
-sensor:
-  - platform: template
-    sensors:
-      powerwall_charge_corrected:
-        unique_id: powerwall_charge_corrected
-        friendly_name: "Powerwall Charge"
-        unit_of_measurement: '%'
-        value_template: "{{ (((states('sensor.powerwall_charge') | float) * 1.05) - 5.0 ) | int  }}"
-        device_class: battery
+template:
+  sensor:
+    - name: "Powerwall Charge Corrected"
+      unique_id: powerwall_charge_corrected
+      unit_of_measurement: '%'
+      state: "{{ (((states('sensor.powerwall_charge') | float) * 1.05) - 5.0 ) | int  }}"
+      device_class: battery

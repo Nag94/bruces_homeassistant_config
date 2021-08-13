@@ -1,0 +1,6 @@
+template:
+  sensor:
+    - name: "Solaredge Inverter Efficiency"
+      unique_id: solaredge_inverter_efficiency
+      state: "{{ state_attr('sensor.solaredge_modbus', 'computed_inverter_efficiency') }}"
+      unit_of_measurement: '%'

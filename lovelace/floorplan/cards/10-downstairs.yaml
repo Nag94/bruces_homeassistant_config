@@ -870,14 +870,14 @@ elements:
         state: 'on'  
     elements:        
       - type: state-label
-        entity: sensor.solar_production_daily
+        entity: sensor.solar_production_daily_kw
         style:
           color: orange
           top: 5%
           left: 69%    
       - type: conditional
         conditions:
-          - entity: sensor.solaredge_status
+          - entity: sensor.solaredge_status_text
             state: Fault       
         elements:
           - type: icon
@@ -924,7 +924,7 @@ elements:
         conditions:   
 #          - entity: sensor.solar_direction
 #            state: import
-          - entity: sensor.solaredge_status
+          - entity: sensor.solaredge_status_text
             state: Working              
         elements:
           - type: icon
@@ -952,7 +952,7 @@ elements:
         conditions:
 #          - entity: sensor.solar_direction
 #            state: import        
-          - entity: sensor.solaredge_status
+          - entity: sensor.solaredge_status_text
             state: Throttled       
         elements:
           - type: icon

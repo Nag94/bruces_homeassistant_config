@@ -1,10 +1,8 @@
-sensor:
-  - platform: template
-    sensors:
-      powerwall_discharging:
-        unique_id: powerwall_discharging
-        friendly_name_template: 'Powerwall Discharging'
-        value_template: "{{ (states('sensor.powerwall_battery_now')| float  | round(1)) if states('sensor.powerwall_battery_now')| float > 0.05 else 0.0 }}"
-        unit_of_measurement: 'kW'
-        icon_template: mdi:battery
-        device_class: power   
+template:
+  sensor:
+    - name: "Powerwall Discharging"
+      unique_id: powerwall_discharging
+      state: "{{ (states('sensor.powerwall_battery_now')| float  | round(1)) if states('sensor.powerwall_battery_now')| float > 0.05 else 0.0 }}"
+      unit_of_measurement: 'kW'
+      icon: mdi:battery
+      device_class: power   

@@ -1,10 +1,8 @@
-binary_sensor:
-  - platform: template
-    sensors:
-      litter_trays_dirty:
-        unique_id: litter_trays_dirty
-        friendly_name: 'Litter Trays Dirty'
-        value_template: >
+template:
+  binary_sensor:
+    - name: "Litter Trays Dirty"
+      unique_id: litter_trays_dirty
+      state: >
           {% set sensors = [states.binary_sensor.littertray_utility_dirty,
                             states.binary_sensor.littertray_shower_dirty,
                             states.binary_sensor.littertray_downstairs_dirty,

@@ -1,0 +1,8 @@
+template:
+  sensor:
+    - name: "Solaredge Lifetime Production MW"
+      unique_id: solaredge_lifetime_production_mw
+      state: "{{ (states('sensor.solaredge_lifetime_energy') | float / 1000000.0) | round(2) }}"
+      unit_of_measurement: 'MWh'
+      device_class: energy               
+

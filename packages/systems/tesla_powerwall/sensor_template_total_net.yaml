@@ -1,0 +1,6 @@
+template:
+  sensor:
+    - name: "Powerwall Total Daily Net"
+      state: "{{ (states('sensor.powerwall_export_daily_kwh') |float - states('sensor.powerwall_import_daily_kwh') |float)|round(2)}}"
+      device_class: energy
+      unit_of_measurement: kWh

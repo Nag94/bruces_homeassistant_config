@@ -1,21 +1,8 @@
-sensor:
-  - platform: template
-    sensors:
-      hottub_water_temp:
+template:
+  - sensor:
+      - name: "HotTub Water Temp"
         unique_id: hottub_current_temp
-        availability_template: "{{ not is_state('binary_sensor.spa_circ_pump','unavailable') }}"
-        friendly_name: "HotTub Current Temp"
+        availability: "{{ not is_state('binary_sensor.spa_circ_pump','unavailable') }}"
         device_class: temperature
         unit_of_measurement: '°C'        
-        value_template: "{{ state_attr('climate.spa_climate','current_temperature') }}"
-
-
-# Won't work until Template is supported in packages !
-#template:
-#  - sensor:
-#      - name: "HotTub Water Temp"
-#        unique_id: hottub_current_temp
-#        availability: "{{ not is_state('binary_sensor.spa_circ_pump','unavailable') }}"
-#        device_class: temperature
-#        unit_of_measurement: '°C'        
-#        state: "{{ state_attr('climate.spa_climate','current_temperature') }}"
+        state: "{{ state_attr('climate.spa_climate','current_temperature') }}"

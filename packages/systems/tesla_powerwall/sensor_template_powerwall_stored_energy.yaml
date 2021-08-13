@@ -1,13 +1,11 @@
-sensor:
-  - platform: template
-    sensors:
-      powerwall_stored_energy:
-        unique_id: powerwall_stored_energy
-        friendly_name: "Powerwall Stored Energy"
-        unit_of_measurement: 'kWh'
-        value_template: "{{ ((((states('sensor.powerwall_charge') | float) * 1.05) - 5.0 ) * 0.135) | round(1)  }}"
-        device_class: battery
-        icon_template: >-
+template:
+  sensor:
+    - name: "Powerwall Stored Energy"
+      unique_id: powerwall_stored_energy
+      unit_of_measurement: 'kWh'
+      state: "{{ ((((states('sensor.powerwall_charge') | float) * 1.05) - 5.0 ) * 0.135) | round(1)  }}"
+      device_class: battery
+      icon: >-
           {% set battery_level = states('sensor.powerwall_charge_corrected')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
           {% if battery_level == 'unknown' %}

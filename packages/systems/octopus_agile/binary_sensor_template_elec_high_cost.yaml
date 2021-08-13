@@ -1,6 +1,4 @@
-binary_sensor:
-  - platform: template
-    sensors:
-      elec_high_cost:
-        friendly_name: "High Electric Cost"
-        value_template: "{{ (states('sensor.electricity_demand_cost') | float) > 20.0 }}"
+template:
+  binary_sensor:
+    - name: "Elec High Cost"
+      state: "{{ (states('sensor.electricity_demand_cost') | float) > 20.0 }}"

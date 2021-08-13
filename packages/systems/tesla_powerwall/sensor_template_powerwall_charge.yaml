@@ -1,10 +1,8 @@
-sensor:
-  - platform: template
-    sensors:          
-      powerwall_charging:
-        unique_id: powerwall_charging
-        friendly_name_template: 'Powerwall Charging'
-        value_template: "{{ ((states('sensor.powerwall_battery_now') | float / -1) | round(1)) if states('sensor.powerwall_battery_now') | float < -0.05 else 0.0 }}"
-        unit_of_measurement: 'kW'
-        icon_template: mdi:battery
-        device_class: power  
+template:
+  sensor:          
+    - name: "Powerwall Charging"
+      unique_id: powerwall_charging
+      state: "{{ ((states('sensor.powerwall_battery_now') | float / -1) | round(1)) if states('sensor.powerwall_battery_now') | float < -0.05 else 0.0 }}"
+      unit_of_measurement: 'kW'
+      icon: mdi:battery
+      device_class: power  
