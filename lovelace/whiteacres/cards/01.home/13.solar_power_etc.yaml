@@ -3,7 +3,7 @@ entities:
   - entity: sensor.powerwall_charge_corrected
   - entity: sensor.powerwall_battery_now
     name: Powerwall
-  - entity: sensor.solaredge_ac_power_kw_output
+  - entity: sensor.solar_production
     name: Solar
   - entity: sensor.floorplan_powerwall_home_load
     icon: mdi:home
@@ -17,7 +17,7 @@ entities:
   - entity: sensor.eddi_power
     name: Eddi  
     icon: mdi:water-boiler
-  - entity: sensor.hottub_load
+  - entity: sensor.hottub_energy_kw
     name: Hot Tub    
     icon: mdi:hot-tub
 show_header_toggle: false

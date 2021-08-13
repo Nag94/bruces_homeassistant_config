@@ -1,0 +1,5 @@
+sensor:
+  - platform: integration
+    name: Fridge Energy
+    unit_prefix: k
+    source: sensor.fridge_power_w
