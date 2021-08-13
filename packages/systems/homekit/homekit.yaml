@@ -229,8 +229,6 @@ homekit:
         - sensor.master_bedroom_environment_co2
         - sensor.master_bedroom_environment_humidity
         - sensor.master_bedroom_environment_temperature
-# Put cameras into YAML, then they can have linked motion sensors ?        
-
 
   - name: Jyggy Doors
     port: 56339
@@ -252,7 +250,6 @@ homekit:
         - switch.spa_temp_range
         - switch.spa_light1        
 
-       
   - name: Bar Camera
     port: 56341
     mode: accessory    
