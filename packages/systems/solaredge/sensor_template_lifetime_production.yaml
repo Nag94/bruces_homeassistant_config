@@ -1,9 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      solaredge_lifetime_production:
-        unique_id: solaredge_lifetime_production
-        friendly_name: "Lifetime production"
-        value_template: "{{ (state_attr('sensor.solaredge_modbus', 'ac_lifetimeproduction') / 1000.0) | round(2) }}"
-        unit_of_measurement: 'kWh'
-        device_class: energy               

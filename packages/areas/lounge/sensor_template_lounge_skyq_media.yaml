@@ -1,7 +1,5 @@
-sensor:
-  - platform: template 
-    sensors:
-      lounge_skyq_media:
-        unique_id: lounge_skyq_media
-        friendly_name: Lounge Programme
-        value_template: "{{ state_attr('media_player.lounge_skyq','media_series_title') }}"
+template:
+  sensor:
+    - name: "Lounge SkyQ Media"
+      unique_id: lounge_skyq_media
+      state: "{{ state_attr('media_player.lounge_skyq','media_series_title') }}"

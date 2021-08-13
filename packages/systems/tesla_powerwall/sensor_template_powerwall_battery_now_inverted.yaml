@@ -1,8 +1,6 @@
-sensor:
-  - platform: template
-    sensors:
-       powerwall_battery_now_inverted:
-         friendly_name: Powerwall Battery Now Inverted
-         device_class: power
-         unit_of_measurement: "kW"
-         value_template: "{{ (states('sensor.powerwall_battery_now') | float) * -1}}"
+template:
+  sensor:
+    - name: "Powerwall Battery Now Inverted"
+      device_class: power
+      unit_of_measurement: "kW"
+      state: "{{ (states('sensor.powerwall_battery_now') | float) * -1}}"

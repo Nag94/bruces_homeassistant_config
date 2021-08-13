@@ -1,8 +1,6 @@
-sensor:
-  - platform: template
-    sensors:
-      electricity_demand_cost:
-        unique_id: electricity_demand_cost
-        friendly_name: "Cost/hour"
-        unit_of_measurement: 'p/h'
-        value_template: "{{ (states('sensor.octopus_agile_current_rate') | float * (states('sensor.import_power') | float) / 1000.0) | int }}"
+template:
+  sensor:
+    - name: "Electricity Demand Cost"
+      unique_id: electricity_demand_cost
+      unit_of_measurement: 'p/h'
+      state: "{{ (states('sensor.octopus_agile_current_rate') | float * (states('sensor.import_power') | float) / 1000.0) | int }}"

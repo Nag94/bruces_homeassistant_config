@@ -1,12 +1,10 @@
-binary_sensor:
-  - platform: template
-    sensors:
-      powerwall_at_or_below_max_charge_cost_and_charge_limit:
-        unique_id: powerwall_at_or_below_max_charge_cost_and_charge_limit
-        # Allow charge to go 5% above Max Target to allow for overnight usage
-        # Don't need to, as setting the reserve stops overnight use draining battery
-        friendly_name: "Powerwall at or below max charge cost"
-        availability_template:  "{{ states('sensor.octopus_agile_current_rate') != 'unknown' }}"        
-#        value_template: "{{ (states('sensor.octopus_agile_current_rate') | float) <= (states('input_number.powerwall_charge_below_x_pence') | float) and (states('sensor.powerwall_charge') | float) <= ((states('input_number.overnight_powerwall_max_charge') | float + 5.0) ) }}"
-        value_template: "{{ (states('sensor.octopus_agile_current_rate') | float) <= (states('input_number.powerwall_charge_below_x_pence') | float) and (states('sensor.powerwall_charge') | float) <= ((states('input_number.overnight_powerwall_max_charge') | float ) ) }}"
+template:
+  binary_sensor:
+    - name: "Powerwall At Or Below Max Charge Cost And Charge Limit"
+      unique_id: powerwall_at_or_below_max_charge_cost_and_charge_limit
+      # Allow charge to go 5% above Max Target to allow for overnight usage
+      # Don't need to, as setting the reserve stops overnight use draining battery
+      availability:  "{{ states('sensor.octopus_agile_current_rate') != 'unknown' }}"        
+      # value_template: "{{ (states('sensor.octopus_agile_current_rate') | float) <= (states('input_number.powerwall_charge_below_x_pence') | float) and (states('sensor.powerwall_charge') | float) <= ((states('input_number.overnight_powerwall_max_charge') | float + 5.0) ) }}"
+      state: "{{ (states('sensor.octopus_agile_current_rate') | float) <= (states('input_number.powerwall_charge_below_x_pence') | float) and (states('sensor.powerwall_charge') | float) <= ((states('input_number.overnight_powerwall_max_charge') | float ) ) }}"
 

@@ -1,8 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      solaredge_meter_ac_frequency:
-        unique_id: solaredge_meter_ac_frequency
-        friendly_name: "AC Frequency"
-        value_template: "{{ state_attr('sensor.solaredge_modbus_meter_1', 'ac_frequency') }}"
-        unit_of_measurement: 'Hz'     

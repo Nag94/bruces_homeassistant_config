@@ -1,0 +1,5 @@
+template:
+  sensor:
+    - name: "HotTub Energy KW"
+      unique_id: hottub_energy_kw  
+      state: "{{ (states('sensor.hot_tub_energy_channel_1_power') | float / 1000.0) | round(2) }}"

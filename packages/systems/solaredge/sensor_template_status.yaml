@@ -1,7 +1,5 @@
-sensor:
-  - platform: template
-    sensors:
-      solaredge_status:
-        unique_id: solaredge_status
-        friendly_name: "SolarEdge Status"
-        value_template: "{% set mapper = {1:'Off',2:'Sleep',3:'Wake-Up',4:'Working',5:'Throttled',6:'Shut-Down',7:'Fault',7:'Maintenance'} %}{{ mapper[state_attr('sensor.solaredge_modbus', 'status')] }}"
+template:
+  sensor:
+    - name: "Solaredge Status Text"
+      unique_id: solaredge_status_text
+      state: "{% set mapper = {'1':'Off','2':'Sleep','3':'Wake-Up','4':'Working','5':'Throttled','6':'Shut-Down','7':'Fault','7':'Maintenance'} %}{{ mapper[states('sensor.solaredge_mb_status')] }}"

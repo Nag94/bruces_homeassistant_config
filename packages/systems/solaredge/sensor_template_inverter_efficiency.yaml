@@ -1,8 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      solaredge_inverter_efficiency:
-        unique_id: solaredge_inverter_efficiency
-        friendly_name: "Inverter efficiency"
-        value_template: "{{ state_attr('sensor.solaredge_modbus', 'computed_inverter_efficiency') }}"
-        unit_of_measurement: '%'

@@ -1,8 +1,0 @@
-sensor:
-  - platform: template
-    sensors:
-      solaredge_dc_voltage:
-        unique_id: solaredge_dc_voltage
-        friendly_name: "DC Voltage"
-        value_template: "{{ state_attr('sensor.solaredge_modbus', 'dc_voltage') }}"
-        device_class: voltage

@@ -1,19 +1,17 @@
-binary_sensor:
-  - platform: template
-    sensors:
-      littertray_utility_dirty:
+template:
+  - binary_sensor:
+      - name: "Littertray Utility Dirty"
         unique_id: littertray_utility_dirty
-        value_template: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_utility')))/86400)>8  or  states('sensor.littertray_utility_usage') | int > 99 }}"
-        friendly_name: 'Utility litter tray is dirty'
-      littertray_shower_dirty:
+        state: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_utility')))/86400)>8  or  states('sensor.littertray_utility_usage') | int > 99 }}"
+  - binary_sensor:
+      - name: "Littertray Shower Dirty"
         unique_id: littertray_shower_dirty
-        value_template: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_shower')))/86400)>8  or  states('sensor.littertray_shower_usage') | int > 99 }}"
-        friendly_name: 'Shower litter tray is dirty'
-      littertray_downstairs_dirty:
+        state: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_shower')))/86400)>8  or  states('sensor.littertray_shower_usage') | int > 99 }}"
+  - binary_sensor:
+      - name: "Littertray Downstairs Dirty"
         unique_id: littertray_downstairs_dirty
-        value_template: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_downstairs')))/86400)>8  or  states('sensor.littertray_downstairs_usage') | int > 99 }}"
-        friendly_name: 'Downstairs litter tray is dirty'  
-      littertray_drum_dirty:
+        state: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_downstairs')))/86400)>8  or  states('sensor.littertray_downstairs_usage') | int > 99 }}"
+  - binary_sensor:
+      - name: "Littertray Drum Dirty"
         unique_id: littertray_drum_dirty
-        value_template: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_drum')))/86400)>8  or  states('sensor.littertray_drum_usage') | int > 99 }}"
-        friendly_name: 'Drum Room litter tray is dirty'  
+        state: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_drum')))/86400)>8  or  states('sensor.littertray_drum_usage') | int > 99 }}"
