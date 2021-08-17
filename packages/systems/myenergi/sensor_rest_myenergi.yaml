@@ -49,7 +49,7 @@ rest:
 
       - name: Zappi Jyggy Power
         value_template: "{% if value_json[1].zappi[0].sno | int < value_json[1].zappi[1].sno | int %}{{ (value_json[1].zappi[0].div / 1000) | round(1) if value_json[1].zappi[0].pst == 'C2' else 0 }}{% else %}{{ (value_json[1].zappi[1].div / 1000) | round(1) if value_json[1].zappi[1].pst == 'C2' else 0 }}{% endif %}"
-        unit_of_measurement: kW
+        unit_of_measurement: 'kW'
         device_class: power    
 
       - name: Zappi Paddy Serial
@@ -69,7 +69,7 @@ rest:
 
       - name: Zappi Paddy Power
         value_template: "{% if value_json[1].zappi[0].sno | int > value_json[1].zappi[1].sno | int %}{{ (value_json[1].zappi[0].div / 1000) | round(1) if value_json[1].zappi[0].pst == 'C2' else 0 }}{% else %}{{ (value_json[1].zappi[1].div / 1000) | round(1) if value_json[1].zappi[1].pst == 'C2' else 0 }}{% endif %}"
-        unit_of_measurement: kW
+        unit_of_measurement: 'kW'
         device_class: power  
         
       - name: Zappi Cars
