@@ -30,6 +30,8 @@ cards:
       - entity: sensor.powerwall_stored_energy
       - entity: sensor.powerwall_charge
         name: Powerwall Charge (API %)
+      - entity: sensor.powerwall_efficiency
+        name: Efficiency        
       - entity: input_boolean.freeze_power_when_cars_charging
         name: Freeze Powerwall overnight when Cars Charging
     title: Powerwall
@@ -50,20 +52,14 @@ cards:
         name: AC Current      
       - entity: sensor.solaredge_mb_ac_voltage_ab
         name: AC Voltage
-      - entity: sensor.solaredge_mb_ac_power_kw
+      - entity: sensor.solaredge_meter_ac_power_kw
         name: AC Power      
       - entity: sensor.solaredge_mb_temp_sink
         name: Heatsink Temp            
-#      - entity: sensor.solaredge_inverter_efficiency
       - entity: sensor.solaredge_mb_ac_frequency
         name: AC Frequency            
       - entity: sensor.solaredge_status_text
         name: Status      
-    title: SolarEdge Production
-    state_color: true
-    show_header_toggle: false
-  - type: entities
-    entities:
       - entity: sensor.solar_production_hourly_kw
         name: This Hour
       - entity: sensor.solar_production_daily_kw
@@ -72,7 +68,7 @@ cards:
         name: This Week
       - entity: sensor.solar_production_monthly_kw
         name: This Month
-      - entity: sensor.solaredge_lifetime_production_kw
+      - entity: sensor.solaredge_lifetime_production_mw
         name: Lifetime
     title: Solar Production
     state_color: true
