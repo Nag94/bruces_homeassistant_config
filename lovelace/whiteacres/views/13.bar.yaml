@@ -12,13 +12,16 @@ cards:
       - entity: light.bar_shelves
         hold_action:
           action: more-info
-        icon: 'mdi:lightbulb-off-outline'
+        icon: 'hue:lightstrip'
         name: Bar Shelves
         show_icon: true
         show_name: true
         state:
-          - icon: 'mdi:lightbulb-on'
-            value: 'on'
+          - value: 'on'              
+            styles:
+              card:
+                - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
         tap_action:
           action: toggle
           haptic: success
@@ -26,13 +29,16 @@ cards:
       - entity: light.bar_worktop
         hold_action:
           action: more-info
-        icon: 'mdi:lightbulb-off-outline'
+        icon: 'hue:lightstrip'
         name: Bar Worktop
         show_icon: true
         show_name: true
         state:
-          - icon: 'mdi:lightbulb-on'
-            value: 'on'
+          - value: 'on'              
+            styles:
+              card:
+                - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
         tap_action:
           action: toggle
           haptic: success
@@ -41,13 +47,16 @@ cards:
       - entity: light.bar_ceiling
         hold_action:
           action: more-info
-        icon: 'mdi:lightbulb-off-outline'
+        icon: 'hue:bulb-spot'
         name: Bar Ceiling
         show_icon: true
         show_name: true
         state:
-          - icon: 'mdi:lightbulb-on'
-            value: 'on'
+          - value: 'on'              
+            styles:
+              card:
+                - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
         tap_action:
           action: toggle
           haptic: success
@@ -55,13 +64,16 @@ cards:
       - entity: light.bar_palm
         hold_action:
           action: more-info
-        icon: 'mdi:lightbulb-off-outline'
+        icon: 'mdi:palm-tree'
         name: Bar Palm
         show_icon: true
         show_name: true
         state:
-          - icon: 'mdi:lightbulb-on'
-            value: 'on'
+          - value: 'on'              
+            styles:
+              card:
+                - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
         tap_action:
           action: toggle
           haptic: success

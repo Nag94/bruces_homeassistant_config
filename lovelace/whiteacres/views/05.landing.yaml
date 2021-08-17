@@ -13,50 +13,56 @@ badges:
 cards:
   - cards:
       - cards:
-          - color: auto
-            entity: light.landing_light_1
+          - entity: light.landing_light_1
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
             name: Light 1
+            icon: 'hue:ceiling-still'
             show_icon: true
             show_name: true
-            state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
             tap_action:
               action: toggle
               haptic: success
-            type: 'custom:button-card'
-          - color: auto
-            entity: light.landing_light_2
+            state:
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)               
+            type: 'custom:button-card'         
+          - entity: light.landing_light_2
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
+            icon: 'hue:ceiling-still'
             name: Light 2
             show_icon: true
             show_name: true
-            state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
             tap_action:
               action: toggle
               haptic: success
+            state:
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)                 
             type: 'custom:button-card'
-          - color: auto
-            entity: light.landing_light_3
+          - entity: light.landing_light_3
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
+            icon: 'hue:single-spot'
             name: Light 3
             show_icon: true
             show_name: true
-            state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
             tap_action:
               action: toggle
               haptic: success
+            state:
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)                  
             type: 'custom:button-card'
         title: Landing
         type: horizontal-stack
@@ -64,30 +70,36 @@ cards:
           - entity: light.guest_bedroom_bedside
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
+            icon: 'hue:table-shade'
             name: Bedside
             show_icon: true
             show_name: true
-            state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
             tap_action:
               action: toggle
               haptic: success
+            state:
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)                  
             type: 'custom:button-card'
           - entity: light.guest_bedroom_light
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
+            icon: 'hue:ceiling-still'
             name: Light
             show_icon: true
             show_name: true
-            state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
             tap_action:
               action: toggle
               haptic: success
+            state:
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)                 
             type: 'custom:button-card'
           - color_type: blank-card
             type: 'custom:button-card'
@@ -97,16 +109,19 @@ cards:
           - entity: light.drum_room_light
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
+            icon: 'hue:ceiling-still'
             name: Light
             show_icon: true
             show_name: true
-            state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
             tap_action:
               action: toggle
               haptic: success
+            state:
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)              
             type: 'custom:button-card'
           - color_type: blank-card
             type: 'custom:button-card'

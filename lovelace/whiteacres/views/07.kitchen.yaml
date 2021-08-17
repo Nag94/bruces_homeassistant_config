@@ -21,85 +21,94 @@ badges:
 cards:
   - cards:
       - cards:
-          - color: auto
-            entity: light.hall_light
+          - entity: light.hall_light
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
+            icon: 'hue:ceiling-still'
             name: Hall
             show_icon: true
             show_name: true
             state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
             tap_action:
               action: toggle
               haptic: success
             type: 'custom:button-card'
-          - color: auto
-            entity: light.downstairs_toilet_light
+          - entity: light.downstairs_toilet_light
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
+            icon: 'hue:single-spot'
             name: Downstairs Loo
             show_icon: true
             show_name: true
             state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
             tap_action:
               action: toggle
               haptic: success
             type: 'custom:button-card'
-          - color: auto
-            entity: light.utility_light
+          - entity: light.utility_light
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
+            icon: 'hue:ceiling-still'
             name: Utility
             show_icon: true
             show_name: true
             state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
             tap_action:
               action: toggle
               haptic: success
             type: 'custom:button-card'
         type: horizontal-stack
       - cards:
-          - color: auto
-            entity: light.patio_gazebo
+          - entity: light.patio_gazebo
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
+            icon: 'hue:bulb-classic'
             name: Gazebo
             show_icon: true
             show_name: true
             state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
             tap_action:
               action: toggle
               haptic: success
             type: 'custom:button-card'
-          - color: auto
-            entity: light.patio_gazebo_wall
+          - entity: light.patio_gazebo_wall
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
+            icon: 'hue:amarant'
             name: Wall
             show_icon: true
             show_name: true
             state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
             tap_action:
               action: toggle
               haptic: success
             type: 'custom:button-card'
-          - color: auto
-            entity: light.patio_light
+          - entity: light.patio_light
             hold_action:
               action: more-info
             icon: 'mdi:lightbulb-off-outline'
@@ -107,8 +116,11 @@ cards:
             show_icon: true
             show_name: true
             state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
             tap_action:
               action: toggle
               haptic: success
@@ -117,94 +129,106 @@ cards:
         type: horizontal-stack
       - cards:
           - cards:
-              - color: auto
-                entity: light.kitchen_ceiling_1
+              - entity: light.kitchen_ceiling_1
                 hold_action:
                   action: more-info
-                icon: 'mdi:lightbulb-off-outline'
+                icon: 'hue:bulb-spot'
                 name: Ceiling 1
                 show_icon: true
                 show_name: true
                 state:
-                  - icon: 'mdi:lightbulb-on'
-                    value: 'on'
+                  - value: 'on'              
+                    styles:
+                      card:
+                        - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                        - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
                 tap_action:
                   action: toggle
                   haptic: success
                 type: 'custom:button-card'
-              - color: auto
-                entity: light.kitchen_ceiling_2
+              - entity: light.kitchen_ceiling_2
                 hold_action:
                   action: more-info
-                icon: 'mdi:lightbulb-off-outline'
+                icon: 'hue:bulb-spot'
                 name: Ceiling 2
                 show_icon: true
                 show_name: true
                 state:
-                  - icon: 'mdi:lightbulb-on'
-                    value: 'on'
+                  - value: 'on'              
+                    styles:
+                      card:
+                        - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                        - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
                 tap_action:
                   action: toggle
                   haptic: success
                 type: 'custom:button-card'
-              - color: auto
-                entity: light.kitchen_ceiling_3
+              - entity: light.kitchen_ceiling_3
                 hold_action:
                   action: more-info
-                icon: 'mdi:lightbulb-off-outline'
+                icon: 'hue:bulb-spot'
                 name: Ceiling 3
                 show_icon: true
                 show_name: true
                 state:
-                  - icon: 'mdi:lightbulb-on'
-                    value: 'on'
+                  - value: 'on'              
+                    styles:
+                      card:
+                        - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                        - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
                 tap_action:
                   action: toggle
                   haptic: success
                 type: 'custom:button-card'
             type: horizontal-stack
           - cards:
-              - color: auto
-                entity: light.kitchen_kickboard
+              - entity: light.kitchen_kickboard
                 hold_action:
                   action: more-info
-                icon: 'mdi:lightbulb-off-outline'
+                icon: 'hue:bulb-spot'
                 name: Kickboard
                 show_icon: true
                 show_name: true
                 state:
-                  - icon: 'mdi:lightbulb-on'
-                    value: 'on'
+                  - value: 'on'              
+                    styles:
+                      card:
+                        - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                        - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
                 tap_action:
                   action: toggle
                   haptic: success
                 type: 'custom:button-card'
-              - color: auto
-                entity: light.kitchen_hue_ceiling
+              - entity: light.kitchen_hue_ceiling
                 hold_action:
                   action: more-info
-                icon: 'mdi:lightbulb-off-outline'
+                icon: 'hue:bulb-spot'
                 name: Disco
                 show_icon: true
                 show_name: true
                 state:
-                  - icon: 'mdi:lightbulb-on'
-                    value: 'on'
+                  - value: 'on'              
+                    styles:
+                      card:
+                        - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                        - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
                 tap_action:
                   action: toggle
                   haptic: success
                 type: 'custom:button-card'
-              - color: auto
-                entity: light.kitchen_cupboard
+              - entity: light.kitchen_cupboard
                 hold_action:
                   action: more-info
-                icon: 'mdi:lightbulb-off-outline'
+                icon: 'hue:bulb-spot'
                 name: Cupboard
                 show_icon: true
                 show_name: true
                 state:
-                  - icon: 'mdi:lightbulb-on'
-                    value: 'on'
+                  - value: 'on'              
+                    styles:
+                      card:
+                        - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                        - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
                 tap_action:
                   action: toggle
                   haptic: success
@@ -214,81 +238,106 @@ cards:
         type: vertical-stack
       - cards:
           - cards:
-              - color: auto
-                entity: light.conservatory_left
+              - entity: light.conservatory_left
                 hold_action:
                   action: more-info
-                icon: 'mdi:lightbulb-off-outline'
+                icon: 'hue:lightstrip'
                 name: Strip Left
                 show_icon: true
                 show_name: true
                 state:
-                  - icon: 'mdi:lightbulb-on'
-                    value: 'on'
+                  - value: 'on'              
+                    styles:
+                      card:
+                        - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                        - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
                 tap_action:
                   action: toggle
                   haptic: success
                 type: 'custom:button-card'
-              - color_type: blank-card
-                type: 'custom:button-card'
-              - color: auto
-                entity: light.conservatory_right
+              - entity: light.kitchen_floor_lamp
                 hold_action:
                   action: more-info
-                icon: 'mdi:lightbulb-off-outline'
+                icon: 'hue:signe'
+                name: Kitchen Floor Lamp
+                show_icon: true
+                show_name: true
+                state:
+                  - value: 'on'              
+                    styles:
+                      card:
+                        - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                        - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
+                tap_action:
+                  action: toggle
+                  haptic: success
+                type: 'custom:button-card'
+              - entity: light.conservatory_right
+                hold_action:
+                  action: more-info
+                icon: 'hue:lightstrip'
                 name: Strip Right
                 show_icon: true
                 show_name: true
                 state:
-                  - icon: 'mdi:lightbulb-on'
-                    value: 'on'
+                  - value: 'on'              
+                    styles:
+                      card:
+                        - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                        - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
                 tap_action:
                   action: toggle
                   haptic: success
                 type: 'custom:button-card'
             type: horizontal-stack
           - cards:
-              - color: auto
-                entity: light.conservatory_lamp
+              - entity: light.conservatory_lamp
                 hold_action:
                   action: more-info
-                icon: 'mdi:lightbulb-off-outline'
+                icon: 'hue:bulb-classic'
                 name: Lamp
                 show_icon: true
                 show_name: true
                 state:
-                  - icon: 'mdi:lightbulb-on'
-                    value: 'on'
+                  - value: 'on'              
+                    styles:
+                      card:
+                        - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                        - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
                 tap_action:
                   action: toggle
                   haptic: success
                 type: 'custom:button-card'
-              - color: auto
-                entity: light.conservatory_fan_light
+              - entity: light.conservatory_fan_light
                 hold_action:
                   action: more-info
-                icon: 'mdi:lightbulb-off-outline'
+                icon: 'hue:recessed-ceiling'
                 name: Fan Light
                 show_icon: true
                 show_name: true
                 state:
-                  - icon: 'mdi:lightbulb-on'
-                    value: 'on'
+                  - value: 'on'              
+                    styles:
+                      card:
+                        - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                        - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
                 tap_action:
                   action: toggle
                   haptic: success
                 type: 'custom:button-card'
-              - color: auto
-                entity: light.conservatory_wall_light
+              - entity: light.conservatory_wall_light
                 hold_action:
                   action: more-info
-                icon: 'mdi:lightbulb-off-outline'
+                icon: 'hue:liane'
                 name: Wall Light
                 show_icon: true
                 show_name: true
                 state:
-                  - icon: 'mdi:lightbulb-on'
-                    value: 'on'
+                  - value: 'on'              
+                    styles:
+                      card:
+                        - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                        - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
                 tap_action:
                   action: toggle
                   haptic: success

@@ -15,13 +15,16 @@ cards:
           - entity: light.master_bedroom_bedside_left
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
+            icon: 'hue:wall-spot'
             name: Bedside Left
             show_icon: true
             show_name: true
             state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
             tap_action:
               action: toggle
               haptic: success
@@ -29,13 +32,16 @@ cards:
           - entity: light.master_bedroom_wardrobe_bars
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
+            icon: 'hue:adore-alt'
             name: Wardrobe Bars
             show_icon: true
             show_name: true
             state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
             tap_action:
               action: toggle
               haptic: success
@@ -43,13 +49,16 @@ cards:
           - entity: light.master_bedroom_bedside_right
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
+            icon: 'hue:wall-spot'
             name: Bedside Right
             show_icon: true
             show_name: true
             state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
             tap_action:
               action: toggle
               haptic: success
@@ -59,13 +68,16 @@ cards:
           - entity: light.master_bedroom_wall_left
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
+            icon: 'hue:liane'
             name: Wall Left
             show_icon: true
             show_name: true
             state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
             tap_action:
               action: toggle
               haptic: success
@@ -73,13 +85,16 @@ cards:
           - entity: light.master_bedroom_wardrobe
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
+            icon: 'hue:lightstrip'
             name: Wardrobe
             show_icon: true
             show_name: true
             state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
             tap_action:
               action: toggle
               haptic: success
@@ -87,13 +102,16 @@ cards:
           - entity: light.master_bedroom_wall_right
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
+            icon: 'hue:liane'
             name: Wall Right
             show_icon: true
             show_name: true
             state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
             tap_action:
               action: toggle
               haptic: success
@@ -105,13 +123,16 @@ cards:
           - entity: light.master_bedroom_lamp
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
+            icon: 'hue:bulb-filament'
             name: Lamp
             show_icon: true
             show_name: true
             state:
-              - icon: 'mdi:lightbulb-on'
-                value: 'on'
+              - value: 'on'              
+                styles:
+                  card:
+                    - -webkit-box-shadow: 0px 0px 9px 3px var(--button-card-light-color)
+                    - box-shadow: 0px 0px 9px 3px var(--button-card-light-color)  
             tap_action:
               action: toggle
               haptic: success
