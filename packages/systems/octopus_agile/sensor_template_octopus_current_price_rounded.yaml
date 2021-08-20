@@ -3,4 +3,4 @@ template:
     - name: "Octopus Current Price Rounded"
       unique_id: octopus_current_price_rounded
       unit_of_measurement: 'p/kWh'
-      state: "{{ states('sensor.octopus_agile_current_rate') | round(1) }}"
+      state: "{{ states('sensor.import_price') | round(1) }}"
