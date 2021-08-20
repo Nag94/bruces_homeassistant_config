@@ -1,5 +1,0 @@
-template:
-  binary_sensor:
-    - name: 'Plate Recognizer Moira'
-      unique_id: moira_number_plate
-      state: "{{ state_attr('image_processing.platerecognizer_drive', 'watched_plates').wp17gvo }}"
