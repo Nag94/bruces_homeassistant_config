@@ -6,49 +6,23 @@ Live production figure, Gauge shows daily forecast
 
 * Template: Gauge Text
 * Show When Locked: True
+
 * Leading: 
 ```
 0
 ```
 * Outer: 
 ```
-{% if states('sun.sun') == 'below_horizon'%}🌙 {{ 
-(states('sensor.solcast_forecast_tomorrow') | float) | round(1) }}{% 
-else %}☀️ {{ (states('sensor.solaredge_ac_power_output') | float / 
-1000.0 ) | round(1) }}{% endif %}
+{% if states('sun.sun') == 'below_horizon'%}{{ states('sensor.forecastsolar_today') | int }}/{{ 
+(states('sensor.forecastsolar_tomorrow') | float) | int }}{% 
+else %}☀️ {{ states('sensor.solar_production') | float }}{% endif %}
 ```
 * Trailing: 
 ```
-{{ states('input_number.solcast_latest_today_forecast') | int }}
+{{ states('sensor.forecastsolar_today') | int }}
 ```
 * Gauge: 
 ```
-{{ (states('sensor.solar_production_daily') | float) / (states('input_number.solcast_latest_today_forecast') | float)  }}
-
-
-
-Live Production value and gauge showing same
-## Graphic Corner
-
-* Template: Gauge Text
-* Show When Locked: True
-* Leading: 
-```
-0
-```
-* Outer: 
-```
-{% if states('sun.sun') == 'below_horizon'%}🌙 {{ 
-(states('sensor.solar_production_daily') | float) | round(1) }}{% 
-else %}☀️ {{ (states('sensor.solaredge_ac_power_output') | float / 
-1000.0 ) | round(1) }}{% endif %}
-```
-* Trailing: 
-```
-8
-```
-* Gauge: 
-```
-{{ states('sensor.solaredge_ac_power_output') | float/ 8000.0 }}
+{{[ (states('sensor.solar_production_daily_kw') | float) / (states('sensor.forecastsolar_today') | float) ,1] | min }}
 ```
 
