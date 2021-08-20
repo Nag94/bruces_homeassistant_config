@@ -1,0 +1,5 @@
+template:
+  binary_sensor:
+    - name: "Plate Recognizer Paddy"
+      unique_id: paddy_number_plate
+      state: "{{ state_attr('image_processing.platerecognizer_drive', 'watched_plates').wn70pdy }}"

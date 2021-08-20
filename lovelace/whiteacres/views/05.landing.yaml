@@ -191,11 +191,24 @@ cards:
     
   - entity: media_player.sonos_move
     type: media-control    
-    
-  - entities:
+
+  - type: entities    
+    entities:
       - entity: sensor.sonos_move_battery
         name: Battery
       - entity: binary_sensor.sonos_move_power
         name: Power
     title: Sonos Move
-    type: entities
+
+  - type: entities
+    entities:
+      - entity: sensor.feeder_grey
+      - entity: binary_sensor.feeder_grey_connectivity
+      - entity: sensor.feeder_grey_battery_level
+      - entity: sensor.feeder_grey_bowl
+  - type: entities
+    entities:
+      - entity: sensor.feeder_pink
+      - entity: binary_sensor.feeder_pink_connectivity
+      - entity: sensor.feeder_pink_battery_level
+      - entity: sensor.feeder_pink_bowl

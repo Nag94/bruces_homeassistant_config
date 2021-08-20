@@ -1,0 +1,5 @@
+template:
+  binary_sensor:
+    - name: "Plate Recognizer Jyggy"
+      unique_id: jyggy_number_plate
+      state: "{{ state_attr('image_processing.platerecognizer_drive', 'watched_plates').wu19jyg }}"

@@ -1,0 +1,5 @@
+template:
+  binary_sensor:
+    - name: "Plate Recognizer Terri"
+      unique_id: terri_number_plate
+      state: "{{ state_attr('image_processing.platerecognizer_drive', 'watched_plates').wv68fup }}"

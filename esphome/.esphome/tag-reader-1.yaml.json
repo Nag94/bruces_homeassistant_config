@@ -1,0 +1,14 @@
+{
+  "storage_version": 1,
+  "name": "tag-reader-1",
+  "comment": null,
+  "esphome_version": "1.18.0",
+  "src_version": 1,
+  "arduino_version": null,
+  "address": "tag-reader-1.local",
+  "esp_platform": "ESP8266",
+  "board": "d1_mini",
+  "build_path": null,
+  "firmware_bin_path": null,
+  "loaded_integrations": []
+}

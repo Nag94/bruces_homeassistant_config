@@ -136,17 +136,20 @@ sensor.gas_meter_kwh:
   friendly_name: 'Gas Meter'      
 sensor.import_meter:      
   last_reset: '2021-07-07T00:00:00+00:00'
-  state_class: measurement  
+  state_class: measurement 
 sensor.export_meter:
   last_reset: '2021-07-07T00:00:00+00:00'
   state_class: measurement   
 sensor.powerwall_total_import:
-  last_reset: '2020-11-00T00:00:00+00:00'
+  last_reset: '2020-11-01T00:00:00+00:00'
   state_class: measurement     
+  friendly_name: "Powerwall Charge"  
 sensor.powerwall_total_export:
-  last_reset: '2020-11-00T00:00:00+00:00'
+  last_reset: '2020-11-01T00:00:00+00:00'
   state_class: measurement     
+  friendly_name: "Powerwall Discharge"
 sensor.solaredge_mb_ac_voltage_ab:
   device_class: voltage
 sensor.solaredge_lifetime_energy:
   friendly_name: Solaredge
+  
