@@ -1,4 +1,6 @@
-surepetcarebeta:
+#surepetcarebeta:
+#surepetcare:
+sureha:
   username: !secret surepetcare_user
   password: !secret surepetcare_pass
 #  feeders: !secret surepetcare_feeders
