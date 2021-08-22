@@ -36,4 +36,5 @@
 /secrets.yaml
 /zones.yaml
 /platerecogniser/
-custom_components/samsungtv_tizen/token-192.168.21.90.txt
+/custom_components/samsungtv_tizen/token-192.168.21.90.txt
+/packages/areas/drive/template_binary_sensor_plate_*.yaml
