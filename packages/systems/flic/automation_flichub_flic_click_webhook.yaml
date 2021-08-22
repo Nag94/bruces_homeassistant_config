@@ -19,10 +19,10 @@ automation:
 
     action:    
         # Update Battery Level
-      - service: input_number.set_value  
-        data:
-          entity_id: "input_number.{{ button_name }}_battery"
-          value: "{{ trigger.json.battery_status }}"
+#      - service: input_number.set_value  
+#        data:
+#          entity_id: "input_number.{{ button_name }}_battery"
+#          value: "{{ trigger.json.battery_status }}"
           
       - choose:
       
