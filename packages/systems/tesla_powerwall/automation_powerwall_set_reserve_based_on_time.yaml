@@ -93,7 +93,7 @@ automation:
               entity_id: binary_sensor.powerwall_at_or_below_max_charge_cost_and_charge_limit
               state: 'off'        
             - condition: state
-              entity_id: sensor.solaredge_status
+              entity_id: sensor.solaredge_status_text
               state: 'Sleep'   
             - condition: state
               entity_id: input_boolean.freeze_power_when_cars_charging

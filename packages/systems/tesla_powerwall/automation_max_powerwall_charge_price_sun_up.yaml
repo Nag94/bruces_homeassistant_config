@@ -8,7 +8,7 @@ automation:
       
     trigger:
       - platform: state
-        entity_id: sensor.solaredge_status
+        entity_id: sensor.solaredge_status_text
         from: "Sleep"
         to: "Working"
       - platform: homeassistant
@@ -18,7 +18,7 @@ automation:
         
     condition:
       - condition: state
-        entity_id: sensor.solaredge_status
+        entity_id: sensor.solaredge_status_text
         state: "Working"
         
 

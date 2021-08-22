@@ -28,7 +28,7 @@ automation:
           after: "06:00:00"
           before: "21:00:00"
       - condition: state
-        entity_id: sensor.solaredge_status
+        entity_id: sensor.solaredge_status_text
         state: "Sleep"
         
       
