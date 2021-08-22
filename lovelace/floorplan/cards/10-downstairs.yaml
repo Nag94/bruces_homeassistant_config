@@ -3129,7 +3129,7 @@ elements:
         tap_action:
           action: toggle
       - type: state-icon
-        entity: light.kitchen_main
+        entity: light.kitchen_main_plus
         style:
           top: 43%
           left: 18.5%
