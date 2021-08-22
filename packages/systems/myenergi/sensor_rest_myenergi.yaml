@@ -23,9 +23,11 @@ rest:
 
       - name: Jyggy Plugged In
         value_template: "{% if value_json[1].zappi[0].sno | int < value_json[1].zappi[1].sno | int %}{{ 'off' if value_json[1].zappi[0].pst == 'A' else 'on' }}{% else %}{{ 'off' if value_json[1].zappi[1].pst == 'A' else 'on' }}{% endif %}"
+        device_class: plug
 
       - name: Paddy Plugged In
         value_template: "{% if value_json[1].zappi[0].sno | int > value_json[1].zappi[1].sno | int %}{{ 'off' if value_json[1].zappi[0].pst == 'A' else 'on' }}{% else %}{{ 'off' if value_json[1].zappi[1].pst == 'A' else 'on' }}{% endif %}"
+        device_class: plug
 
       - name: Zappi Order Jyggy First
         value_template: "{{ value_json[1].zappi[0].sno | int < value_json[1].zappi[1].sno | int }}"
@@ -108,7 +110,7 @@ rest:
     
       - name: Eddi Power
         value_template: "{{ (value_json[0].eddi[0].div / 1000) | round(1) if value_json[0].eddi[0].sta in [3,4] else 0}}"
-        unit_of_measurement: kW
+        unit_of_measurement: 'kW'
         device_class: power   
         
       - name: myEnergi ASN
