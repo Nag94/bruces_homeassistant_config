@@ -6,7 +6,7 @@ badges: []
 cards:
   - entities:
       - color: green
-        entity: sensor.washing_machine_power
+        entity: sensor.washing_machine_current_consumption
         name: Power
     font_size: 75
     font_size_header: 22
