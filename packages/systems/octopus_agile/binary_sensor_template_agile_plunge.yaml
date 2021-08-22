@@ -2,4 +2,5 @@ template:
   binary_sensor:
     - name: "Agile Plunge"
       unique_id: agile_plunge
+      device_class: power
       state: "{{ (states('sensor.electricity_demand_cost') | float) < 0.0 }}"

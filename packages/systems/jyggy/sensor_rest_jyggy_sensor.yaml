@@ -6,9 +6,11 @@ rest:
     binary_sensor:
       - name: Jyggy Battery Heater On
         value_template: "{{ value_json.battery_heater_on == '1' }}"
+        device_class: heat
 
       - name: Jyggy Locked
         value_template: "{{ value_json.locked == '1'}}"
+        device_class: lock
 
       - name: Jyggy Needs Charge
         value_template: "{{ value_json.battery_level | int < value_json.charge_limit_soc | int }}"

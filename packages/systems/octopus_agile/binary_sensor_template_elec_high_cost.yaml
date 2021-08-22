@@ -1,4 +1,5 @@
 template:
   binary_sensor:
     - name: "Elec High Cost"
+      device_class: power
       state: "{{ (states('sensor.electricity_demand_cost') | float) > 20.0 }}"

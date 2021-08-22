@@ -5,3 +5,4 @@ binary_sensor:
     value_template: "{{ value_json.elecMtr['0702']['00']['14'] }}"
     payload_on: "02"
     payload_off: "00"
+    device_class: power
