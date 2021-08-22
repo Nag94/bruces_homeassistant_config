@@ -12,12 +12,8 @@ badges:
     name: Hall
   - entity: sensor.downstairs_loo_rad_current_temperature
     name: Loo
-  - entity: sensor.wirelesstag_back_gate_temperature
-    name: Back Gate
   - entity: switch.hive_water_boost
     name: Hot Water Boost
-  - entity: sensor.wirelesstag_drinks_fridge_temperature
-    name: Drinks Fridge
 cards:
   - cards:
       - cards:
@@ -111,7 +107,7 @@ cards:
           - entity: light.patio_light
             hold_action:
               action: more-info
-            icon: 'mdi:lightbulb-off-outline'
+            icon: 'hue:wall-econic-lantern'
             name: Light
             show_icon: true
             show_name: true
