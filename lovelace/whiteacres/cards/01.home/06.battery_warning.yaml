@@ -443,6 +443,61 @@ entities:
     name: Hive Thermostat
     state_filter:
       - operator: <
+        value: 25       
+  - entity: sensor.flic_battery_alert
+    name: Flic Alert
+    state_filter:
+      - operator: <
         value: 25        
+  - entity: sensor.flic_battery_bedside_bruce
+    name: Flic Bedside Bruce
+    state_filter:
+      - operator: <
+        value: 25      
+  - entity: sensor.flic_battery_bedside_sarah
+    name: Flic Bedside Sarah
+    state_filter:
+      - operator: <
+        value: 25  
+  - entity: sensor.flic_battery_bedside_sophie
+    name: Flic Bedside Sophie
+    state_filter:
+      - operator: <
+        value: 25    
+  - entity: sensor.flic_battery_bedside_kate
+    name: Flic Bedside Kate
+    state_filter:
+      - operator: <
+        value: 25     
+  - entity: sensor.flic_battery_bedside_guest
+    name: Flic Bedside Guest
+    state_filter:
+      - operator: <
+        value: 25   
+  - entity: sensor.flic_battery_kitchen_radio
+    name: Flic Kitchen Radio
+    state_filter:
+      - operator: <
+        value: 25    
+  - entity: sensor.flic_battery_tray_downstairs
+    name: Flic Tray Downstairs
+    state_filter:
+      - operator: <
+        value: 25   
+  - entity: sensor.flic_battery_tray_drum
+    name: Flic Tray Drum
+    state_filter:
+      - operator: <
+        value: 25     
+  - entity: sensor.flic_battery_tray_shower
+    name: Flic Tray Shower
+    state_filter:
+      - operator: <
+        value: 25  
+  - entity: sensor.flic_battery_tray_utility
+    name: Flic Tray Utility
+    state_filter:
+      - operator: <
+        value: 25          
 show_empty: false
 type: entity-filter
