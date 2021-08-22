@@ -248,7 +248,7 @@ logbook:
       - sensor.solaredge_meters
       - sensor.solaredge_sensors
       - sensor.solaredge_site_details
-      - sensor.solaredge_status
+      - sensor.solaredge_status_text
       - sensor.solcast_history
       - sensor.solcast_remaining_api_count
       - sensor.swatches_this_week

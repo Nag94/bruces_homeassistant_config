@@ -26,7 +26,7 @@ automation:
           - binary_sensor.agile_plunge            
           - binary_sensor.jyggy_below_max_charge_cost
 #          - binary_sensor.jyggy_needs_charge     
-          - sensor.solaredge_status          
+          - sensor.solaredge_status_text        
       - platform: state
         entity_id: binary_sensor.jyggy_plugged_in
         to: 'on'          

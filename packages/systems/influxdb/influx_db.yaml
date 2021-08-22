@@ -61,7 +61,7 @@ influxdb:
       - sensor.speedtest_download
       - sensor.speedtest_upload
       - sensor.vf1ag000366115079_battery_level
-      - sensor.washing_machine_power
+      - sensor.washing_machine_current_consumption
       - sensor.zappi_jyggy
       - sensor.zappi_jyggy_grid
       - sensor.zappi_paddy

@@ -23,7 +23,7 @@ automation:
           - binary_sensor.agile_plunge            
           - binary_sensor.paddy_below_max_charge_cost
           - binary_sensor.paddy_needs_charge          
-          - sensor.solaredge_status          
+          - sensor.solaredge_status_text       
       - platform: state
         entity_id: binary_sensor.paddy_plugged_in
         to: 'on'          
