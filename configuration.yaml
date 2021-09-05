@@ -20,6 +20,7 @@ frontend:
 #    homeassistant.components.websocket_api: debug    
 #    homeassistant.components.rest_command: debug  
 #    homeassistant.components.rest: debug      
+#    custom_components.spaclient: debug  
 #    custom_components.surepetcare: debug  
 #    custom_components.octopusagile: debug
 #    custom_components.balboa: debug
