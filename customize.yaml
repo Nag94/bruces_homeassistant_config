@@ -130,23 +130,27 @@ sensor.hot_tub_energy_channel_1_energy:
   friendly_name: 'Hot Tub Energy'
 sensor.washing_machine_total_consumption:
   friendly_name: 'Washing Machine Energy'
+sensor.gas_meter:
+  state_class: total_increasing
+  device_class: gas
 sensor.gas_meter_kwh:  
-  last_reset: '2020-01-01T00:00:00+00:00'
-  state_class: measurement  
+  #last_reset: '2020-01-01T00:00:00+00:00'
+  state_class: total_increasing
+  device_classs: energy
   friendly_name: 'Gas Meter'      
 sensor.import_meter:      
-  last_reset: '2021-07-07T00:00:00+00:00'
-  state_class: measurement 
+ # last_reset: '2021-07-07T00:00:00+00:00'
+  state_class: total_increasing
 sensor.export_meter:
-  last_reset: '2021-07-07T00:00:00+00:00'
-  state_class: measurement   
+ # last_reset: '2021-07-07T00:00:00+00:00'
+  state_class: total_increasing 
 sensor.powerwall_total_import:
-  last_reset: '2020-11-01T00:00:00+00:00'
-  state_class: measurement     
+ # last_reset: '2020-11-01T00:00:00+00:00'
+  state_class: total_infreasing  
   friendly_name: "Powerwall Charge"  
 sensor.powerwall_total_export:
-  last_reset: '2020-11-01T00:00:00+00:00'
-  state_class: measurement     
+#  last_reset: '2020-11-01T00:00:00+00:00'
+  state_class: total_increasing  
   friendly_name: "Powerwall Discharge"
 sensor.solaredge_mb_ac_voltage_ab:
   device_class: voltage
