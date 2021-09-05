@@ -52,17 +52,17 @@ cards:
               - line-height: 80px
         custom_fields:
           light1: >
-            [[[ if (states['switch.spa_light1'].state == 'on') return `<ha-icon
+            [[[ if (states['light.hottub_light'].state == 'on') return `<ha-icon
             icon="mdi:lightbulb-group"
             style="width: 50px; height: 50px; color: red;">
             </ha-icon>`]]]            
           pump1: >
-            [[[ if (states['fan.spa_pump1'].state == 'on') return `<ha-icon
+            [[[ if (states['switch.pump_1'].state == 'on') return `<ha-icon
             icon="mdi:fan"
             style="width: 50px; height: 50px; color: blue;">
             </ha-icon>`]]]      
           pump2: >
-            [[[ if (states['fan.spa_pump2'].state == 'on') return `<ha-icon
+            [[[ if (states['switch.pump_2'].state == 'on') return `<ha-icon
             icon="mdi:fan"
             style="width: 50px; height: 50px; color: blue;">
             </ha-icon>`]]]   
@@ -126,15 +126,19 @@ cards:
       - entities:
           - entity: climate.spa_climate
             name: Spa
+          - entity: binary_sensor.bwa_wi_fi_module
+            name: Wi-Fi          
           - entity: input_number.hottub_standard_temp
             name:  Target Temperature     
           - entity: input_number.hottub_water_target
             name:  Immediate Target Temperature               
-          - entity: fan.spa_pump1
+#          - entity: fan.spa_pump1
+          - entity: switch.pump_1
             name: Jets 1
-          - entity: fan.spa_pump2
+#          - entity: fan.spa_pump2
+          - entity: switch.pump_2        
             name: Jets 2      
-          - entity: switch.spa_light1
+          - entity: light.hottub_light
             name: Lights
 #          - entity: switch.spa_temp_range
 #            name: Temp Range            
