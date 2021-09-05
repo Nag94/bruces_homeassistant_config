@@ -5,8 +5,9 @@
 #######################
 
 rest:
-  - resource: https://s7.myenergi.net/cgi-jstatus-*
-    scan_interval: 5
+  - resource: https://s18.myenergi.net/cgi-jstatus-*
+#  - resource_template: "https://{{ 's18.myenergi.net' if states('sensor.myenergi_asn') in ('Unavailable','unknown') else states('sensor.myenergi_asn') }}/cgi-jstatus-*"
+    scan_interval: 7
     timeout: 30
     authentication: digest
     username: !secret myenergi_serial

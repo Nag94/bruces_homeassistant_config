@@ -1,5 +1,5 @@
 shell_command:
-  eddi_on_or_off: "curl --digest -u {{myenergi_serial}}:{{myenergi_password}} -H 'accept: application/json' -H 'content-type: application/json' --compressed 'https://s7.myenergi.net/cgi-eddi-mode-E{{eddi_serial}}-{{eddi_mode}}'"
+  eddi_on_or_off: "curl --digest -u {{myenergi_serial}}:{{myenergi_password}} -H 'accept: application/json' -H 'content-type: application/json' --compressed 'https://s18.myenergi.net/cgi-eddi-mode-E{{eddi_serial}}-{{eddi_mode}}'"
 
 
 #cgi-eddi-mode-EID-ModeNo
