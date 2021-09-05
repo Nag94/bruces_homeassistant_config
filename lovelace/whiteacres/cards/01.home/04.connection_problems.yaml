@@ -3,10 +3,10 @@ card:
   title: Connection Problems
   type: glance
 entities:
-  - entity: sensor.hottub_summary
+  - entity: binary_sensor.bwa_wi_fi_module
     name: Hot Tub
-    state_filter:
-      - offline
+    state_filter: 
+      - 'off'
   - entity: sensor.hive_hub_status
     name: Hive Hub
     state_filter:

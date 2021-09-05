@@ -669,7 +669,7 @@ elements:
               left: 91%
               color: blue                
       - type: state-icon
-        entity: switch.spa_light1
+        entity: light.hottub_light
         style:
           top: 12%
           left: 97%

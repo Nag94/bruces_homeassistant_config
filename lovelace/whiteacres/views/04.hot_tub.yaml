@@ -131,25 +131,23 @@ cards:
           - entity: input_number.hottub_standard_temp
             name:  Target Temperature     
           - entity: input_number.hottub_water_target
-            name:  Immediate Target Temperature               
-#          - entity: fan.spa_pump1
+            name:  Immediate Target Temperature     
+          - entity: binary_sensor.spa_circ_pump
+            name: Circulation Pump
           - entity: switch.pump_1
             name: Jets 1
-#          - entity: fan.spa_pump2
           - entity: switch.pump_2        
             name: Jets 2      
           - entity: light.hottub_light
             name: Lights
-#          - entity: switch.spa_temp_range
-#            name: Temp Range            
-#          - entity: sensor.hottub_summary
-#            name: Status
+          - entity: switch.temperature_range
+            name: Temp Range            
+          - entity: sensor.hottub_summary
+            name: Status
           - entity: binary_sensor.hot_tub_door
             name: Cover
           - entity: input_boolean.hottub_scheduled
             name: Schedule on
-#          - entity: sensor.hottub_price
-#            name: Price per Hour
           - entity: input_number.hottub_heat_below_x_pence
             name: Heat below x pence
           - entity: sensor.hottub_heating_this_week
