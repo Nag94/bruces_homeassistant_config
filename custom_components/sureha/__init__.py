@@ -3,20 +3,21 @@ from __future__ import annotations
 
 from datetime import timedelta
 import logging
+from random import choice
 from typing import Any
 
+import async_timeout
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import CONF_PASSWORD, CONF_TOKEN, CONF_USERNAME
+from homeassistant.core import HomeAssistant
+from homeassistant.exceptions import ConfigEntryAuthFailed
+from homeassistant.helpers import config_validation as cv
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from surepy import Surepy
 from surepy.enums import LockState
 from surepy.exceptions import SurePetcareAuthenticationError, SurePetcareError
 import voluptuous as vol
-
-from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_PASSWORD, CONF_TOKEN, CONF_USERNAME
-from homeassistant.core import HomeAssistant
-from homeassistant.helpers import config_validation as cv
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from homeassistant.helpers.dispatcher import async_dispatcher_send
-from homeassistant.helpers.event import async_track_time_interval
 
 # pylint: disable=import-error
 from .const import (
@@ -26,7 +27,6 @@ from .const import (
     SERVICE_SET_LOCK_STATE,
     SPC,
     SURE_API_TIMEOUT,
-    TOPIC_UPDATE,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -48,6 +48,15 @@ CONFIG_SCHEMA = vol.Schema(
     extra=vol.ALLOW_EXTRA,
 )
 
+CATS = [
+    "/ᐠ｡▿｡ᐟ\\*ᵖᵘʳʳ",
+    "/ᐠ_ꞈ_ᐟ\\ɴʏᴀ~",
+    "/ᐠ ._. ᐟ\\ﾉ",
+    "/ᐠ. ｡.ᐟ\\ᵐᵉᵒʷˎˊ",
+    "ᶠᵉᵉᵈ ᵐᵉ /ᐠ-ⱉ-ᐟ\\ﾉ",
+    "(≗ᆽ ≗)ﾉ",
+]
+
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up."""
@@ -63,13 +72,42 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             session=async_get_clientsession(hass),
         )
     except SurePetcareAuthenticationError:
-        _LOGGER.error("Unable to connect to surepetcare.io: Wrong credentials!")
+        _LOGGER.error(
+            "🐾 \x1b[38;2;255;26;102m·\x1b[0m unable to auth. to surepetcare.io: wrong credentials"
+        )
         return False
     except SurePetcareError as error:
-        _LOGGER.error("Unable to connect to surepetcare.io: %s", error)
+        _LOGGER.error(
+            "🐾 \x1b[38;2;255;26;102m·\x1b[0m unable to connect to surepetcare.io: %s",
+            error,
+        )
         return False
 
     spc = SurePetcareAPI(hass, entry, surepy)
+
+    async def async_update_data():
+
+        try:
+            # asyncio.TimeoutError and aiohttp.ClientError already handled
+
+            async with async_timeout.timeout(20):
+                return await spc.surepy.get_entities(refresh=True)
+
+        except SurePetcareAuthenticationError as err:
+            raise ConfigEntryAuthFailed from err
+        except SurePetcareError as err:
+            raise UpdateFailed(f"Error communicating with API: {err}") from err
+
+    spc.coordinator = DataUpdateCoordinator(
+        hass,
+        _LOGGER,
+        name="sureha_sensors",
+        update_method=async_update_data,
+        update_interval=timedelta(seconds=150),
+    )
+
+    await spc.coordinator.async_config_entry_first_refresh()
+
     hass.data[DOMAIN][SPC] = spc
 
     return await spc.async_setup()
@@ -83,24 +121,13 @@ class SurePetcareAPI:
     ) -> None:
         """Initialize the Sure Petcare object."""
 
+        self.coordinator: DataUpdateCoordinator
+
         self.hass = hass
         self.config_entry = config_entry
         self.surepy = surepy
+
         self.states: dict[int, Any] = {}
-
-    async def async_update(self, _: Any = None) -> None:
-        """Get the latest data from Sure Petcare."""
-
-        try:
-            self.states = await self.surepy.get_entities(refresh=True)
-            _LOGGER.debug(
-                "\x1b[38;2;255;26;102m·\x1b[0m🐾 successfully updated states of %d entities",
-                len(self.states),
-            )
-        except SurePetcareError as error:
-            _LOGGER.error("Unable to fetch data: %s", error)
-
-        async_dispatcher_send(self.hass, TOPIC_UPDATE)
 
     async def set_lock_state(self, flap_id: int, state: str) -> None:
         """Update the lock state of a flap."""
@@ -120,34 +147,39 @@ class SurePetcareAPI:
         """Set up the Sure Petcare integration."""
 
         _LOGGER.info("")
-        _LOGGER.info(" \x1b[38;2;255;26;102m·\x1b[0m" * 30)
+        _LOGGER.info(
+            "%s %s", " \x1b[38;2;255;26;102m·\x1b[0m" * 24, choice(CATS)  # nosec
+        )
         _LOGGER.info("  🐾   meeowww..! to the SureHA integration!")
         _LOGGER.info("  🐾     code & issues: https://github.com/benleb/sureha")
         _LOGGER.info(" \x1b[38;2;255;26;102m·\x1b[0m" * 30)
         _LOGGER.info("")
 
-        await self.async_update()
-
-        async_track_time_interval(self.hass, self.async_update, SCAN_INTERVAL)
-
         self.hass.async_add_job(
-            self.hass.config_entries.async_forward_entry_setup(
+            self.hass.config_entries.async_forward_entry_setup(  # type: ignore
                 self.config_entry, "binary_sensor"
             )
         )
 
         self.hass.async_add_job(
-            self.hass.config_entries.async_forward_entry_setup(
+            self.hass.config_entries.async_forward_entry_setup(  # type: ignore
                 self.config_entry, "sensor"
             )
         )
+
+        # self.hass.async_add_job(
+        #     self.hass.config_entries.async_forward_entry_setup(  # type: ignore
+        #         self.config_entry, "device_tracker"
+        #     )
+        # )
 
         async def handle_set_lock_state(call: Any) -> None:
             """Call when setting the lock state."""
             await self.set_lock_state(
                 call.data[ATTR_FLAP_ID], call.data[ATTR_LOCK_STATE]
             )
-            await self.async_update()
+
+            await self.coordinator.async_request_refresh()
 
         lock_state_service_schema = vol.Schema(
             {
