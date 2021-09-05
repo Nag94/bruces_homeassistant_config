@@ -5,6 +5,11 @@ badges: []
 cards:
   - type: entities
     entities:
+      - entity: sensor.solaredge_firmware
+        name: Inverter
+    title: SolarEdge Firmware Versions   
+  - type: entities
+    entities:
       - entity: sensor.zappi_jyggy_fwv
         name: Zappi - Jyggy
       - entity: sensor.zappi_paddy_fwv
