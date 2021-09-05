@@ -12,6 +12,6 @@ automation:
           actionName: 'HotTub Jet 1'
           
     action:
-      - service: fan.toggle
+      - service: switch.toggle
         target:
-          entity_id: fan.spa_pump1
+          entity_id: switch.pump_1

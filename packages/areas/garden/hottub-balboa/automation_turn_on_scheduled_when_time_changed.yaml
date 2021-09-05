@@ -3,7 +3,7 @@ automation:
     alias: 'HotTub Turn on scheduled when time changed'
     
     description: >
-      Schedule on or off based on time change or other factors
+      Schedule on or off based on time change
       
     trigger:
       - platform: state

@@ -2,7 +2,7 @@ template:
   - sensor:
       - name: "HotTub Water Temp"
         unique_id: hottub_current_temp
-        availability: "{{ not is_state('binary_sensor.spa_circ_pump','unavailable') }}"
+        availability: "{{ states('binary_sensor.bwa_wi_fi_module') }}"
         device_class: temperature
         unit_of_measurement: '°C'        
-        state: "{{ state_attr('climate.spa_climate','current_temperature') }}"
+        state: "{{ state_attr('climate.spa_climate','current_temperature') | round(1, 'half')  }}"

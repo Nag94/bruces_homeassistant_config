@@ -13,12 +13,12 @@ automation:
         to: 'off'
         
     action:
-      - service: fan.turn_off
+      - service: switch.turn_off
         target:
           entity_id:
-            - fan.spa_pump1
-            - fan.spa_pump2
+            - switch.pump_1
+            - switch.pump_2
       - service: light.turn_off
         target:
-          entity_id:  light.hottub_lights
+          entity_id:  light.hottub_light
           

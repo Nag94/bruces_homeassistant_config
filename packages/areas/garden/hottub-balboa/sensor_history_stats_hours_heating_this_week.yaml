@@ -1,8 +1,8 @@
 sensor:
   - platform: history_stats
     name: HotTub Heating This Week
-    entity_id: sensor.hottub_hvac_action
-    state: "heating"
+    entity_id: climate.spa_climate
+    state: "heat"
     type: time
     end: "{{ now().replace(hour=0, minute=0, second=0) }}"
     duration:

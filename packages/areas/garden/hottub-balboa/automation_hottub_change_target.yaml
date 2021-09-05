@@ -12,8 +12,8 @@ automation:
         entity_id: input_number.hottub_water_target
       - platform: state
         id: 'back online'
-        entity_id: sensor.hottub_summary
-        from: 'offline'
+        entity_id: binary_sensor.bwa_wi_fi_module
+        to: 'on'
         
     action:
       - delay: 5    
