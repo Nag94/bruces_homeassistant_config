@@ -1,9 +1,9 @@
 automation:
-  - id: saily_snapshot
-    alias: 'Daily Snapshot'
+  - id: daily_backup
+    alias: 'Daily Backup'
     
     description: >
-      Daily Snapshot
+      Daily Backup
       
     trigger:
       - platform: time
@@ -11,6 +11,6 @@ automation:
         at: 03:00:00
         
     action:
-    - service: hassio.snapshot_full
+    - service: hassio.backup_full
       data:
         name: Automated Backup {{ now().strftime('%Y-%m-%d') }}
