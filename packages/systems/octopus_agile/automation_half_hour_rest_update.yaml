@@ -12,6 +12,8 @@ automation:
         event_type: automation_reloaded      
       - platform: time_pattern
         minutes: '/30'
+      - platform: state
+        entity_id: input_boolean.go_tariff
         
     action:
       - service: homeassistant.update_entity
