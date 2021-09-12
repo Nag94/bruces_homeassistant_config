@@ -1,5 +1,0 @@
-template:
-  sensor:
-    - name: "Powerwall Efficiency"
-      state: "{{ (100 * (state_attr('sensor.powerwall_battery_now','energy_exported_(in_kW)') / (state_attr('sensor.powerwall_battery_now','energy_imported_(in_kW)') - states('sensor.powerwall_stored_energy') | float))) | round(1) }}"
-      unit_of_measurement: "%"
