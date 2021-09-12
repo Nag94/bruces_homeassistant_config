@@ -48,7 +48,7 @@
 ## Custom Components (HACS)
 
 * [Alexa Media Player](https://github.com/custom-components/alexa_media_player) 
-* [Balboa Spa Client](https://github.com/garbled1/balboa_homeassistan) - Hot Tub Control
+* [Spa Client](https://github.com/plmilord/Hass.io-custom-component-spaclient/) - Hot Tub Control
 * [Attributes Extractor](https://github.com/pilotak/homeassistant-attributes) - To create sensors from Attributes in bulk
 * [Delete](https://github.com/chomupashchuk/delete-file-home-assistant) - delete files based on timestamp etc.
 * [Circadian Lighting](https://github.com/claytonjn/hass-circadian_lighting) - not used yet
@@ -63,6 +63,7 @@
 * [SolarEdge Modbus](https://github.com/erikarenhill/solaredge-modbus-hass) - Solar PV Inverter Monitoring (Local)
 * [Sonoff](https://github.com/AlexxIT/SonoffLAN) - Ceiling Fan Control (Local)
 * [Strava](https://github.com/codingcyclist/ha_strava) - reporting on runs
+* [SureHA](https://github.com/benleb/sureha) - SurePet Feeders
 * [UniFi Protect](https://github.com/briis/unifiprotect) - CCTV Cameras inside and out with person and vehicle detection
 
 ## Frontend (HACS)
