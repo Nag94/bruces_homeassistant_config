@@ -276,7 +276,8 @@ automation:
                   message_id: "{{ states('input_text.alarm_disarming_message_id') }}"                
                   chat_id: !secret telegram_chat_id_bruce
                   message: "Alarm currently {{states('alarm_control_panel.texecom').replace('_',' ')}}"
-          - conditions: "{{ trigger.event.data.click_type == 'single' and is_state('input_boolean.someone_has_been_downstairs','off') }}"
+                  
+          - conditions: "{{ button_name == 'bedside_bruce' and click_type == 'click' and is_state('input_boolean.someone_has_been_downstairs','off') }}"
             sequence:
               - service: light.toggle
                 target:
