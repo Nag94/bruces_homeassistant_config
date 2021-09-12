@@ -5,13 +5,13 @@ automation:
     description: Smoke alarm
     trigger:
       - entity_id: 
-          - sensor.loft_protect_smoke_status      
-          - sensor.downstairs_protect_smoke_status
-          - sensor.upstairs_1_protect_smoke_status
-          - sensor.upstairs_2_protect_smoke_status
-          - sensor.loft_protect_smoke_status          
+          - binary_sensor.protect_garage_smoke
+          - binary_sensor.protect_kate_smoke
+          - binary_sensor.protect_stairs_smoke     
+          - binary_sensor.protect_downstairs_smoke          
+          - binary_sensor.protect_loft_smoke            
         platform: state
-        to: "1"
+        to: "on"
     action:
     - service: notify.bruce_and_sarah_phones
       data:
