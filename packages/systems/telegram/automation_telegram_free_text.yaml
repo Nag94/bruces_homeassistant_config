@@ -32,7 +32,7 @@ automation:
                   message: >
                     Solar Power Now: {{ states('sensor.solar_production')}} kW
                     
-                    Today's Production: {{ states('sensor.solar_production_daily')| round(1) }} kWh
+                    Today's Production: {{ states('sensor.solar_production_daily_kw')| round(1) }} kWh
                     
                     Today's Forecast: {{ states('sensor.forecastsolar_today') }} kWh
                   inline_keyboard:
@@ -83,7 +83,7 @@ automation:
                     
                     Solar Power Now: {{ states('sensor.solar_production')}} kW
                     
-                    Solar Production Today: {{ states('sensor.solar_production_daily')| round(1) }} kWh
+                    Solar Production Today: {{ states('sensor.solar_production_daily_kw')| round(1) }} kWh
                     
                     Solar Forecast (Today): {{ states('sensor.forecastsolar_today') }} kWh
                   
