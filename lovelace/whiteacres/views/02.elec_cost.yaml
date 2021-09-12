@@ -5,7 +5,7 @@ title: Elec Cost
 badges:
   - entity: binary_sensor.electricity_supply
     name: Elec Supply
-  - entity: sensor.octopus_agile_current_rate
+  - entity: sensor.import_price
     name: Current Price
   - entity: sensor.electricity_demand_rounded
     name: Usage
@@ -21,14 +21,14 @@ cards:
     entities:
       - entity: sensor.export_price
         name: Current Export Price
+      - entity: sensor.import_price
+        name: Current Import Price        
+      - entity: sensor.octopus_current_tariff
+        name: Current Octopus Tariff
       - entity: sensor.octopus_agile_min_rate
-        name: Minimum Rate
+        name: Minimum Agile Rate
         icon: 'mdi:currency-gbp'
-      - entity: octopusagile.avg_rate_exc_peak
-        name: Avg. cost (non-peak)
-      - entity: octopusagile.avg_rate_inc_peak
-        name: Avg. cost (all)  
-      - entity: octopusagile.monthly_cost
+
   - icon: 'mdi:menu'
     show_icon: true
     show_name: false
