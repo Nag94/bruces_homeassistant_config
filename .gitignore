@@ -15,6 +15,7 @@
 /alexa_media.Bruce.Hartley@ClickSpares.co.uk.pickle
 /alexa_media.bruce.hartley@ClickSpares.co.uk.pickle
 /appdaemon
+/homebridge
 /deps
 /faces
 /google_calendars.yaml
@@ -38,3 +39,4 @@
 /platerecogniser/
 /custom_components/samsungtv_tizen/token-192.168.21.90.txt
 /packages/areas/drive/template_binary_sensor_plate_*.yaml
+/Google_API_key.json
