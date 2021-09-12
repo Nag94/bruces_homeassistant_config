@@ -245,10 +245,10 @@ homekit:
         - binary_sensor.spa_filter1
         - climate.spa_climate
   #      - sensor.hottub_water_temp
-        - fan.spa_pump1
-        - fan.spa_pump2
-        - switch.spa_temp_range
-        - switch.spa_light1        
+        - switch.pump_1
+        - switch.pump_2
+        - switch.temperature_range
+        - light.hottub_light      
 
   - name: Bar Camera
     port: 56341
@@ -384,18 +384,18 @@ homekit:
         linked_motion_sensor: binary_sensor.motion_stairs
         support_audio: true    
                                                 
-#  - name: Nest Protect
-#    port: 56341
-#    filter:
-#      include_entities:       
-#      - binary_sensor.downstairs_co
-#      - binary_sensor.downstairs_smoke
-#      - binary_sensor.garage_co
-#      - binary_sensor.garage_smoke
-#      - binary_sensor.loft_co
-#      - binary_sensor.loft_smoke
-#      - binary_sensor.upstairs_1_co
-#      - binary_sensor.upstairs_1_smoke
-#      - binary_sensor.upstairs_2_co
-#      - binary_sensor.upstairs_2_smoke
+  - name: Nest Protect
+    port: 56353
+    filter:
+      include_entities:       
+      - binary_sensor.protect_downstairs_co
+      - binary_sensor.protect_downstairs_smoke
+      - binary_sensor.protect_garage_co
+      - binary_sensor.protect_garage_smoke
+      - binary_sensor.protect_loft_co
+      - binary_sensor.protect_loft_smoke
+      - binary_sensor.protect_stairs_co
+      - binary_sensor.protect_stairs_smoke
+      - binary_sensor.protect_kate_co
+      - binary_sensor.protect_kate_smoke
         
