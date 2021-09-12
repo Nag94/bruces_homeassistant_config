@@ -22,6 +22,5 @@ template:
   sensor:
     - name: "Import Power Integration"
       unique_id: import_power_integration
-      unit_of_measurement: "kW"
       state: "{% if (states('sensor.electricity_consumption') | float ) > 20.0 %}{{ ((states('sensor.electricity_consumption') | float) / 1000.0) | round(2) }}{% else %}0.0{% endif %}"
-      device_class: power
+      device_class: energy
