@@ -17,11 +17,11 @@ automation:
           - input_boolean.hottub_scheduled   
           - input_boolean.hottub_boost
           - input_datetime.hottub_ready_by
-#          - input_number.hottub_heat_below_x_pence
           - binary_sensor.hottub_at_or_below_max_heat_cost
           - sensor.hottub_summary
           - binary_sensor.agile_plunge
           - binary_sensor.agile_peak
+          - binary_sensor.go_cheap
 #          - binary_sensor.hot_tub_door     
           
     action:
@@ -79,9 +79,36 @@ automation:
                   entity_id: input_number.hottub_water_target
                 data:
                   value: "{{ states('input_number.hottub_standard_temp') }}"
+                  
+          # IF Go tariff cheap pricing and scheduled - heat
+          - conditions:
+              - condition: state
+                entity_id: binary_sensor.go_cheap
+                state: 'on' 
+              - condition: state
+                entity_id: input_boolean.hottub_scheduled
+                state: 'on'                 
+            sequence:
+              - service: switch.turn_on
+                target:
+                  entity_id: switch.spa_temp_range
+              - service: logbook.log
+                data:
+                  domain: switch
+                  entity_id: climate.spa_climate
+                  name: "Hot Tub"
+                  message: "Heat to Target for Octopus Go cheap and scheduled"
+              - service: input_number.set_value
+                target:
+                  entity_id: input_number.hottub_water_target
+                data:
+                  value: "{{ states('input_number.hottub_standard_temp') }}"                  
 
           # ELIF scheduled 
-          - conditions: "{{ is_state('input_boolean.hottub_scheduled','on') }}"
+          - conditions:
+              - condition: state
+                entity_id: input_boolean.hottub_scheduled
+                state: 'on'    
             sequence:
               - service: logbook.log
                 data:
