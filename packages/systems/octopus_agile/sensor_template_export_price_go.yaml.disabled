@@ -1,0 +1,9 @@
+template:
+  sensor:
+    - name: "Export Price"
+      state: 3
+      unit_of_measurement: "p/kWh"
+      
+    - name: "Export Price Pounds"
+      state: 0.03
+      unit_of_measurement: "£/kWh"   

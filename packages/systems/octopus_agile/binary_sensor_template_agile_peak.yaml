@@ -2,5 +2,5 @@ template:
   binary_sensor:
     - name: "Agile Peak"
       unique_id: agile_peak
-      state: "{{ now().strftime('%-H') in ['16','17','18'] }}"
+      state: "{{ is_state('input_boolean.go_tariff','off') and (( states('sensor.import_price') | float >= 30.0)  or (now().strftime('%-H') in ['16','17','18'])) }}"
       device_class: power

@@ -20,7 +20,8 @@ automation:
       - platform: state
         entity_id: 
           - binary_sensor.agile_peak
-          - binary_sensor.agile_plunge            
+          - binary_sensor.agile_plunge        
+          - binary_sensor.go_cheap		  
           - binary_sensor.jyggy_below_max_charge_cost
           - binary_sensor.paddy_below_max_charge_cost
           - binary_sensor.paddy_needs_charge          

@@ -26,7 +26,8 @@ automation:
           - binary_sensor.agile_plunge            
           - binary_sensor.jyggy_below_max_charge_cost
 #          - binary_sensor.jyggy_needs_charge     
-          - sensor.solaredge_status_text        
+          - sensor.solaredge_status_text   
+          - binary_sensor.go_cheap
       - platform: state
         entity_id: binary_sensor.jyggy_plugged_in
         to: 'on'          
@@ -48,7 +49,7 @@ automation:
           myenergi_serial: !secret myenergi_serial
           myenergi_password: !secret myenergi_password
           zappi_serial: !secret zappi_serial_jyggy
-          zappi_mode: "{%- if (is_state('binary_sensor.agile_plunge','on') or is_state('binary_sensor.jyggy_below_max_charge_cost','on')) -%}1{%- elif is_state('binary_sensor.jyggy_plugged_in','off') or is_state('binary_sensor.agile_peak','on') or is_state('sensor.solaredge_status','Sleep') -%}4{%- else -%}3{%- endif -%}"
+          zappi_mode: "{%- if is_state('binary_sensor.go_cheap','on') or is_state('binary_sensor.agile_plunge','on') or is_state('binary_sensor.jyggy_below_max_charge_cost','on') -%}1{%- elif is_state('binary_sensor.jyggy_plugged_in','off') or is_state('binary_sensor.agile_peak','on') or is_state('sensor.solaredge_status','Sleep') -%}4{%- else -%}3{%- endif -%}"
 
       - alias: "Repeat until this command is complete"
         repeat:

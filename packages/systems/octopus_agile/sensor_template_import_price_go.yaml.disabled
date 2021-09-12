@@ -1,0 +1,10 @@
+template:
+  sensor:
+    - name: "Import Price"
+      state: "{% if now().strftime('%T') > strptime('00:30:00', '%T') and now().strftime('%T') < strptime('04:30:00', '%T') %}5{% else %}16.26{% endif %}"
+      unit_of_measurement: "p/kWh"
+      
+    - name: "Import Price Pounds"
+      state: "{% if now().strftime('%T') > strptime('00:30:00', '%T') and now().strftime('%T') < strptime('04:30:00', '%T') %}0.05{% else %}0.1626{% endif %}"
+      unit_of_measurement: "£/kWh"     
+    
