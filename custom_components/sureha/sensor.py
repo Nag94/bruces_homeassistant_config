@@ -120,10 +120,14 @@ class SurePetcareSensor(CoordinatorEntity, SensorEntity):
         device = {}
 
         try:
-            model = f"{self._surepy_entity.type.name.replace('_', ' ').title()}"
 
-            if serial := self._surepy_entity.raw_data().get("serial_number", None):
+            model = f"{self._surepy_entity.type.name.replace('_', ' ').title()}"
+            if serial := self._surepy_entity.raw_data().get("serial_number"):
                 model = f"{model} ({serial})"
+            elif mac_address := self._surepy_entity.raw_data().get("mac_address"):
+                model = f"{model} ({mac_address})"
+            elif tag_id := self._surepy_entity.raw_data().get("tag_id"):
+                model = f"{model} ({tag_id})"
 
             device = {
                 "identifiers": {(DOMAIN, self._id)},
@@ -132,7 +136,7 @@ class SurePetcareSensor(CoordinatorEntity, SensorEntity):
                 "model": model,
             }
 
-            if self._surepy_entity:
+            if self._state:
                 versions = self._state.get("version", {})
 
                 if dev_fw_version := versions.get("device", {}).get("firmware"):
@@ -199,48 +203,6 @@ class Felaqua(SurePetcareSensor):
         if felaqua := cast(SureFelaqua, self._coordinator.data[self._id]):
             return int(felaqua.water_remaining) if felaqua.water_remaining else None
 
-    @property
-    def extra_state_attributes(self) -> dict[str, Any]:
-        """Return the remaining water."""
-
-        attrs = {}
-
-        if (
-            state := cast(SureFelaqua, self._coordinator.data[self._id])
-            .raw_data()
-            .get("status")
-        ):
-            for weight in state.get("drink", {}).get("weights", {}):
-                attr_key = f"weight_{weight['index']}"
-                attrs[attr_key] = weight
-
-        return attrs
-
-    @property
-    def device_info(self):
-
-        device = {}
-
-        if felaqua := cast(SureFelaqua, self._coordinator.data[self._id]):
-
-            try:
-                model = f"{felaqua.type.name.replace('_', ' ').title()}"
-
-                if serial := felaqua.raw_data().get("serial_number", None):
-                    model = f"{model} ({serial})"
-
-                device = {
-                    "identifiers": {(DOMAIN, self._id)},
-                    "name": felaqua.name.capitalize(),
-                    "manufacturer": SURE_MANUFACTURER,
-                    "model": model,
-                }
-
-            except AttributeError:
-                pass
-
-        return device
-
 
 class FeederBowl(SurePetcareSensor):
     """Sure Petcare Feeder Bowl."""
@@ -306,29 +268,6 @@ class Feeder(SurePetcareSensor):
         """Return the total remaining food."""
         if feeder := cast(SureFeeder, self._coordinator.data[self._id]):
             return int(feeder.total_weight) if feeder.total_weight else None
-
-    @property
-    def device_info(self):
-
-        device = {}
-
-        try:
-            model = f"{self._surepy_entity.type.name.replace('_', ' ').title()}"
-
-            if serial := self._surepy_entity.raw_data().get("serial_number", None):
-                model = f"{model} ({serial})"
-
-            device = {
-                "identifiers": {(DOMAIN, self._id)},
-                "name": self._surepy_entity.name.capitalize(),
-                "manufacturer": SURE_MANUFACTURER,
-                "model": model,
-            }
-
-        except AttributeError:
-            pass
-
-        return device
 
 
 class Battery(SurePetcareSensor):

@@ -15,7 +15,8 @@ from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from surepy import Surepy
-from surepy.enums import LockState
+from surepy.entities import SurepyEntity
+from surepy.enums import EntityType, Location, LockState
 from surepy.exceptions import SurePetcareAuthenticationError, SurePetcareError
 import voluptuous as vol
 
@@ -23,7 +24,10 @@ import voluptuous as vol
 from .const import (
     ATTR_FLAP_ID,
     ATTR_LOCK_STATE,
+    ATTR_PET_ID,
+    ATTR_WHERE,
     DOMAIN,
+    SERVICE_PET_LOCATION,
     SERVICE_SET_LOCK_STATE,
     SPC,
     SURE_API_TIMEOUT,
@@ -31,7 +35,7 @@ from .const import (
 
 _LOGGER = logging.getLogger(__name__)
 
-PLATFORMS = ["binary_sensor", "sensor"]
+PLATFORMS = ["binary_sensor", "device_tracker", "sensor"]
 SCAN_INTERVAL = timedelta(minutes=3)
 
 CONFIG_SCHEMA = vol.Schema(
@@ -129,19 +133,25 @@ class SurePetcareAPI:
 
         self.states: dict[int, Any] = {}
 
+    async def set_pet_location(self, pet_id: int, location: Location) -> None:
+        """Update the lock state of a flap."""
+
+        await self.surepy.sac.set_pet_location(pet_id, location)
+
     async def set_lock_state(self, flap_id: int, state: str) -> None:
         """Update the lock state of a flap."""
 
         # https://github.com/PyCQA/pylint/issues/2062
         # pylint: disable=no-member
-        if state == LockState.UNLOCKED.name.lower():
-            await self.surepy.sac.unlock(flap_id)
-        elif state == LockState.LOCKED_IN.name.lower():
-            await self.surepy.sac.lock_in(flap_id)
-        elif state == LockState.LOCKED_OUT.name.lower():
-            await self.surepy.sac.lock_out(flap_id)
-        elif state == LockState.LOCKED_ALL.name.lower():
-            await self.surepy.sac.lock(flap_id)
+        lock_states = {
+            LockState.UNLOCKED.name.lower(): self.surepy.sac.unlock,
+            LockState.LOCKED_IN.name.lower(): self.surepy.sac.lock_in,
+            LockState.LOCKED_OUT.name.lower(): self.surepy.sac.lock_out,
+            LockState.LOCKED_ALL.name.lower(): self.surepy.sac.lock,
+        }
+
+        # elegant functions dict to choose the right function | idea by @janiversen
+        await lock_states[state.lower()](flap_id)
 
     async def async_setup(self) -> bool:
         """Set up the Sure Petcare integration."""
@@ -167,25 +177,77 @@ class SurePetcareAPI:
             )
         )
 
-        # self.hass.async_add_job(
-        #     self.hass.config_entries.async_forward_entry_setup(  # type: ignore
-        #         self.config_entry, "device_tracker"
-        #     )
-        # )
+        self.hass.async_add_job(
+            self.hass.config_entries.async_forward_entry_setup(  # type: ignore
+                self.config_entry, "device_tracker"
+            )
+        )
+
+        surepy_entities: list[SurepyEntity] = self.coordinator.data.values()
+
+        pet_ids = [
+            entity.id for entity in surepy_entities if entity.type == EntityType.PET
+        ]
+
+        pet_location_service_schema = vol.Schema(
+            {
+                vol.Required(ATTR_PET_ID): vol.Any(cv.positive_int, vol.In(pet_ids)),
+                vol.Required(ATTR_WHERE): vol.Any(
+                    cv.string,
+                    vol.In(
+                        [
+                            # https://github.com/PyCQA/pylint/issues/2062
+                            # pylint: disable=no-member
+                            Location.INSIDE.name.title(),
+                            Location.OUTSIDE.name.title(),
+                        ]
+                    ),
+                ),
+            }
+        )
+
+        async def handle_set_pet_location(call: Any) -> None:
+            """Call when setting the lock state."""
+
+            try:
+
+                if (pet_id := int(call.data.get(ATTR_PET_ID))) and (
+                    where := str(call.data.get(ATTR_WHERE))
+                ):
+
+                    await self.set_pet_location(pet_id, Location[where.upper()])
+                    await self.coordinator.async_request_refresh()
+
+            except ValueError as error:
+                _LOGGER.error(
+                    "🐾 \x1b[38;2;255;26;102m·\x1b[0m arguments of wrong type: %s", error
+                )
+
+        self.hass.services.async_register(
+            DOMAIN,
+            SERVICE_PET_LOCATION,
+            handle_set_pet_location,
+            schema=pet_location_service_schema,
+        )
 
         async def handle_set_lock_state(call: Any) -> None:
             """Call when setting the lock state."""
-            await self.set_lock_state(
-                call.data[ATTR_FLAP_ID], call.data[ATTR_LOCK_STATE]
-            )
 
+            flap_id = call.data.get(ATTR_FLAP_ID)
+            lock_state = call.data.get(ATTR_LOCK_STATE)
+
+            await self.set_lock_state(flap_id, lock_state)
             await self.coordinator.async_request_refresh()
+
+        flap_ids = [
+            entity.id
+            for entity in surepy_entities
+            if entity.type in [EntityType.CAT_FLAP, EntityType.PET_FLAP]
+        ]
 
         lock_state_service_schema = vol.Schema(
             {
-                vol.Required(ATTR_FLAP_ID): vol.All(
-                    cv.positive_int, vol.In(self.states.keys())
-                ),
+                vol.Required(ATTR_FLAP_ID): vol.All(cv.positive_int, vol.In(flap_ids)),
                 vol.Required(ATTR_LOCK_STATE): vol.All(
                     cv.string,
                     vol.Lower,
