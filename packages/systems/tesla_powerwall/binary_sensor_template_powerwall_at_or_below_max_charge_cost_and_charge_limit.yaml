@@ -5,5 +5,5 @@ template:
       # Allow charge to go 5% above Max Target to allow for overnight usage
       # Don't need to, as setting the reserve stops overnight use draining battery
       availability:  "{{ states('sensor.import_price') != 'unknown' }}"        
-      state: "{{ (states('sensor.import_price') | float) <= (states('input_number.powerwall_charge_below_x_pence') | float) and (states('sensor.powerwall_charge') | float) <= ((states('input_number.overnight_powerwall_max_charge') | float ) ) }}"
+      state: "{{ (is_state('binary_sensor.go_cheap''on') or (states('sensor.import_price') | float) <= (states('input_number.powerwall_charge_below_x_pence') | float)) and (states('sensor.powerwall_charge') | float) <= ((states('input_number.overnight_powerwall_max_charge') | float ) ) }}"
 

@@ -11,9 +11,16 @@ automation:
       ChargeRate = 3.6 kW      
       
     trigger:
-      - platform: state
-        id: 'rates'
-        entity_id: octopusagile.rates
+    # Forecast goes to zero between 11(:30) and 00:00 ???
+      - platform: time
+        id: 'time'
+        at: 
+          - '21:15:00'
+          - '22:45:00'        
+          - '00:15:00'  
+          - '01:45:00'        
+          - '03:15:00'  
+          - '04:45:00'            
       - platform: homeassistant
         id: 'start'
         event: start
@@ -22,14 +29,22 @@ automation:
         event_type: automation_reloaded     
         
     condition:
-      - condition: not
-        conditions:
-          condition: time
-          after: "06:00:00"
-          before: "21:00:00"
+    # Forecast should never be zero, so zero would show error ?
+      - condition: numeric_state
+        entity_id: sensor.forecastsolar_today
+        above: 0
+      - condition: numeric_state
+        entity_id: sensor.forecastsolar_tomorrow
+        above: 0        
+#      - condition: not
+#        conditions:
+#          condition: time
+#          after: "06:00:00"
+#          before: "21:00:00"
       - condition: state
         entity_id: sensor.solaredge_status_text
         state: "Sleep"
+        
         
       
     variables:
