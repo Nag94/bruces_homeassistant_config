@@ -9,7 +9,9 @@ octopusagile:
 # Easily switch between agile and go rates.
   # If you include gorate, it'll override
   # the times for the times specified in gotimes
+  
   gorate: 5
+  
   # You can leave godayrate out to go by
   # Agile rates outside of offpeak period
   godayrate: 16.26
@@ -22,8 +24,6 @@ octopusagile:
   - "02:00:00"
   - "02:30:00"
   - "03:00:00"  
- # - "03:30:00"
- # - "04:00:00"  
   
 #  moneymakers:
 #  - switch.water_heater: null
