@@ -2,4 +2,4 @@ sensor:
   - platform: integration
     name: Loft Energy
     unit_prefix: k
-    source: sensor.loft_power_w
+    source: sensor.loft_mss310_power_sensor_w_0

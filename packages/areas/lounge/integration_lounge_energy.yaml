@@ -2,4 +2,4 @@ sensor:
   - platform: integration
     name: Lounge Energy
     unit_prefix: k
-    source: sensor.lounge_power_w
+    source: sensor.lounge_mss310_power_sensor_w_0
