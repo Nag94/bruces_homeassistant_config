@@ -4,4 +4,4 @@ template:
       unique_id: solaredge_meter_ac_power_output_kw
       state: "{{ (states('sensor.solaredge_mb_ac_power') | float / 1000.0) | round(1) }}"
       unit_of_measurement: 'kW'    
-      device_class: energy
+      device_class: power

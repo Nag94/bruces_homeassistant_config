@@ -31,11 +31,17 @@ automation:
     condition:
     # Forecast should never be zero, so zero would show error ?
       - condition: numeric_state
-        entity_id: sensor.forecastsolar_today
+        entity_id: input_number.solcast_latest_today_forecast
         above: 0
       - condition: numeric_state
-        entity_id: sensor.forecastsolar_tomorrow
+        entity_id: sensor.energy_production_forecast_tomorrow
         above: 0        
+#      - condition: numeric_state
+#        entity_id: sensor.forecastsolar_today
+#        above: 0
+#      - condition: numeric_state
+#        entity_id: sensor.forecastsolar_tomorrow
+#        above: 0        
 #      - condition: not
 #        conditions:
 #          condition: time
@@ -57,7 +63,39 @@ automation:
       
     action:
       - choose:
-          - conditions: "{{ states.octopusagile.rates == none  or  (states.octopusagile.rates.attributes.values() | count) < 34 or  (states.octopusagile.rates.attributes.values() | count) > 52  or (states('sensor.forecastsolar_tomorrow') | int) == 0 }}"
+          - conditions: 
+              - condition: state
+                entity_id: input_boolean.go_tariff
+                state: 'on'
+            sequence:
+              - service: input_number.set_value
+                target:
+                  entity_id: input_number.overnight_powerwall_max_charge
+                data:
+                  value: "{% set solar_forecast = (states('sensor.energy_production_forecast_tomorrow') | float) if now().strftime('%-H') | int > 12 else (states('input_number.solcast_latest_today_forecast') | float) %}{{ ([0,[(100 * (powerwall_capacity - (solar_forecast - tomorrow_solar_threshold))) / powerwall_capacity,100]|min]|max)|int }}"
+              - service: input_number.set_value
+                target:
+                  entity_id: input_number.powerwall_charge_below_x_pence
+                data:
+                  value: 5
+              - service: telegram_bot.send_message
+                data:
+                  target: !secret telegram_chat_id_bruce
+                  title: "Solar Today/Tomorrow: {{ states('input_number.solcast_latest_today_forecast') | int }}/{{states('sensor.energy_production_forecast_tomorrow') | int }}kWh"
+                  message: >
+
+                    {% set charge_slots_needed =  (0.5 + (((states('input_number.overnight_powerwall_max_charge') | float) + overnight_usage_percent - (states('sensor.powerwall_charge')  | float) )/percentage_per_half_hour)) | int  %}
+                    
+                    Powerwall Charge Level: {{ states('sensor.powerwall_charge') | int }}%                    
+                    
+                    {% if charge_slots_needed > 0 %}Powerwall Charging overnight to {{ states('input_number.overnight_powerwall_max_charge') | int }}%
+                    
+                    {{ charge_slots_needed }} half hour periods.  
+
+                    Max Price of 5p{% endif %}
+                
+                
+          - conditions: "{{ states.octopusagile.rates == none  or  (states.octopusagile.rates.attributes.values() | count) < 34 or  (states.octopusagile.rates.attributes.values() | count) > 52  or (states('sensor.energy_production_forecast_tomorrow') | int) == 0 }}"
             sequence:
               - service: notify.telegram_bruce
                 data:
@@ -69,20 +107,17 @@ automation:
             target:
               entity_id: input_number.overnight_powerwall_max_charge
             data:
-              # Use tomorrow forecast if today forecast is showing ZERO - what if forecast is actually zero ?
-              value: "{% set solar_forecast = (states('sensor.forecastsolar_tomorrow') | float) if now().strftime('%-H') | int > 12 else (states('sensor.forecastsolar_today') | float) %}{{ ([0,[(100 * (powerwall_capacity - (solar_forecast - tomorrow_solar_threshold))) / powerwall_capacity,100]|min]|max)|int }}"
+              value: "{% set solar_forecast = (states('sensor.energy_production_forecast_tomorrow') | float) if now().strftime('%-H') | int > 12 else (states('input_number.solcast_latest_today_forecast') | float) %}{{ ([0,[(100 * (powerwall_capacity - (solar_forecast - tomorrow_solar_threshold))) / powerwall_capacity,100]|min]|max)|int }}"
           - service: input_number.set_value
             target:
               entity_id: input_number.powerwall_charge_below_x_pence
             data:
               # Take the 20 last prices for the list (next 10 hours), sort them by price and take the 8th for example if 4 hours charging (80% charging) is required.
-              #value: "{% set solar_forecast = states('sensor.solcast_forecast_tomorrow') | float if now().strftime('%-H') | int > 12 else states('sensor.solcast_forecast') %}{% set rates =  states.octopusagile.rates.attributes.values() | list %}{% set octopusrates = rates[-18:] | sort %}{% set charge_slots_needed =  (0.5 + (((states('input_number.overnight_powerwall_max_charge') | float) + overnight_usage_percent - (states('sensor.powerwall_charge')  | float) )/percentage_per_half_hour)) | int  %}{{  (octopusrates[charge_slots_needed -1] | float )  }}"
-              #value: "{% set solar_forecast = states('sensor.solcast_forecast_tomorrow') | float if now().strftime('%-H') | int > 12 else states('sensor.solcast_forecast') %}{% set rates =  states.octopusagile.rates.attributes.values() | list %}{% set octopusrates = rates[-18:] | sort %}{% set charge_slots_needed =  (0.5 + (((states('input_number.overnight_powerwall_max_charge') | float) + overnight_usage_percent - (states('sensor.powerwall_charge')  | float) )/percentage_per_half_hour)) | int  %}{% if charge_slots_needed == 0 %}0.0{% else %}{{  (octopusrates[charge_slots_needed -1] | float )  }}{% endif %}"
-              value: "{% set howmanyrates = 18 if now().strftime('%-H') | int > 12 else (18-now().strftime('%-H') | int) %}{% set solar_forecast = (states('sensor.forecastsolar_tomorrow') | float) if now().strftime('%-H') | int > 12 else (states('sensor.forecastsolar_today') | float) %}{% set rates =  states.octopusagile.rates.attributes.values() | list %}{% set octopusrates = rates[-howmanyrates:] | sort %}{% set charge_slots_needed =  (0.5 + (((states('input_number.overnight_powerwall_max_charge') | float) + overnight_usage_percent - (states('sensor.powerwall_charge')  | float) )/percentage_per_half_hour)) | int  %}{% if charge_slots_needed == 0 %}0.0{% else %}{{  (octopusrates[charge_slots_needed -1] | float )  }}{% endif %}"
+              value: "{% set howmanyrates = 18 if now().strftime('%-H') | int > 12 else (18-now().strftime('%-H') | int) %}{% set solar_forecast = (states('sensor.energy_production_forecast_tomorrow') | float) if now().strftime('%-H') | int > 12 else (states('input_number.solcast_latest_today_forecast') | float) %}{% set rates =  states.octopusagile.rates.attributes.values() | list %}{% set octopusrates = rates[-howmanyrates:] | sort %}{% set charge_slots_needed =  (0.5 + (((states('input_number.overnight_powerwall_max_charge') | float) + overnight_usage_percent - (states('sensor.powerwall_charge')  | float) )/percentage_per_half_hour)) | int  %}{% if charge_slots_needed == 0 %}0.0{% else %}{{  (octopusrates[charge_slots_needed -1] | float )  }}{% endif %}"
           - service: telegram_bot.send_message
             data:
               target: !secret telegram_chat_id_bruce
-              title: "Solar Today/Tomorrow: {{ states('sensor.forecastsolar_today') | int }}/{{states('sensor.forecastsolar_tomorrow') | int }}kWh"
+              title: "Solar Today/Tomorrow: {{ states('input_number.solcast_latest_today_forecast') | int }}/{{states('sensor.energy_production_forecast_tomorrow') | int }}kWh"
               message: >
 
                 {% set charge_slots_needed =  (0.5 + (((states('input_number.overnight_powerwall_max_charge') | float) + overnight_usage_percent - (states('sensor.powerwall_charge')  | float) )/percentage_per_half_hour)) | int  %}

@@ -8,7 +8,8 @@ automation:
     trigger:
       platform: state
       entity_id: 
-        - sensor.solcast_forecast
+         - sensor.energy_production_forecast_today
+#        - sensor.solcast_forecast
 #        - sensor.solcast_forecast_a        
 #        - sensor.solcast_forecast_b        
 
@@ -17,5 +18,5 @@ automation:
         target:
           entity_id: input_number.solcast_latest_today_forecast
         data:
-          value: "{{ (states('sensor.solar_production_daily') | float + states('sensor.solcast_forecast') | float ) | round(1) }}"
+          value: "{{ (states('sensor.solar_production_daily_kw') | float + states('sensor.energy_production_forecast_today') | float ) | round(1) }}"
 #          value: "{{ (states('sensor.solar_production_daily') | float + states('sensor.solcast_forecast_a') | float + states('sensor.solcast_forecast_b') | float ) | round(1) }}"          

@@ -1757,14 +1757,14 @@ elements:
         state: 'on'   
     elements:
       - type: state-label
-        entity: sensor.forecastsolar_today
+        entity: input_number.solcast_latest_today_forecast
         prefix: 'Solar Today: '        
         style:
           color: black
           top: 70%
           left: 79%      
       - type: state-label
-        entity: sensor.forecastsolar_tomorrow
+        entity: sensor.solcast_forecast_tomorrow_rounded
         prefix: 'Solar Tmrrw: '
         style:
           color: black

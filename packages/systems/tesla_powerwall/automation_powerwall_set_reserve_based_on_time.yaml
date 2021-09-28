@@ -15,28 +15,20 @@ automation:
           - '15:00:05'        
           - '15:59:55'  
       - platform: numeric_state
-        id: 'above15'
-        entity_id: sensor.powerwall_charge
-        above: 15          
+        id: 'below25'
+        entity_id: sensor.powerwall_charge_corrected
+        below: 25        
       - platform: numeric_state
         id: 'above25'
-        entity_id: sensor.powerwall_charge
+        entity_id: sensor.powerwall_charge_corrected
         above: 25
       - platform: numeric_state
         id: 'above50'      
-        entity_id: sensor.powerwall_charge
-        above: 50
-      - platform: numeric_state
-        id: 'below15'
-        entity_id: sensor.powerwall_charge
-        below: 15           
-      - platform: numeric_state
-        id: 'below20'      
-        entity_id: sensor.powerwall_charge
-        below: 20        
+        entity_id: sensor.powerwall_charge_corrected
+        above: 50     
       - platform: numeric_state
         id: 'below45'            
-        entity_id: sensor.powerwall_charge
+        entity_id: sensor.powerwall_charge_corrected
         below: 45     
       - platform: state
         id: 'states'
@@ -131,9 +123,27 @@ automation:
 #              data:
 #                backup_reserve_percent: "{{ states('sensor.powerwall_charge') | int }}"
 
-
+        # Ensure we have 25% by 04:30 on Go
+        - conditions:
+            - condition: state
+              entity_id: binary_sensor.go_cheap
+              state: 'on'
+          sequence:
+            - service: tesla_gateway.set_operation
+              data:
+                real_mode: self_consumption
+                backup_reserve_percent: 25
+            - service: input_number.set_value
+              target:
+                entity_id: input_number.powerwall_reserve_requested              
+              data:
+                value: 25
+                
         # Preventing too much usage Overnight between charges           
         - conditions:
+            - condition: state
+              entity_id: input_boolean.go_tariff
+              state: 'off'        
             - condition: state
               entity_id: binary_sensor.powerwall_at_or_below_max_charge_cost_and_charge_limit
               state: 'off'        
@@ -145,7 +155,6 @@ automation:
               data:
                 real_mode: self_consumption
                 backup_reserve_percent: "{{ [ states('sensor.powerwall_charge') | int , states('input_number.overnight_powerwall_max_charge') | int]|min }}"
-#            - delay: 5
             - service: input_number.set_value
               target:
                 entity_id: input_number.powerwall_reserve_requested              
@@ -155,19 +164,6 @@ automation:
 #              data:
 #                backup_reserve_percent: "{{ [ states('sensor.powerwall_charge') | int , states('input_number.overnight_powerwall_max_charge') | int]|min }}"
 
-        # Ensure we have 15% by 04:30 on Go
-        - conditions:
-            - condition: state
-              entity_id: binary_sensor.go_cheap
-              state: 'on'
-            - condition: numeric_state
-              entity_id: sensor.powerwall_charge
-              below: 15            
-          sequence:
-            - service: tesla_gateway.set_operation
-              data:
-                real_mode: backup
-                
         # Ensure we have 25% by 15:00 on Agile
         - conditions:
             - condition: state

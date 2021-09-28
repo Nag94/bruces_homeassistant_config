@@ -14,11 +14,11 @@ automation:
         
     condition:
       - condition: numeric_state
-        entity_id: sensor.solaredge_ac_power_output
-        above: 100
+        entity_id: sensor.solaredge_meter_ac_power_kw
+        above: 0.5
         
     action:
       - service: telegram_bot.send_message
         data:
           target: !secret telegram_chat_id_bruce
-          message: "The powerwall will soon be full, solar production at {{ states('sensor.solaredge_ac_power_kw_output') }}kW"
+          message: "The powerwall will soon be full, solar production at {{ states('sensor.solaredge_meter_ac_power_kw') }}kW"
