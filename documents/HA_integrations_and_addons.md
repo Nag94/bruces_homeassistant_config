@@ -13,7 +13,6 @@
 * [Samba Share](https://github.com/home-assistant/addons/tree/master/samba) - For file access directly on host
 * [Terminal & SSH](https://github.com/home-assistant/addons/tree/master/ssh) - Command line through browser
 * [Texecom2MQTT](https://github.com/dchesterton/texecom2mqtt-hassio) - MQTT integration for Intruder Alarm
-* ~~[Z-Wave JS]~~(https://github.com/home-assistant/addons/tree/master/zwave_js) - Latest Z-Wave integration
 
 ## Integrations (HA Core)
 * [AccuWeather](https://www.home-assistant.io/integrations/accuweather/) - Weather Forecasting
@@ -43,7 +42,6 @@
 * [Uniquiti UniFi](https://www.home-assistant.io/integrations/unifi) - Unifi Network monitoring
 * [Withings](https://www.home-assistant.io/integrations/withings) - Smart Bathroom Scales
 * [Zigbee](https://www.home-assistant.io/integrations/zha) - Door Sensors and Smart Plugs
-* [Z-Wave JS](https://www.home-assistant.io/integrations/zwave_js) - Z-wave smart plugs
 
 ## Custom Components (HACS)
 
@@ -52,6 +50,7 @@
 * [Attributes Extractor](https://github.com/pilotak/homeassistant-attributes) - To create sensors from Attributes in bulk
 * [Delete](https://github.com/chomupashchuk/delete-file-home-assistant) - delete files based on timestamp etc.
 * [Circadian Lighting](https://github.com/claytonjn/hass-circadian_lighting) - not used yet
+* [HA Solcast Rooftop](https://github.com/oziee/ha-solcast-rooftop) - SolCast Solar Forecasting
 * [Hive](https://github.com/Pyhive/HA-Hive-Custom-Component) - Heating control
 * [iCloud3](https://github.com/gcobb321/icloud3) - iPhone tracking
 * [LightWave2](https://github.com/bigbadblunt/homeassistant-lightwave2) - Smart Light Switch
