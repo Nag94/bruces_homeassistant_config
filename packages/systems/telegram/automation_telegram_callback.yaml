@@ -36,7 +36,7 @@ automation:
                     
                     Today's Production: {{ states('sensor.solar_production_daily') }} kWh
                     
-                    Today's Forecast: {{ states('input_number.solcast_latest_today_forecast') }} kWh
+                    Today's Forecast: {{ states('sensor.energy_production_forecast_today') }} kWh
                   inline_keyboard:
                     - 'Refresh:/solar_refresh, OK:/remove_keyboard'
                     

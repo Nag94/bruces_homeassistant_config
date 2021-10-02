@@ -1,9 +1,7 @@
-sensor:
-  - platform: template
-    sensors:
-      solcast_forecast_tomorrow_rounded:
+template:
+  - sensor:
+      - name: "Solcast Forecast Tomorrow Rounded"
         unique_id: solcast_forecast_tomorrow_rounded
-        friendly_name: "SolCast Tomorrow"
         unit_of_measurement: 'kWh'            
         device_class: power
-        value_template: "{{ states('sensor.energy_production_forecast_tomorrow') | round(1) }}"    
+        state: "{{ states('sensor.energy_production_forecast_tomorrow') | round(1) }}"    
