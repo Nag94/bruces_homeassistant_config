@@ -1,16 +1,10 @@
-sensor:
-  - platform: template
-    sensors:
-#     grid_direction:
- #       friendly_name: Grid off import or export
-#        value_template: "{% if states('sensor.import_power') | float > 0.05 %}import{% elif states('sensor.export_power') | float >  0.05 %}export{% else %}off{% endif %}"        
-#      grid_direction:
-#        friendly_name: Grid off import or export
-#        value_template: "{% if states('sensor.solaredge_meter_ac_power_output') | float > 0.05 %}export{% elif states('sensor.solaredge_meter_ac_power_output') | float <  0.05 %}import{% else %}off{% endif %}"        
-#       grid_direction:
-#         friendly_name: Grid off import or export
-#         value_template: "{% if states('sensor.powerwall_site_now') | float > 0.05 %}import{% elif states('sensor.powerwall_site_now') | float <  -0.05 %}export{% else %}off{% endif %}"   
+template:
+  sensor:
+    - name: "Grid Direction"
+      state: "{% if states('sensor.solaredge_modbus_meter_1') | float < -50.0 %}import{% elif states('sensor.solaredge_modbus_meter_1') | float > 50.05 %}export{% else %}off{% endif %}"            
+		 
+#     state: "{% if states('sensor.import_power') | float > 0.05 %}import{% elif states('sensor.export_power') | float >  0.05 %}export{% else %}off{% endif %}"        
+#     state: "{% if states('sensor.solaredge_meter_ac_power_output') | float > 0.05 %}export{% elif states('sensor.solaredge_meter_ac_power_output') | float <  0.05 %}import{% else %}off{% endif %}"        
+#     state: "{% if states('sensor.powerwall_site_now') | float > 0.05 %}import{% elif states('sensor.powerwall_site_now') | float <  -0.05 %}export{% else %}off{% endif %}"   
          
-       grid_direction:
-         friendly_name: Grid off import or export
-         value_template: "{% if states('sensor.solaredge_modbus_meter_1') | float < -50.0 %}import{% elif states('sensor.solaredge_modbus_meter_1') | float > 50.05 %}export{% else %}off{% endif %}"            
+		 

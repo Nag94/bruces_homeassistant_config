@@ -1,8 +1,6 @@
-sensor:
-  - platform: template
-    sensors:
-      hottub_pump_target:
-        availability_template: "{{ states('binary_sensor.hottub_online') }}"
-        friendly_name: "HotTub Pump Target"
-        unit_of_measurement: '°C'
-        value_template: "{{ state_attr('sensor.hottub_status', 'temp_set') | int }}"      
+template:
+  sensor:
+    - name: "Hottub Pump Target"
+      availability: "{{ states('binary_sensor.hottub_online') }}"
+      unit_of_measurement: '°C'
+      state: "{{ state_attr('sensor.hottub_status', 'temp_set') | int }}"      

@@ -1,7 +1,5 @@
-sensor:
-  - platform: template
-    sensors:
-      hottub_water_temp:
-        friendly_name: "HotTub Water Temperature"
-        unit_of_measurement: '°C'        
-        value_template: "{{ states('input_number.hottub_water_temp') | int }}"
+template:
+  sensor:
+    - name: "Hottub Water Temp"
+      unit_of_measurement: '°C'        
+      state: "{{ states('input_number.hottub_water_temp') | int }}"

@@ -2,76 +2,67 @@
 ##  Nest Protect Smoke Alarms  ##
 ##       For Homekit           ##
 #################################
-binary_sensor:
-  - platform: template
-    sensors:
-      loft_smoke:
-        friendly_name: "Nest Protect Loft Smoke"
-        device_class: smoke
-        value_template: >-
+template:
+  binary_sensor:
+    - name: "Loft Smoke"
+      device_class: smoke
+      state: >-
           {%if is_state('sensor.loft_protect_smoke_status', '1') %}
           on
           {%else%}
           off
           {%endif%}
-      loft_co:
-        friendly_name: "Nest Protect Loft CO"
-        device_class: gas
-        value_template: >-
+    - name: "Loft CO"
+      device_class: gas
+      state: >-
           {%if is_state('sensor.loft_protect_co_status', '1') %}
           on
           {%else%}
           off
           {%endif%}
-      downstairs_smoke:
-        friendly_name: "Nest Protect Downstairs Smoke"
-        device_class: smoke
-        value_template: >-
+    - name: "Downstairs Smoke"
+      device_class: smoke
+      state: >-
           {%if is_state('sensor.downstairs_protect_smoke_status', '1') %}
           on
           {%else%}
           off
           {%endif%}
-      downstairs_co:
-        friendly_name: "Nest Protect Downstairs CO"
-        device_class: gas
-        value_template: >-
+    - name: "Downstairs CO"
+      device_class: gas
+      state: >-
           {%if is_state('sensor.downstairs_protect_co_status', '1') %}
           on
           {%else%}
           off
           {%endif%}
-      upstairs_1_smoke:
-        friendly_name: "Nest Protect Upstairs(1) Smoke"
-        device_class: smoke
-        value_template: >-
+    - name: "Upstairs 1 Smoke"
+      device_class: smoke
+      state: >-
           {%if is_state('sensor.upstairs_1_protect_smoke_status', '1') %}
           on
           {%else%}
           off
           {%endif%}
-      upstairs_1_co:
-        friendly_name: "Nest Protect Upstairs(1) CO"
-        device_class: gas
-        value_template: >-
+    - name: "Upstairs 1 CO"
+      device_class: gas
+      state: >-
           {%if is_state('sensor.upstairs_1_protect_co_status', '1') %}
           on
           {%else%}
           off
           {%endif%}
-      upstairs_2_smoke:
-        friendly_name: "Nest Protect Upstairs(2) Smoke"
-        device_class: smoke
-        value_template: >-
+    - name: "Upstairs 2 Smoke"
+      device_class: smoke
+      state: >-
           {%if is_state('sensor.upstairs_2_protect_smoke_status', '1') %}
           on
           {%else%}
           off
           {%endif%}
-      upstairs_2_co:
-        friendly_name: "Nest Protect Upstairs(2) CO"
-        device_class: gas
-        value_template: >-
+    - name: "Upstairs 2 CO"
+      device_class: gas
+      state: >-
           {%if is_state('sensor.upstairs_2_protect_co_status', '1') %}
           on
           {%else%}
