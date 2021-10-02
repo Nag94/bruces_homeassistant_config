@@ -179,7 +179,7 @@ logbook:
       - input_boolean.was_alarm_armed
       - input_boolean.watching_skytv
       - input_number.hottub_water_temp
-      - input_number.solcast_latest_today_forecast
+      - sensor.energy_production_forecast_today
       - input_text.alarm_user
       - input_text.litter_tray_message_id
       - input_text.recently_active_alarm_sensor

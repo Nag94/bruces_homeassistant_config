@@ -1757,7 +1757,7 @@ elements:
         state: 'on'   
     elements:
       - type: state-label
-        entity: input_number.solcast_latest_today_forecast
+        entity: sensor.solcast_forecast_today_rounded
         prefix: 'Solar Today: '        
         style:
           color: black

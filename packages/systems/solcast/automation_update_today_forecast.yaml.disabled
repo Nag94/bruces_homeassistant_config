@@ -1,5 +1,5 @@
 automation:
-  - id: solcast_update_tpday_forecast
+  - id: solcast_update_today_forecast
     alias: 'Solcast Update Today Forecast'
     
     description: >

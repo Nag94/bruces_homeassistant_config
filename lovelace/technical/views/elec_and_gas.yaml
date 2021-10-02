@@ -118,34 +118,49 @@ cards:
         name: 'Consumed Energy (Q)'      
       - entity: sensor.voltaware_reactive_net
         name: 'net Reactive Energy'      
+
   - type: entities
+    title: Solcast  
     entities:
-      - entity: sensor.forecastsolar_power_now
-        name: Forecast
-      - entity: sensor.solar_production
-        name: Actual
-    title: Forecast / Actual     
-  - type: entities
-    entities:
-      - entity: sensor.energy_production_today_ne
-      - entity: sensor.energy_production_tomorrow_ne
-      - entity: sensor.power_production_now_ne
-    title: North East
-  - type: entities
-    entities:
-      - entity: sensor.energy_production_today_nw
-      - entity: sensor.energy_production_tomorrow_nw
-      - entity: sensor.power_production_now_nw
-    title: North West      
-  - type: entities
-    entities:
-      - entity: sensor.energy_production_today_se
-      - entity: sensor.energy_production_tomorrow_se
-      - entity: sensor.power_production_now_se
-    title: South East      
-  - type: entities
-    entities:
-      - entity: sensor.energy_production_today_sw
-      - entity: sensor.energy_production_tomorrow_sw
-      - entity: sensor.power_production_now_sw
-    title: South West   
+      - entity: sensor.energy_this_hour
+        name: This Hour         
+      - entity: sensor.energy_next_hour
+        name: Next Hour
+      - entity: sensor.energy_production_forecast_today
+        name: Today      
+      - entity: sensor.energy_production_forecast_tomorrow
+        name: Tomorrow      
+      - entity: sensor.solcast_api_poll_counter
+        name: API Counter      
+        
+#  - type: entities
+#    entities:
+#      - entity: sensor.forecastsolar_power_now
+#        name: Forecast
+#      - entity: sensor.solar_production
+#        name: Actual
+#    title: Forecast / Actual     
+#  - type: entities
+#    entities:
+#      - entity: sensor.energy_production_today_ne
+#      - entity: sensor.energy_production_tomorrow_ne
+#      - entity: sensor.power_production_now_ne
+#    title: North East
+#  - type: entities
+#    entities:
+#      - entity: sensor.energy_production_today_nw
+#      - entity: sensor.energy_production_tomorrow_nw
+#      - entity: sensor.power_production_now_nw
+#    title: North West      
+#  - type: entities
+#    entities:
+#      - entity: sensor.energy_production_today_se
+#      - entity: sensor.energy_production_tomorrow_se
+#      - entity: sensor.power_production_now_se
+#    title: South East      
+#  - type: entities
+#    entities:
+#      - entity: sensor.energy_production_today_sw
+#      - entity: sensor.energy_production_tomorrow_sw
+#      - entity: sensor.power_production_now_sw
+#    title: South West   
