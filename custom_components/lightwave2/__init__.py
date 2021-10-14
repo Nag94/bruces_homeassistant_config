@@ -2,13 +2,13 @@
 import logging
 import voluptuous as vol
 
-import homeassistant.helpers.config_validation as cv
-from .const import DOMAIN, CONF_PUBLICAPI, LIGHTWAVE_LINK2,  LIGHTWAVE_ENTITIES, \
+from .const import DOMAIN, CONF_PUBLICAPI, CONF_DEBUG, LIGHTWAVE_LINK2,  LIGHTWAVE_ENTITIES, \
     LIGHTWAVE_WEBHOOK, LIGHTWAVE_WEBHOOKID, SERVICE_SETLEDRGB, SERVICE_SETLOCKED, SERVICE_SETUNLOCKED, SERVICE_SETBRIGHTNESS
 from homeassistant.const import (CONF_USERNAME, CONF_PASSWORD)
 from homeassistant.helpers import device_registry as dr
 
 _LOGGER = logging.getLogger(__name__)
+
 
 async def handle_webhook(hass, webhook_id, request):
     """Handle webhook callback."""
@@ -102,9 +102,17 @@ async def async_setup_entry(hass, config_entry):
 
     publicapi = config_entry.options.get(CONF_PUBLICAPI, False)
     if publicapi:
+        _LOGGER.warning("Using Public API, this is experimental - if you have issues turn this off in the integration options")
         link = lightwave2.LWLink2Public(email, password)
     else:
         link = lightwave2.LWLink2(email, password)
+
+    debugmode = config_entry.options.get(CONF_DEBUG, False)
+
+    if debugmode:
+        _LOGGER.warning("Logging turned on")
+        _LOGGER.setLevel(logging.DEBUG)
+        logging.getLogger("lightwave2").setLevel(logging.DEBUG)
 
     if not await link.async_connect(max_tries = 1):
         return False
@@ -142,8 +150,6 @@ async def async_setup_entry(hass, config_entry):
     hass.async_create_task(forward_setup(config_entry, "binary_sensor"))
     hass.async_create_task(forward_setup(config_entry, "sensor"))
 
-
-
     return True
 
 async def async_remove_entry(hass, config_entry):
@@ -157,6 +163,6 @@ async def async_remove_entry(hass, config_entry):
     await hass.config_entries.async_forward_entry_unload(config_entry, "sensor")
 
 async def reload_lw(hass, config_entry):
-    """Reload HACS."""
+
     await async_remove_entry(hass, config_entry)
     await async_setup_entry(hass, config_entry)
