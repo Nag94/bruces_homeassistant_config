@@ -1,0 +1,18 @@
+{
+  "domain": "balboa",
+  "name": "Balboa Spa Client",
+  "version": "0.6.1",
+  "config_flow": true,
+  "documentation": "https://www.home-assistant.io/integrations/balboa",
+  "requirements": [
+    "pybalboa==0.13"
+  ],
+  "ssdp": [],
+  "zeroconf": [],
+  "homekit": {},
+  "dependencies": [],
+  "codeowners": [
+    "@garbled1",
+    "@natekspencer"
+  ]
+}
