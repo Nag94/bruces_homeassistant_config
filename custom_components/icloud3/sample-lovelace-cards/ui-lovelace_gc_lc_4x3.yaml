@@ -8,7 +8,7 @@ resources:
 title: Home
 views:
   - title: Location (Gary)
-    icon: mdi:cellphone-iphone
+    icon: mdi:cellphone
     cards:
       - type: vertical-stack
         cards:
