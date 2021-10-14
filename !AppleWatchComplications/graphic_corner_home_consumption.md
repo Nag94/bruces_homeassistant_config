@@ -11,15 +11,15 @@
 ```
 * Outer: 
 ```
-🏠{{ states('sensor.floorplan_powerwall_home_load') | float | round(1)}}
+🏠{{ states('sensor.floorplan_powerwall_home_load')|float(0)|round(1)}}
 ```
 * Trailing: 
 ```
-{% if states('sensor.floorplan_powerwall_home_load') | float < 8.5 %}8{% else %}18{% endif %}
+{% if states('sensor.floorplan_powerwall_home_load')|float(0) < 8.5 %}8{% else %}18{% endif %}
 ```
 * Gauge: 
 ```
-{% if states('sensor.floorplan_powerwall_home_load') | float < 8.5 
-%}{{ [states('sensor.floorplan_powerwall_home_load') | float / 8.0,1]|min}}{% 
-else %}{{ [states('sensor.floorplan_powerwall_home_load') | float / 18.0,1]|min}}{% endif %}
+{% if states('sensor.floorplan_powerwall_home_load')|float(0) < 8.5 
+%}{{ [states('sensor.floorplan_powerwall_home_load')|float(0) / 8.0,1]|min}}{% 
+else %}{{ [states('sensor.floorplan_powerwall_home_load')|float(0) / 18.0,1]|min}}{% endif %}
 ```

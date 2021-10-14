@@ -13,16 +13,16 @@ Live production figure, Gauge shows daily forecast
 ```
 * Outer: 
 ```
-{% if states('sun.sun') == 'below_horizon'%}{{ states('input_number.solcast_latest_today_forecast') | int }}/{{ 
-(states('sensor.forecastsolar_tomorrow') | float) | int }}{% 
-else %}☀️ {{ states('sensor.solar_production') | float }}{% endif %}
+{% if states('sun.sun') == 'below_horizon'%}{{ states('input_number.solcast_latest_today_forecast')|int(0) }}/{{ 
+(states('sensor.forecastsolar_tomorrow')|float(0))|int(0) }}{% 
+else %}☀️ {{ states('sensor.solar_production')|float(0) }}{% endif %}
 ```
 * Trailing: 
 ```
-{{ states('input_number.solcast_latest_today_forecast') | int }}
+{{ states('input_number.solcast_latest_today_forecast')|int(0) }}
 ```
 * Gauge: 
 ```
-{{[ (states('sensor.solar_production_daily_kw') | float) / (states('input_number.solcast_latest_today_forecast') | float) ,1] | min }}
+{{[ (states('sensor.solar_production_daily_kw')|float(0)) / (states('input_number.solcast_latest_today_forecast')|float(0)) ,1]|min }}
 ```
 

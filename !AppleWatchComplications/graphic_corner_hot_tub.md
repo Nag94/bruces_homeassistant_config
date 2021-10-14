@@ -7,7 +7,7 @@
 
 * Leading: 
 ```
-{{ [states('sensor.hottub_water_temp')|float,28]|min }}
+{{ [states('sensor.hottub_water_temp')|float(0),28]|min }}
 ```
 * Outer: 
 ```
@@ -24,12 +24,12 @@ state_attr('climate.spa_climate','hvac_action') != 'heating'and is_state('binary
 ```
 * Trailing: 
 ```
-{{ states('input_number.hottub_water_target') | int }} 
+{{ states('input_number.hottub_water_target')|int(0) }} 
 ```
 * Gauge: 
 ```
-{% if states('input_number.hottub_water_temp')|float > states('input_number.hottub_water_target')|float %}1.0{%
-else%}{{ (states('input_number.hottub_water_temp')|float - 28.0 )/(states('input_number.hottub_water_target')|float - 28.0)}}{%endif%}
+{% if states('input_number.hottub_water_temp')|float(0) > states('input_number.hottub_water_target')|float(0) %}1.0{%
+else%}{{ (states('input_number.hottub_water_temp')|float(0) - 28.0 )/(states('input_number.hottub_water_target')|float(0) - 28.0)}}{%endif%}
 ```
 
 
@@ -46,7 +46,7 @@ else%}{{ (states('input_number.hottub_water_temp')|float - 28.0 )/(states('input
 
 * Leading: 
 ```
-{{ [states*'sensor.hottub_water_temp')|int,28]|min }}
+{{ [states*'sensor.hottub_water_temp')|int(0),28]|min }}
 ```
 * Outer: 
 ```
@@ -54,16 +54,16 @@ else%}{{ (states('input_number.hottub_water_temp')|float - 28.0 )/(states('input
 elif states('sensor.hottub_summary') == 'scheduled' %}⏱{% 
 elif states('sensor.hottub_summary') == 'circulating' %}✅{% 
 elif states('sensor.hottub_summary') == 'off' %}❄️{% 
-endif %}{{ states('input_number.hottub_water_temp') | int}}°c
+endif %}{{ states('input_number.hottub_water_temp')|int(0)}}°c
 ```
 * Trailing: 
 ```
-{{ states('input_number.hottub_water_target') | int }} 
+{{ states('input_number.hottub_water_target')|int(0) }} 
 ```
 * Gauge: 
 ```
-{{ [(states('sensor.hottub_water_temp') | float - [states*'sensor.hottub_water_temp')|int,28]|min ) /
-(states('input_number.hottub_water_target') | float - [states*'sensor.hottub_water_temp')|int,28]|min), 1]|min}} 
+{{ [(states('sensor.hottub_water_temp')|float(0) - [states*'sensor.hottub_water_temp')|int(0),28]|min ) /
+(states('input_number.hottub_water_target')|float(0) - [states*'sensor.hottub_water_temp')|int(0),28]|min), 1]|min}} 
 ```
 
 
