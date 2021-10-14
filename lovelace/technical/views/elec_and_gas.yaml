@@ -60,15 +60,13 @@ cards:
         name: AC Frequency            
       - entity: sensor.solaredge_status_text
         name: Status      
-      - entity: sensor.solar_production_hourly_kw
-        name: This Hour
-      - entity: sensor.solar_production_daily_kw
+      - entity: sensor.solaredge_energy_today_kwh
         name: Today
-      - entity: sensor.solar_production_weekly_kw
-        name: This Week
-      - entity: sensor.solar_production_monthly_kw
+      - entity: sensor.solaredge_energy_this_month_kwh
         name: This Month
-      - entity: sensor.solaredge_lifetime_production_mw
+      - entity: sensor.solaredge_energy_this_year_mwh
+        name: This Year
+      - entity: sensor.solaredge_lifetime_production_mwh
         name: Lifetime
     title: Solar Production
     state_color: true
