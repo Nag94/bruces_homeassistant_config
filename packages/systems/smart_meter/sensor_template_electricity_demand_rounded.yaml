@@ -3,5 +3,6 @@ template:
     - name: "Electricity Demand Rounded"
       unique_id: electricity_demand_rounded
       unit_of_measurement: 'kW'
+      availability: "{{ states('sensor.import_power') | is_number }}"
       device_class: power
-      state:  "{{ ((states('sensor.import_power') | float )/ 1000.0) | round(1) }}"
+      state:  "{{ ((states('sensor.import_power')|float(0) )/ 1000.0)|round(1,'',0) }}"

@@ -2,5 +2,4 @@ template:
   binary_sensor:
     - name: "Agile Plunge"
       unique_id: agile_plunge
-      device_class: power
-      state: "{{ is_state('input_boolean.go_tariff','off') and (states('sensor.import_price') | float) < 0.0 }}"
+      state: "{{ is_state('input_boolean.go_tariff','off') and (states('sensor.import_price')|float(35)) < 0.0 }}"

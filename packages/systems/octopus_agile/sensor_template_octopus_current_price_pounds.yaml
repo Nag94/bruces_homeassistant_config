@@ -3,4 +3,4 @@ template:
     - name: "Octopus Current Price Pounds"
       unique_id: octopus_current_price_pounds
       unit_of_measurement: '£'
-      state: "{{ states('sensor.import_price') | float / 100.0 }}"
+      state: "{{ states('sensor.import_price')|float(0) / 100.0 }}"

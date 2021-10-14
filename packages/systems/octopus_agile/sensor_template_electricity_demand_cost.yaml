@@ -3,4 +3,4 @@ template:
     - name: "Electricity Demand Cost"
       unique_id: electricity_demand_cost
       unit_of_measurement: 'p/h'
-      state: "{{ (states('sensor.import_price') | float * (states('sensor.import_power') | float) / 1000.0) | int }}"
+      state: "{{ (states('sensor.import_price')|float(0) * (states('sensor.import_power')|float(0)) / 1000.0)|int }}"

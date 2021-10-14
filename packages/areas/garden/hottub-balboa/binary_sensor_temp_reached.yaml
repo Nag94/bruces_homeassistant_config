@@ -4,3 +4,4 @@ template:
       unique_id: hottub_temp_reached
       availability: "{{ states('binary_sensor.bwa_wi_fi_module') }}"      
       state: "{{ states('input_number.hottub_water_temp') >= states('input_number.hottub_standard_temp') and is_state('climate.spa_climate','off') }}"
+      device_class: heat

@@ -1,5 +1,6 @@
 template:
   sensor:
     - name: "Powerwall Efficiency"
-      state: "{{ (100 * (states('sensor.powerwall_battery_export')|float / (states('sensor.powerwall_battery_import')|float - states('sensor.powerwall_stored_energy') | float))) | round(1) }}"
+      availability: "{{ states('binary_sensor.powerwall_connected_to_tesla') != 'Unavailable' }}"
+      state: "{{ (100 * (states('sensor.powerwall_battery_export')|float(0) / states('sensor.powerwall_battery_import')|float(0) - states('sensor.powerwall_stored_energy')|float(0)))|round(1) }}"
       unit_of_measurement: "%"

@@ -1,21 +1,21 @@
 template:
-  - binary_sensor:
+  binary_sensor:
       - name: "Littertray Utility Dirty"
         device_class: problem
         unique_id: littertray_utility_dirty
-        state: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_utility')))/86400)>8  or  states('sensor.littertray_utility_usage') | int > 99 }}"
-  - binary_sensor:
+        state: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_utility')))/86400)>8  or  states('sensor.littertray_utility_usage')|int > 99 }}"
+   
       - name: "Littertray Shower Dirty"
         device_class: problem
         unique_id: littertray_shower_dirty
-        state: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_shower')))/86400)>8  or  states('sensor.littertray_shower_usage') | int > 99 }}"
-  - binary_sensor:
+        state: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_shower')))/86400)>8  or  states('sensor.littertray_shower_usage')|int > 99 }}"
+   
       - name: "Littertray Downstairs Dirty"
         device_class: problem
         unique_id: littertray_downstairs_dirty
-        state: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_downstairs')))/86400)>8  or  states('sensor.littertray_downstairs_usage') | int > 99 }}"
-  - binary_sensor:
+        state: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_downstairs')))/86400)>8  or  states('sensor.littertray_downstairs_usage')|int > 99 }}"
+   
       - name: "Littertray Drum Dirty"
         device_class: problem
         unique_id: littertray_drum_dirty
-        state: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_drum')))/86400)>8  or  states('sensor.littertray_drum_usage') | int > 99 }}"
+        state: "{{ ((as_timestamp(now())-as_timestamp(states('input_datetime.littertray_drum')))/86400)>8  or  states('sensor.littertray_drum_usage')|int > 99 }}"

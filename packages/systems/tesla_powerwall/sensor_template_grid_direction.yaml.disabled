@@ -1,6 +1,8 @@
 template:
   sensor:
     - name: "Grid Direction"
+	  unique_id: grid_direction
+      #availability: 
       state: "{% if states('sensor.solaredge_modbus_meter_1') | float < -50.0 %}import{% elif states('sensor.solaredge_modbus_meter_1') | float > 50.05 %}export{% else %}off{% endif %}"            
 		 
 #     state: "{% if states('sensor.import_power') | float > 0.05 %}import{% elif states('sensor.export_power') | float >  0.05 %}export{% else %}off{% endif %}"        

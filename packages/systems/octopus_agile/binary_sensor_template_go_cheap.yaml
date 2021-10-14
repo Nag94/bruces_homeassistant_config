@@ -2,4 +2,4 @@ template:
   binary_sensor:
     - name: "Go Cheap"
       unique_id: go_cheap
-      state: "{% if is_state('input_boolean.go_tariff','on') and now().strftime('%T') > strptime('00:30:00', '%T') and now().strftime('%T') < strptime('04:30:00', '%T') %}on{% else %}off{% endif %}"
+      state: "{% if is_state('input_boolean.go_tariff','on') and now().strftime('%H:%M:%S') > strptime('00:30:00', '%H:%M:%S').strftime('%H:%M:%S') and now().strftime('%H:%M:%S') < strptime('04:30:00', '%H:%M:%S').strftime('%H:%M:%S')%}on{% else %}off{% endif %}"

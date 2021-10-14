@@ -1,0 +1,12 @@
+template:
+  sensor:
+    - name: "Solaredge Energy This Year MWh"
+      unique_id: solaredge_energy_this_year_mwh
+      availability: "{{ states('sensor.solaredge_energy_this_year')|is_number }}"         
+      state: "{{ (states('sensor.solaredge_energy_this_year')|float(0) / 1000000.0)|round(2,'',0) }}"
+      unit_of_measurement: 'MWh' 
+# Can't be MWh for Energy Class
+#      device_class: energy          
+      state_class: total      
+      icon: mdi:solar-power      
+

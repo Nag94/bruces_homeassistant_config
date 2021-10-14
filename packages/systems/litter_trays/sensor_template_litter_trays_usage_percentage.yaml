@@ -3,19 +3,19 @@ template:
       - name: "Littertray Utility Usage"
         unique_id: littertray_utility_usage
         unit_of_measurement: '%'
-        state: "{{ ((100/12) * (states('counter.littertray_utility_wee') | int + states('counter.littertray_utility_poo') | int)) | int  }}"
-  - sensor:
+        state: "{{ ((100/12) * (states('counter.littertray_utility_wee')|int + states('counter.littertray_utility_poo')|int))|int  }}"
+
       - name: "Littertray Downstairs Usage"
         unique_id: littertray_downstairs_usage
         unit_of_measurement: '%'
-        state: "{{ ((100/12) * (states('counter.littertray_downstairs_wee') | int + states('counter.littertray_downstairs_poo') | int)) | int  }}"
-  - sensor:
+        state: "{{ ((100/12) * (states('counter.littertray_downstairs_wee')|int + states('counter.littertray_downstairs_poo')|int))|int  }}"
+
       - name: "Littertray Shower Usage"
         unique_id: littertray_shower_usage
         unit_of_measurement: '%'
-        state: "{{ ((100/12) * (states('counter.littertray_shower_wee') | int + states('counter.littertray_shower_poo') | int)) | int   }}"
-  - sensor:
+        state: "{{ ((100/12) * (states('counter.littertray_shower_wee')|int + states('counter.littertray_shower_poo')|int))|int   }}"
+
       - name: "Littertray Drum Usage"
         unique_id: littertray_drum_usage
         unit_of_measurement: '%'
-        state: "{{ ((100/12) * (states('counter.littertray_drum_wee') | int + states('counter.littertray_drum_poo') | int)) | int   }}"
+        state: "{{ ((100/12) * (states('counter.littertray_drum_wee')|int + states('counter.littertray_drum_poo')|int))|int   }}"

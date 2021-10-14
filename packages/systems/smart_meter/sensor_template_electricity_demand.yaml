@@ -4,4 +4,4 @@ template:
       unique_id: electricity_demand
       unit_of_measurement: 'kW'
       device_class: power
-      state:  "{{ ((states('sensor.import_power') | float )/ 1000.0) }}"
+      state:  "{{ ((states('sensor.import_power')|float(0) )/ 1000.0) }}"

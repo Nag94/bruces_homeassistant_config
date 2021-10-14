@@ -2,4 +2,5 @@ template:
   binary_sensor:
     - name: "Dark Outside"
       unique_id: dark_outside
-      state: "{{ states('sensor.outside_light') | int < 250 }}"
+      availability: "{{ states('sensor.outside_light')|is_number }}" 
+      state: "{{ states('sensor.outside_light')|int(0) < 250 }}"

@@ -2,4 +2,5 @@ template:
   sensor:
     - name: "Powerwall Direction"
       unique_id: powerwall_direction
-      state: "{% if states('sensor.powerwall_battery_now') | float > 0.05 %}import{% elif states('sensor.powerwall_battery_now') | float < - 0.05%}export{% else %}off{% endif %}"     
+      availability: "{{ states('binary_sensor.powerwall_connected_to_tesla') != 'Unavailable' }}"
+      state: "{% if states('sensor.powerwall_battery_now')|float > 0.05 %}import{% elif states('sensor.powerwall_battery_now')|float < - 0.05%}export{% else %}off{% endif %}"     

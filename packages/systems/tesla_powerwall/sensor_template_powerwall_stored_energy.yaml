@@ -2,8 +2,9 @@ template:
   sensor:
     - name: "Powerwall Stored Energy"
       unique_id: powerwall_stored_energy
+      availability: "{{ states('binary_sensor.powerwall_connected_to_tesla') != 'Unavailable' }}"
       unit_of_measurement: 'kWh'
-      state: "{{ ((((states('sensor.powerwall_charge') | float) * 1.05) - 5.0 ) * 0.135) | round(1)  }}"
+      state: "{{ ((((states('sensor.powerwall_charge')|float(0)) * 1.05) - 5.0 ) * 0.135)|round(1)  }}"
       device_class: battery
       icon: >-
           {% set battery_level = states('sensor.powerwall_charge_corrected')|int('unknown') %}

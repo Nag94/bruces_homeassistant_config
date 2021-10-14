@@ -3,4 +3,4 @@ template:
     - name: "Jyggy Below Max Charge Cost"
       unique_id: jyggy_below_max_charge_cost
       availability:  "{{ states('sensor.import_price') != 'unknown' }}"
-      state: "{{ (states('sensor.import_price') | float) <= (states('input_number.jyggy_charge_below_x_pence') | float) }}"
+      state: "{{ (states('sensor.import_price')|float(35)) <= (states('input_number.jyggy_charge_below_x_pence')|float(0)) }}"
