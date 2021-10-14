@@ -6,7 +6,7 @@ sensor:
     unit_of_measurement: "kW"
     icon: mdi:flash
     state_topic: !secret smart_hild_state_topic
-    value_template: "{{ ((value_json['elecMtr']['0702']['04']['00']|int(base=16) - 2**32) | round(1)) if (value_json['elecMtr']['0702']['04']['00']|int(base=16)  > (2**31) -1) else ((value_json['elecMtr']['0702']['04']['00']|int(base=16) - 2**32)|round(1)) }}"
+    value_template: "{{ ((value_json['elecMtr']['0702']['04']['00']|int(base=16) - 2**32)|round(1)) if (value_json['elecMtr']['0702']['04']['00']|int(base=16)  > (2**31) -1) else ((value_json['elecMtr']['0702']['04']['00']|int(base=16) - 2**32)|round(1)) }}"
 
   - platform: mqtt
     name: "MQTT Import Power"
@@ -15,12 +15,13 @@ sensor:
     unit_of_measurement: "kW"
     icon: mdi:flash
     state_topic: !secret smart_hild_state_topic
-    #value_template: "{% if value_json['elecMtr']['0702']['04']['00']|int(base=16)  > 100000 or value_json['elecMtr']['0702']['04']['00']|int(base=16)  < 0 %}0.0{% else %}{{  (value_json.elecMtr['0702']['04']['00'] | int(base=16) / 1000) | round(1)   }}{% endif %}"
-    value_template: "{{ 0.0 if (value_json['elecMtr']['0702']['04']['00']|int(base=16)  > (2**31) -1) else (value_json.elecMtr['0702']['04']['00'] | int(base=16) / 1000) | round(1)  }}"
+    #value_template: "{% if value_json['elecMtr']['0702']['04']['00']|int(base=16)  > 100000 or value_json['elecMtr']['0702']['04']['00']|int(base=16)  < 0 %}0.0{% else %}{{  (value_json.elecMtr['0702']['04']['00']|int(base=16) / 1000)|round(1)   }}{% endif %}"
+    value_template: "{{ 0.0 if (value_json['elecMtr']['0702']['04']['00']|int(base=16)  > (2**31) -1) else (value_json.elecMtr['0702']['04']['00']|int(base=16) / 1000)|round(1)  }}"
     
 template:
   sensor:
     - name: "Import Power Integration"
       unique_id: import_power_integration
-      state: "{% if (states('sensor.electricity_consumption') | float ) > 20.0 %}{{ ((states('sensor.electricity_consumption') | float) / 1000.0) | round(2) }}{% else %}0.0{% endif %}"
+      unit_of_measurement: "kWh"
+      state: "{% if (states('sensor.electricity_consumption')|float(0) ) > 20.0 %}{{ ((states('sensor.electricity_consumption')|float(0)) / 1000.0)|round(2) }}{% else %}0.0{% endif %}"
       device_class: energy

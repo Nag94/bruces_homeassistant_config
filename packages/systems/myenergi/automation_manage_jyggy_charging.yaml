@@ -41,7 +41,7 @@ automation:
               target:
                 entity_id: sensor.zappi_jyggy_cmt
             - delay: 3    
-          until: "{{ states('sensor.zappi_jyggy_cmt') | int > 250 }}"  
+          until: "{{ states('sensor.zappi_jyggy_cmt')|int > 250 }}"  
 
       - alias: Set Zappi Jyggy to required Mode
         service: shell_command.zappi_set_mode
@@ -59,7 +59,7 @@ automation:
               target:
                 entity_id: sensor.zappi_jyggy_cmt
             - delay: 3    
-          until: "{{ states('sensor.zappi_jyggy_cmt') | int > 250 }}"  
+          until: "{{ states('sensor.zappi_jyggy_cmt')|int > 250 }}"  
 
       - alias: "Check if command failed"            
         condition: state

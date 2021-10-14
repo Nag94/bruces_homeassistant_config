@@ -112,16 +112,16 @@ automation:
             - service: tesla_gateway.set_operation
               data:
                 real_mode: self_consumption
-                backup_reserve_percent: "{{ states('sensor.powerwall_charge') | int }}"
+                backup_reserve_percent: "{{ states('sensor.powerwall_charge')|int }}"
 #            - delay: 5
             - service: input_number.set_value
               target:
                 entity_id: input_number.powerwall_reserve_requested              
               data:
-                value: "{{ states('sensor.powerwall_charge') | int  }}"
+                value: "{{ states('sensor.powerwall_charge')|int  }}"
 #            - service: tesla_gateway.set_reserve
 #              data:
-#                backup_reserve_percent: "{{ states('sensor.powerwall_charge') | int }}"
+#                backup_reserve_percent: "{{ states('sensor.powerwall_charge')|int }}"
 
         # Ensure we have 25% by 04:30 on Go
         - conditions:
@@ -154,15 +154,15 @@ automation:
             - service: tesla_gateway.set_operation
               data:
                 real_mode: self_consumption
-                backup_reserve_percent: "{{ [ states('sensor.powerwall_charge') | int , states('input_number.overnight_powerwall_max_charge') | int]|min }}"
+                backup_reserve_percent: "{{ [ states('sensor.powerwall_charge')|int , states('input_number.overnight_powerwall_max_charge')|int]|min }}"
             - service: input_number.set_value
               target:
                 entity_id: input_number.powerwall_reserve_requested              
               data:
-                value: "{{ [ states('sensor.powerwall_charge') | int , states('input_number.overnight_powerwall_max_charge') | int]|min }}"
+                value: "{{ [ states('sensor.powerwall_charge')|int , states('input_number.overnight_powerwall_max_charge')|int]|min }}"
 #            - service: tesla_gateway.set_reserve
 #              data:
-#                backup_reserve_percent: "{{ [ states('sensor.powerwall_charge') | int , states('input_number.overnight_powerwall_max_charge') | int]|min }}"
+#                backup_reserve_percent: "{{ [ states('sensor.powerwall_charge')|int , states('input_number.overnight_powerwall_max_charge')|int]|min }}"
 
         # Ensure we have 25% by 15:00 on Agile
         - conditions:
@@ -202,11 +202,11 @@ automation:
           target:
             entity_id: input_number.powerwall_reserve_requested          
           data:
-            value: "{{ [ states('sensor.powerwall_charge') | int , 5]|min }}"
+            value: "{{ [ states('sensor.powerwall_charge')|int , 5]|min }}"
         - service: tesla_gateway.set_operation
           data:
             real_mode: self_consumption   
-            backup_reserve_percent: "{{ [ states('sensor.powerwall_charge') | int , 5]|min }}"            
+            backup_reserve_percent: "{{ [ states('sensor.powerwall_charge')|int , 5]|min }}"            
 #        - service: tesla_gateway.set_reserve
 #          data:
-#            backup_reserve_percent: "{{ [ states('sensor.powerwall_charge') | int , 5]|min }}"
+#            backup_reserve_percent: "{{ [ states('sensor.powerwall_charge')|int , 5]|min }}"

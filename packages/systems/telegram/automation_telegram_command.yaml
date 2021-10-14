@@ -21,7 +21,7 @@ automation:
                   message: >
                     Solar Power Now: {{ states('sensor.solar_production')}} kW
                     
-                    Today's Production: {{ states('sensor.solar_production_daily_kw') | round(1)}} kWh
+                    Today's Production: {{ states('sensor.solar_production_daily_kw')|round(1)}} kWh
                     
                     Today's Forecast: {{ states('sensor.energy_production_forecast_today') }} kWh
                   inline_keyboard:
@@ -34,7 +34,7 @@ automation:
                 data:
                   target: "{{trigger.event.data.chat_id}}"                
                   message: >
-                    Powerwall at {{states('sensor.powerwall_charge_corrected')}}% ({{ states('input_number.powerwall_reserve_requested') | int }}% Reserve)
+                    Powerwall at {{states('sensor.powerwall_charge_corrected')}}% ({{ states('input_number.powerwall_reserve_requested')|int }}% Reserve)
                     
                     {% if is_state('sensor.powerwall_direction','import') %}Discharging @ {{ states('sensor.powerwall_discharging') }} kW{% elif is_state('sensor.powerwall_direction','export')%}Charging @ {{ states('sensor.powerwall_charging') }} kW{% else %}On standby{% endif %}
                     
@@ -110,7 +110,7 @@ automation:
                     
                     Solar Power Now: {{ states('sensor.solar_production')}} kW
                     
-                    Solar Production Today: {{ states('sensor.solar_production_daily_kw')| round(1) }} kWh
+                    Solar Production Today: {{ states('sensor.solar_production_daily_kw')|round(1) }} kWh
                     
                     Solar Forecast (Today): {{ states('sensor.energy_production_forecast_today') }} kWh
                   
@@ -181,9 +181,9 @@ automation:
                 data:
                   target: "{{trigger.event.data.chat_id}}"
                   message: >
-                    Hottub is {{ states('sensor.hottub_summary') }} @ {{ states('input_number.hottub_water_temp') | int }}°C.  
+                    Hottub is {{ states('sensor.hottub_summary') }} @ {{ states('input_number.hottub_water_temp')|int }}°C.  
                     
-                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target') | int }}°C by {{ states('input_datetime.hottub_ready_by') }}
+                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target')|int }}°C by {{ states('input_datetime.hottub_ready_by') }}
                   inline_keyboard:
                     - 'Set Time:/tub_set_time, Schedule On:/tub_sched_on'
                     - 'Set Temp:/tub_set_temp, Schedule Off:/tub_sched_off' 

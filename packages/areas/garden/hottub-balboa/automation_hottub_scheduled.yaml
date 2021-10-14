@@ -78,7 +78,7 @@ automation:
                 target:
                   entity_id: input_number.hottub_water_target
                 data:
-                  value: "{{ states('input_number.hottub_standard_temp') }}"
+                  value: "{{ states('input_number.hottub_standard_temp')|default(28) }}"
                   
           # IF Go tariff cheap pricing and scheduled - heat
           - conditions:
@@ -102,7 +102,7 @@ automation:
                 target:
                   entity_id: input_number.hottub_water_target
                 data:
-                  value: "{{ states('input_number.hottub_standard_temp') }}"                  
+                  value: "{{ states('input_number.hottub_standard_temp')|default(28) }}"                  
 
           # ELIF scheduled 
           - conditions:
@@ -120,7 +120,7 @@ automation:
                 target:
                   entity_id: input_number.hottub_water_target
                 data:
-                  value: "{{ states('sensor.hottub_schedule_target_temp') }}"
+                  value: "{{ states('sensor.hottub_schedule_target_temp')|default(28) }}"
 
         default: 
           - service: logbook.log

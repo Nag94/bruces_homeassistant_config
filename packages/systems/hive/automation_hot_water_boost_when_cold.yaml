@@ -9,8 +9,8 @@ automation:
     trigger:
         # don't know why I have it run at 6am ?
       - platform: time
-        id: "0600"
-        at: '06:00:00'
+        id: "0601"
+        at: '06:00:01'
       - platform: numeric_state
         id: "cold"
         entity_id: sensor.eddi_water_temp
@@ -26,9 +26,14 @@ automation:
         
     condition: 
       - condition: numeric_state
+        alias: "sensible temperature data received"
         entity_id: sensor.eddi_water_temp
-        below: 47.0
-        above: 10.0        
+        below: 46.0
+        above: 10.0    
+      - condition: time
+        alias: "between 6am and 11pm"
+        before: '23:00:00'
+        after: '06:00:00'          
         
     action:
       - service: switch.turn_on

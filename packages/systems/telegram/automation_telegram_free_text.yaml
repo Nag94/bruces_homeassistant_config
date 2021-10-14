@@ -18,7 +18,7 @@ automation:
                 data:
                   target: "{{trigger.event.data.chat_id}}"                
                   message: >
-                    Powerwall at {{states('sensor.powerwall_charge_corrected')}}% ({{ states('input_number.powerwall_reserve_requested') | int }}% Reserve)
+                    Powerwall at {{states('sensor.powerwall_charge_corrected')}}% ({{ states('input_number.powerwall_reserve_requested')|int }}% Reserve)
                     
                     {% if is_state('sensor.powerwall_direction','import') %}Discharging @ {{ states('sensor.powerwall_discharging')}} kW{% elif is_state('sensor.powerwall_direction','export')%}Charging @ {{ states('sensor.powerwall_charging') }} kW{% else %}On standby{% endif %}
                     
@@ -32,7 +32,7 @@ automation:
                   message: >
                     Solar Power Now: {{ states('sensor.solar_production')}} kW
                     
-                    Today's Production: {{ states('sensor.solar_production_daily_kw')| round(1) }} kWh
+                    Today's Production: {{ states('sensor.solar_production_daily_kw')|round(1) }} kWh
                     
                     Today's Forecast: {{ states('sensor.energy_production_forecast_today') }} kWh
                   inline_keyboard:
@@ -83,7 +83,7 @@ automation:
                     
                     Solar Power Now: {{ states('sensor.solar_production')}} kW
                     
-                    Solar Production Today: {{ states('sensor.solar_production_daily_kw')| round(1) }} kWh
+                    Solar Production Today: {{ states('sensor.solar_production_daily_kw')|round(1) }} kWh
                     
                     Solar Forecast (Today): {{ states('sensor.energy_production_forecast_today') }} kWh
                   
@@ -193,7 +193,7 @@ automation:
 
 
             # paddy fast
-          - conditions: "{{ trigger.event.data.text.lower()  | regex_match('.*paddy.*fast.*') }}"
+          - conditions: "{{ trigger.event.data.text.lower()|regex_match('.*paddy.*fast.*') }}"
             sequence:
               - service: script.zappi_mode_paddy
                 data:
@@ -212,7 +212,7 @@ automation:
                     - 'Refresh:paddy_refresh, OK:/remove_keyboard'  
 
             # paddy eco+
-          - conditions: "{{ (trigger.event.data.text.lower()  | regex_match('.*paddy.*eco.+.*')) or (trigger.event.data.text.lower()  | regex_match('.*paddy.*eco.*plus.*')) }}"
+          - conditions: "{{ (trigger.event.data.text.lower()|regex_match('.*paddy.*eco.+.*')) or (trigger.event.data.text.lower()|regex_match('.*paddy.*eco.*plus.*')) }}"
             sequence:
               - service: script.zappi_mode_paddy
                 data:
@@ -231,7 +231,7 @@ automation:
                     - 'Refresh:paddy_refresh, OK:/remove_keyboard'  
             
             # paddy eco
-          - conditions: "{{ trigger.event.data.text.lower()  | regex_match('.*paddy.*eco.*')  }}"
+          - conditions: "{{ trigger.event.data.text.lower()|regex_match('.*paddy.*eco.*')  }}"
             sequence:
               - service: script.zappi_mode_paddy
                 data:
@@ -250,7 +250,7 @@ automation:
                     - 'Refresh:paddy_refresh, OK:/remove_keyboard'       
 
             # paddy stop
-          - conditions: "{{ trigger.event.data.text.lower()  | regex_match('.*paddy.*stop.*')  }}"
+          - conditions: "{{ trigger.event.data.text.lower()|regex_match('.*paddy.*stop.*')  }}"
             sequence:
               - service: script.zappi_mode_paddy
                 data:
@@ -281,7 +281,7 @@ automation:
                     - 'Refresh:/paddy_refresh, OK:/remove_keyboard'         
 
             # Jyggy fast
-          - conditions: "{{ trigger.event.data.text.lower() | regex_match('.*jyggy.*fast.*') }}"
+          - conditions: "{{ trigger.event.data.text.lower()|regex_match('.*jyggy.*fast.*') }}"
             sequence:
               - service: script.zappi_mode_jyggy
                 data:
@@ -300,7 +300,7 @@ automation:
                     - 'Refresh:/jyggy_refresh, OK:/remove_keyboard'    
 
             # Jyggy eco+
-          - conditions: "{{ (trigger.event.data.text.lower()  | regex_match('.*jyggy.*eco.+.*')) or (trigger.event.data.text.lower()  | regex_match('.*jyggy.*eco.*plus.*')) }}"
+          - conditions: "{{ (trigger.event.data.text.lower()|regex_match('.*jyggy.*eco.+.*')) or (trigger.event.data.text.lower()|regex_match('.*jyggy.*eco.*plus.*')) }}"
             sequence:
               - service: script.zappi_mode_jyggy
                 data:
@@ -319,7 +319,7 @@ automation:
                     - 'Refresh:/jyggy_refresh, OK:/remove_keyboard'  
             
             # Jyggy eco
-          - conditions: "{{ trigger.event.data.text.lower()  | regex_match('.*jyggy.*eco.*')  }}"
+          - conditions: "{{ trigger.event.data.text.lower()|regex_match('.*jyggy.*eco.*')  }}"
             sequence:
               - service: script.zappi_mode_jyggy
                 data:
@@ -338,7 +338,7 @@ automation:
                     - 'Refresh:/jyggy_refresh, OK:/remove_keyboard'     
 
             # Jyggy stop
-          - conditions: "{{ trigger.event.data.text.lower()  | regex_match('.*jyggy.*stop.*')  }}"
+          - conditions: "{{ trigger.event.data.text.lower()|regex_match('.*jyggy.*stop.*')  }}"
             sequence:
               - service: script.zappi_mode_jyggy
                 data:
@@ -403,9 +403,9 @@ automation:
                 data:
                   target: "{{trigger.event.data.chat_id}}"          
                   message: >
-                    Hottub is {{ states('sensor.hottub_summary') }} at {{ states('input_number.hottub_water_temp') | int }}°C.  
+                    Hottub is {{ states('sensor.hottub_summary') }} at {{ states('input_number.hottub_water_temp')|int }}°C.  
                     
-                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target') | int }}°C by {{ states('input_datetime.hottub_ready_by') }}
+                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target')|int }}°C by {{ states('input_datetime.hottub_ready_by') }}
                   inline_keyboard:
                     - 'Set Time:/tub_set_time, Schedule On:/tub_sched_on'
                     - 'Set Temp:/tub_set_temp, Schedule Off:/tub_sched_off' 
@@ -441,7 +441,7 @@ automation:
 #            sequence:
 
             # Alarm Disarm already disarmed
-          - conditions: "{{ ((trigger.event.data.text.lower()  | regex_match('.*alarm.*disarm.*')) or (trigger.event.data.text.lower()  | regex_match('.*disarm.*alarm.*'))) and is_state('alarm_control_panel.texecom','disarmed') }}"
+          - conditions: "{{ ((trigger.event.data.text.lower()|regex_match('.*alarm.*disarm.*')) or (trigger.event.data.text.lower()|regex_match('.*disarm.*alarm.*'))) and is_state('alarm_control_panel.texecom','disarmed') }}"
             sequence:  
               - service: telegram_bot.send_message
                 data:
@@ -453,7 +453,7 @@ automation:
                     - 'OK:/remove_keyboard'                  
 
             # Alarm Disarm
-          - conditions: "{{ (trigger.event.data.text.lower()  | regex_match('.*alarm.*disarm.*')) or (trigger.event.data.text.lower()  | regex_match('.*disarm.*alarm.*')) }}"
+          - conditions: "{{ (trigger.event.data.text.lower()|regex_match('.*alarm.*disarm.*')) or (trigger.event.data.text.lower()|regex_match('.*disarm.*alarm.*')) }}"
             sequence:  
               - service: telegram_bot.send_message
                 data:
@@ -475,7 +475,7 @@ automation:
 
 
             # Alarm Arm already armed 
-          - conditions: "{{ ((trigger.event.data.text.lower()  | regex_match('.*alarm.*arm.*')) or (trigger.event.data.text.lower()  | regex_match('.*arm.*alarm.*')) or (trigger.event.data.text.lower()  | regex_match('.*set.*alarm.*') or trigger.event.data.text.lower()  | regex_match('.*alarm.*night.*')) or (trigger.event.data.text.lower()  | regex_match('.*night.*alarm.*'))) and states('alarm_control_panel.texecom')[0:6]=='armed_' }}"
+          - conditions: "{{ ((trigger.event.data.text.lower()|regex_match('.*alarm.*arm.*')) or (trigger.event.data.text.lower()|regex_match('.*arm.*alarm.*')) or (trigger.event.data.text.lower()|regex_match('.*set.*alarm.*') or trigger.event.data.text.lower()|regex_match('.*alarm.*night.*')) or (trigger.event.data.text.lower()|regex_match('.*night.*alarm.*'))) and states('alarm_control_panel.texecom')[0:6]=='armed_' }}"
             sequence:  
               - service: alarm_control_panel.alarm_arm_night 
                 data:
@@ -490,7 +490,7 @@ automation:
                     - 'OK:/remove_keyboard'   
 
             # Alarm Night
-          - conditions: "{{ (trigger.event.data.text.lower()  | regex_match('.*alarm.*night.*')) or (trigger.event.data.text.lower()  | regex_match('.*night.*alarm.*')) }}"
+          - conditions: "{{ (trigger.event.data.text.lower()|regex_match('.*alarm.*night.*')) or (trigger.event.data.text.lower()|regex_match('.*night.*alarm.*')) }}"
             sequence:  
               - service: telegram_bot.send_message
                 data:
@@ -513,7 +513,7 @@ automation:
                   message: "Alarm currently {{states('alarm_control_panel.texecom').replace('_',' ')}}"
                   
       # Alarm Home
-          - conditions: "{{ (trigger.event.data.text.lower()  | regex_match('.*alarm.*home.*')) or (trigger.event.data.text.lower()  | regex_match('.*home.*alarm.*')) or (trigger.event.data.text.lower()  | regex_match('.*alarm.*home.*')) or (trigger.event.data.text.lower()  | regex_match('.*arm.*home.*')) or (trigger.event.data.text.lower()  | regex_match('.*home.*arm.*')) or (trigger.event.data.text.lower()  | regex_match('.*shed.*alarm.*')) or (trigger.event.data.text.lower()  | regex_match('.*garage.*alarm.*')) or (trigger.event.data.text.lower()  | regex_match('.*alarm.*shed.*')) or (trigger.event.data.text.lower()  | regex_match('.*alarm.*garage.*'))}}"            
+          - conditions: "{{ (trigger.event.data.text.lower()|regex_match('.*alarm.*home.*')) or (trigger.event.data.text.lower()|regex_match('.*home.*alarm.*')) or (trigger.event.data.text.lower()|regex_match('.*alarm.*home.*')) or (trigger.event.data.text.lower()|regex_match('.*arm.*home.*')) or (trigger.event.data.text.lower()|regex_match('.*home.*arm.*')) or (trigger.event.data.text.lower()|regex_match('.*shed.*alarm.*')) or (trigger.event.data.text.lower()|regex_match('.*garage.*alarm.*')) or (trigger.event.data.text.lower()|regex_match('.*alarm.*shed.*')) or (trigger.event.data.text.lower()|regex_match('.*alarm.*garage.*'))}}"            
             sequence:  
               - service: telegram_bot.send_message
                 data:
@@ -536,7 +536,7 @@ automation:
                   message: "Alarm currently {{states('alarm_control_panel.texecom').replace('_',' ')}}"
             
       # Alarm Arm
-          - conditions: "{{ (trigger.event.data.text.lower()  | regex_match('.*alarm.*arm.*')) or (trigger.event.data.text.lower()  | regex_match('.*arm.*alarm.*')) or (trigger.event.data.text.lower()  | regex_match('.*set.*alarm.*')) }}"
+          - conditions: "{{ (trigger.event.data.text.lower()|regex_match('.*alarm.*arm.*')) or (trigger.event.data.text.lower()|regex_match('.*arm.*alarm.*')) or (trigger.event.data.text.lower()|regex_match('.*set.*alarm.*')) }}"
             sequence:
               - service: telegram_bot.send_message
                 data:
@@ -559,38 +559,38 @@ automation:
                   message: "Alarm currently {{states('alarm_control_panel.texecom').replace('_',' ')}}"
                   
             # Hot tub set with only time
-          - conditions: "{{ (trigger.event.data.text.lower()  | regex_match('.*tub.*[0-9][0-9]:[0-9][0-9].*')) or (trigger.event.data.text.lower()  | regex_match('.*tub.*[0-9][0-9]:[0-9][0-9].*')) }}"
+          - conditions: "{{ (trigger.event.data.text.lower()|regex_match('.*tub.*[0-9][0-9]:[0-9][0-9].*')) or (trigger.event.data.text.lower()|regex_match('.*tub.*[0-9][0-9]:[0-9][0-9].*')) }}"
             sequence:
               - service:  input_datetime.set_datetime
                 data:
                   entity_id: input_datetime.hottub_ready_by
-                  time: "{{ trigger.event.data.text | regex_findall_index('[0-9][0-9]:[0-9][0-9]') }}"
+                  time: "{{ trigger.event.data.text|regex_findall_index('[0-9][0-9]:[0-9][0-9]') }}"
               - service: telegram_bot.send_message
                 data:
                   target: "{{trigger.event.data.chat_id}}"          
                   message: >
-                    Hottub is {{ states('sensor.hottub_summary') }} at {{ states('input_number.hottub_water_temp') | int }}°C.  
+                    Hottub is {{ states('sensor.hottub_summary') }} at {{ states('input_number.hottub_water_temp')|int }}°C.  
                     
-                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target') | int }}°C by {{ states('input_datetime.hottub_ready_by') }}
+                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target')|int }}°C by {{ states('input_datetime.hottub_ready_by') }}
                   inline_keyboard:
                     - 'Set Time:/tub_set_time, Schedule On:/tub_sched_on'
                     - 'Set Temp:/tub_set_temp, Schedule Off:/tub_sched_off' 
                     - 'OK:/remove_keyboard'        
 
             # Hot tub set with only temp
-          - conditions: "{{ (trigger.event.data.text.lower()  | regex_match('.*tub.*[0-9][0-9].*')) or (trigger.event.data.text.lower()  | regex_match('.*tub.*[0-9][0-9].*')) }}"
+          - conditions: "{{ (trigger.event.data.text.lower()|regex_match('.*tub.*[0-9][0-9].*')) or (trigger.event.data.text.lower()|regex_match('.*tub.*[0-9][0-9].*')) }}"
             sequence:
               - service:  input_number.set_value
                 data:
                   entity_id: input_number.hottub_water_target
-                  value: "{{ trigger.event.data.text | regex_findall_index('[0-9][0-9]') }}"
+                  value: "{{ trigger.event.data.text|regex_findall_index('[0-9][0-9]') }}"
               - service: telegram_bot.send_message
                 data:
                   target: "{{trigger.event.data.chat_id}}"          
                   message: >
-                    Hottub is {{ states('sensor.hottub_summary') }} at {{ states('input_number.hottub_water_temp') | int }}°C.  
+                    Hottub is {{ states('sensor.hottub_summary') }} at {{ states('input_number.hottub_water_temp')|int }}°C.  
                     
-                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target') | int }}°C by {{ states('input_datetime.hottub_ready_by') }}
+                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target')|int }}°C by {{ states('input_datetime.hottub_ready_by') }}
                   inline_keyboard:
                     - 'Set Time:/tub_set_time, Schedule On:/tub_sched_on'
                     - 'Set Temp:/tub_set_temp, Schedule Off:/tub_sched_off' 

@@ -10,7 +10,7 @@ rest:
     
     sensor:
       - name: Voltaware
-        value_template:  "{{ value_json.time | replace(', ','T')}}+00:00"
+        value_template:  "{{ value_json.time|replace(', ','T')}}+00:00"
 
       - name: Voltaware V
         value_template: "{{ value_json.channels[0].V / 1000 }}"
@@ -67,15 +67,15 @@ rest:
         unit_of_measurement: 'VAR'
         
       - name: Floorplan Voltaware Home Load
-        value_template: "{{ (value_json.channels[0].active_power / 1000) | round(1) }}"
+        value_template: "{{ (value_json.channels[0].active_power / 1000)|round(1) }}"
         unit_of_measurement: 'kW'
         device_class: power
                    
       - name: Voltaware Home Load
         unit_of_measurement: 'kW'
-        value_template: "{{ (( value_json.channels[0].i * value_json.channels[0].v ) / 1000) | round(2) }}"
+        value_template: "{{ (( value_json.channels[0].i * value_json.channels[0].v ) / 1000)|round(2) }}"
 
-#    value_template:  "{{ value_json.time | replace(', ','T')}}+00:00"
+#    value_template:  "{{ value_json.time|replace(', ','T')}}+00:00"
 #    json_attributes_path: '$.channels[0]'
 #    json_attributes:
 #      - V                  # Voltage (V)

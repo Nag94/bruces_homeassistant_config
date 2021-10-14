@@ -20,10 +20,10 @@ rest:
     sensor:
 
       - name: Zappi Jyggy CMT
-        value_template: "{{ value_json[1].zappi[0].cmt if value_json[1].zappi[0].sno | int < value_json[1].zappi[1].sno | int else value_json[1].zappi[1].cmt }}"
+        value_template: "{{ value_json[1].zappi[0].cmt if value_json[1].zappi[0].sno|int < value_json[1].zappi[1].sno|int else value_json[1].zappi[1].cmt }}"
 
       - name: Zappi Paddy CMT
-        value_template: "{{ value_json[1].zappi[0].cmt if value_json[1].zappi[0].sno | int > value_json[1].zappi[1].sno | int else value_json[1].zappi[1].cmt }}"
+        value_template: "{{ value_json[1].zappi[0].cmt if value_json[1].zappi[0].sno|int > value_json[1].zappi[1].sno|int else value_json[1].zappi[1].cmt }}"
 
       - name: Eddi CMT
         value_template: "{{ value_json[0].eddi[0].cmt }}"

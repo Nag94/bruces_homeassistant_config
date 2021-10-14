@@ -54,7 +54,7 @@ automation:
               - service: telegram_bot.send_video
                 data:
                   file: "/config/www/cam_snaps/{{ trigger.event.data.command[5:] }}.mp4"    
-                  caption: "{% set callback_datetime = trigger.event.data.command[5:].split('_')[1] %}{{ trigger.event.data.command[5:].split('_')[0] | title }} - {{ callback_datetime[0:2] }}/{{ callback_datetime[2:4] }} {{ callback_datetime[4:6] }}:{{ callback_datetime[6:8] }}"
+                  caption: "{% set callback_datetime = trigger.event.data.command[5:].split('_')[1] %}{{ trigger.event.data.command[5:].split('_')[0]|title }} - {{ callback_datetime[0:2] }}/{{ callback_datetime[2:4] }} {{ callback_datetime[4:6] }}:{{ callback_datetime[6:8] }}"
                   target: "{{ trigger.event.data.chat_id }}"      
 
             #Empty House Arm Away
@@ -549,9 +549,9 @@ automation:
               - service: telegram_bot.edit_message
                 data:
                   message: >
-                    Hottub is {{ states('sensor.hottub_summary') }} at {{ states('input_number.hottub_water_temp') | int }}°C.  
+                    Hottub is {{ states('sensor.hottub_summary') }} at {{ states('input_number.hottub_water_temp')|int }}°C.  
                     
-                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target') | int }}°C by {{ states('input_datetime.hottub_ready_by') }}
+                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target')|int }}°C by {{ states('input_datetime.hottub_ready_by') }}
                   message_id: "{{ trigger.event.data.message.message_id }}"
                   chat_id: "{{ trigger.event.data.chat_id }}"
                   inline_keyboard:
@@ -569,9 +569,9 @@ automation:
               - service: telegram_bot.edit_message
                 data:
                   message: >
-                    Hottub is {{ states('sensor.hottub_summary') }} at {{ states('input_number.hottub_water_temp') | int }}°C.  
+                    Hottub is {{ states('sensor.hottub_summary') }} at {{ states('input_number.hottub_water_temp')|int }}°C.  
                     
-                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target') | int }}°C by {{ states('input_datetime.hottub_ready_by') }}
+                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target')|int }}°C by {{ states('input_datetime.hottub_ready_by') }}
                   message_id: "{{ trigger.event.data.message.message_id }}"
                   chat_id: "{{ trigger.event.data.chat_id }}"
                   inline_keyboard:
@@ -595,9 +595,9 @@ automation:
                   message_id: "{{ trigger.event.data.message.message_id }}"
                   chat_id: "{{ trigger.event.data.chat_id }}"
                   message: >
-                    Hottub temperature is {{ states('input_number.hottub_water_temp') | int }}°C.  
+                    Hottub temperature is {{ states('input_number.hottub_water_temp')|int }}°C.  
                     
-                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target') | int }}°C by {{ states('input_datetime.hottub_ready_by') }}
+                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target')|int }}°C by {{ states('input_datetime.hottub_ready_by') }}
                   inline_keyboard:
                     - 'Set Time:/tub_set_time, Schedule On:/tub_sched_on'
                     - 'Set Temp:/tub_set_temp, Schedule Off:/tub_sched_off' 
@@ -613,9 +613,9 @@ automation:
               - service: telegram_bot.edit_message
                 data:
                   message: >
-                    Hottub is {{ states('sensor.hottub_summary') }} at {{ states('input_number.hottub_water_temp') | int }}°C.  
+                    Hottub is {{ states('sensor.hottub_summary') }} at {{ states('input_number.hottub_water_temp')|int }}°C.  
                     
-                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target') | int }}°C by {{ states('input_datetime.hottub_ready_by') }}
+                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target')|int }}°C by {{ states('input_datetime.hottub_ready_by') }}
                   message_id: "{{ trigger.event.data.message.message_id }}"
                   chat_id: "{{ trigger.event.data.chat_id }}"
                   inline_keyboard:
@@ -637,9 +637,9 @@ automation:
               - service: telegram_bot.edit_message
                 data:
                   message: >
-                    Hottub is {{ states('sensor.hottub_summary') }} at {{ states('input_number.hottub_water_temp') | int }}°C.  
+                    Hottub is {{ states('sensor.hottub_summary') }} at {{ states('input_number.hottub_water_temp')|int }}°C.  
                     
-                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target') | int }}°C by {{ states('input_datetime.hottub_ready_by') }}
+                    Schedule {{ states('input_boolean.hottub_scheduled') }}: {{ states('input_number.hottub_water_target')|int }}°C by {{ states('input_datetime.hottub_ready_by') }}
                   message_id: "{{ trigger.event.data.message.message_id }}"
                   chat_id: "{{ trigger.event.data.chat_id }}"
                   inline_keyboard:

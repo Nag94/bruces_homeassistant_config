@@ -14,12 +14,21 @@ automation:
         id: 'back online'
         entity_id: binary_sensor.bwa_wi_fi_module
         to: 'on'
-        
+
+    condition: 
+      - condition: numeric_state
+        entity_id: input_number.hottub_water_target
+        above: 27
+        below: 41
+      - condition: state
+        entity_id: binary_sensor.bwa_wi_fi_module
+        state: 'on'        
+      
     action:
       - delay: 5    
       - service: climate.set_temperature
         target: 
           entity_id: climate.spa_climate
         data:
-          temperature: "{{ states('input_number.hottub_water_target') | round(1, 'half') }}"
+          temperature: "{{ states('input_number.hottub_water_target')|round(1, 'half') }}"
 

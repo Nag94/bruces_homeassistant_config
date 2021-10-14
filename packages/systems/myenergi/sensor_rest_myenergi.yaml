@@ -17,81 +17,81 @@ rest:
       Content-Type: application/json
       Accept: application/json
 
+    
     binary_sensor:
-
       - name: Eddi Active Heater
         value_template: "{{ value_json[0].eddi[0].div  > 0 }}"
 
       - name: Jyggy Plugged In
-        value_template: "{% if value_json[1].zappi[0].sno | int < value_json[1].zappi[1].sno | int %}{{ 'off' if value_json[1].zappi[0].pst == 'A' else 'on' }}{% else %}{{ 'off' if value_json[1].zappi[1].pst == 'A' else 'on' }}{% endif %}"
+        value_template: "{% if value_json[1].zappi[0].sno|int(0) < value_json[1].zappi[1].sno|int(0) %}{{ 'off' if value_json[1].zappi[0].pst == 'A' else 'on' }}{% else %}{{ 'off' if value_json[1].zappi[1].pst == 'A' else 'on' }}{% endif %}"
         device_class: plug
 
       - name: Paddy Plugged In
-        value_template: "{% if value_json[1].zappi[0].sno | int > value_json[1].zappi[1].sno | int %}{{ 'off' if value_json[1].zappi[0].pst == 'A' else 'on' }}{% else %}{{ 'off' if value_json[1].zappi[1].pst == 'A' else 'on' }}{% endif %}"
+        value_template: "{% if value_json[1].zappi[0].sno|int > value_json[1].zappi[1].sno|int %}{{ 'off' if value_json[1].zappi[0].pst == 'A' else 'on' }}{% else %}{{ 'off' if value_json[1].zappi[1].pst == 'A' else 'on' }}{% endif %}"
         device_class: plug
 
       - name: Zappi Order Jyggy First
-        value_template: "{{ value_json[1].zappi[0].sno | int < value_json[1].zappi[1].sno | int }}"
+        value_template: "{{ value_json[1].zappi[0].sno|int < value_json[1].zappi[1].sno|int }}"
         
     sensor:
 
       - name: Zappi Jyggy Serial
-        value_template: "{{ value_json[1].zappi[0].sno if value_json[1].zappi[0].sno | int < value_json[1].zappi[1].sno | int else value_json[1].zappi[1].sno }}"
+        value_template: "{{ value_json[1].zappi[0].sno if value_json[1].zappi[0].sno|int < value_json[1].zappi[1].sno|int else value_json[1].zappi[1].sno }}"
 
       - name: Zappi Jyggy Last Online
-        value_template: "{{ value_json[1].zappi[0].dat + ' ' + value_json[1].zappi[0].tim if value_json[1].zappi[0].sno | int < value_json[1].zappi[1].sno | int else value_json[1].zappi[1].dat + ' ' + value_json[1].zappi[1].tim  }}"
+        value_template: "{{ value_json[1].zappi[0].dat + ' ' + value_json[1].zappi[0].tim if value_json[1].zappi[0].sno|int < value_json[1].zappi[1].sno|int else value_json[1].zappi[1].dat + ' ' + value_json[1].zappi[1].tim  }}"
 
       - name: Zappi Jyggy Fwv
-        value_template: "{{ value_json[1].zappi[0].fwv if value_json[1].zappi[0].sno | int < value_json[1].zappi[1].sno | int else value_json[1].zappi[1].fwv }}"
+        value_template: "{{ value_json[1].zappi[0].fwv if value_json[1].zappi[0].sno|int < value_json[1].zappi[1].sno|int else value_json[1].zappi[1].fwv }}"
         
       - name: Zappi Jyggy Mode
-        value_template: "{% set mapper = {0:'zero',1:'Fast',2:'Eco',3:'Eco+',4:'Stopped'} %}{{ mapper[value_json[1].zappi[0].zmo] if value_json[1].zappi[0].sno | int < value_json[1].zappi[1].sno | int else mapper[value_json[1].zappi[1].zmo] }}"
+        value_template: "{% set mapper = {0:'zero',1:'Fast',2:'Eco',3:'Eco+',4:'Stopped'} %}{{ mapper[value_json[1].zappi[0].zmo] if value_json[1].zappi[0].sno|int < value_json[1].zappi[1].sno|int else mapper[value_json[1].zappi[1].zmo] }}"
 
       - name: Zappi Jyggy Status
-        value_template: "{% set mapper = {'A':'EV Disconnected','B1':'EV Connected','B2':'Waiting for EV','C1':'EV Ready to Charge','C2':'Charging','F':'Fault'} %}{{ mapper[value_json[1].zappi[0].pst] if value_json[1].zappi[0].sno | int < value_json[1].zappi[1].sno | int else mapper[value_json[1].zappi[1].pst]}}"
+        value_template: "{% set mapper = {'A':'EV Disconnected','B1':'EV Connected','B2':'Waiting for EV','C1':'EV Ready to Charge','C2':'Charging','F':'F'} %}{{ mapper[value_json[1].zappi[0].pst] if value_json[1].zappi[0].sno|int < value_json[1].zappi[1].sno|int else mapper[value_json[1].zappi[1].pst]}}"
 
       - name: Zappi Jyggy Power
-        value_template: "{% if value_json[1].zappi[0].sno | int < value_json[1].zappi[1].sno | int %}{{ (value_json[1].zappi[0].div / 1000) | round(1) if value_json[1].zappi[0].pst == 'C2' else 0 }}{% else %}{{ (value_json[1].zappi[1].div / 1000) | round(1) if value_json[1].zappi[1].pst == 'C2' else 0 }}{% endif %}"
+        value_template: "{% if value_json[1].zappi[0].sno|int < value_json[1].zappi[1].sno|int %}{{ (value_json[1].zappi[0].div / 1000)|round(1) if value_json[1].zappi[0].pst == 'C2' else 0 }}{% else %}{{ (value_json[1].zappi[1].div / 1000)|round(1) if value_json[1].zappi[1].pst == 'C2' else 0 }}{% endif %}"
         unit_of_measurement: 'kW'
         device_class: power    
 
       - name: Zappi Paddy Serial
-        value_template: "{{ value_json[1].zappi[0].sno if value_json[1].zappi[0].sno | int > value_json[1].zappi[1].sno | int  else value_json[1].zappi[1].sno }}"
+        value_template: "{{ value_json[1].zappi[0].sno if value_json[1].zappi[0].sno|int > value_json[1].zappi[1].sno|int  else value_json[1].zappi[1].sno }}"
 
       - name: Zappi Paddy Last Online
-        value_template: "{{ value_json[1].zappi[0].dat + ' ' + value_json[1].zappi[0].tim if value_json[1].zappi[0].sno | int > value_json[1].zappi[1].sno | int else value_json[1].zappi[1].dat + ' ' + value_json[1].zappi[1].tim  }}"
+        value_template: "{{ value_json[1].zappi[0].dat + ' ' + value_json[1].zappi[0].tim if value_json[1].zappi[0].sno|int > value_json[1].zappi[1].sno|int else value_json[1].zappi[1].dat + ' ' + value_json[1].zappi[1].tim  }}"
 
       - name: Zappi Paddy Fwv
-        value_template: "{{ value_json[1].zappi[0].fwv if value_json[1].zappi[0].sno | int > value_json[1].zappi[1].sno | int else value_json[1].zappi[1].fwv }}"
+        value_template: "{{ value_json[1].zappi[0].fwv if value_json[1].zappi[0].sno|int > value_json[1].zappi[1].sno|int else value_json[1].zappi[1].fwv }}"
           
       - name: Zappi Paddy Mode
-        value_template: "{% set mapper = {0:'zero',1:'Fast',2:'Eco',3:'Eco+',4:'Stopped'} %}{{ mapper[value_json[1].zappi[0].zmo] if value_json[1].zappi[0].sno | int > value_json[1].zappi[1].sno | int else mapper[value_json[1].zappi[1].zmo] }}"
+        value_template: "{% set mapper = {0:'zero',1:'Fast',2:'Eco',3:'Eco+',4:'Stopped'} %}{{ mapper[value_json[1].zappi[0].zmo] if value_json[1].zappi[0].sno|int > value_json[1].zappi[1].sno|int else mapper[value_json[1].zappi[1].zmo] }}"
               
       - name: Zappi Paddy Status
-        value_template: "{% set mapper = {'A':'EV Disconnected','B1':'EV Connected','B2':'Waiting for EV','C1':'EV Ready to Charge','C2':'Charging','F':'Fault'} %}{{ mapper[value_json[1].zappi[0].pst] if value_json[1].zappi[0].sno | int > value_json[1].zappi[1].sno | int else mapper[value_json[1].zappi[1].pst]}}"
+        value_template: "{% set mapper = {'A':'EV Disconnected','B1':'EV Connected','B2':'Waiting for EV','C1':'EV Ready to Charge','C2':'Charging','F':'F'} %}{{ mapper[value_json[1].zappi[0].pst] if value_json[1].zappi[0].sno|int > value_json[1].zappi[1].sno|int else mapper[value_json[1].zappi[1].pst]}}"
 
       - name: Zappi Paddy Power
-        value_template: "{% if value_json[1].zappi[0].sno | int > value_json[1].zappi[1].sno | int %}{{ (value_json[1].zappi[0].div / 1000) | round(1) if value_json[1].zappi[0].pst == 'C2' else 0 }}{% else %}{{ (value_json[1].zappi[1].div / 1000) | round(1) if value_json[1].zappi[1].pst == 'C2' else 0 }}{% endif %}"
+        value_template: "{% if value_json[1].zappi[0].sno|int > value_json[1].zappi[1].sno|int %}{{ (value_json[1].zappi[0].div / 1000)|round(1) if value_json[1].zappi[0].pst == 'C2' else 0 }}{% else %}{{ (value_json[1].zappi[1].div / 1000)|round(1) if value_json[1].zappi[1].pst == 'C2' else 0 }}{% endif %}"
         unit_of_measurement: 'kW'
         device_class: power  
         
       - name: Zappi Cars
-        value_template: "{{ ((value_json[1].zappi[1].div / 1000) | round(1) if value_json[1].zappi[1].pst == 'C2' else 0) + ((value_json[1].zappi[0].div/1000.0 ) | round(1) if value_json[1].zappi[0].pst == 'C2' else 0) }}"
+        value_template: "{{ ((value_json[1].zappi[1].div / 1000)|round(1) if value_json[1].zappi[1].pst == 'C2' else 0) + ((value_json[1].zappi[0].div/1000.0 )|round(1) if value_json[1].zappi[0].pst == 'C2' else 0) }}"
         unit_of_measurement: 'kW'
         device_class: power   
         
       - name: Zappi Jyggy Grid
-        value_template: "{{ (value_json[1].zappi[1].grd / 1000) | round(1) }}"
+        value_template: "{{ (value_json[1].zappi[1].grd / 1000)|round(1) }}"
         unit_of_measurement: 'kW'
         device_class: power   
 
       - name: Zappi jyggy Grid Export
-        value_template: "{{ (value_json[1].zappi[1].grd / -1000) | round(1) if  (value_json[1].zappi[1].grd < -75.0) else 0 }}"
+        value_template: "{{ (value_json[1].zappi[1].grd / -1000)|round(1) if  (value_json[1].zappi[1].grd < -75.0) else 0 }}"
         unit_of_measurement: 'kW'
         device_class: power   
 
       - name: Zappi Jyggy Grid Import
-        value_template: "{{ (value_json[1].zappi[1].grd / 1000) | round(1) if (value_json[1].zappi[1].grd > 75.0) else 0 }}"
+        value_template: "{{ (value_json[1].zappi[1].grd / 1000)|round(1) if (value_json[1].zappi[1].grd > 75.0) else 0 }}"
         unit_of_measurement: 'kW'
         device_class: power       
         
@@ -103,14 +103,14 @@ rest:
 
       - name: Eddi Water Temp
         value_template: "{{ (value_json[0].eddi[0].tp1 ) if (value_json[0].eddi[0].tp1 > 10 and value_json[0].eddi[0].tp1 < 105) else unavailable }}"
-        unit_of_measurement: '°'
+        unit_of_measurement: '°C'
         device_class: temperature   
 
       - name: Eddi Status
         value_template: "{% set eddi_map = {1:'off',2:'???',3:'on',4:'on',5:'reached',6:'stopped'} %}{{eddi_map[value_json[0].eddi[0].sta] }}"
     
       - name: Eddi Power
-        value_template: "{{ (value_json[0].eddi[0].div / 1000) | round(1) if value_json[0].eddi[0].sta in [3,4] else 0}}"
+        value_template: "{{ (value_json[0].eddi[0].div / 1000)|round(1) if value_json[0].eddi[0].sta in [3,4] else 0}}"
         unit_of_measurement: 'kW'
         device_class: power   
         

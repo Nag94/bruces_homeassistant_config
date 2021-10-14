@@ -14,5 +14,6 @@ template:
     - name: "Export Power Integration"
       unique_id: export_power_integration
       device_class: energy
-      state: "{{((states('sensor.electricity_consumption') | float) / -1000.0) | round(2) if (states('sensor.electricity_consumption') | float ) < 20.0 else 0.0 }}"
+      unit_of_measurement: "kWh"
+      state: "{{((states('sensor.electricity_consumption')|float(0)) / -1000.0)|round(2) if (states('sensor.electricity_consumption')|float(0) ) < 20.0 else 0.0 }}"
 

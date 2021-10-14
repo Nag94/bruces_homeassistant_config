@@ -13,16 +13,16 @@ rest:
         device_class: lock
 
       - name: Jyggy Needs Charge
-        value_template: "{{ value_json.battery_level | int < value_json.charge_limit_soc | int }}"
+        value_template: "{{ value_json.battery_level|int(0) < value_json.charge_limit_soc|int(0) }}"
         
     sensor:
       - name: Jyggy Charge Limit SOC
-        value_template: "{{ value_json.charge_limit_soc | int }}"
+        value_template: "{{ value_json.charge_limit_soc|int(0) }}"
         device_class: battery
         unit_of_measurement: '%'
         
       - name: Jyggy Charger Power
-        value_template: "{{ value_json.charger_voltage |int * value_json.charger_actual_current | int}}"
+        value_template: "{{ value_json.charger_voltage|int * value_json.charger_actual_current|int(0)}}"
         unit_of_measurement: "W"
         device_class: power        
 
@@ -30,31 +30,31 @@ rest:
         value_template: "{{ value_json.charging_state }}"
 
       - name: Jyggy GPS as of
-        value_template: "{{ value_json.gps_as_of | timestamp_local }}"
+        value_template: "{{ value_json.gps_as_of|int(0) }}"
         device_class: "timestamp"        
         
       - name: Jyggy Inside Temp
-        value_template: "{{ value_json.inside_temp | int }}"
+        value_template: "{{ value_json.inside_temp|int(0) }}"
         device_class: temperature
         unit_of_measurement: '°C'        
         
       - name: Jyggy Latitude
-        value_template: "{{ value_json.latitude | float }}"
+        value_template: "{{ value_json.latitude|float(51.356496) }}"
         unit_of_measurement: '°'        
         
       - name: Jyggy Location
         value_template: "{{ value_json.location }}"
 
       - name: Jyggy Longitude
-        value_template: "{{ value_json.longitude | float }}"
+        value_template: "{{ value_json.longitude|float(-2.9110906) }}"
         unit_of_measurement: '°'        
         
       - name: Jyggy Odometer
-        value_template: "{{ value_json.odometer | int }}"
+        value_template: "{{ value_json.odometer|int(0) }}"
         unit_of_measurement: 'miles'
         
       - name: Jyggy Outside Temp
-        value_template: "{{ value_json.outside_temp | float }}"
+        value_template: "{{ value_json.outside_temp|float(0) }}"
         device_class: temperature
         unit_of_measurement: '°C'        
         
@@ -68,7 +68,7 @@ rest:
         value_template: "{{ value_json.shift_state }}"
         
       - name: Jyggy Speed
-        value_template: "{{ 0 if value_json.speed == null else value_json.speed | int }}"
+        value_template: "{{ 0 if value_json.speed == null else value_json.speed|int(0) }}"
         unit_of_measurement: 'mph'        
         
       - name: Jyggy Time to Full Charge
@@ -76,7 +76,7 @@ rest:
         unit_of_measurement: 'hrs'
 
       - name: Jyggy Battery Level
-        value_template: "{{ value_json.battery_level | int }}"
+        value_template: "{{ value_json.battery_level|int }}"
         device_class: battery
         unit_of_measurement: '%'        
         

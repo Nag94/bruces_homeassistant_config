@@ -9,7 +9,7 @@ rest:
       Authorization: !secret click_stats_authorization
     sensor:
       - name: Click Stats
-        value_template: "{{ value_json.ThisWeeksDespatches_Spares | int }}"
+        value_template: "{{ value_json.ThisWeeksDespatches_Spares|int }}"
         json_attributes:
           - TodaysParcels
           - PickedOrders
@@ -22,6 +22,6 @@ rest:
           - ToPicklist
           - ToBeKeyed
       - name: Swatches This Week
-        value_template: "{{ value_json.ThisWeeksDespatches_Swatches | int }}"
+        value_template: "{{ value_json.ThisWeeksDespatches_Swatches|int }}"
         
       

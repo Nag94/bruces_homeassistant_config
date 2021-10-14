@@ -28,7 +28,7 @@ automation:
               - service: rest_command.jyggy_api
                 data:
                   teslafi_token: !secret teslafi_token                 
-                  jyggy_command: "set_charge_limit&charge_limit_soc={{ states('input_number.jyggy_charge_limit') | int }}"
+                  jyggy_command: "set_charge_limit&charge_limit_soc={{ states('input_number.jyggy_charge_limit')|int }}"
         default:
           - service: input_number.set_value
             target: 
