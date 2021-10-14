@@ -1,6 +1,8 @@
 shell_command:
   eddi_boost: "curl --digest -u {{myenergi_serial}}:{{myenergi_password}} -H 'accept: application/json' -H 'content-type: application/json' --compressed 'https://s18.myenergi.net/cgi-eddi-boost-E{{eddi_serial}}-{{boost_mode}}-{{heater}}-{{boost_duration}}'"
 
+# Doesn't seem to work with duration > 60 ?
+        
 #cgi-eddi-boost-EID-BoostOn-HeaterNo-DurationMinutes
 #
 #Action
