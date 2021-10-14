@@ -72,23 +72,23 @@ script:
     variables:
       circadian: sensor.circadian_values
       brightness: >-
-        {% set percent = states('sensor.circadian_values') | float %}
+        {% set percent = states('sensor.circadian_values')|float(0) %}
         {% if percent > 0 %}
-          {{ percent | round }}
+          {{ percent|round }}
         {% else %}
-          {{ (percent + 100) | round }}
+          {{ (percent + 100)|round }}
         {% endif %}
-      color_temp: "{{ state_attr(circadian, 'colortemp') | int }}"
-      red: "{{ state_attr(circadian, 'rgb_color')[0] | int }}"
-      green: "{{ state_attr(circadian, 'rgb_color')[1] | int }}"
-      blue: "{{ state_attr(circadian, 'rgb_color')[2] | int }}"
-      transition: "{{ transition | default(5) }}"
-      turn_on: "{{ turn_on | default(false) }}"
-      turn_on_transition: "{{ turn_on_transition | default(2) }}"
+      color_temp: "{{ state_attr(circadian, 'colortemp')|int }}"
+      red: "{{ state_attr(circadian, 'rgb_color')[0]|int }}"
+      green: "{{ state_attr(circadian, 'rgb_color')[1]|int }}"
+      blue: "{{ state_attr(circadian, 'rgb_color')[2]|int }}"
+      transition: "{{ transition|default(5) }}"
+      turn_on: "{{ turn_on|default(false) }}"
+      turn_on_transition: "{{ turn_on_transition|default(2) }}"
     
     sequence:
       - repeat:
-          count: "{{ entities | length }}"
+          count: "{{ entities|length }}"
           sequence:
             - variables:
                 entity: "{{ entities[repeat.index-1] }}"
@@ -96,9 +96,9 @@ script:
               value_template: "{{ turn_on is sameas true or is_state(entity, 'on') }}"
             - variables:
                 supports_color: >-
-                  {{ state_attr(entity, 'supported_features') | bitwise_and(16) == 16 }}
+                  {{ state_attr(entity, 'supported_features')|bitwise_and(16) == 16 }}
                 supports_color_temp: >-
-                  {{ state_attr(entity, 'supported_features') | bitwise_and(2) == 2 }}
+                  {{ state_attr(entity, 'supported_features')|bitwise_and(2) == 2 }}
                 entity_transition: >-
                   {% if is_state(entity, 'on') %}
                     {{ transition }}

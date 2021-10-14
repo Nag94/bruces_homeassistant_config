@@ -140,3 +140,15 @@ sensor.solaredge_mb_ac_voltage_ab:
   device_class: voltage
 sensor.solaredge_lifetime_energy:
   friendly_name: Solaredge
+sensor.lounge_mss310_power_sensor_a_0:
+  device_class: current  
+sensor.lounge_mss310_power_sensor_v_0:  
+  device_class: voltage
+sensor.fridge_mss310_power_sensor_a_0:
+  device_class: current  
+sensor.fridge_mss310_power_sensor_v_0:  
+  device_class: voltage
+sensor.loft_mss310_power_sensor_a_0:
+  device_class: current  
+sensor.loft_mss310_power_sensor_v_0:  
+  device_class: voltage  

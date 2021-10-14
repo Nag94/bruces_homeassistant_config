@@ -870,7 +870,7 @@ elements:
         state: 'on'  
     elements:        
       - type: state-label
-        entity: sensor.solar_production_daily_kw
+        entity: sensor.solaredge_energy_today_kwh
         style:
           color: orange
           top: 5%

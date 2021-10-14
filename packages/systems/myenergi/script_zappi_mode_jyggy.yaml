@@ -29,7 +29,7 @@ script:
               target:
                 entity_id: sensor.zappi_jyggy_cmt
             - delay: 1    
-          until: "{{ states('sensor.zappi_jyggy_cmt') | int > 250 }}"  
+          until: "{{ states('sensor.zappi_jyggy_cmt')|int > 250 }}"  
 
       - alias: Set Zappi to required Mode
         service: shell_command.zappi_set_mode
@@ -46,7 +46,7 @@ script:
               target:
                 entity_id: sensor.zappi_jyggy_cmt
             - delay: 1    
-          until: "{{ states('sensor.zappi_jyggy_cmt') | int > 250 }}"  
+          until: "{{ states('sensor.zappi_jyggy_cmt')|int > 250 }}"  
           
       - condition: template      
         value_template: "{{ (states('input_select.zappi_jyggy_charge_mode') != states('sensor.zappi_jyggy_mode')) }}"

@@ -8,7 +8,7 @@ cards:
     cards:
     
       - entity: camera.landing
-        icon: 'mdi:face'
+        icon: 'mdi:face-man'
         show_icon: true
         show_name: true
         tap_action:
@@ -33,7 +33,7 @@ cards:
 
     
       - entity: camera.lounge
-        icon: 'mdi:face'
+        icon: 'mdi:face-man'
         show_icon: true
         show_name: true
         tap_action:
@@ -57,7 +57,7 @@ cards:
 
 
       - entity: camera.kitchen
-        icon: 'mdi:face'
+        icon: 'mdi:face-man'
         show_icon: true
         show_name: true
         tap_action:
@@ -82,7 +82,7 @@ cards:
 
 
       - entity: camera.kitchen_2
-        icon: 'mdi:face'
+        icon: 'mdi:face-man'
         show_icon: true
         show_name: true
         tap_action:
@@ -108,7 +108,7 @@ cards:
 
 
       - entity: camera.hall
-        icon: 'mdi:face'
+        icon: 'mdi:face-man'
         show_icon: true
         show_name: true
         tap_action:
@@ -135,7 +135,7 @@ cards:
 
 
       - entity: camera.bar
-        icon: 'mdi:face'
+        icon: 'mdi:face-man'
         show_icon: true
         show_name: true
         tap_action:
@@ -159,7 +159,7 @@ cards:
 
 
       - entity: camera.bins
-        icon: 'mdi:face'
+        icon: 'mdi:face-man'
         show_icon: true
         show_name: true
         tap_action:
@@ -184,7 +184,7 @@ cards:
 
 
       - entity: camera.drive
-        icon: 'mdi:face'
+        icon: 'mdi:face-man'
         show_icon: true
         show_name: true
         tap_action:
@@ -209,7 +209,7 @@ cards:
 
 
       - entity: camera.gazebo
-        icon: 'mdi:face'
+        icon: 'mdi:face-man'
         show_icon: true
         show_name: true
         tap_action:
@@ -235,7 +235,7 @@ cards:
 
 
       - entity: camera.patio
-        icon: 'mdi:face'
+        icon: 'mdi:face-man'
         show_icon: true
         show_name: true
         tap_action:

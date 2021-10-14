@@ -8,6 +8,7 @@ script:
         description: 'Boost on or off?'
         example: 'on'
       duration:
+        # Doesn't seem to work with duration > 60 ?
         description: 'how many minutes boost?'
         example: '20'        
       heater:
@@ -21,7 +22,7 @@ script:
           eddi_serial: !secret eddi_serial
           boost_mode: "{% if mode=='on' %}10{% else %}1{% endif %}"
           heater: "{{ heater }}"
-          boost_duration: "{% if mode == 'off' %}0{% else %}{{ duration | int }}{% endif %}"
+          boost_duration: "{% if mode == 'off' %}0{% else %}{{ duration|int }}{% endif %}"
           
 #cgi-eddi-boost-EID-BoostOn-HeaterNo-DurationMinutes
 #
