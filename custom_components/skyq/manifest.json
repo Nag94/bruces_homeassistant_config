@@ -12,6 +12,9 @@
   ],
   "quality_scale": "silver",
   "config_flow": true,
-  "version": "2.6.9",
-  "iot_class": "local_polling"
+  "version": "2.6.10b6",
+  "iot_class": "local_polling",
+  "after_dependencies": [
+    "homekit"
+  ]
 }

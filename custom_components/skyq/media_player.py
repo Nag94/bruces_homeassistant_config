@@ -3,7 +3,22 @@ import logging
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from homeassistant.components.media_player import MediaPlayerEntity
+from homeassistant.components.homekit.const import (
+    ATTR_KEY_NAME,
+    EVENT_HOMEKIT_TV_REMOTE_KEY_PRESSED,
+    KEY_ARROW_DOWN,
+    KEY_ARROW_LEFT,
+    KEY_ARROW_RIGHT,
+    KEY_ARROW_UP,
+    KEY_BACK,
+    KEY_FAST_FORWARD,
+    KEY_INFORMATION,
+    KEY_NEXT_TRACK,
+    KEY_PREVIOUS_TRACK,
+    KEY_REWIND,
+    KEY_SELECT,
+)
+from homeassistant.components.media_player import DEVICE_CLASS_RECEIVER, DEVICE_CLASS_TV, MediaPlayerEntity
 from homeassistant.components.media_player.const import (
     MEDIA_TYPE_APP,
     MEDIA_TYPE_TVSHOW,
@@ -22,7 +37,15 @@ from homeassistant.components.media_player.const import (
     SUPPORT_VOLUME_SET,
     SUPPORT_VOLUME_STEP,
 )
-from homeassistant.const import CONF_HOST, CONF_NAME, STATE_OFF, STATE_PAUSED, STATE_PLAYING, STATE_UNKNOWN
+from homeassistant.const import (
+    ATTR_ENTITY_ID,
+    CONF_HOST,
+    CONF_NAME,
+    STATE_OFF,
+    STATE_PAUSED,
+    STATE_PLAYING,
+    STATE_UNKNOWN,
+)
 from pyskyqremote.const import APP_EPG, SKY_STATE_OFF, SKY_STATE_ON, SKY_STATE_PAUSED, SKY_STATE_STANDBY
 from pyskyqremote.skyq_remote import SkyQRemote
 
@@ -33,6 +56,15 @@ from .classes.volumeentity import Volume_Entity
 from .const import (
     APP_IMAGE_URL_BASE,
     APP_TITLES,
+    BUTTON_PRESS_CHANNELDOWN,
+    BUTTON_PRESS_CHANNELUP,
+    BUTTON_PRESS_DISMISS,
+    BUTTON_PRESS_DOWN,
+    BUTTON_PRESS_LEFT,
+    BUTTON_PRESS_RIGHT,
+    BUTTON_PRESS_SELECT,
+    BUTTON_PRESS_TVGUIDE,
+    BUTTON_PRESS_UP,
     CONF_CHANNEL_SOURCES,
     CONF_COUNTRY,
     CONF_EPG_CACHE_LEN,
@@ -43,12 +75,12 @@ from .const import (
     CONF_ROOM,
     CONF_SOURCES,
     CONF_TEST_CHANNEL,
+    CONF_TV_DEVICE_CLASS,
     CONF_VOLUME_ENTITY,
     CONST_DEFAULT_EPGCACHELEN,
     CONST_DEFAULT_ROOM,
     CONST_SKYQ_CHANNELNO,
     CONST_SKYQ_MEDIA_TYPE,
-    DEVICE_CLASS,
     DOMAIN,
     DOMAINBROWSER,
     ERROR_TIMEOUT,
@@ -56,6 +88,7 @@ from .const import (
     FEATURE_IMAGE,
     FEATURE_LIVE_TV,
     FEATURE_SWITCHES,
+    FEATURE_TV_DEVICE_CLASS,
     SKYQ_APP,
     SKYQ_ICONS,
     SKYQ_LIVE,
@@ -117,19 +150,57 @@ async def _async_setup_platform_entry(config_item, async_add_entities, remote, u
         config_item.get(CONF_CHANNEL_SOURCES, []),
         config_item.get(CONF_GEN_SWITCH, False),
         config_item.get(CONF_OUTPUT_PROGRAMME_IMAGE, True),
+        config_item.get(CONF_TV_DEVICE_CLASS, True),
         config_item.get(CONF_LIVE_TV, True),
         config_item.get(CONF_GET_LIVE_RECORD, False),
     )
 
     player = SkyQDevice(
+        hass,
         remote,
         config,
     )
-    async_add_entities([player], True)
 
     should_cache = False
     files_path = Path(__file__).parent / "static"
     hass.http.register_static_path(APP_IMAGE_URL_BASE, str(files_path), should_cache)
+
+    async_add_entities([player], True)
+
+    async def _async_homekit_event(_event):
+        if not player.entity_id == _event.data[ATTR_ENTITY_ID]:
+            return
+
+        keyname = _event.data[ATTR_KEY_NAME]
+        # _LOGGER.debug(f"D0030M - Homekit event - {player.entity_id} - {keyname}")
+        if keyname == KEY_ARROW_RIGHT:
+            await player.async_play_media(BUTTON_PRESS_RIGHT, DOMAIN)
+        elif keyname == KEY_ARROW_LEFT:
+            await player.async_play_media(BUTTON_PRESS_LEFT, DOMAIN)
+        elif keyname == KEY_ARROW_UP:
+            await player.async_play_media(BUTTON_PRESS_UP, DOMAIN)
+        elif keyname == KEY_ARROW_DOWN:
+            await player.async_play_media(BUTTON_PRESS_DOWN, DOMAIN)
+        elif keyname == KEY_SELECT:
+            await player.async_play_media(BUTTON_PRESS_SELECT, DOMAIN)
+        elif keyname == KEY_BACK:
+            await player.async_play_media(BUTTON_PRESS_DISMISS, DOMAIN)
+        elif keyname == KEY_INFORMATION:
+            await player.async_play_media(BUTTON_PRESS_TVGUIDE, DOMAIN)
+        elif keyname == KEY_PREVIOUS_TRACK:
+            await player.async_play_media(BUTTON_PRESS_CHANNELDOWN, DOMAIN)
+        elif keyname == KEY_NEXT_TRACK:
+            await player.async_play_media(BUTTON_PRESS_CHANNELUP, DOMAIN)
+        elif keyname == KEY_REWIND:
+            # Lovelace previous_track buttons do rewind
+            await player.async_media_previous_track()
+        elif keyname == KEY_FAST_FORWARD:
+            # Lovelace next_track buttons do fast forward
+            await player.async_media_next_track()
+        else:
+            _LOGGER.warning(f"W0040M - Invalid Homekit event - {player.entity_id} - {keyname}")
+
+    hass.bus.async_listen(EVENT_HOMEKIT_TV_REMOTE_KEY_PRESSED, _async_homekit_event)
 
 
 class SkyQDevice(MediaPlayerEntity):
@@ -137,13 +208,17 @@ class SkyQDevice(MediaPlayerEntity):
 
     def __init__(
         self,
+        hass,
         remote,
         config,
     ):
         """Initialise the SkyQRemote."""
         self._config = config
         self._unique_id = config.unique_id
-        self._volume_entity = Volume_Entity(config.volume_entity)
+        if config.volume_entity:
+            self._volume_entity = Volume_Entity(hass, config.volume_entity)
+        else:
+            self._volume_entity = None
         self._appImageUrl = App_Image_Url()
         self._media_browser = Media_Browser(remote, config, self._appImageUrl)
         self._state = STATE_OFF
@@ -185,13 +260,15 @@ class SkyQDevice(MediaPlayerEntity):
     @property
     def supported_features(self):
         """Get the supported features."""
-        if self._volume_entity.supported_features:
-            if self._volume_entity.supported_features & SUPPORT_VOLUME_MUTE:
-                self._supported_features = self._supported_features | SUPPORT_VOLUME_MUTE
-            if self._volume_entity.supported_features & SUPPORT_VOLUME_SET:
-                self._supported_features = self._supported_features | SUPPORT_VOLUME_SET
-            if self._volume_entity.supported_features & SUPPORT_VOLUME_STEP:
-                self._supported_features = self._supported_features | SUPPORT_VOLUME_STEP
+        if self._volume_entity:
+            volume_entity_features = self._volume_entity.supported_features()
+            if volume_entity_features:
+                if volume_entity_features & SUPPORT_VOLUME_MUTE:
+                    self._supported_features = self._supported_features | SUPPORT_VOLUME_MUTE
+                if volume_entity_features & SUPPORT_VOLUME_SET:
+                    self._supported_features = self._supported_features | SUPPORT_VOLUME_SET
+                if volume_entity_features & SUPPORT_VOLUME_STEP:
+                    self._supported_features = self._supported_features | SUPPORT_VOLUME_STEP
         if len(self._config.source_list) > 0 and self.state not in (
             STATE_OFF,
             STATE_UNKNOWN,
@@ -218,7 +295,20 @@ class SkyQDevice(MediaPlayerEntity):
     @property
     def source_list(self):
         """Get the list of sources for the device."""
-        return self._config.source_list
+        if not self.source or self.source in self._config.source_list:
+            return self._config.source_list
+        else:
+            sources = self._config.source_list.copy()
+            sources.insert(0, self.source)
+            return sources
+
+    @property
+    def source(self):
+        """Title of current playing media."""
+        if self._skyq_type == SKYQ_PVR:
+            return SKYQ_PVR.upper()
+
+        return self._channel if self._channel is not None else None
 
     @property
     def media_image_url(self):
@@ -273,7 +363,7 @@ class SkyQDevice(MediaPlayerEntity):
     @property
     def device_class(self):
         """Entity class."""
-        return DEVICE_CLASS
+        return DEVICE_CLASS_TV if self._config.enabled_features & FEATURE_TV_DEVICE_CLASS else DEVICE_CLASS_RECEIVER
 
     @property
     def available(self):
@@ -311,12 +401,12 @@ class SkyQDevice(MediaPlayerEntity):
     @property
     def volume_level(self):
         """Volume level of entity specified in config."""
-        return self._volume_entity.volume_level
+        return self._volume_entity.volume_level() if self._volume_entity else None
 
     @property
     def is_volume_muted(self):
         """Boolean if volume is muted."""
-        return self._volume_entity.is_volume_muted
+        return self._volume_entity.is_volume_muted() if self._volume_entity else None
 
     async def async_update(self):
         """Get the latest data and update device state."""
@@ -335,6 +425,8 @@ class SkyQDevice(MediaPlayerEntity):
 
         if self._state not in [STATE_UNKNOWN, STATE_OFF]:
             await self._async_updateCurrentProgramme()
+
+        if self._volume_entity:
             await self._volume_entity.async_update_volume_state(self.hass, self.name)
 
         if not self._switches_generated and self.entity_id:
@@ -454,7 +546,7 @@ class SkyQDevice(MediaPlayerEntity):
 
         self._imageRemotelyAccessible = True
         if not self._imageUrl:
-            appImageUrl = await self._appImageUrl.async_getAppImageUrl(self.hass, appTitle)
+            appImageUrl = self._appImageUrl.getAppImageUrl(appTitle)
             if appImageUrl:
                 self._imageUrl = appImageUrl
                 self._imageRemotelyAccessible = False
