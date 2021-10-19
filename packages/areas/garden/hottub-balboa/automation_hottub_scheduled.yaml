@@ -1,6 +1,6 @@
 automation:
   - id: hottub_heat_on_schedule
-    alias: 'Set Temperature to Target Minus Time'
+    alias: 'HotTub Set Temperature to Target Minus Time'
     mode: restart
     
     description: >
@@ -20,7 +20,7 @@ automation:
           - binary_sensor.hottub_at_or_below_max_heat_cost
           - sensor.hottub_summary
           - binary_sensor.agile_plunge
-          - binary_sensor.agile_peak
+          - binary_sensor.agile_peaks
           - binary_sensor.go_cheap
 #          - binary_sensor.hot_tub_door     
           
@@ -46,6 +46,7 @@ automation:
      
           # If plunge pricing or boosting - Set to 40
           - conditions:  "{{ is_state('input_boolean.hottub_boost','on') or is_state('binary_sensor.agile_plunge','on') }}"
+            alias: "Plunge or Boost - set to 40"
             sequence:
               - service: logbook.log
                 data:
@@ -60,7 +61,8 @@ automation:
                   value: 40
       
           # IF cheap pricing - heat
-          - conditions:
+          - alias: "Cheap Price - Heat"          
+            conditions:
               - condition: state
                 entity_id: binary_sensor.hottub_at_or_below_max_heat_cost
                 state: 'on' 
@@ -81,7 +83,8 @@ automation:
                   value: "{{ states('input_number.hottub_standard_temp')|default(28) }}"
                   
           # IF Go tariff cheap pricing and scheduled - heat
-          - conditions:
+          - alias: "Go Cheap Period and scheduled today"          
+            conditions:
               - condition: state
                 entity_id: binary_sensor.go_cheap
                 state: 'on' 
@@ -105,7 +108,8 @@ automation:
                   value: "{{ states('input_number.hottub_standard_temp')|default(28) }}"                  
 
           # ELIF scheduled 
-          - conditions:
+          - alias: "Scheduled"   
+            conditions:
               - condition: state
                 entity_id: input_boolean.hottub_scheduled
                 state: 'on'    

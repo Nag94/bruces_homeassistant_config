@@ -130,7 +130,7 @@ cards:
             name: Wi-Fi          
           - entity: input_number.hottub_standard_temp
             name:  Target Temperature     
-          - entity: input_number.hottub_water_target
+          - entity: sensor.hottub_schedule_target_temp
             name:  Immediate Target Temperature     
           - entity: binary_sensor.spa_circ_pump
             name: Circulation Pump
