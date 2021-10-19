@@ -34,7 +34,7 @@ views:
 
   # ==========================================================
   - title: Location (Gary)
-    icon: mdi:cellphone
+    icon: mdi:cellphone-iphone
     cards:
       - type: vertical-stack
         cards:
