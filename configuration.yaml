@@ -62,13 +62,13 @@ lovelace:
       icon: mdi:home
       show_in_sidebar: true
       require_admin: false  
-    lovelace-energy: # Needs to contain a hyphen (-)
-      mode: yaml
-      title: Energy
-      filename: ui-energy.yaml
-      icon: mdi:flash
-      show_in_sidebar: true
-      require_admin: false        
+#    lovelace-energy: # Needs to contain a hyphen (-)
+#      mode: yaml
+#      title: Energy
+#      filename: ui-energy.yaml
+#      icon: mdi:flash
+#      show_in_sidebar: true
+#      require_admin: false        
     lovelace-switchboard: # Needs to contain a hyphen (-)
       mode: yaml
       title: Menu
@@ -92,7 +92,7 @@ lovelace:
       require_admin: false        
     lovelace-bedroom-remote: # Needs to contain a hyphen (-)
       mode: yaml
-      title: Remote
+      title: Remote Bedroom
       filename: ui-bedroom-remote.yaml
       icon: mdi:remote
       show_in_sidebar: true
