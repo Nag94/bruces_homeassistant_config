@@ -6,6 +6,8 @@ I'm doing my best to document each section so you can see what it is doing.
 
 Most config files are in the [packages](packages) directory.  So browse around in there !
 
+If you want to, you can.....<a href="https://www.buymeacoffee.com/Qc5YIVJLHe" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+
 Main features are:
 
 * [Floorplan](lovelace/floorplan/) with lights / radiators / temperatures / presence - entity types can be switched on and off.<br>[<img src="documents/images/floor_plan_all.jpg" width=100>](documents/images/floor_plan_all.jpg)[<img src="documents/images/floorplan_switches.jpg" width=100>](documents/images/floorplan_switches.jpg)
@@ -23,4 +25,6 @@ Main features are:
 ## [Hardware List](documents/hardwareList.md)
 ## [Add-ons, integrations and custom components](documents/HA_integrations_and_addons.md)
 ## [Helpers Created through UI](documents/helpers.md)
+
+
 
