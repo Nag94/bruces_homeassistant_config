@@ -34,6 +34,7 @@ automation:
         id: 'states'
         entity_id: 
           - binary_sensor.go_cheap
+          - binary_sensor.power_hour
           - binary_sensor.agile_peak
           - binary_sensor.agile_plunge
           - input_number.overnight_powerwall_max_charge
@@ -49,21 +50,19 @@ automation:
         
     action:
       choose:
-        # Charging as plunge
+        # Charging as Power Hour / plunge / price low
         - conditions:
-            condition: state
-            entity_id: binary_sensor.agile_plunge
-            state: 'on'
-          sequence:
-            - service: tesla_gateway.set_operation
-              data:
-                real_mode: backup
-                
-        # Charging as price low
-        - conditions:
-            condition: state
-            entity_id: binary_sensor.powerwall_at_or_below_max_charge_cost_and_charge_limit
-            state: 'on'
+            condition: or
+            conditions:
+              - condition: state
+                entity_id: binary_sensor.power_hour
+                state: 'on'
+              - condition: state
+                entity_id: binary_sensor.agile_plunge
+                state: 'on'    
+              - condition: state
+                entity_id: binary_sensor.powerwall_at_or_below_max_charge_cost_and_charge_limit
+                state: 'on'            
           sequence:
             - service: tesla_gateway.set_operation
               data:
@@ -84,10 +83,6 @@ automation:
               data:
                 real_mode: self_consumption
                 backup_reserve_percent: 1
-#            - delay: 5
-#            - service: tesla_gateway.set_reserve
-#              data:
-#                backup_reserve_percent: 1
 
         # Preventing too much usage Overnight when cars charging         
         - conditions:
@@ -123,7 +118,7 @@ automation:
 #              data:
 #                backup_reserve_percent: "{{ states('sensor.powerwall_charge')|int }}"
 
-        # Ensure we have 25% by 04:30 on Go
+        # Ensure we have at least 25% by 04:30 on Go
         - conditions:
             - condition: state
               entity_id: binary_sensor.go_cheap

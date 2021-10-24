@@ -22,6 +22,7 @@ automation:
           - binary_sensor.agile_peak
           - binary_sensor.agile_plunge        
           - binary_sensor.go_cheap		  
+          - binary_sensor.octopus_power_hour		  
           - binary_sensor.jyggy_below_max_charge_cost
           - binary_sensor.paddy_below_max_charge_cost
           - binary_sensor.paddy_needs_charge          
@@ -38,11 +39,11 @@ automation:
         data:
           serial: !secret zappi_serial_jyggy
           name: "jyggy"
-#          mode: "{%- if (is_state('binary_sensor.agile_plunge','on') or is_state('binary_sensor.jyggy_below_max_charge_cost','on')) and is_state('binary_sensor.jyggy_needs_charge','on') -%}Fast{%- elif is_state('binary_sensor.jyggy_plugged_in','off') or is_state('binary_sensor.jyggy_needs_charge','off') or is_state('binary_sensor.agile_peak','on') or is_state('sensor.solaredge_status','Sleep') -%}Stopped{%- else -%}Eco+{%- endif -%}"
-          mode: "{%- if (is_state('binary_sensor.agile_plunge','on') or is_state('binary_sensor.jyggy_below_max_charge_cost','on')) -%}Fast{%- elif is_state('binary_sensor.jyggy_plugged_in','off') or is_state('binary_sensor.agile_peak','on') or is_state('sensor.solaredge_status','Sleep') -%}Stopped{%- else -%}Eco+{%- endif -%}"
+#          mode: "{%- if (is_state('binary_sensor.power_hour','on') or is_state('binary_sensor.agile_plunge','on') or is_state('binary_sensor.jyggy_below_max_charge_cost','on')) and is_state('binary_sensor.jyggy_needs_charge','on') -%}Fast{%- elif is_state('binary_sensor.jyggy_plugged_in','off') or is_state('binary_sensor.jyggy_needs_charge','off') or is_state('binary_sensor.agile_peak','on') or is_state('sensor.solaredge_status','Sleep') -%}Stopped{%- else -%}Eco+{%- endif -%}"
+          mode: "{%- if (is_state('binary_sensor.power_hour','on') or is_state('binary_sensor.agile_plunge','on') or is_state('binary_sensor.jyggy_below_max_charge_cost','on')) -%}Fast{%- elif is_state('binary_sensor.jyggy_plugged_in','off') or is_state('binary_sensor.agile_peak','on') or is_state('sensor.solaredge_status','Sleep') -%}Stopped{%- else -%}Eco+{%- endif -%}"
       
       - service: script.zappi_mode_paddy
         data:
           serial: !secret zappi_serial_paddy
           name: "paddy"          
-          mode: "{%- if (is_state('binary_sensor.agile_plunge','on') or is_state('binary_sensor.paddy_below_max_charge_cost','on')) and is_state('binary_sensor.paddy_needs_charge','on') -%}Fast{%- elif is_state('binary_sensor.paddy_plugged_in','off') or is_state('binary_sensor.paddy_needs_charge','off') or is_state('binary_sensor.agile_peak','on') or is_state('sensor.solaredge_status','Sleep') -%}Stopped{%- else -%}Eco+{%- endif -%}"
+          mode: "{%- if (is_state('binary_sensor.power_hour','on') or is_state('binary_sensor.agile_plunge','on') or is_state('binary_sensor.paddy_below_max_charge_cost','on')) and is_state('binary_sensor.paddy_needs_charge','on') -%}Fast{%- elif is_state('binary_sensor.paddy_plugged_in','off') or is_state('binary_sensor.paddy_needs_charge','off') or is_state('binary_sensor.agile_peak','on') or is_state('sensor.solaredge_status','Sleep') -%}Stopped{%- else -%}Eco+{%- endif -%}"

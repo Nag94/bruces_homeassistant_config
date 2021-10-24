@@ -17,14 +17,12 @@ automation:
         platform: numeric_state
         entity_id: sensor.eddi_water_temp
         above: input_number.eddi_go_cheap_target_temp
-      - id: cheap_start
+      - id: states
         platform: state
-        entity_id: binary_sensor.go_cheap
-        to: 'on'
-      - id: cheap_ended
-        platform: state
-        entity_id: binary_sensor.go_cheap
-        to: 'off'     
+        entity_id: 
+          - binary_sensor.go_cheap 
+          - binary_sensor.power_hour         
+          - binary_sensor.agile_plunge
         # Boost for an hour at a time, re-boost if still needed when ends
       - id: eddi_off
         platform: state
@@ -38,6 +36,55 @@ automation:
         
     action:
       - choose:
+          - alias: "boost for power hour or plunge"
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity_id: binary_sensor.agile_plunge
+                    state: 'on'              
+                  - condition: state
+                    entity_id: binary_sensor.octopus_power_hour
+                    state: 'on'
+            sequence:                
+              - alias: "Repeat until previous command is complete"
+                repeat:
+                  sequence:   
+                    - service: homeassistant.update_entity
+                      target:
+                        entity_id: sensor.eddi_cmt
+                    - delay: 3    
+                  until: "{{ states('sensor.eddi_cmt')|int > 250 }}"  
+
+            # Doesn't seem to work with duration > 60 ?
+            # Calling script like this waits for completion of script.                  
+              - service: script.eddi_boost
+                data:
+                  mode: "on"
+                  duration: 60
+                  heater: 1
+
+              - alias: "Repeat until this command is complete"
+                repeat:
+                  sequence:   
+                    - service: homeassistant.update_entity
+                      target:
+                        entity_id: sensor.eddi_cmt
+                    - delay: 3    
+                  until: "{{ states('sensor.eddi_cmt')|int > 250 }}"  
+
+              - alias: "Check if command failed"            
+                condition: template      
+                value_template: "{{ states('sensor.eddi_cmt')|int == 253 }}"
+                
+              - service: telegram_bot.send_message
+                data:
+                  target: !secret telegram_chat_id_bruce         
+                  message: >
+                    Eddi boost start failed
+                    
+                    Last Online at: {{ states('sensor.eddi_last_online') }}    
+
           - alias: "boost for go cheap"
             conditions:
               - condition: state
@@ -85,51 +132,39 @@ automation:
                     
                     Last Online at: {{ states('sensor.eddi_last_online') }}    
 
-          - alias: "stop boosting from go cheap"
-            conditions:
-              - condition: or
-                conditions: 
-                  - condition: state
-                    entity_id: binary_sensor.go_cheap
-                    state: 'off'
-                  - condition: numeric_state
-                    entity_id: sensor.eddi_water_temp
-                    above: input_number.eddi_go_cheap_target_temp
-                    
-            sequence:                
-              - alias: "Repeat until previous command is complete"
-                repeat:
-                  sequence:   
-                    - service: homeassistant.update_entity
-                      target:
-                        entity_id: sensor.eddi_cmt
-                    - delay: 3    
-                  until: "{{ states('sensor.eddi_cmt')|int > 250 }}"  
-                  
-              - service: script.eddi_boost
-                data:
-                  mode: "off"
-                  duration: 0
-                  heater: 1
+        default:
+          - alias: "Repeat until previous command is complete"
+            repeat:
+              sequence:   
+                - service: homeassistant.update_entity
+                  target:
+                    entity_id: sensor.eddi_cmt
+                - delay: 3    
+              until: "{{ states('sensor.eddi_cmt')|int > 250 }}"  
+          
+          - service: script.eddi_boost
+            data:
+              mode: "off"
+              duration: 0
+              heater: 1
 
-              - alias: "Repeat until this command is complete"
-                repeat:
-                  sequence:   
-                    - service: homeassistant.update_entity
-                      target:
-                        entity_id: sensor.eddi_cmt
-                    - delay: 3    
-                  until: "{{ states('sensor.eddi_cmt')|int > 250 }}"  
+          - alias: "Repeat until this command is complete"
+            repeat:
+              sequence:   
+                - service: homeassistant.update_entity
+                  target:
+                    entity_id: sensor.eddi_cmt
+                - delay: 3    
+              until: "{{ states('sensor.eddi_cmt')|int > 250 }}"  
 
-              - alias: "Check if command failed"            
-                condition: template      
-                value_template: "{{ states('sensor.eddi_cmt')|int == 253 }}"
+          - alias: "Check if command failed"            
+            condition: template      
+            value_template: "{{ states('sensor.eddi_cmt')|int == 253 }}"
                 
-                
-              - service: telegram_bot.send_message
-                data:
-                  target: !secret telegram_chat_id_bruce         
-                  message: >
-                    Eddi boost stop failed
-                    
-                    Last Online at: {{ states('sensor.eddi_last_online') }}    
+          - service: telegram_bot.send_message
+            data:
+              target: !secret telegram_chat_id_bruce         
+              message: >
+                Eddi boost stop failed
+              
+                Last Online at: {{ states('sensor.eddi_last_online') }}    
