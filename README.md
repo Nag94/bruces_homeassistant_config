@@ -24,4 +24,5 @@ Main features are:
 ## [Add-ons, integrations and custom components](documents/HA_integrations_and_addons.md)
 ## [Helpers Created through UI](documents/helpers.md)
 
-If you want you can [Buy Me a Coffee](https://www.buymeacoffee.com/Qc5YIVJLHe)
+If you want to, you can.....
+## [Buy Me a Coffee / Beer](https://www.buymeacoffee.com/Qc5YIVJLHe) 🍻
