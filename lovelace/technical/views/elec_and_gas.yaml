@@ -13,6 +13,8 @@ cards:
         name: Current Cost per Hour
       - entity: sensor.octopus_current_price_rounded
         name: Electricity Price
+      - entity: input_datetime.octopus_power_hour
+        name: Octopus Power Hour
     title: Electricity
     type: entities
   - type: entities
