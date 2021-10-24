@@ -24,8 +24,8 @@ device_tracker.sarah_iphone:
   entity_picture: /local/sarah.jpg
 device_tracker.sarah_iphone_2:
   entity_picture: /local/sarah.jpg
-media_player.lounge_skyq:
-  device_class: tv
+#media_player.lounge_skyq:
+#  device_class: tv
 sensor.bin_day_rubbish:
   icon: mdi:trash-can
   icon_color: black

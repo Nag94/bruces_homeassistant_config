@@ -143,12 +143,9 @@ lovelace:
 #    - url: /local/zha-network-card.js
 #      type: module    
 
-
 group: !include groups.yaml
 zone: !include zones.yaml
 scene: !include scenes.yaml
-template: !include_dir_list templates
-
 
 homeassistant:
   currency: GBP
