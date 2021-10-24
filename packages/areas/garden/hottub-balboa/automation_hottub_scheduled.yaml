@@ -20,8 +20,9 @@ automation:
           - binary_sensor.hottub_at_or_below_max_heat_cost
           - sensor.hottub_summary
           - binary_sensor.agile_plunge
-          - binary_sensor.agile_peaks
+          - binary_sensor.agile_peak
           - binary_sensor.go_cheap
+          - binary_sensor.power_hour          
 #          - binary_sensor.hot_tub_door     
           
     action:
@@ -45,7 +46,15 @@ automation:
 #                  value: 39
      
           # If plunge pricing or boosting - Set to 40
-          - conditions:  "{{ is_state('input_boolean.hottub_boost','on') or is_state('binary_sensor.agile_plunge','on') }}"
+          - conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity_id: input_boolean.hottub_boost
+                    state: 'on'
+                  - condition: state
+                    entity_id: binary_sensor.agile_plunge
+                    state: 'on'
             alias: "Plunge or Boost - set to 40"
             sequence:
               - service: logbook.log
@@ -63,9 +72,14 @@ automation:
           # IF cheap pricing - heat
           - alias: "Cheap Price - Heat"          
             conditions:
-              - condition: state
-                entity_id: binary_sensor.hottub_at_or_below_max_heat_cost
-                state: 'on' 
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity_id: binary_sensor.hottub_at_or_below_max_heat_cost
+                    state: 'on' 
+                  - condition: state
+                    entity_id: binary_sensor.power_hour
+                    state: 'on'    
             sequence:
               - service: switch.turn_on
                 target:
@@ -80,7 +94,7 @@ automation:
                 target:
                   entity_id: input_number.hottub_water_target
                 data:
-                  value: "{{ states('input_number.hottub_standard_temp')|default(28) }}"
+                  value: "{{ states('input_number.hottub_standard_temp')|default(28) + 0.5 }}"
                   
           # IF Go tariff cheap pricing and scheduled - heat
           - alias: "Go Cheap Period and scheduled today"          
@@ -105,7 +119,7 @@ automation:
                 target:
                   entity_id: input_number.hottub_water_target
                 data:
-                  value: "{{ states('input_number.hottub_standard_temp')|default(28) }}"                  
+                  value: "{{ states('input_number.hottub_standard_temp')|default(28) + 0.5 }}"                  
 
           # ELIF scheduled 
           - alias: "Scheduled"   

@@ -21,8 +21,8 @@ automation:
         
     condition:
       - condition: state
-        entity_id: binary_sensor.dark_outside
-        state: 'on'
+        entity_id: binary_sensor.light_outside
+        state: 'off'
       - condition: state
         entity_id: light.landing_light_3
         state: 'off'

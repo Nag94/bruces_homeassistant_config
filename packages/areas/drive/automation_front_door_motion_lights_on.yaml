@@ -25,8 +25,8 @@ automation:
 
     condition:
       - condition: state
-        entity_id: binary_sensor.dark_outside
-        state: 'on'
+        entity_id: binary_sensor.light_outside
+        state: 'off'
 
     action:
       - choose:
