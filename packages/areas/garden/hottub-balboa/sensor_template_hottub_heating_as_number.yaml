@@ -1,3 +1,4 @@
+# Used for grpah to show when heating on or off
 template:
   sensor:
     - name: "HotTub Heating On"
