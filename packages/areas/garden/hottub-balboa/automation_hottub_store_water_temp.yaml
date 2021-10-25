@@ -1,6 +1,6 @@
 automation:
-  - id: hottub_set_temp
-    alias: 'HotTub Set Temp'
+  - id: hottub_store_watere_temp
+    alias: 'HotTub Store Water Temp'
     mode: restart
     
     description: >
