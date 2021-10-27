@@ -14,6 +14,18 @@ rest:
 
       - name: Jyggy Needs Charge
         value_template: "{{ value_json.battery_level|int(0) < value_json.charge_limit_soc|int(0) }}"
+
+      - name: Jyggy FD Window
+        value_template: "{{ value_json.fd_window == '1'}}"
+        
+      - name: Jyggy FP Window
+        value_template: "{{ value_json.fp_window == '1'}}"
+
+      - name: Jyggy RD Window
+        value_template: "{{ value_json.rd_window == '1'}}"
+
+      - name: Jyggy RP Window
+        value_template: "{{ value_json.rp_window == '1'}}"        
         
     sensor:
       - name: Jyggy Charge Limit SOC
@@ -92,3 +104,4 @@ rest:
           - car_version
           - distFromHome
           - software_update
+
