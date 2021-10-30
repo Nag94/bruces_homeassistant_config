@@ -10,6 +10,7 @@ automation:
       - platform: state
         id: 'skyq_on'
         entity_id: media_player.lounge_skyq
+        from: 'off'
         to: 
           - 'on'
           - 'playing'
@@ -18,7 +19,7 @@ automation:
         id: 'skyq_off'
         entity_id: media_player.lounge_skyq
         to: 'off'  
-      
+    
     action:
       - choose:
           - conditions: 
