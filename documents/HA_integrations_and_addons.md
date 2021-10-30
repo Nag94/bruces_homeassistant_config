@@ -53,7 +53,8 @@
 * [Hive](https://github.com/Pyhive/HA-Hive-Custom-Component) - Heating control
 * [iCloud3](https://github.com/gcobb321/icloud3) - iPhone tracking
 * [LightWave2](https://github.com/bigbadblunt/homeassistant-lightwave2) - Smart Light Switch
-* [Meross Cloud](https://www.home-assistant.io/components/meross_cloud) - Meross Smart Devices
+* [Local Tuya](https://github.com/rospogrigio/localtuya) - Tuya Smart Devices LAN control
+* [Meross Lan](https://github.com/krahabb/meross_lan) - Meross Smart Devices LAN control
 * [OctopusAgile](https://github.com/markgdev/home-assistant_OctopusAgile) - Octopus Agile pricing and control
 * [Philips Android TV](https://github.com/nstrelow/ha_philips_android_tv) - TV Control
 * [RenaultZE](https://github.com/hacf-fr/hassRenaultZE) - Renault Zoe Car monitoring and control
