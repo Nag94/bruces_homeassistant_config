@@ -21,7 +21,13 @@ automation:
       - condition: state
         entity_id: media_player.lounge_amp
         state: 'on'
-      
+      - condition: state
+        entity_id: input_boolean.bruce_is_asleep
+        state: 'off'        
+      - condition: state
+        entity_id: input_boolean.sarah_is_asleep
+        state: 'off'        
+        
     action:
       - choose:
           - conditions: 
