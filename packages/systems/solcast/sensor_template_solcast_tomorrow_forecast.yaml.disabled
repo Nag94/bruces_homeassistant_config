@@ -4,4 +4,4 @@ template:
       unique_id: solcast_forecast_tomorrow
       unit_of_measurement: 'kWh'            
       device_class: energy
-      state: "{{ state_attr('sensor.solcast_forecast', 'tomorrow') | round(1) }}"    
+      state: "{{ states('sensor.solcast_forecast_tomorrow') | round(1) }}"    

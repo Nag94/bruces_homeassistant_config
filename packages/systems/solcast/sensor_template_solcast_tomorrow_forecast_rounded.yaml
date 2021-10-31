@@ -3,6 +3,6 @@ template:
       - name: "Solcast Forecast Tomorrow Rounded"
         unique_id: solcast_forecast_tomorrow_rounded
         unit_of_measurement: 'kWh'       
-        availability: "{{ states('sensor.energy_production_forecast_tomorrow')|is_number }}"        
+        availability: "{{ states('sensor.solcast_forecast_tomorrow')|is_number }}"        
         device_class: energy
-        state: "{{ states('sensor.energy_production_forecast_tomorrow')|round(1,'',0) }}"    
+        state: "{{ states('sensor.solcast_forecast_tomorrow')|round(1,'',0) }}"    
