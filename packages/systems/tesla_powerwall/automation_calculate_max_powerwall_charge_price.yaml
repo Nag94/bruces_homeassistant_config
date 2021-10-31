@@ -15,12 +15,10 @@ automation:
       - platform: time
         id: 'time'
         at: 
-          - '21:00:00'
           - '22:15:00'        
-          - '23:45:00'  
-          - '00:45:00'   
-          - '02:15:00'
-          - '03:45:00'  
+          - '00:55:00'  
+          - '02:45:00'   
+          - '04:45:00'
       - platform: homeassistant
         id: 'start'
         event: start
@@ -31,27 +29,14 @@ automation:
     condition:
     # Forecast should never be zero, so zero would show error ?
       - condition: numeric_state
-        entity_id: sensor.energy_production_forecast_today
+        entity_id: sensor.solcast_forecast_today
         above: 0
       - condition: numeric_state
-        entity_id: sensor.energy_production_forecast_tomorrow
+        entity_id: sensor.solcast_forecast_tomorrow
         above: 0        
-#      - condition: numeric_state
-#        entity_id: sensor.forecastsolar_today
-#        above: 0
-#      - condition: numeric_state
-#        entity_id: sensor.forecastsolar_tomorrow
-#        above: 0        
-#      - condition: not
-#        conditions:
-#          condition: time
-#          after: "06:00:00"
-#          before: "21:00:00"
       - condition: state
         entity_id: sensor.solaredge_status_text
         state: "Sleep"
-        
-        
       
     variables:
       overnight_usage_percent: 35.0
@@ -69,6 +54,8 @@ automation:
                 entity_id: input_boolean.go_tariff
                 state: 'on'
             sequence:
+              - service: solcast_solar.update_forecast    
+              - delay: 30
               - service: input_number.set_value
                 target:
                   entity_id: input_number.overnight_powerwall_max_charge
@@ -104,6 +91,8 @@ automation:
                   message: "Error setting overnight charging price, will try again within the next half hour."
                     
         default:
+          - service: solcast_solar.update_forecast   
+          - delay: 30         
           - service: input_number.set_value
             target:
               entity_id: input_number.overnight_powerwall_max_charge
