@@ -44,7 +44,7 @@ automation:
                     entity_id: binary_sensor.agile_plunge
                     state: 'on'              
                   - condition: state
-                    entity_id: binary_sensor.octopus_power_hour
+                    entity_id: binary_sensor.power_hour
                     state: 'on'
             sequence:                
               - alias: "Repeat until previous command is complete"
@@ -54,7 +54,7 @@ automation:
                       target:
                         entity_id: sensor.eddi_cmt
                     - delay: 3    
-                  until: "{{ states('sensor.eddi_cmt')|int > 250 }}"  
+                  until: "{{ states('sensor.eddi_cmt')|int(0) > 250 }}"  
 
             # Doesn't seem to work with duration > 60 ?
             # Calling script like this waits for completion of script.                  
@@ -71,11 +71,11 @@ automation:
                       target:
                         entity_id: sensor.eddi_cmt
                     - delay: 3    
-                  until: "{{ states('sensor.eddi_cmt')|int > 250 }}"  
+                  until: "{{ states('sensor.eddi_cmt')|int(0) > 250 }}"  
 
               - alias: "Check if command failed"            
                 condition: template      
-                value_template: "{{ states('sensor.eddi_cmt')|int == 253 }}"
+                value_template: "{{ states('sensor.eddi_cmt')|int(0) == 253 }}"
                 
               - service: telegram_bot.send_message
                 data:
@@ -101,7 +101,7 @@ automation:
                       target:
                         entity_id: sensor.eddi_cmt
                     - delay: 3    
-                  until: "{{ states('sensor.eddi_cmt')|int > 250 }}"  
+                  until: "{{ states('sensor.eddi_cmt')|int(0) > 250 }}"  
 
             # Doesn't seem to work with duration > 60 ?
             # Calling script like this waits for completion of script.                  
@@ -118,11 +118,11 @@ automation:
                       target:
                         entity_id: sensor.eddi_cmt
                     - delay: 3    
-                  until: "{{ states('sensor.eddi_cmt')|int > 250 }}"  
+                  until: "{{ states('sensor.eddi_cmt')|int(0) > 250 }}"  
 
               - alias: "Check if command failed"            
                 condition: template      
-                value_template: "{{ states('sensor.eddi_cmt')|int == 253 }}"
+                value_template: "{{ states('sensor.eddi_cmt')|int(0) == 253 }}"
                 
               - service: telegram_bot.send_message
                 data:
@@ -140,7 +140,7 @@ automation:
                   target:
                     entity_id: sensor.eddi_cmt
                 - delay: 3    
-              until: "{{ states('sensor.eddi_cmt')|int > 250 }}"  
+              until: "{{ states('sensor.eddi_cmt')|int(0) > 250 }}"  
           
           - service: script.eddi_boost
             data:
@@ -155,11 +155,11 @@ automation:
                   target:
                     entity_id: sensor.eddi_cmt
                 - delay: 3    
-              until: "{{ states('sensor.eddi_cmt')|int > 250 }}"  
+              until: "{{ states('sensor.eddi_cmt')|int(0) > 250 }}"  
 
           - alias: "Check if command failed"            
             condition: template      
-            value_template: "{{ states('sensor.eddi_cmt')|int == 253 }}"
+            value_template: "{{ states('sensor.eddi_cmt')|int(0) == 253 }}"
                 
           - service: telegram_bot.send_message
             data:

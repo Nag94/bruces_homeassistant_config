@@ -8,19 +8,27 @@ automation:
       
     trigger:
       - platform: homeassistant
+        id: 'start'
         event: start
       - platform: event
+        id: 'reload'
         event_type: automation_reloaded      
       - platform: state
-        entity_id: 
-          - input_select.zappi_paddy_charge_mode
-          - sensor.zappi_paddy_mode
+        id: 'input_select'
+        entity_id: input_select.zappi_paddy_charge_mode
+      - platform: state
+        id: 'sensor'
+        entity_id: sensor.zappi_paddy_mode
     
     action:
       - choose:
             # Home Assistant Re-start of Automation Re-load
           - alias: "Home Assistant Restart or Automation reload"            
-            conditions: "{{ trigger.platform in ('homeassistant','event') }}"
+            conditions: 
+              - condition: trigger
+                id:
+                  - 'start'
+                  - 'reload'
             sequence:
               - alias: "Repeat until previous command is complete"
                 repeat:
@@ -36,11 +44,13 @@ automation:
                       above: 250
 
               - alias: "Check if command failed"            
-                condition: not
-                conditions:
-                  - condition: state
-                    entity_id: sensor.zappi_paddy_mode
-                    state: 'unavailable'
+                condition: state
+                entity_id: sensor.zappi_paddy_mode
+                state:
+                  - 'Fast'
+                  - 'Eco'
+                  - 'Eco+'
+                  - 'Stopped'  
         
               - alias: "Set input select to Zappi Paddy Charge Mode"
                 service: input_select.select_option
@@ -51,7 +61,9 @@ automation:
         
             # Requested Zappi Paddy Mode has changed 
           - alias: "Drop Down has changed"             
-            conditions: "{{ trigger.entity_id == 'input_select.zappi_paddy_charge_mode' }}"
+            conditions: 
+              - condition: trigger
+                id: 'input_select'
             sequence:
               - alias: "Repeat until previous command is complete"
                 repeat:
@@ -114,7 +126,9 @@ automation:
 
             # Zappi Mode has changed and current command has completed
           - alias: "Zappi mode Changed"
-            conditions: "{{ trigger.entity_id == 'sensor.zappi_paddy_mode' }}"
+            conditions: 
+              - condition: trigger
+                id: 'sensor'
             sequence:
               - alias: "Repeat until previous command is complete"
                 repeat:
@@ -134,9 +148,14 @@ automation:
                 entity_id: sensor.zappi_paddy_cmt
                 state: '254'
 
-              - alias: "Check not set to Unavailable"
-                condition: template      
-                value_template: "{{ states('sensor.zappi_paddy_mode') != Unavailable }}"              
+              - alias: "Check if command failed"            
+                condition: state
+                entity_id: sensor.zappi_paddy_mode
+                state:
+                  - 'Fast'
+                  - 'Eco'
+                  - 'Eco+'
+                  - 'Stopped'         
                 
               - alias: "Set Drop Down to charge mode for Zappi Paddy"             
                 service: input_select.select_option

@@ -25,7 +25,7 @@ script:
               target:
                 entity_id: sensor.eddi_cmt
             - delay: 3   
-          until: "{{ states('sensor.eddi_cmt')|int > 250 }}"  
+          until: "{{ states('sensor.eddi_cmt')|int(0) > 250 }}"  
    
       - alias: "send command to switch eddi"
         service: shell_command.eddi_on_or_off
@@ -42,11 +42,11 @@ script:
               target:
                 entity_id: sensor.eddi_cmt
             - delay: 3    
-          until: "{{ states('sensor.eddi_cmt')|int > 250 }}"    
+          until: "{{ states('sensor.eddi_cmt')|int(0) > 250 }}"    
 
       - alias: "Check if command failed"            
         condition: template      
-        value_template: "{{ states('sensor.eddi_cmt')|int == 253 }}"
+        value_template: "{{ states('sensor.eddi_cmt')|int(0) == 253 }}"
 
       - alias: "check if not in correct status"        
         condition: template      

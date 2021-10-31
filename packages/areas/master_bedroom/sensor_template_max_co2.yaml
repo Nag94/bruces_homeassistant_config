@@ -3,7 +3,7 @@ template:
     - name: "Master Bedroom Environment Max CO2"
       unique_id: master_bedroom_environment_max_co2
       availability: "{{ states('sensor.master_bedroom_co2_statistics')|is_number }}"      
-      state: "{{ state_attr('sensor.master_bedroom_co2_statistics','max_value')|int }}"
+      state: "{{ state_attr('sensor.master_bedroom_co2_statistics','max_value')|int(0) }}"
       icon: mdi:molecule-co2
       unit_of_measurement: 'ppm'
       device_class: 'carbon_dioxide'
