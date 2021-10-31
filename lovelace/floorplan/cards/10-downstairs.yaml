@@ -1204,7 +1204,7 @@ elements:
                   left: 4%
                   transform: 'scale(2,2)'            
               - type: state-label
-                entity: sensor.import_price
+                entity: sensor.octopus_current_price_rounded
                 style:
                   color: red
                   top: 25%
@@ -1278,7 +1278,7 @@ elements:
                   top: 26%
                   left: 17%
               - type: state-label
-                entity: sensor.octopus_agile_current_rate
+                entity: sensor.octopus_current_price_rounded
                 style:
                   color: red
                   top: 23%

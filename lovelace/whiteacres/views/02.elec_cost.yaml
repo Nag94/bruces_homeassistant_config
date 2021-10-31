@@ -5,9 +5,9 @@ title: Elec Cost
 badges:
   - entity: binary_sensor.electricity_supply
     name: Elec Supply
-  - entity: sensor.import_price
+  - entity: sensor.octopus_current_price_rounded
     name: Current Price
-  - entity: sensor.electricity_demand_rounded
+  - entity: sensor.solaredge_grid
     name: Usage
   - entity: sensor.electricity_demand_cost
     name: Current Cost
